@@ -18,7 +18,11 @@ export const useColumns = () => {
       renderCell: ({ vToken, isPaused }) => {
         return (
           <div className="flex items-center gap-x-2">
-            <TokenIconWithSymbol token={vToken.underlyingToken} size="xl" />
+            <TokenIconWithSymbol
+              token={vToken.underlyingToken}
+              size="xl"
+              symbolClassName="font-normal group-hover:font-bold"
+            />
 
             {isPaused && (
               <InfoIcon

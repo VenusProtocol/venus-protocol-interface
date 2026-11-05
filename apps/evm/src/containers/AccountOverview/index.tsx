@@ -15,6 +15,7 @@ import {
 import {
   AccordionAnimatedContent,
   ButtonGroup,
+  Cell,
   CellGroup,
   type CellProps,
   Delimiter,
@@ -251,7 +252,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     {
       label: t('dashboard.overview.todaysChange'),
       value: (
-        <div className="space-x-2 flex items-start">
+        <div className="space-x-2 flex items-center">
           <HidableUserBalance>
             <DollarValueChange value={dailyChangeCents} />
 
@@ -267,7 +268,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
                   className={cn('w-4 h-4 text-inherit', dailyChangeCents < 0 && 'rotate-180')}
                 />
 
-                <span>{readableDailyChangePercentage}</span>
+                <span className="text-p3r">{readableDailyChangePercentage}</span>
               </div>
             )}
           </HidableUserBalance>
@@ -334,6 +335,19 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     });
   }
 
+  const overviewCells: CellProps[] = [
+    ...graphCells,
+    ...summaryCells.slice(0, 2).map(cell => ({
+      ...cell,
+      value: <HidableUserBalance>{cell.value}</HidableUserBalance>,
+    })),
+  ];
+
+  const isPerformanceHistoryEmpty =
+    !!getAccountPerformanceHistoryData &&
+    !getAccountPerformanceHistoryError &&
+    accountPerformanceHistory.length === 0;
+
   const readableNetWorth = formatCentsToReadableValue({
     value: selectedDataPoint ? Number(selectedDataPoint.netWorthCents) : netWorthCents,
   });
@@ -343,7 +357,12 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
 
   return (
     <div {...otherProps}>
-      <div className={cn(splitLayout && 'grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-center')}>
+      <div
+        className={cn(
+          splitLayout && 'grid grid-cols-1 gap-6 lg:items-center',
+          splitLayout && !isPerformanceHistoryEmpty && 'lg:grid-cols-2',
+        )}
+      >
         <div className="min-w-0">
           <div className="mb-3 space-y-3">
             {selectedDataPoint ? (
@@ -387,44 +406,68 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
             </div>
           </div>
 
-          <button
-            className={cn(
-              'flex items-center w-full h-15 text-left justify-between gap-x-3',
-              shouldShowAccountBreakdown && 'cursor-pointer',
-            )}
-            type="button"
-            disabled={!accountAddress || splitLayout}
-            onClick={splitLayout ? undefined : toggleAccordion}
-          >
-            <CellGroup cells={graphCells} focusable={false} />
-
-            {shouldShowAccountBreakdown && !splitLayout && (
-              <div
-                className="flex items-center gap-x-3"
-                data-testid={testIds.performanceChartPreview}
-              >
-                {!isAccordionOpen && (
-                  <PerformanceChart
-                    accountPerformanceHistory={accountPerformanceHistory}
-                    className="hidden md:block w-49 h-15"
-                    displayAxes={false}
-                    displayToolTip={false}
-                    areaChartMargin={{
-                      top: 0,
-                    }}
-                  />
-                )}
-
-                <Icon
-                  name="chevronDown"
-                  className={cn('size-3 text-white', isAccordionOpen && 'rotate-180')}
+          {splitLayout ? (
+            <div
+              className={cn(
+                'grid grid-cols-2 gap-x-5 gap-y-3 sm:gap-x-10 sm:gap-y-6',
+                isPerformanceHistoryEmpty
+                  ? 'sm:grid-cols-[repeat(4,max-content)]'
+                  : 'lg:grid-cols-[repeat(2,max-content)]',
+              )}
+            >
+              {overviewCells.map((cell, index) => (
+                <Cell
+                  {...cell}
+                  key={cell.label}
+                  className={cn(
+                    'relative min-w-0 before:absolute before:top-1/2 before:-left-2.5 before:h-10 before:w-px before:-translate-y-1/2 before:bg-lightGrey sm:before:-left-5',
+                    index % 2 === 0 && 'before:hidden',
+                    isPerformanceHistoryEmpty && index === 2 && 'sm:before:block',
+                    cell.className,
+                  )}
                 />
-              </div>
-            )}
-          </button>
+              ))}
+            </div>
+          ) : (
+            <button
+              className={cn(
+                'flex items-center w-full h-15 text-left justify-between gap-x-3',
+                shouldShowAccountBreakdown && 'cursor-pointer',
+              )}
+              type="button"
+              disabled={!accountAddress}
+              onClick={toggleAccordion}
+            >
+              <CellGroup cells={graphCells} focusable={false} />
+
+              {shouldShowAccountBreakdown && (
+                <div
+                  className="flex items-center gap-x-3"
+                  data-testid={testIds.performanceChartPreview}
+                >
+                  {!isAccordionOpen && (
+                    <PerformanceChart
+                      accountPerformanceHistory={accountPerformanceHistory}
+                      className="hidden md:block w-49 h-15"
+                      displayAxes={false}
+                      displayToolTip={false}
+                      areaChartMargin={{
+                        top: 0,
+                      }}
+                    />
+                  )}
+
+                  <Icon
+                    name="chevronDown"
+                    className={cn('size-3 text-white', isAccordionOpen && 'rotate-180')}
+                  />
+                </div>
+              )}
+            </button>
+          )}
         </div>
 
-        {splitLayout && showGraph && (
+        {splitLayout && showGraph && !isPerformanceHistoryEmpty && (
           <div className="min-w-0 space-y-4">
             <ButtonGroup
               buttonLabels={periodOptions.map(p => p.label)}
@@ -437,6 +480,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
             {shouldShowAccountBreakdown ? (
               <PerformanceChart
                 displayAxes
+                variant="line"
                 onSelectedDataPointChange={setSelectedDataPoint}
                 accountPerformanceHistory={accountPerformanceHistory}
                 onRefetch={refetchAccountPerformanceHistoryData}

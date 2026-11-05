@@ -1,13 +1,12 @@
 import { Fragment, type Key, type ReactNode } from 'react';
 
-import { CellGroup, type CellProps, type IconName } from 'components';
+import { CellGroup, type CellProps } from 'components';
 import { Placeholder } from '../Placeholder';
 
 export interface PositionCardsTabProps<Item> {
   items: Item[];
   activePositionFilter: (item: Item) => boolean;
   summaryCells: CellProps[];
-  placeholderIconName: IconName;
   placeholderTitle: string;
   placeholderRoute: string;
   placeholderOnClick?: () => void;
@@ -20,7 +19,6 @@ export const PositionCardsTab = <Item,>({
   items,
   activePositionFilter,
   summaryCells,
-  placeholderIconName,
   placeholderTitle,
   placeholderRoute,
   placeholderOnClick,
@@ -36,10 +34,8 @@ export const PositionCardsTab = <Item,>({
     return (
       <>
         <Placeholder
-          iconName={placeholderIconName}
           title={placeholderTitle}
           to={placeholderRoute}
-          buttonSize="sm"
           onButtonClick={placeholderOnClick}
         />
 

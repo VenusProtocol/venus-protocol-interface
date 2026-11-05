@@ -1,7 +1,8 @@
-import { Modal, type ModalProps, Tabs } from 'components';
+import { Modal, type ModalProps, Tabs, TokenIcon } from 'components';
 import { VaultName } from 'containers/VaultCard/VaultName';
+import { useInterfaceMode } from 'hooks/useInterfaceMode';
 import { useTranslation } from 'libs/translations';
-import type { VenusVault } from 'types';
+import { VaultCategory, type VenusVault } from 'types';
 import { StakeForm } from './StakeForm';
 import { WithdrawTab } from './WithdrawTab';
 
@@ -22,6 +23,7 @@ export const VenusVaultModal: React.FC<VenusVaultModalProps> = ({
   title,
 }) => {
   const { t } = useTranslation();
+  const { isLite } = useInterfaceMode();
 
   const tabs = [
     {
@@ -43,8 +45,25 @@ export const VenusVaultModal: React.FC<VenusVaultModalProps> = ({
   ];
 
   return (
-    <Modal isOpen={isOpen} handleClose={handleClose} title={title ?? <VaultName vault={vault} />}>
-      <Tabs tabs={tabs} />
+    <Modal
+      isOpen={isOpen}
+      handleClose={handleClose}
+      title={
+        title ??
+        (isLite && vault.category === VaultCategory.GOVERNANCE ? (
+          <span className="inline-flex items-center gap-x-2">
+            <TokenIcon token={vault.stakedToken} />
+            {t('lite.formTitle', {
+              symbol: vault.stakedToken.symbol,
+              marketName: t('lite.markets.xvsVault'),
+            })}
+          </span>
+        ) : (
+          <VaultName vault={vault} />
+        ))
+      }
+    >
+      <Tabs tabs={tabs} variant={isLite ? 'secondary' : 'primary'} />
     </Modal>
   );
 };

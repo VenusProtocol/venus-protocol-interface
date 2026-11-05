@@ -1,6 +1,5 @@
 import { useGetLiquidityHubs, useGetPool, useGetVaults } from 'clients/api';
-import { Page, SectionErrorBoundary } from 'components';
-import { AdBanner } from 'containers/AdBanner';
+import { Delimiter, Page, SectionErrorBoundary } from 'components';
 import { useChain } from 'hooks/useChain';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { PAGE_PARAM_DEFAULT_KEY } from 'hooks/useUrlPagination';
@@ -9,7 +8,6 @@ import { useAccountAddress, useChainId } from 'libs/wallet';
 import { useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router';
 import { AccountOverview } from '../../containers/AccountOverview';
-import { Guide } from './Guide';
 import { PoolPositions } from './PoolPositions';
 import { Settings } from './Settings';
 import { Transactions } from './Transactions';
@@ -67,46 +65,49 @@ export const Dashboard: React.FC = () => {
 
   return (
     <Page>
-      <div className="mt-2 mb-12">
-        <AdBanner />
-      </div>
-
-      <div className="mb-6 space-y-6">
-        <SectionErrorBoundary>
-          <AccountOverview className="w-full" accountAddress={accountAddress} splitLayout />
-        </SectionErrorBoundary>
-
-        <Guide />
-      </div>
-
-      <SectionErrorBoundary className="my-10">
-        <PoolPositions
-          pool={getPoolData?.pool}
-          liquidityHubs={getLiquidityHubsData.liquidityHubs}
-          vaults={getVaultsData || []}
-          isPoolLoading={isGetPoolLoading}
-          isHubsLoading={isGetLiquidityHubsLoading}
-          isVaultsLoading={isGetVaultsLoading}
-        />
-      </SectionErrorBoundary>
-
-      {isHistoricalTransactionsFeatureEnabled && (
-        <section aria-label={t('account.tabs.transactions')} className="mt-12 flex flex-col gap-6">
-          <h2 className="text-p1s">{t('account.tabs.transactions')}</h2>
+      <div className="flex flex-col gap-6">
+        <section
+          aria-label={t('dashboard.overview.summary.title')}
+          className="flex flex-col gap-3 sm:gap-6"
+        >
+          <h2 className="text-p1s">{t('dashboard.overview.summary.title')}</h2>
 
           <SectionErrorBoundary>
-            <Transactions />
+            <AccountOverview className="w-full" accountAddress={accountAddress} splitLayout />
           </SectionErrorBoundary>
         </section>
-      )}
 
-      {isGaslessTransactionsFeatureEnabled && (
-        <section aria-label={t('account.tabs.settings')} className="mt-12 flex flex-col gap-6">
-          <h2 className="text-p1s">{t('account.tabs.settings')}</h2>
+        <Delimiter className="hidden sm:my-6 sm:block" />
 
-          <Settings />
-        </section>
-      )}
+        <SectionErrorBoundary>
+          <PoolPositions
+            pool={getPoolData?.pool}
+            liquidityHubs={getLiquidityHubsData.liquidityHubs}
+            vaults={getVaultsData || []}
+            isPoolLoading={isGetPoolLoading}
+            isHubsLoading={isGetLiquidityHubsLoading}
+            isVaultsLoading={isGetVaultsLoading}
+          />
+        </SectionErrorBoundary>
+
+        {isHistoricalTransactionsFeatureEnabled && (
+          <>
+            <Delimiter className="hidden sm:my-6 sm:block" />
+
+            <SectionErrorBoundary>
+              <Transactions />
+            </SectionErrorBoundary>
+          </>
+        )}
+
+        {isGaslessTransactionsFeatureEnabled && (
+          <section aria-label={t('account.tabs.settings')} className="mt-6 flex flex-col gap-6">
+            <h2 className="text-p1s">{t('account.tabs.settings')}</h2>
+
+            <Settings />
+          </section>
+        )}
+      </div>
     </Page>
   );
 };

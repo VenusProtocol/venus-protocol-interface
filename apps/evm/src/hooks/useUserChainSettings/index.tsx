@@ -13,7 +13,6 @@ export const defaultUserChainSettings: UserChainSettings = {
   doNotShowImportPositionsModal: false,
   slippageTolerancePercentage: String(DEFAULT_SLIPPAGE_TOLERANCE_PERCENTAGE),
   doNotShowUserBalances: false,
-  doNotExpandGuide: false,
   doNotShowGatedAssetModal: false,
   doNotShowVipModal: false,
   doNotShowFixedRateVaultsAdBanner: true,

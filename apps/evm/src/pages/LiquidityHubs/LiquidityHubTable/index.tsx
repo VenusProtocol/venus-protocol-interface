@@ -83,7 +83,12 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
       key: 'asset',
       label: t('liquidityHubs.table.columns.asset'),
       selectOptionLabel: t('liquidityHubs.table.columns.asset'),
-      renderCell: ({ vhToken }) => <TokenIconWithSymbol token={vhToken.underlyingToken} />,
+      renderCell: ({ vhToken }) => (
+        <TokenIconWithSymbol
+          token={vhToken.underlyingToken}
+          symbolClassName="font-normal group-hover:font-bold"
+        />
+      ),
     },
     {
       key: 'totalSupply',

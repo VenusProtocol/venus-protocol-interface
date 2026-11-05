@@ -44,6 +44,8 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
       rowControl: false,
       breakpoint: 'sm',
       columns: ['asset', 'supplyApy', 'userSupplyBalance', 'collateral'],
+      columnWidths: ['24%', '32%', '20%', '24%'],
+      tableRowClassName: 'h-15 hover:bg-surface-row-hover',
       initialOrder: {
         orderBy: 'userSupplyBalance',
         orderDirection: 'desc',
@@ -61,6 +63,8 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
       rowControl: false,
       breakpoint: 'sm',
       columns: ['asset', 'borrowApy', 'userBorrowBalance', 'userBorrowLimitSharePercentage'],
+      columnWidths: ['24%', '32%', '20%', '24%'],
+      tableRowClassName: 'h-15 hover:bg-surface-row-hover',
       initialOrder: {
         orderBy: 'userBorrowBalance',
         orderDirection: 'desc',
@@ -111,6 +115,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
             </div>
 
             <ButtonGroup
+              fullWidth
               buttonSize="sm"
               css={styles.tabletHeaderButtonGroup}
               buttonLabels={[

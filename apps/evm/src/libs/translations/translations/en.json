@@ -523,22 +523,6 @@
     }
   },
   "dashboard": {
-    "guide": {
-      "completed": "Completed",
-      "step1": {
-        "description": "Earn yield by supplying any asset or moving your existing positions from another protocol to Venus.",
-        "title": "Supply / Migrate"
-      },
-      "step2": {
-        "description": "Borrow any asset to power your DeFi strategies, and boost it in one simple click.",
-        "title": "Borrow / Leverage"
-      },
-      "step3": {
-        "description": "Supply XVS to our vault and earn yield powered by Venus' revenue.",
-        "title": "Supply XVS"
-      },
-      "uncompleted": "Uncompleted"
-    },
     "hubs": {
       "apy": "APY",
       "dailyEarnings": "Daily earnings",
@@ -587,7 +571,7 @@
       "dataPoint": {
         "date": "{{ date, textual }}"
       },
-      "xAxisValue": "{{ date, numeric }}"
+      "xAxisValue": "{{ date, dayMonth }}"
     },
     "previewCard": {
       "apr": "APR",
@@ -1069,14 +1053,14 @@
       "backToMarkets": "Back to {{symbol}} markets"
     },
     "collateralSelect": {
-      "title": "Select collateral",
+      "ariaLabel": "Choose collateral",
       "asset": "Asset",
-      "maxLtv": "Max LTV",
-      "maxLtvTooltip": "The maximum you can borrow against this collateral, as a percentage of its value.",
       "liquidationThreshold": "LT",
       "liquidationThresholdTooltip": "If your borrowed amount reaches this percentage of your collateral value, your position can be liquidated.",
-      "ariaLabel": "Choose collateral",
-      "optionLabel": "{{symbol}} ({{marketSymbol}} market)"
+      "maxLtv": "Max LTV",
+      "maxLtvTooltip": "The maximum you can borrow against this collateral, as a percentage of its value.",
+      "optionLabel": "{{symbol}} ({{marketSymbol}} market)",
+      "title": "Select collateral"
     },
     "columns": {
       "apy": "APY",

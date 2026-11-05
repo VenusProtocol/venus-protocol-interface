@@ -522,22 +522,6 @@
     }
   },
   "dashboard": {
-    "guide": {
-      "completed": "完了",
-      "step1": {
-        "description": "資産を供給するか既存ポジションをVenusプロトコルへ移行して利回りを獲得しましょう。",
-        "title": "供給 / 移行"
-      },
-      "step2": {
-        "description": "資産を借りてDeFi戦略を強化したり、ワンクリックで流動性をレバレッジできます。",
-        "title": "借入 / レバレッジ"
-      },
-      "step3": {
-        "description": "XVSをボールトに供給し、プロトコル収益による利回りを獲得しましょう。",
-        "title": "XVSを供給"
-      },
-      "uncompleted": "未完了"
-    },
     "hubs": {
       "apy": "APY",
       "dailyEarnings": "日次収益",
@@ -586,7 +570,7 @@
       "dataPoint": {
         "date": "{{ date, textual }}"
       },
-      "xAxisValue": "{{ date, numeric }}"
+      "xAxisValue": "{{ date, dayMonth }}"
     },
     "previewCard": {
       "apr": "APR",
@@ -1068,14 +1052,14 @@
       "backToMarkets": "{{symbol}} のマーケット一覧に戻る"
     },
     "collateralSelect": {
-      "title": "担保を選択",
+      "ariaLabel": "担保を選択",
       "asset": "資産",
-      "maxLtv": "最大 LTV",
-      "maxLtvTooltip": "この担保の価値に対して借りられる最大の割合です。",
       "liquidationThreshold": "LT",
       "liquidationThresholdTooltip": "借入額が担保価値のこの割合に達すると、ポジションが清算される可能性があります。",
-      "ariaLabel": "担保を選択",
-      "optionLabel": "{{symbol}}（{{marketSymbol}} マーケット）"
+      "maxLtv": "最大 LTV",
+      "maxLtvTooltip": "この担保の価値に対して借りられる最大の割合です。",
+      "optionLabel": "{{symbol}}（{{marketSymbol}} マーケット）",
+      "title": "担保を選択"
     },
     "columns": {
       "apy": "APY",

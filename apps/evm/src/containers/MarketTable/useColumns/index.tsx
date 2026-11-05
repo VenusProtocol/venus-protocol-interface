@@ -187,7 +187,7 @@ export const useColumns = ({
 
                   <div className="min-w-0">
                     <div className="flex items-center gap-x-1">
-                      <p className="truncate font-semibold">
+                      <p className="truncate font-normal group-hover:font-bold">
                         {asset.vToken.underlyingToken.symbol}
                       </p>
 
@@ -204,6 +204,7 @@ export const useColumns = ({
                     displayChain={column === 'assetAndChain'}
                     size={column === 'assetAndChain' ? 'md' : 'xl'}
                     className="min-w-[5rem]"
+                    symbolClassName="font-normal group-hover:font-bold"
                   />
 
                   {indicatorsDom}

@@ -522,22 +522,6 @@
     }
   },
   "dashboard": {
-    "guide": {
-      "completed": "已完成",
-      "step1": {
-        "description": "通过存款或将现有持仓迁移到 Venus 协议来赚取收益。",
-        "title": "存款 / 迁移"
-      },
-      "step2": {
-        "description": "活用借贷来应用你的Defi策略，或使用一键杠杆来放大持仓。",
-        "title": "借款 / 杠杆"
-      },
-      "step3": {
-        "description": "将 XVS 供应至金库，赚取由协议收入提供的收益。",
-        "title": "供应 XVS"
-      },
-      "uncompleted": "未完成"
-    },
     "hubs": {
       "apy": "APY",
       "dailyEarnings": "每日收益",
@@ -586,7 +570,7 @@
       "dataPoint": {
         "date": "{{ date, textual }}"
       },
-      "xAxisValue": "{{ date, numeric }}"
+      "xAxisValue": "{{ date, dayMonth }}"
     },
     "previewCard": {
       "apr": "APR",
@@ -1068,14 +1052,14 @@
       "backToMarkets": "返回 {{symbol}} 市场列表"
     },
     "collateralSelect": {
-      "title": "选择抵押品",
+      "ariaLabel": "选择抵押品",
       "asset": "资产",
-      "maxLtv": "最大 LTV",
-      "maxLtvTooltip": "以该抵押品价值计算，你最多可借出的百分比。",
       "liquidationThreshold": "LT",
       "liquidationThresholdTooltip": "当你的借款金额达到抵押品价值的这一百分比时，你的仓位可能被清算。",
-      "ariaLabel": "选择抵押品",
-      "optionLabel": "{{symbol}}（{{marketSymbol}} 市场）"
+      "maxLtv": "最大 LTV",
+      "maxLtvTooltip": "以该抵押品价值计算，你最多可借出的百分比。",
+      "optionLabel": "{{symbol}}（{{marketSymbol}} 市场）",
+      "title": "选择抵押品"
     },
     "columns": {
       "apy": "APY",

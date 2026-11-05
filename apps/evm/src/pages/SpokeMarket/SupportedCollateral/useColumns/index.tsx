@@ -28,7 +28,10 @@ export const useColumns = () => {
       selectOptionLabel: t('spokeMarket.supportedCollateral.columns.collateral'),
       renderCell: asset => (
         <div className="flex items-center gap-x-2">
-          <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
+          <TokenIconWithSymbol
+            token={asset.vToken.underlyingToken}
+            symbolClassName="font-normal group-hover:font-bold"
+          />
 
           {asset.isProtectionModeEnabled && (
             <ProtectionModeIndicator

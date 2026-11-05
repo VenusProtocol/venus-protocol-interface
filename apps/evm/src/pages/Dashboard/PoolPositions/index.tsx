@@ -71,12 +71,7 @@ export const PoolPositions: React.FC<PoolPositionsProps> = ({
     );
 
   const placeholder = (
-    <Placeholder
-      iconName="venus"
-      title={t('account.pools.placeholder.title')}
-      to={marketsPagePath}
-      buttonSize="sm"
-    />
+    <Placeholder title={t('account.pools.placeholder.title')} to={marketsPagePath} />
   );
 
   const hubsWithPositions = liquidityHubs.filter(liquidityHub =>
@@ -134,8 +129,8 @@ export const PoolPositions: React.FC<PoolPositionsProps> = ({
     <section aria-label={t('account.positions.label')} className="flex flex-col gap-6">
       <IsolatedPoolsDeprecationNotice />
 
-      <div className="flex flex-col gap-3">
-        <h2 className="text-p1s">{t('account.positions.label')}</h2>
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
+        <h2 className="text-p1s max-sm:sr-only lg:shrink-0">{t('account.positions.label')}</h2>
 
         {!isLoading && active && (
           <PoolPills

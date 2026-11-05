@@ -217,8 +217,8 @@ export function Table<R>({
                     <Fragment key={rowKey}>
                       <TableRow
                         className={cn(
-                          'text-white hover:no-underline',
-                          size === 'compact' ? 'group h-15' : 'h-18 hover:bg-background-hover',
+                          'group text-white hover:no-underline',
+                          size === 'compact' ? 'h-15' : 'h-18 hover:bg-background-hover',
                           isRowClickable && 'cursor-pointer',
                           tableRowClassName,
                           getRowClassName?.(row),

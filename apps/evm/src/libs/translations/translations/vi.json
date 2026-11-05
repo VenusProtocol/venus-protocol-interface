@@ -522,22 +522,6 @@
     }
   },
   "dashboard": {
-    "guide": {
-      "completed": "Hoàn thành",
-      "step1": {
-        "description": "Kiếm lợi suất bằng cách cung cấp tài sản hoặc chuyển các vị thế hiện có của bạn sang giao thức Venus.",
-        "title": "Cung cấp / Di chuyển"
-      },
-      "step2": {
-        "description": "Vay tài sản để tăng cường chiến lược DeFi của bạn hoặc đòn bẩy thanh khoản chỉ với một cú nhấp.",
-        "title": "Vay / Đòn bẩy"
-      },
-      "step3": {
-        "description": "Cung cấp XVS vào vault và nhận lợi suất được tạo từ doanh thu của giao thức.",
-        "title": "Cung cấp XVS"
-      },
-      "uncompleted": "Chưa hoàn thành"
-    },
     "hubs": {
       "apy": "APY",
       "dailyEarnings": "Thu nhập hàng ngày",
@@ -586,7 +570,7 @@
       "dataPoint": {
         "date": "{{ date, textual }}"
       },
-      "xAxisValue": "{{ date, numeric }}"
+      "xAxisValue": "{{ date, dayMonth }}"
     },
     "previewCard": {
       "apr": "APR",
@@ -1068,14 +1052,14 @@
       "backToMarkets": "Quay lại thị trường {{symbol}}"
     },
     "collateralSelect": {
-      "title": "Chọn tài sản thế chấp",
+      "ariaLabel": "Chọn tài sản thế chấp",
       "asset": "Tài sản",
-      "maxLtv": "LTV tối đa",
-      "maxLtvTooltip": "Số tiền tối đa bạn có thể vay dựa trên tài sản thế chấp này, tính theo phần trăm giá trị của nó.",
       "liquidationThreshold": "LT",
       "liquidationThresholdTooltip": "Nếu số tiền bạn vay đạt tỷ lệ phần trăm này so với giá trị tài sản thế chấp, vị thế của bạn có thể bị thanh lý.",
-      "ariaLabel": "Chọn tài sản thế chấp",
-      "optionLabel": "{{symbol}} (thị trường {{marketSymbol}})"
+      "maxLtv": "LTV tối đa",
+      "maxLtvTooltip": "Số tiền tối đa bạn có thể vay dựa trên tài sản thế chấp này, tính theo phần trăm giá trị của nó.",
+      "optionLabel": "{{symbol}} (thị trường {{marketSymbol}})",
+      "title": "Chọn tài sản thế chấp"
     },
     "columns": {
       "apy": "APY",

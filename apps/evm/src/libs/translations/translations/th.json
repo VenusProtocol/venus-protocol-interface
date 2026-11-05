@@ -522,22 +522,6 @@
     }
   },
   "dashboard": {
-    "guide": {
-      "completed": "เสร็จสิ้น",
-      "step1": {
-        "description": "รับผลตอบแทนโดยการฝากสินทรัพย์หรือย้ายตำแหน่งที่มีอยู่ไปยังโปรโตคอล Venus",
-        "title": "ฝาก / ย้าย"
-      },
-      "step2": {
-        "description": "ยืมสินทรัพย์เพื่อเพิ่มพลังให้กลยุทธ์ DeFi ของคุณ หรือเลเวอเรจสภาพคล่องได้ในคลิกเดียว",
-        "title": "ยืม / เลเวอเรจ"
-      },
-      "step3": {
-        "description": "ฝาก XVS เข้าไปในวอลต์และรับผลตอบแทนที่ขับเคลื่อนด้วยรายได้ของโปรโตคอล",
-        "title": "ฝาก XVS"
-      },
-      "uncompleted": "ยังไม่เสร็จ"
-    },
     "hubs": {
       "apy": "APY",
       "dailyEarnings": "รายได้รายวัน",
@@ -586,7 +570,7 @@
       "dataPoint": {
         "date": "{{ date, textual }}"
       },
-      "xAxisValue": "{{ date, numeric }}"
+      "xAxisValue": "{{ date, dayMonth }}"
     },
     "previewCard": {
       "apr": "APR",
@@ -1068,14 +1052,14 @@
       "backToMarkets": "กลับไปที่ตลาดของ {{symbol}}"
     },
     "collateralSelect": {
-      "title": "เลือกหลักประกัน",
+      "ariaLabel": "เลือกหลักประกัน",
       "asset": "สินทรัพย์",
-      "maxLtv": "LTV สูงสุด",
-      "maxLtvTooltip": "จำนวนสูงสุดที่คุณสามารถยืมได้โดยใช้หลักประกันนี้ คิดเป็นเปอร์เซ็นต์ของมูลค่า",
       "liquidationThreshold": "LT",
       "liquidationThresholdTooltip": "หากยอดที่คุณยืมถึงเปอร์เซ็นต์นี้ของมูลค่าหลักประกัน สถานะของคุณอาจถูกชำระบัญชี",
-      "ariaLabel": "เลือกหลักประกัน",
-      "optionLabel": "{{symbol}} (ตลาด {{marketSymbol}})"
+      "maxLtv": "LTV สูงสุด",
+      "maxLtvTooltip": "จำนวนสูงสุดที่คุณสามารถยืมได้โดยใช้หลักประกันนี้ คิดเป็นเปอร์เซ็นต์ของมูลค่า",
+      "optionLabel": "{{symbol}} (ตลาด {{marketSymbol}})",
+      "title": "เลือกหลักประกัน"
     },
     "columns": {
       "apy": "APY",

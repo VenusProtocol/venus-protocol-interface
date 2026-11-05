@@ -13,8 +13,9 @@ interface PaginationProps {
   initialPageIndex?: number;
   itemsPerPageCount?: number;
   paramKey?: string;
-  scrollToRef?: RefObject<HTMLDivElement | null>;
+  scrollToRef?: RefObject<HTMLElement | null>;
   className?: string;
+  showSinglePage?: boolean;
 }
 
 export const Pagination = ({
@@ -25,6 +26,7 @@ export const Pagination = ({
   paramKey,
   scrollToRef,
   className,
+  showSinglePage = false,
 }: PaginationProps) => {
   const { pagesCount, activePageIndex, goToPageByIndex, itemsCountString } = usePagination({
     itemsCount,
@@ -46,7 +48,7 @@ export const Pagination = ({
     setInputValue(String(currentPage));
   }, [currentPage]);
 
-  if (pagesCount <= 1) {
+  if (pagesCount === 0 || (pagesCount === 1 && !showSinglePage)) {
     return null;
   }
 

@@ -91,6 +91,8 @@ export const Dropdown = ({
         backdropClassName="z-100000"
         rootClassName="z-100001"
         noHorizontalPadding
+        className="overflow-hidden"
+        contentClassName="min-h-0 overflow-y-auto overscroll-contain"
         onBlur={onBlur}
         title={menuTitle}
         portalContainer={modalPortalContainer}

@@ -15,6 +15,7 @@ export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
   handleBackAction?: () => void;
   title?: string | ReactElement | ReactElement[];
   noHorizontalPadding?: boolean;
+  contentClassName?: string;
   portalContainer?: Element | DocumentFragment | null;
 }
 
@@ -29,6 +30,7 @@ export const Modal: FC<ModalProps> = ({
   isOpen,
   title,
   noHorizontalPadding,
+  contentClassName,
   portalContainer,
   ...otherModalProps
 }) => {
@@ -79,7 +81,7 @@ export const Modal: FC<ModalProps> = ({
           {hasHeader && (
             <div
               className={cn(
-                'sticky top-0 z-10 flex items-center rounded-t-2xl bg-surface-popup px-6 pt-6 backdrop-blur-popup',
+                'relative flex items-center px-6 pt-6',
                 handleBackAction ? 'justify-center' : 'justify-start',
                 title ? 'mb-4 pb-6 md:mb-0' : 'pb-0',
               )}
@@ -129,7 +131,13 @@ export const Modal: FC<ModalProps> = ({
             </div>
           )}
 
-          <div className={cn('pb-4 md:pb-6', noHorizontalPadding ? 'px-0' : 'px-4 md:px-6')}>
+          <div
+            className={cn(
+              'pb-4 md:pb-6',
+              noHorizontalPadding ? 'px-0' : 'px-4 md:px-6',
+              contentClassName,
+            )}
+          >
             {children}
           </div>
         </div>

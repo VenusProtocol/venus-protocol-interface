@@ -65,7 +65,6 @@ export const Hubs: React.FC<HubsProps> = ({ liquidityHubs }) => {
         liquidityHub.userSupplyBalanceTokens?.isGreaterThan(0) === true
       }
       summaryCells={summaryCells}
-      placeholderIconName="hub"
       placeholderTitle={t('account.hubs.placeholder.title')}
       placeholderRoute={routes.liquidityHubs.path}
       placeholderOnClick={() =>

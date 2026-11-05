@@ -30,7 +30,10 @@ export const SuppliedTable: React.FC<SuppliedTableProps> = ({ collaterals, onRow
       selectOptionLabel: t('account.spoke.supplied.columns.asset'),
       renderCell: asset => (
         <div className="flex items-center gap-x-2">
-          <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
+          <TokenIconWithSymbol
+            token={asset.vToken.underlyingToken}
+            symbolClassName="font-normal group-hover:font-bold"
+          />
 
           {asset.isProtectionModeEnabled && (
             <ProtectionModeIndicator
@@ -88,6 +91,7 @@ export const SuppliedTable: React.FC<SuppliedTableProps> = ({ collaterals, onRow
       rowKeyExtractor={asset => asset.vToken.address}
       rowOnClick={(_event, asset) => onRowClick(asset)}
       tableLayout="auto"
+      tableRowClassName="h-15 hover:bg-surface-row-hover"
       breakpoint="md"
       hideCardDelimiter
     />

@@ -52,7 +52,7 @@ export const PoolPills: React.FC<PoolPillsProps> = ({
       <div
         role="group"
         aria-label={t('account.positions.label')}
-        className="hidden flex-wrap gap-3 sm:flex"
+        className="hidden flex-wrap gap-3 sm:flex lg:justify-end"
       >
         {pools.map(pool => {
           const isActive = pool.id === selectedPoolId;
@@ -64,7 +64,7 @@ export const PoolPills: React.FC<PoolPillsProps> = ({
               aria-pressed={isActive}
               onClick={() => onChange(pool.id)}
               className={cn(
-                'h-auto rounded-lg px-6 py-3 text-sm',
+                'h-auto min-h-12 rounded-lg p-3 text-sm',
                 isActive
                   ? 'border-transparent font-semibold text-white hover:border-transparent'
                   : 'font-normal text-light-grey shadow-none! hover:text-white',

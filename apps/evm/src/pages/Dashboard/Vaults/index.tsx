@@ -67,7 +67,6 @@ export const Vaults: React.FC<VaultsProps> = ({ vaults }) => {
       items={sortedVaults}
       activePositionFilter={vault => vault.userStakeBalanceMantissa?.isGreaterThan(0) === true}
       summaryCells={summaryCells}
-      placeholderIconName="vault"
       placeholderTitle={t('account.vaults.placeholder.title')}
       placeholderRoute={routes.vaults.path}
       renderCard={(vault, isPreview) => (
