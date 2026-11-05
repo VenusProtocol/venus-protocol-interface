@@ -4,6 +4,7 @@ import { GatedAssetAcknowledgementModal } from 'containers/GatedAssetAcknowledge
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import type { Asset } from 'types';
 import { CoreBorrowForm } from './CoreBorrowForm';
+import { getInitialCollateral } from './CoreBorrowForm/getInitialCollateral';
 
 export interface CoreBorrowModalProps {
   asset: Asset;
@@ -20,7 +21,13 @@ export const CoreBorrowModal: React.FC<CoreBorrowModalProps> = ({
 }) => {
   const [userChainSettings] = useUserChainSettings();
 
-  if (asset.isGated && !userChainSettings.doNotShowGatedAssetModal) {
+  const availableCollaterals = collaterals.filter(({ isRestricted }) => !isRestricted);
+  const isGated = [
+    asset,
+    getInitialCollateral({ collaterals: availableCollaterals, preselectedCollateral }),
+  ].some(item => item?.isGated);
+
+  if (isGated && !userChainSettings.doNotShowGatedAssetModal) {
     return <GatedAssetAcknowledgementModal onReject={onClose} />;
   }
 
@@ -28,7 +35,7 @@ export const CoreBorrowModal: React.FC<CoreBorrowModalProps> = ({
     <Modal isOpen title={<CoreFormModalTitle asset={asset} />} handleClose={onClose}>
       <CoreBorrowForm
         asset={asset}
-        collaterals={collaterals}
+        collaterals={availableCollaterals}
         preselectedCollateral={preselectedCollateral}
         onSubmitSuccess={onClose}
       />

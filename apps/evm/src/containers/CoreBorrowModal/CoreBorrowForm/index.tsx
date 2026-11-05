@@ -1,5 +1,6 @@
 import { Tabs } from 'components';
 import AssetAccessor from 'containers/AssetAccessor';
+import DisabledActionNotice from 'containers/AssetAccessor/DisabledActionNotice';
 import BorrowForm from 'containers/MarketForm/BorrowForm';
 import RepayWithWalletBalanceForm from 'containers/MarketForm/Repay/RepayWithWalletBalanceForm';
 import SupplyForm from 'containers/MarketForm/SupplyForm';
@@ -11,6 +12,7 @@ import { useState } from 'react';
 import type { Asset } from 'types';
 import { areTokensEqual } from 'utilities';
 import { CollateralSelect } from './CollateralSelect';
+import { getInitialCollateral } from './getInitialCollateral';
 import { useCollateralOptions } from './useCollateralOptions';
 
 export interface CoreBorrowFormProps {
@@ -29,7 +31,7 @@ export const CoreBorrowForm: React.FC<CoreBorrowFormProps> = ({
   const { t } = useTranslation();
   const { corePoolComptrollerContractAddress } = useChain();
   const { options, getDefaultOption } = useCollateralOptions({ collaterals });
-  const initialCollateral = preselectedCollateral ?? collaterals[0];
+  const initialCollateral = getInitialCollateral({ collaterals, preselectedCollateral });
   const [option, setOption] = useState(initialCollateral && getDefaultOption(initialCollateral));
   const collateral = option?.asset;
 
@@ -52,7 +54,12 @@ export const CoreBorrowForm: React.FC<CoreBorrowFormProps> = ({
         {
           id: 'supply',
           title: t('spokeForm.supply.tabTitle'),
-          content: (
+          content: collateral.disabledTokenActions.includes('supply') ? (
+            <div className="flex min-h-96 flex-col gap-y-4">
+              <div>{supplyCollateralSelect}</div>
+              <DisabledActionNotice token={collateral.vToken.underlyingToken} action="supply" />
+            </div>
+          ) : (
             <AssetAccessor
               vToken={collateral.vToken}
               poolComptrollerAddress={corePoolComptrollerContractAddress}
@@ -75,7 +82,12 @@ export const CoreBorrowForm: React.FC<CoreBorrowFormProps> = ({
         {
           id: 'withdraw',
           title: t('spokeForm.withdraw.tabTitle'),
-          content: (
+          content: collateral.disabledTokenActions.includes('withdraw') ? (
+            <div className="flex min-h-96 flex-col gap-y-4">
+              <div>{withdrawCollateralSelect}</div>
+              <DisabledActionNotice token={collateral.vToken.underlyingToken} action="withdraw" />
+            </div>
+          ) : (
             <AssetAccessor
               vToken={collateral.vToken}
               poolComptrollerAddress={corePoolComptrollerContractAddress}
