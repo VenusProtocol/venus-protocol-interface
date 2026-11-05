@@ -1536,7 +1536,8 @@
       "hours": "Saat",
       "mins": "Dak.",
       "sec": "Sn.",
-      "title": "Döngü sonu"
+      "title": "Döngü sonu",
+      "tooltip": "Bu geri sayım yalnızca Prime uygunluğu içindir: bittiğinde ilk {{limit}} hesap bir sonraki döngüde Prime ödülleri alır. Prime ödülleri, şu anda görüntülenen APY'ye dayanır."
     },
     "lastCycleSummary": {
       "primeScoreLabel": "Prime puanı",

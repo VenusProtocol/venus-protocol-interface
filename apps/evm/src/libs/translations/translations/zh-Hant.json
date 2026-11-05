@@ -1535,7 +1535,8 @@
       "hours": "時",
       "mins": "分",
       "sec": "秒",
-      "title": "週期結束"
+      "title": "週期結束",
+      "tooltip": "此倒數計時僅用於 Prime 資格判定：倒數結束時位列前 {{limit}} 名的帳戶將在下個週期獲得 Prime 獎勵。Prime 獎勵以目前顯示的 APY 計算。"
     },
     "lastCycleSummary": {
       "primeScoreLabel": "Prime 分數",

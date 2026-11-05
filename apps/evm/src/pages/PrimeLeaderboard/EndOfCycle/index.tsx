@@ -2,7 +2,7 @@ import { Button, cn } from '@venusprotocol/ui';
 import { useState } from 'react';
 import ReactCountdown from 'react-countdown';
 
-import { Card, Spinner } from 'components';
+import { Card, InfoIcon, Spinner } from 'components';
 import { useGetPrimeRankLimit } from 'containers/PrimeRank/useGetPrimeRankLimit';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -85,9 +85,10 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({
 
     return (
       <Card className={cardClassName}>
-        <p className="w-40 text-center text-b1s text-white">
+        <div className="flex w-40 items-center justify-center gap-x-2 text-b1s text-white">
           {t('primeLeaderboard.endOfCycle.title')}
-        </p>
+          <InfoIcon tooltip={t('primeLeaderboard.endOfCycle.tooltip', { limit: rankLimit })} />
+        </div>
 
         <Timer days={days} hours={hours} minutes={minutes} seconds={seconds} />
 

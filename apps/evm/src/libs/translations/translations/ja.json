@@ -1535,7 +1535,8 @@
       "hours": "時間",
       "mins": "分",
       "sec": "秒",
-      "title": "サイクル終了"
+      "title": "サイクル終了",
+      "tooltip": "このカウントダウンはPrimeの対象資格のみを示します。終了時点で上位 {{limit}} 位以内のアカウントが次のサイクルでPrime報酬を受け取ります。Prime報酬は現在表示されているAPYに基づきます。"
     },
     "lastCycleSummary": {
       "primeScoreLabel": "Prime スコア",
