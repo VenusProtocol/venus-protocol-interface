@@ -46,7 +46,7 @@ export const BorrowedTable: React.FC<BorrowedTableProps> = ({
         <div className="flex items-center gap-x-2">
           <TokenIconWithSymbol
             token={asset.vToken.underlyingToken}
-            symbolClassName="font-normal group-hover:font-bold"
+            symbolClassName="font-normal group-hover:font-semibold"
           />
 
           {asset.isProtectionModeEnabled && (

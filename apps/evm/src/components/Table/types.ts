@@ -18,7 +18,7 @@ export interface TableColumn<R> {
   colSpan?: number;
 }
 
-export interface TableProps<R> extends Omit<CardProps, 'title'> {
+export interface TableProps<R> extends Omit<CardProps, 'title' | 'variant'> {
   data: R[];
   rowKeyExtractor: (row: R) => string;
   columns: TableColumn<R>[];

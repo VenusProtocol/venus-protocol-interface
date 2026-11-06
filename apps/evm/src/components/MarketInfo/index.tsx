@@ -14,11 +14,11 @@ export const MarketInfo: React.FC<MarketInfoProps> = ({ items, ...otherProps }) 
     <ul className="m-0 p-0">
       {items.map(({ label, children, ...otherItemProps }) => (
         <li
-          className="list-none py-3 px-0 border-b border-lightGrey last-of-type:border-b-0 last-of-type:pb-0"
+          className="group/row list-none py-3 px-0 border-b border-border-subtle last-of-type:border-b-0 last-of-type:pb-0"
           key={`market-info-stat-${label}`}
         >
           <LabeledInlineContent label={label} {...otherItemProps}>
-            <span className="font-semibold">{children}</span>
+            <span className="font-normal group-hover/row:font-semibold">{children}</span>
           </LabeledInlineContent>
         </li>
       ))}

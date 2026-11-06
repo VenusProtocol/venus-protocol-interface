@@ -7,7 +7,7 @@ import { TableRow } from '../TableRow';
 import type { TableColumn } from '../types';
 
 const STICKY_CELL_CLASSES =
-  'sticky top-0 z-10 bg-background-active shadow-[inset_0_-1px_0_var(--color-dark-blue-hover)]';
+  'sticky top-0 z-10 bg-background-active shadow-[inset_0_-1px_0_var(--color-border-subtle)]';
 
 interface HeadProps<R> {
   columns: TableColumn<R>[];

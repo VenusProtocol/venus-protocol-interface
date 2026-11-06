@@ -65,7 +65,7 @@ export const YieldGroupList: React.FC<YieldGroupListProps> = ({ liquidityHub }) 
           tableLayout="fixed"
           rowOnClick={(_event, row) => handleRowClick(row)}
           renderRowFooter={renderRowFooter}
-          size="sm"
+          size="compact"
         />
       </div>
     </div>

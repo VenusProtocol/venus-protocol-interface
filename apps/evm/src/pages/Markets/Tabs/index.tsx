@@ -124,7 +124,7 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
   }));
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {tabs.length > 1 && (
         <div>
           <Select

@@ -67,8 +67,11 @@ export const EMode: React.FC<EModeProps> = ({ pool, notice, extendedEModeGroups 
   });
 
   return (
-    <div className="space-y-6 sm:p-6 sm:rounded-lg sm:border sm:border-dark-blue-hover">
-      <Notice description={notice} />
+    <div className="space-y-3 sm:relative sm:isolate sm:space-y-6 sm:rounded-lg sm:border sm:border-border-glass sm:bg-surface-glass sm:p-6 sm:shadow-glass sm:before:pointer-events-none sm:before:absolute sm:before:inset-0 sm:before:-z-10 sm:before:rounded-[inherit] sm:before:backdrop-blur-glass">
+      <Notice
+        description={notice}
+        className="border-border-subtle bg-transparent [&>div]:bg-surface-row-hover"
+      />
 
       <Controls
         searchValue={searchValue}

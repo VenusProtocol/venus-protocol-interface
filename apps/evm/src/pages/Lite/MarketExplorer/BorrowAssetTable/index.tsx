@@ -47,7 +47,7 @@ export const BorrowAssetTable: React.FC<BorrowAssetTableProps> = ({
           <TokenIconWithSymbol
             token={borrowAsset.token}
             size="xl"
-            symbolClassName="font-normal group-hover:font-bold"
+            symbolClassName="font-normal group-hover:font-semibold"
           />
         </button>
       ),

@@ -18,7 +18,7 @@ export const useColumns = () => {
       renderCell: ({ vToken }) => (
         <TokenIconWithSymbol
           token={vToken.underlyingToken}
-          symbolClassName="font-normal group-hover:font-bold"
+          symbolClassName="font-normal group-hover:font-semibold"
         />
       ),
     },

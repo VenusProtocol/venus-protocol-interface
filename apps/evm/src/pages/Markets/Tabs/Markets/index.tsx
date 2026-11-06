@@ -37,6 +37,7 @@ export const Markets: React.FC<MarketsProps> = ({ pool }) => {
         }}
         columns={marketTableColumns}
         breakpoint="md"
+        size="compact"
         controls={true}
       />
     </div>

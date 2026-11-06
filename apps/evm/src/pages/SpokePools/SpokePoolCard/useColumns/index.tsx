@@ -36,7 +36,7 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
           <TokenIconWithSymbol
             token={asset.vToken.underlyingToken}
             size="xl"
-            symbolClassName="font-normal group-hover:font-bold"
+            symbolClassName="font-normal group-hover:font-semibold"
           />
 
           {asset.isProtectionModeEnabled && (

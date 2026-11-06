@@ -21,7 +21,7 @@ export const useColumns = () => {
             <TokenIconWithSymbol
               token={vToken.underlyingToken}
               size="xl"
-              symbolClassName="font-normal group-hover:font-bold"
+              symbolClassName="font-normal group-hover:font-semibold"
             />
 
             {isPaused && (

@@ -1,12 +1,5 @@
-import { cn } from '@venusprotocol/ui';
-import { useGetAsset, useGetLiquidityHub } from 'clients/api';
-import { NULL_ADDRESS } from 'constants/address';
 import { routes } from 'constants/routing';
 import { useGetCurrentRoutePath } from 'hooks/useGetCurrentRoutePath';
-import { useImageAccentColor } from 'hooks/useImageAccentColor';
-import { useAccountAddress } from 'libs/wallet';
-import { useParams } from 'react-router';
-import type { Address } from 'viem';
 import { AssetInfo } from './AssetInfo';
 import { Breadcrumbs } from './Breadcrumbs';
 import { LiquidityHubInfo } from './LiquidityHubInfo';
@@ -19,36 +12,6 @@ export const Header: React.FC = () => {
   const isOnLiquidityHubPage = currentRoutePath === routes.liquidityHub.path;
   const isOnSpokeMarketPage = currentRoutePath === routes.spokeMarket.path;
 
-  const { accountAddress } = useAccountAddress();
-
-  const { vTokenAddress, vhTokenAddress } = useParams<{
-    vTokenAddress?: Address;
-    vhTokenAddress?: Address;
-  }>();
-
-  const { data: getAssetData } = useGetAsset({
-    vTokenAddress,
-  });
-  const asset = getAssetData?.asset;
-
-  const { data: getLiquidityHubData } = useGetLiquidityHub(
-    {
-      vhTokenAddress: vhTokenAddress || NULL_ADDRESS,
-      accountAddress,
-    },
-    {
-      enabled: !!vhTokenAddress,
-    },
-  );
-  const liquidityHub = getLiquidityHubData?.liquidityHub;
-
-  const imagePath =
-    asset?.vToken.underlyingToken.iconSrc ?? liquidityHub?.vhToken.underlyingToken.iconSrc;
-
-  const { color: gradientAccentColor } = useImageAccentColor({
-    imagePath,
-  });
-
   const pathNodes = usePathNodes();
 
   if (pathNodes.length <= 1 && !isOnMarketPage) {
@@ -56,30 +19,15 @@ export const Header: React.FC = () => {
   }
 
   return (
-    <header
-      className={cn(
-        // The gradient will only be visible when a background color is applied. It is built this
-        // way to support gradient background using a solid background color
-        'relative shrink-0 pt-10 -mt-10 transition-all duration-500 bg-linear-to-b from-background/60 to-background',
-      )}
-      style={
-        gradientAccentColor
-          ? {
-              backgroundColor: gradientAccentColor,
-            }
-          : undefined
-      }
-    >
-      <div className="relative">
-        <div className="space-y-6 sm:space-y-8">
-          {pathNodes.length > 1 && <Breadcrumbs pathNodes={pathNodes} className="pt-5 sm:pt-10" />}
+    <header className="relative shrink-0">
+      <div className="space-y-4 sm:space-y-6">
+        {pathNodes.length > 1 && <Breadcrumbs pathNodes={pathNodes} className="pt-6 sm:pt-10" />}
 
-          {isOnMarketPage && <AssetInfo />}
+        {isOnMarketPage && <AssetInfo />}
 
-          {isOnLiquidityHubPage && <LiquidityHubInfo />}
+        {isOnLiquidityHubPage && <LiquidityHubInfo />}
 
-          {isOnSpokeMarketPage && <SpokeMarketInfo />}
-        </div>
+        {isOnSpokeMarketPage && <SpokeMarketInfo />}
       </div>
     </header>
   );

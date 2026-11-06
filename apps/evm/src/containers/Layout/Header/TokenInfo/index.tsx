@@ -51,13 +51,13 @@ export const TokenInfo: React.FC<TokenInfoProps> = ({
     });
 
   return (
-    <div className="pb-6 sm:pb-5 md:pb-12 border-b-dark-blue-hover border-b">
-      <Wrapper className="space-y-6 pt-6 sm:space-y-8">
+    <div className="pb-6 md:pb-8">
+      <Wrapper className="space-y-4 sm:space-y-6">
         <div className="flex items-center min-h-8">
           {token ? (
             <div className="flex flex-col gap-y-3 sm:items-center sm:flex-row sm:justify-between sm:w-full md:w-auto md:gap-x-3">
               <div className="flex items-center gap-3">
-                <TokenIcon token={token} className="h-full w-8 shrink-0" />
+                <TokenIcon token={token} className="size-10 shrink-0" />
 
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                   <span className="font-bold text-lg">{token.symbol}</span>
@@ -75,9 +75,10 @@ export const TokenInfo: React.FC<TokenInfoProps> = ({
                 <Link
                   noStyle
                   href={oracleContractHref}
-                  className="inline-flex items-center gap-x-2 self-start shrink-0 rounded-full bg-background/40 px-5 h-8 text-light-grey text-sm transition-colors duration-250 hover:bg-background"
+                  aria-label={t('layout.header.resilientOracle')}
+                  className="inline-flex h-8 shrink-0 items-center justify-center gap-x-2 self-start rounded-lg bg-surface-raised text-sm font-semibold text-light-grey shadow-raised backdrop-blur-raised transition-colors duration-150 hover:text-white max-sm:w-8 sm:px-4"
                 >
-                  <span>{t('layout.header.resilientOracle')}</span>
+                  <span className="max-sm:hidden">{t('layout.header.resilientOracle')}</span>
 
                   <Icon name="resilientOracle" className="h-5 w-5 text-inherit" />
                 </Link>

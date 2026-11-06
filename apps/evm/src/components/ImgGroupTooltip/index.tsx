@@ -40,9 +40,9 @@ export function ImgGroupTooltip<R>({
           getRowClassName={getRowClassName}
           variant="secondary"
           tableLayout={tableLayout}
-          className="border-0 p-0"
+          className="border-0 bg-transparent p-0"
           tableRowClassName="h-12"
-          tableHeaderClassName="sticky top-0 z-10 h-12 bg-dark-blue"
+          tableHeaderClassName="sticky top-0 z-10 h-10 bg-surface-tooltip"
           tableContainerClassName="max-h-49 rounded-md"
         />
       }

@@ -90,33 +90,33 @@ export function Table<R>({
 
   return (
     <Card
+      variant={variant === 'primary' ? 'glass' : 'primary'}
       className={cn(
         'p-0',
-        variant === 'primary' && 'bg-background-active',
-        breakpoint && 'border-0 bg-transparent',
+        breakpoint && 'border-0 bg-transparent shadow-none before:hidden',
         breakpoint === 'xs' && [
-          'xs:border xs:border-dark-blue-hover',
-          variant === 'primary' && 'xs:bg-background-active',
+          'xs:border',
+          variant === 'primary' && 'xs:bg-surface-glass xs:shadow-glass xs:before:block',
         ],
         breakpoint === 'sm' && [
-          'sm:border sm:border-dark-blue-hover',
-          variant === 'primary' && 'sm:bg-background-active',
+          'sm:border',
+          variant === 'primary' && 'sm:bg-surface-glass sm:shadow-glass sm:before:block',
         ],
         breakpoint === 'md' && [
-          'md:border md:border-dark-blue-hover',
-          variant === 'primary' && 'md:bg-background-active',
+          'md:border',
+          variant === 'primary' && 'md:bg-surface-glass md:shadow-glass md:before:block',
         ],
         breakpoint === 'lg' && [
-          'lg:border lg:border-dark-blue-hover',
-          variant === 'primary' && 'lg:bg-background-active',
+          'lg:border',
+          variant === 'primary' && 'lg:bg-surface-glass lg:shadow-glass lg:before:block',
         ],
         breakpoint === 'xl' && [
-          'xl:border xl:border-dark-blue-hover',
-          variant === 'primary' && 'xl:bg-background-active',
+          'xl:border',
+          variant === 'primary' && 'xl:bg-surface-glass xl:shadow-glass xl:before:block',
         ],
         breakpoint === '2xl' && [
-          '2xl:border 2xl:border-dark-blue-hover',
-          variant === 'primary' && '2xl:bg-background-active',
+          '2xl:border',
+          variant === 'primary' && '2xl:bg-surface-glass 2xl:shadow-glass 2xl:before:block',
         ],
         className,
       )}
@@ -181,7 +181,7 @@ export function Table<R>({
 
               <Head
                 className={cn(
-                  variant === 'primary' && 'border-b border-dark-blue-hover',
+                  variant === 'primary' && 'border-b border-border-subtle',
                   tableHeaderClassName,
                 )}
                 controls={controls}
@@ -218,7 +218,7 @@ export function Table<R>({
                       <TableRow
                         className={cn(
                           'group text-white hover:no-underline',
-                          size === 'compact' ? 'h-15' : 'h-18 hover:bg-background-hover',
+                          size === 'compact' ? 'h-15' : 'h-18 hover:bg-surface-row-hover',
                           isRowClickable && 'cursor-pointer',
                           tableRowClassName,
                           getRowClassName?.(row),
@@ -274,6 +274,8 @@ export function Table<R>({
                           <TableCell
                             className={cn(
                               'align-middle',
+                              size === 'compact' &&
+                                'bg-size-[100%_calc(100%-8px)] bg-center bg-no-repeat group-hover:bg-row-hover',
                               variant === 'secondary' && 'rounded-r-lg',
                             )}
                           >

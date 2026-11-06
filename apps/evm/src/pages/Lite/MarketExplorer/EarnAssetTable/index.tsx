@@ -45,7 +45,7 @@ export const EarnAssetTable: React.FC<EarnAssetTableProps> = ({
           <TokenIconWithSymbol
             token={earnAsset.token}
             size="xl"
-            symbolClassName="font-normal group-hover:font-bold"
+            symbolClassName="font-normal group-hover:font-semibold"
           />
         </button>
       ),

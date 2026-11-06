@@ -66,7 +66,7 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
 
       {/* Desktop view */}
       <Table
-        className="hidden md:pt-0 md:block"
+        className="hidden border-border-subtle md:block md:bg-transparent md:pt-0 md:shadow-none md:before:hidden"
         columns={formattedColumns}
         data={eModeGroup.assetSettings}
         rowKeyExtractor={row => row.vToken.address}

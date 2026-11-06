@@ -111,8 +111,8 @@ export function TableCards<R>({
             <Card
               key={rowKey}
               className={cn(
-                'bg-background-active',
-                !!(rowOnClick || getRowHref) && 'cursor-pointer hover:bg-cards',
+                'border-border-raised bg-surface-popup backdrop-blur-raised',
+                !!(rowOnClick || getRowHref) && 'cursor-pointer hover:bg-row-hover',
                 cardClassName,
               )}
               onClick={rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))}

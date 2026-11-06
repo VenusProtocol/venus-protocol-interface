@@ -187,7 +187,7 @@ export const useColumns = ({
 
                   <div className="min-w-0">
                     <div className="flex items-center gap-x-1">
-                      <p className="truncate font-normal group-hover:font-bold">
+                      <p className="truncate font-normal group-hover:font-semibold">
                         {asset.vToken.underlyingToken.symbol}
                       </p>
 
@@ -204,7 +204,7 @@ export const useColumns = ({
                     displayChain={column === 'assetAndChain'}
                     size={column === 'assetAndChain' ? 'md' : 'xl'}
                     className="min-w-[5rem]"
-                    symbolClassName="font-normal group-hover:font-bold"
+                    symbolClassName="font-normal group-hover:font-semibold"
                   />
 
                   {indicatorsDom}
@@ -222,7 +222,11 @@ export const useColumns = ({
         ) {
           return (
             <AssetApy
-              className={cn(isPaused && 'text-grey', align === 'right' && 'justify-end')}
+              className={cn(
+                'font-semibold',
+                isPaused && 'text-grey',
+                align === 'right' && 'justify-end',
+              )}
               asset={asset}
               type={column === 'supplyApy' || column === 'labeledSupplyApy' ? 'supply' : 'borrow'}
             />

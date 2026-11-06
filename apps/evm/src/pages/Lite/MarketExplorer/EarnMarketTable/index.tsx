@@ -31,7 +31,7 @@ export const EarnMarketTable: React.FC<EarnMarketTableProps> = ({
         <button
           type="button"
           onClick={() => onSelect(market)}
-          className="cursor-pointer text-left font-normal text-white group-hover:font-bold hover:text-blue focus-visible:outline-2 focus-visible:outline-blue max-md:min-h-11"
+          className="cursor-pointer text-left font-normal text-white group-hover:font-semibold hover:text-blue focus-visible:outline-2 focus-visible:outline-blue max-md:min-h-11"
         >
           {getMarketName(market)}
         </button>
