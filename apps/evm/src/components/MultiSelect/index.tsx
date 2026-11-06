@@ -72,7 +72,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               key={option.value}
               type="button"
               onClick={() => toggle(option.value)}
-              className="hover:bg-background-hover active:bg-background-hover flex h-12 w-full cursor-pointer items-center justify-between px-4 py-3 text-left"
+              className="hover:bg-surface-segment-hover active:bg-surface-segment-hover flex h-12 w-full cursor-pointer items-center justify-between px-4 py-3 text-left"
             >
               <span className="text-b1r whitespace-nowrap text-white">{option.label}</span>
 
@@ -88,9 +88,12 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
       {({ isDropdownOpen, handleToggleDropdown }) => (
         <Button
           onClick={handleToggleDropdown}
-          contentClassName="text-b1s w-full justify-center"
+          contentClassName={cn(
+            'text-b1r w-full justify-center group-hover/trigger:font-semibold',
+            isDropdownOpen && 'font-semibold',
+          )}
           className={cn(
-            'relative w-full rounded-lg border-transparent bg-background-active bg-linear-to-b from-surface-raised to-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-transparent hover:bg-background-active active:bg-background-active',
+            'group/trigger relative w-full rounded-lg border-transparent bg-background-active bg-linear-to-b from-surface-raised to-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-transparent hover:bg-background-active active:bg-background-active',
             size === 'xs' ? 'h-10 px-3' : 'h-12 px-4',
             isDropdownOpen && 'border-blue hover:border-blue',
             value.length > 0 && 'border-blue',

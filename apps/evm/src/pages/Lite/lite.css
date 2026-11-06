@@ -32,6 +32,8 @@
   top: 0;
   z-index: 1;
   background-image: var(--background-image-menu);
+  backdrop-filter: blur(var(--blur-raised));
+  -webkit-backdrop-filter: blur(var(--blur-raised));
 }
 
 .lite-panel::before {

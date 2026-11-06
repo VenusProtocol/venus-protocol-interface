@@ -92,7 +92,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
                 onClick={() => handleChange(option.value)}
                 type="button"
                 className={cn(
-                  'hover:bg-lightGrey active:bg-lightGrey flex min-w-full items-center justify-between py-3 text-left text-sm font-semibold cursor-pointer',
+                  'hover:bg-surface-segment-hover active:bg-surface-segment-hover flex min-w-full items-center justify-between py-3 text-left text-sm font-semibold cursor-pointer',
                   optionClassName,
                 )}
               >
@@ -137,13 +137,14 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
           <Button
             onClick={handleToggleDropdown}
             className={cn(
-              'relative w-full',
+              'relative w-full font-normal hover:font-semibold',
+              isDropdownOpen && 'font-semibold',
               getVariantClasses({ variant, isDropdownOpen }),
               buttonSizeClasses,
               buttonClassName,
             )}
             disabled={disabled}
-            contentClassName={cn('w-full justify-center text-sm font-semibold')}
+            contentClassName="w-full justify-center text-sm"
           >
             <input
               ref={ref}

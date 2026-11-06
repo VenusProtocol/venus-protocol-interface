@@ -81,7 +81,7 @@ export const Modal: FC<ModalProps> = ({
           {hasHeader && (
             <div
               className={cn(
-                'relative flex items-center px-6 pt-6',
+                'relative flex items-center px-4 pt-6 sm:px-6',
                 handleBackAction ? 'justify-center' : 'justify-start',
                 title ? 'mb-4 pb-6 md:mb-0' : 'pb-0',
               )}
@@ -89,7 +89,7 @@ export const Modal: FC<ModalProps> = ({
               {!!handleBackAction && (
                 <button
                   className={cn(
-                    'absolute left-6 flex size-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0',
+                    'absolute left-4 flex size-6 sm:left-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0',
                     buttonClassName,
                   )}
                   type="button"
@@ -119,7 +119,7 @@ export const Modal: FC<ModalProps> = ({
                 <button
                   aria-label="Close"
                   className={cn(
-                    'absolute right-6 top-1/2 -mt-3 flex size-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0',
+                    'absolute right-4 top-1/2 -mt-3 flex size-6 sm:right-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0',
                     buttonClassName,
                   )}
                   type="button"
@@ -134,7 +134,7 @@ export const Modal: FC<ModalProps> = ({
           <div
             className={cn(
               'pb-4 md:pb-6',
-              noHorizontalPadding ? 'px-0' : 'px-4 md:px-6',
+              noHorizontalPadding ? 'px-0' : 'px-4 sm:px-6',
               contentClassName,
             )}
           >

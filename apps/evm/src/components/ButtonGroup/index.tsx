@@ -50,13 +50,13 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
             key={`button-group-button-${index}`}
             onClick={e => handleButtonClick(e, index)}
             className={cn(
-              'min-w-0 rounded-lg px-3 text-sm duration-160 before:hidden active:scale-100 backdrop-blur-none! backdrop-saturate-100',
+              'min-w-0 rounded-lg px-3 text-sm duration-160 before:hidden backdrop-blur-none! backdrop-saturate-100',
               fullWidth && 'h-[45px] flex-1 py-0',
               !fullWidth &&
                 (buttonSize === 'sm' ? 'h-7 flex-none py-0' : 'h-[33px] flex-none py-1.5'),
               isActive
                 ? 'border-border-segment-active bg-action font-semibold text-white shadow-segment-active active:shadow-segment-active!'
-                : 'border-transparent bg-none bg-transparent font-normal text-light-grey shadow-none! active:shadow-none!',
+                : 'border-transparent bg-none bg-transparent font-normal text-light-grey shadow-none! hover:font-normal hover:text-light-grey active:shadow-none!',
               isActive && !disabled && 'hover:bg-action-hover',
               !isActive && !disabled && 'hover:bg-surface-segment-hover',
               disabled && 'cursor-not-allowed',

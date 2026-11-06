@@ -92,6 +92,10 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
             leftAdornment && !leftIconSrc && 'pl-2',
             size === 'xs' && 'h-10 py-1 rounded-lg',
             size === 'sm' && 'h-12 py-2 rounded-lg',
+            type === 'number' &&
+              size === 'md' &&
+              'rounded-lg border-border-subtle bg-surface-input py-3 pr-2 shadow-input hover:border-border-glass focus-within:bg-surface-input',
+            type === 'number' && size === 'md' && leftAdornment && 'pl-2',
             disabled && 'border-lightGrey bg-cards',
             hasError && 'border-red focus-within:border-red focus-within:hover:border-red',
             variant === 'secondary' && disabled && 'bg-lightGrey',
