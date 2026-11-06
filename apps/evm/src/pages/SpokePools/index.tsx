@@ -14,7 +14,7 @@ import { NoResults } from './NoResults';
 import { SpokePoolCard } from './SpokePoolCard';
 import { useFilters } from './useFilters';
 
-const multiSelectClassName = 'sm:flex-1/3 sm:min-w-45 xl:flex-none';
+const multiSelectClassName = 'sm:flex-1/3 sm:min-w-45 xl:w-60 xl:flex-none';
 
 const SpokePools: React.FC = () => {
   const { t } = useTranslation();
@@ -124,7 +124,7 @@ const SpokePools: React.FC = () => {
     .filter(({ loanAssets }) => loanAssets.length > 0);
 
   const filters = (
-    <div className="grid grid-cols-2 sm:flex gap-3 w-full xl:w-fit">
+    <div className="grid grid-cols-2 gap-2 w-full sm:flex sm:gap-3 xl:w-fit">
       <MultiSelect
         className={multiSelectClassName}
         options={loanAssetOptions}
@@ -134,6 +134,7 @@ const SpokePools: React.FC = () => {
         renderCount={count => t('spokePools.filter.nLoanAssets', { count })}
         title={t('spokePools.filter.selectLoanAssets')}
         resetLabel={t('spokePools.filter.reset')}
+        size="xs"
       />
 
       <MultiSelect
@@ -145,6 +146,7 @@ const SpokePools: React.FC = () => {
         renderCount={count => t('spokePools.filter.nCollaterals', { count })}
         title={t('spokePools.filter.selectCollaterals')}
         resetLabel={t('spokePools.filter.reset')}
+        size="xs"
       />
 
       <MultiSelect
@@ -156,6 +158,7 @@ const SpokePools: React.FC = () => {
         renderCount={count => t('spokePools.filter.nPools', { count })}
         title={t('spokePools.filter.selectPools')}
         resetLabel={t('spokePools.filter.reset')}
+        size="xs"
       />
     </div>
   );

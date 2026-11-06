@@ -146,7 +146,7 @@ export const Form: React.FC<FormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-3">
       {asset?.isProtectionModeEnabled && (
         <ProtectionModeIndicator
           variant="label"

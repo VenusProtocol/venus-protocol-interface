@@ -2,7 +2,6 @@ import { cn } from '@venusprotocol/ui';
 
 import type { CellProps } from 'components/Cell';
 import { InfoIcon } from 'components/InfoIcon';
-import './pageStatHeader.css';
 
 export interface PageStatHeaderProps {
   title: string;

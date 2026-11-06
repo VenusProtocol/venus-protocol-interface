@@ -100,7 +100,7 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
         compareBigNumbers(rowA.borrowApyPercentage, rowB.borrowApyPercentage, direction),
       renderCell: asset => (
         <Apy
-          className={cn(asset.isInactive && 'text-grey')}
+          className={cn('font-semibold', asset.isInactive && 'text-grey')}
           type="borrow"
           token={asset.vToken.underlyingToken}
           baseApyPercentage={asset.borrowApyPercentage}

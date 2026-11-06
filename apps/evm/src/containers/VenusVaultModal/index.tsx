@@ -63,7 +63,7 @@ export const VenusVaultModal: React.FC<VenusVaultModalProps> = ({
         ))
       }
     >
-      <Tabs tabs={tabs} variant={isLite ? 'secondary' : 'primary'} />
+      <Tabs tabs={tabs} variant="secondary" />
     </Modal>
   );
 };

@@ -54,6 +54,7 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
         controls
         tableLayout="auto"
         breakpoint="lg"
+        size="compact"
         hideCardDelimiter
         getRowHref={getRowHref}
         renderRowControl={renderRowControl}

@@ -133,6 +133,7 @@ export function Table<R>({
             breakpoint === 'lg' && 'lg:px-4',
             breakpoint === 'xl' && 'xl:px-4',
             breakpoint === '2xl' && '2xl:px-4',
+            size === 'compact' && 'md:px-6',
           )}
         >
           {title}

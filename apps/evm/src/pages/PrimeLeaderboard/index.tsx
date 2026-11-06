@@ -72,7 +72,7 @@ const PrimeLeaderboard: React.FC = () => {
         endDate={endOfCycleDate}
         lastCycleIndex={lastCycleIndex}
         isLoading={isCurrentCycleLoading}
-        className="relative mx-auto mt-8 w-full max-w-[467px]"
+        className="relative mx-auto mt-8 w-full max-w-130"
       />
 
       {isSideBySide ? (
@@ -93,7 +93,7 @@ const PrimeLeaderboard: React.FC = () => {
         <Tabs
           className="relative mt-10 space-y-3"
           variant="tertiary"
-          headerClassName="justify-center"
+          headerClassName="justify-center text-base"
           tabs={tabs}
         />
       )}

@@ -49,7 +49,7 @@ export function ImgGroupTooltip<R>({
       className={cn('inline-flex', className)}
       contentClassName={cn('p-1.5', contentClassName)}
     >
-      <ImgGroup imgs={imgs} removeDuplicates={removeDuplicates} limit={5} />
+      <ImgGroup imgs={imgs} removeDuplicates={removeDuplicates} limit={4} />
     </Tooltip>
   );
 }

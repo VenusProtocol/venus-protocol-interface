@@ -39,7 +39,7 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({
   const hasLastCycle = lastCycleIndex !== undefined && lastCycleIndex >= 1;
 
   const cardClassName = cn(
-    'flex min-h-39 flex-col items-center justify-center gap-1 bg-background px-6 py-3',
+    'relative isolate flex min-h-39 flex-col items-center justify-center gap-1 overflow-hidden border-border-raised bg-transparent px-6 py-3 tabular-nums shadow-popup before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:bg-surface-popup before:backdrop-blur-popup before:backdrop-saturate-[1.2]',
     className,
   );
 
@@ -64,7 +64,7 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({
             <Button
               variant="text"
               onClick={() => setIsSummaryModalOpen(true)}
-              className="h-auto p-0 text-b1s text-blue underline"
+              className="h-auto p-0 text-b1r text-blue underline hover:font-semibold"
             />
           ),
         }}

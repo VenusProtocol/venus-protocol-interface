@@ -90,19 +90,19 @@ export const VaultList: FC<VaultListProps> = ({
   return (
     <div className="flex flex-col">
       <div className="pb-6">
-        <div className="mb-3">
-          <h1 className="text-p1s sm:text-h6">{t('vault.header')}</h1>
-          <p className="text-1br">{t('vault.description')}</p>
+        <div className="mb-6 sm:mb-12">
+          <h1 className="venus-page-title">{t('vault.header')}</h1>
+          <p className="venus-page-subtitle">{t('vault.description')}</p>
         </div>
 
         <div className="flex flex-col xl:flex-row xl:items-center gap-3">
           <TextField
             value={search}
             onChange={onChange}
-            size="sm"
+            size="xs"
             leftIconSrc="magnifier"
             placeholder={t('vault.filter.inputPlaceholder')}
-            className="w-full xl:w-75"
+            className="w-full xl:w-60"
           />
 
           <div className="grid grid-cols-2 sm:flex gap-3 w-full xl:w-fit">
@@ -115,6 +115,7 @@ export const VaultList: FC<VaultListProps> = ({
               renderCount={count => t('vault.filter.nCategories', { count })}
               title={t('vault.filter.selectCategories')}
               resetLabel={t('vault.filter.reset')}
+              size="xs"
             />
             <MultiSelect
               className={multiSelectClassName}
@@ -125,6 +126,7 @@ export const VaultList: FC<VaultListProps> = ({
               renderCount={count => t('vault.filter.nVenues', { count })}
               title={t('vault.filter.selectVenues')}
               resetLabel={t('vault.filter.reset')}
+              size="xs"
             />
             <MultiSelect
               className={multiSelectClassName}
@@ -135,6 +137,7 @@ export const VaultList: FC<VaultListProps> = ({
               renderCount={count => t('vault.filter.nStates', { count })}
               title={t('vault.filter.selectStates')}
               resetLabel={t('vault.filter.reset')}
+              size="xs"
             />
           </div>
 
