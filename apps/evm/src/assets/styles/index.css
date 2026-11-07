@@ -11,6 +11,10 @@
 
 @import './navigation.css';
 
+:root {
+  --font-proxima-nova: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
 @layer base {
   body {
     font-family: var(--font-proxima-nova), sans-serif;
