@@ -16,20 +16,23 @@ export type ButtonVariant =
   | 'select';
 
 const NEUTRAL_MATERIAL_CLASSES =
-  'bg-none bg-surface-raised border-transparent text-light-grey font-normal hover:text-white hover:font-semibold aria-pressed:font-semibold aria-expanded:font-semibold shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]';
+  'bg-none bg-surface-raised border-transparent text-light-grey font-normal hover:text-white hover:font-semibold aria-pressed:font-semibold aria-expanded:font-semibold disabled:hover:font-normal aria-disabled:hover:font-normal shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]';
 
 const ACTION_MATERIAL_CLASSES =
-  'bg-action hover:bg-action-hover text-white shadow-action backdrop-blur-raised backdrop-saturate-[1.3] disabled:bg-none disabled:bg-surface-raised disabled:border-transparent aria-disabled:bg-none aria-disabled:bg-surface-raised aria-disabled:border-transparent';
+  'bg-action hover:bg-action-hover text-white shadow-action backdrop-blur-raised backdrop-saturate-[1.3]';
 
 const PRESSED_CLASSES = 'active:shadow-action-pressed active:duration-100';
 
 const DISABLED_CLASSES =
-  'disabled:cursor-not-allowed disabled:opacity-45 disabled:shadow-none aria-disabled:cursor-not-allowed aria-disabled:opacity-45 aria-disabled:shadow-none';
+  'disabled:cursor-not-allowed disabled:shadow-none aria-disabled:cursor-not-allowed aria-disabled:shadow-none';
+
+const DISABLED_MATERIAL_CLASSES =
+  'disabled:bg-none disabled:bg-dark-grey-disabled disabled:border-transparent disabled:text-light-grey disabled:backdrop-blur-none aria-disabled:bg-none aria-disabled:bg-dark-grey-disabled aria-disabled:border-transparent aria-disabled:text-light-grey aria-disabled:backdrop-blur-none disabled:before:hidden aria-disabled:before:hidden';
 
 const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active: boolean }) => {
   if (variant === 'text') {
     return cn(
-      'active:mediumBlue text-blue hover:text-mediumBlue bg-transparent p-0 disabled:bg-transparent disabled:border-transparent',
+      'active:mediumBlue text-blue hover:text-mediumBlue bg-transparent p-0 disabled:bg-transparent disabled:border-transparent disabled:opacity-45 aria-disabled:opacity-45',
       active && 'text-mediumBlue',
     );
   }
@@ -41,13 +44,14 @@ const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active
   );
 
   if (active) {
-    return cn(geometryClasses, ACTION_MATERIAL_CLASSES, 'border-white');
+    return cn(geometryClasses, ACTION_MATERIAL_CLASSES, 'border-white', DISABLED_MATERIAL_CLASSES);
   }
 
   return cn(
     geometryClasses,
     variant === 'primary' ? ACTION_MATERIAL_CLASSES : NEUTRAL_MATERIAL_CLASSES,
     variant !== 'primary' && 'border-transparent',
+    DISABLED_MATERIAL_CLASSES,
   );
 };
 

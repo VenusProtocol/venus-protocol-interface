@@ -59,10 +59,11 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
                 : 'border-transparent bg-none bg-transparent font-normal text-light-grey shadow-none! hover:font-normal hover:text-light-grey active:shadow-none!',
               isActive && !disabled && 'hover:bg-action-hover',
               !isActive && !disabled && 'hover:bg-surface-segment-hover',
-              disabled && 'cursor-not-allowed',
+              disabled && 'cursor-not-allowed aria-disabled:opacity-45',
+              disabled && !isActive && 'aria-disabled:bg-transparent',
               disabled &&
                 isActive &&
-                'aria-disabled:border-border-segment-active aria-disabled:bg-action!',
+                'aria-disabled:border-border-segment-active aria-disabled:bg-action! aria-disabled:text-white',
               buttonClassName,
             )}
             active={isActive}
