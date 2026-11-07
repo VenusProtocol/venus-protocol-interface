@@ -8,7 +8,7 @@ export const ChainBadge: React.FC = () => {
 
   return (
     <Tooltip content={metadata.name} className="h-full">
-      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-dark-blue-disabled/50 bg-dark-blue sm:size-12">
+      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-control/50 bg-surface-3 sm:size-12">
         <img src={metadata.iconSrc} alt={metadata.name} className="size-5 sm:size-6" />
       </div>
     </Tooltip>

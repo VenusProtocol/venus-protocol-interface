@@ -328,7 +328,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({
           }
           description={
             isUserConnected && !isSubmitting && !!formError?.message ? (
-              <p className="text-red">{formError.message}</p>
+              <p className="text-danger">{formError.message}</p>
             ) : undefined
           }
         />

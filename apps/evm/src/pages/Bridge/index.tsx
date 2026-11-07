@@ -323,7 +323,7 @@ const BridgePage: React.FC = () => {
                 >
                   <Icon
                     name={config.isSafeApp ? 'arrowRight' : 'convert'}
-                    className="text-blue h-6 w-6 rotate-90 md:rotate-0"
+                    className="text-brand h-6 w-6 rotate-90 md:rotate-0"
                   />
                 </TextButton>
 
@@ -437,11 +437,11 @@ const BridgePage: React.FC = () => {
 
         <div className="flex items-center justify-center space-x-3">
           <div className="flex items-center">
-            <span className="text-grey mr-1 text-sm">{t('bridgePage.footer.poweredBy')}</span>
+            <span className="text-secondary mr-1 text-sm">{t('bridgePage.footer.poweredBy')}</span>
             <LayerZeroLogo className="w-[80px]" />
           </div>
 
-          <div className="bg-lightGrey h-5 w-px" />
+          <div className="bg-neutral h-5 w-px" />
 
           <Link href={BRIDGE_DOC_URL} className="flex items-center text-sm">
             {t('bridgePage.footer.bridgeDocLink')}

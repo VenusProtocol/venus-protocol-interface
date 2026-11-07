@@ -130,7 +130,7 @@ describe('pages/Dashboard/PerformanceChart', () => {
     expect(screen.getByTestId('area-chart')).toBeInTheDocument();
     expect(screen.getByText(formatCentsToReadableValue({ value: 12000 }))).toBeInTheDocument();
     expect(screen.getByText('+$30')).toBeInTheDocument();
-    expect(screen.getByText('25%').parentElement).toHaveClass('text-green');
+    expect(screen.getByText('25%').parentElement).toHaveClass('text-success');
     expect(screen.getByText('+$20')).toBeInTheDocument();
 
     const areaChartProps = mockAreaChart.mock.calls[0][0] as CapturedAreaChartProps;
@@ -220,8 +220,8 @@ describe('pages/Dashboard/PerformanceChart', () => {
 
     render();
 
-    expect(screen.getByText('-$30')).toHaveClass('text-red');
-    expect(screen.getByText('25%').parentElement).toHaveClass('text-red');
+    expect(screen.getByText('-$30')).toHaveClass('text-danger');
+    expect(screen.getByText('25%').parentElement).toHaveClass('text-danger');
   });
 
   it('changes the net worth tooltip when the VAI feature is enabled', () => {

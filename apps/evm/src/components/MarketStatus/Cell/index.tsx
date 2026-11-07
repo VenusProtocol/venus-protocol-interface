@@ -11,7 +11,7 @@ export const Cell: React.FC<CellProp> = ({ label, isAvailable, className }) => (
   <div
     className={cn(
       'flex items-center gap-x-1 flex-1 justify-center p-2 sm:p-0 sm:flex-none',
-      isAvailable ? 'text-green' : 'text-grey',
+      isAvailable ? 'text-success' : 'text-secondary',
       className,
     )}
   >

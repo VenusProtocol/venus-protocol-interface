@@ -7,7 +7,7 @@ import { TableRow } from '../TableRow';
 import type { TableColumn } from '../types';
 
 const STICKY_CELL_CLASSES =
-  'sticky top-0 z-10 bg-background-active shadow-[inset_0_-1px_0_var(--color-border-subtle)]';
+  'sticky top-0 z-10 bg-table-header shadow-[inset_0_-1px_0_var(--color-border-subtle)]';
 
 interface HeadProps<R> {
   columns: TableColumn<R>[];
@@ -59,22 +59,22 @@ function Head<R>({
               {(() => {
                 const content = (
                   <>
-                    <span className="whitespace-nowrap text-grey">{column.label}</span>
+                    <span className="whitespace-nowrap text-secondary">{column.label}</span>
 
                     {controls && orderable && (
                       <div className="-mt-0.5 ml-2">
                         <Icon
                           name="sort"
                           className={cn(
-                            'block size-2 fill-white text-white',
-                            active && orderDirection === 'asc' && 'fill-green text-green',
+                            'block size-2 fill-primary text-primary',
+                            active && orderDirection === 'asc' && 'fill-success text-success',
                           )}
                         />
                         <Icon
                           name="sort"
                           className={cn(
-                            'block size-2 rotate-180 fill-white text-white',
-                            active && orderDirection === 'desc' && 'fill-green text-green',
+                            'block size-2 rotate-180 fill-primary text-primary',
+                            active && orderDirection === 'desc' && 'fill-success text-success',
                           )}
                         />
                       </div>
@@ -89,7 +89,7 @@ function Head<R>({
                 );
 
                 const contentClassName = cn(
-                  'inline-flex items-center border-0 bg-transparent p-0 align-middle text-b1r text-grey normal-case',
+                  'inline-flex items-center border-0 bg-transparent p-0 align-middle text-b1r text-secondary normal-case',
                   orderable ? 'cursor-pointer' : 'cursor-auto',
                   isCompact && 'max-md:min-h-11 max-md:text-base',
                   column.align === 'center' && 'justify-center',

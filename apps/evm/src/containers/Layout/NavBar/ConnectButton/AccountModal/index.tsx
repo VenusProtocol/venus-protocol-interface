@@ -50,7 +50,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
 
       <div className="fixed top-20 bottom-0 left-0 right-0 z-99999 min-w-full sm:relative sm:top-0">
         <div className="absolute inset-0 right-0 min-w-full sm:pt-7 sm:left-auto sm:top-auto sm:bottom-auto">
-          <div className="w-full h-full bg-background-active p-6 flex flex-col gap-y-6 overflow-auto sm:w-123 sm:overflow-visible sm:rounded-lg sm:border sm:border-blue">
+          <div className="w-full h-full bg-surface-1 p-6 flex flex-col gap-y-6 overflow-auto sm:w-123 sm:overflow-visible sm:rounded-lg sm:border sm:border-brand">
             <div className="flex flex-col gap-y-3">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-x-2 md:gap-x-3">
@@ -66,13 +66,13 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
                     className="h-12"
                   />
 
-                  <CopyAddressButton className="shrink-0 text-light-grey" address={address} />
+                  <CopyAddressButton className="shrink-0 text-secondary" address={address} />
                 </div>
 
                 <button
                   onClick={onClose}
                   type="button"
-                  className="cursor-pointer text-light-grey hover:text-light-grey-hover"
+                  className="cursor-pointer text-secondary hover:text-secondary-hover"
                 >
                   <Icon name="close" className="size-5 text-inherit transition-colors" />
                 </button>

@@ -41,7 +41,7 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
       ...column,
       renderCell: (
         ...params: Parameters<TableColumn<ExtendedEModeAssetSettings>['renderCell']>
-      ) => <span className="text-grey opacity-50">{column.renderCell(...params)}</span>,
+      ) => <span className="text-secondary opacity-50">{column.renderCell(...params)}</span>,
     };
   });
 
@@ -66,7 +66,7 @@ export const EModeGroup: React.FC<EModeGroupProps> = ({
 
       {/* Desktop view */}
       <Table
-        className="hidden border-border-subtle md:block md:bg-transparent md:pt-0 md:shadow-none md:before:hidden"
+        className="hidden border-subtle md:block md:bg-transparent md:pt-0 md:shadow-none md:before:hidden"
         columns={formattedColumns}
         data={eModeGroup.assetSettings}
         rowKeyExtractor={row => row.vToken.address}

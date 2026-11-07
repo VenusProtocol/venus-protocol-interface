@@ -7,7 +7,7 @@ export const TableHeadCell = forwardRef<HTMLTableCellElement, ComponentPropsWith
     <th
       ref={ref}
       className={cn(
-        'h-full border-0 px-4 align-middle text-b1r leading-6 text-grey normal-case',
+        'h-full border-0 px-4 align-middle text-b1r leading-6 text-secondary normal-case',
         (!align || align === 'left') && 'text-left',
         align === 'center' && 'text-center',
         align === 'right' && 'text-right',

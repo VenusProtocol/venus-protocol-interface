@@ -12,7 +12,7 @@ export const SubMenuContent: React.FC<SubMenuContentProps> = ({ variant = 'prima
     className={cn(
       'rounded-lg',
       variant === 'primary' && 'min-w-83',
-      variant === 'secondary' && 'p-3 border border-white/12 lg:border-0 lg:w-75',
+      variant === 'secondary' && 'p-3 border border-inverse/12 lg:border-0 lg:w-75',
     )}
   >
     <div

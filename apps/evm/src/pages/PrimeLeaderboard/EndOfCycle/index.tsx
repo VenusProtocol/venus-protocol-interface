@@ -39,7 +39,7 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({
   const hasLastCycle = lastCycleIndex !== undefined && lastCycleIndex >= 1;
 
   const cardClassName = cn(
-    'relative isolate flex min-h-39 flex-col items-center justify-center gap-1 overflow-hidden border-border-raised bg-transparent px-6 py-3 tabular-nums shadow-popup before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:bg-surface-popup before:backdrop-blur-popup before:backdrop-saturate-[1.2]',
+    'relative isolate flex min-h-39 flex-col items-center justify-center gap-1 overflow-hidden border-raised bg-transparent px-6 py-3 tabular-nums shadow-popup before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:bg-surface-popup before:backdrop-blur-popup before:backdrop-saturate-[1.2]',
     className,
   );
 
@@ -59,12 +59,12 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({
         i18nKey="primeLeaderboard.endOfCycle.helper"
         values={{ deadline, limit: rankLimit }}
         components={{
-          Bold: <span className="text-b1s text-white" />,
+          Bold: <span className="text-b1s text-primary" />,
           SummaryLink: (
             <Button
               variant="text"
               onClick={() => setIsSummaryModalOpen(true)}
-              className="h-auto p-0 text-b1r text-blue underline hover:font-semibold"
+              className="h-auto p-0 text-b1r text-brand underline hover:font-semibold"
             />
           ),
         }}
@@ -78,20 +78,20 @@ export const EndOfCycle: React.FC<EndOfCycleProps> = ({
         <Trans
           i18nKey="primeLeaderboard.endOfCycle.helperEnded"
           values={{ deadline, limit: rankLimit }}
-          components={{ Bold: <span className="text-b1s text-white" /> }}
+          components={{ Bold: <span className="text-b1s text-primary" /> }}
         />
       );
     }
 
     return (
       <Card className={cardClassName}>
-        <p className="w-40 text-center text-b1s text-white">
+        <p className="w-40 text-center text-b1s text-primary">
           {t('primeLeaderboard.endOfCycle.title')}
         </p>
 
         <Timer days={days} hours={hours} minutes={minutes} seconds={seconds} />
 
-        <p className="text-center text-b1r text-light-grey">{helper}</p>
+        <p className="text-center text-b1r text-secondary">{helper}</p>
       </Card>
     );
   };

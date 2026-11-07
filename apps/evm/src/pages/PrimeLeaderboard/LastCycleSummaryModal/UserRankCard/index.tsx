@@ -24,32 +24,32 @@ export const UserRankCard: React.FC<UserRankCardProps> = ({ rank, primeScore, cl
       : '-';
 
   let message = t('primeLeaderboard.lastCycleSummary.rankNoStake');
-  let messageClassName = 'text-yellow';
+  let messageClassName = 'text-warning';
 
   if (isInTopRank) {
     message = t('primeLeaderboard.lastCycleSummary.rankQualified', { limit: rankLimit });
-    messageClassName = 'text-white';
+    messageClassName = 'text-primary';
   } else if (isRanked) {
     message = t('primeLeaderboard.lastCycleSummary.rankMissed', { limit: rankLimit });
   }
 
   return (
-    <div className={cn('flex flex-col gap-4 rounded-lg bg-background-active p-4', className)}>
+    <div className={cn('flex flex-col gap-4 rounded-lg bg-card p-4', className)}>
       <div className="flex items-start justify-between">
         <div className="flex flex-col">
-          <span className="text-b1r text-light-grey">
+          <span className="text-b1r text-secondary">
             {t('primeLeaderboard.lastCycleSummary.rankLabel')}
           </span>
 
-          <span className="text-h5 text-white">{rankLabel}</span>
+          <span className="text-h5 text-primary">{rankLabel}</span>
         </div>
 
         <div className="flex flex-col items-end">
-          <span className="text-b1r text-light-grey">
+          <span className="text-b1r text-secondary">
             {t('primeLeaderboard.lastCycleSummary.primeScoreLabel')}
           </span>
 
-          <span className="text-h5 text-white">{primeScoreLabel}</span>
+          <span className="text-h5 text-primary">{primeScoreLabel}</span>
         </div>
       </div>
 

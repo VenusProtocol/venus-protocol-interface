@@ -16,10 +16,10 @@ export type ButtonVariant =
   | 'select';
 
 const NEUTRAL_MATERIAL_CLASSES =
-  'bg-none bg-surface-raised border-transparent text-light-grey font-normal hover:text-white hover:font-semibold aria-pressed:font-semibold aria-expanded:font-semibold disabled:hover:font-normal aria-disabled:hover:font-normal shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]';
+  'bg-none bg-surface-raised border-transparent text-secondary font-normal hover:text-primary hover:font-semibold aria-pressed:font-semibold aria-expanded:font-semibold disabled:hover:font-normal aria-disabled:hover:font-normal shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]';
 
 const ACTION_MATERIAL_CLASSES =
-  'bg-action hover:bg-action-hover text-white shadow-action backdrop-blur-raised backdrop-saturate-[1.3]';
+  'bg-action hover:bg-action-hover text-on-color shadow-action backdrop-blur-raised backdrop-saturate-[1.3]';
 
 const PRESSED_CLASSES = 'active:shadow-action-pressed active:duration-100';
 
@@ -27,13 +27,13 @@ const DISABLED_CLASSES =
   'disabled:cursor-not-allowed disabled:shadow-none aria-disabled:cursor-not-allowed aria-disabled:shadow-none';
 
 const DISABLED_MATERIAL_CLASSES =
-  'disabled:bg-none disabled:bg-dark-grey-disabled disabled:border-transparent disabled:text-light-grey disabled:backdrop-blur-none aria-disabled:bg-none aria-disabled:bg-dark-grey-disabled aria-disabled:border-transparent aria-disabled:text-light-grey aria-disabled:backdrop-blur-none disabled:before:hidden aria-disabled:before:hidden';
+  'disabled:bg-none disabled:bg-disabled disabled:border-transparent disabled:text-secondary disabled:backdrop-blur-none aria-disabled:bg-none aria-disabled:bg-disabled aria-disabled:border-transparent aria-disabled:text-secondary aria-disabled:backdrop-blur-none disabled:before:hidden aria-disabled:before:hidden';
 
 const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active: boolean }) => {
   if (variant === 'text') {
     return cn(
-      'active:mediumBlue text-blue hover:text-mediumBlue bg-transparent p-0 disabled:bg-transparent disabled:border-transparent disabled:opacity-45 aria-disabled:opacity-45',
-      active && 'text-mediumBlue',
+      'text-brand hover:text-brand-strong bg-transparent p-0 disabled:bg-transparent disabled:border-transparent disabled:opacity-45 aria-disabled:opacity-45',
+      active && 'text-brand-strong',
     );
   }
 
@@ -44,7 +44,12 @@ const getVariantClasses = ({ variant, active }: { variant: ButtonVariant; active
   );
 
   if (active) {
-    return cn(geometryClasses, ACTION_MATERIAL_CLASSES, 'border-white', DISABLED_MATERIAL_CLASSES);
+    return cn(
+      geometryClasses,
+      ACTION_MATERIAL_CLASSES,
+      'border-inverse',
+      DISABLED_MATERIAL_CLASSES,
+    );
   }
 
   return cn(
@@ -83,7 +88,7 @@ export const ButtonWrapper: React.FC<ButtonWrapperProps> = ({
   return (
     <Comp
       className={cn(
-        'text-sm inline-flex cursor-pointer items-center justify-center border border-transparent font-semibold transition-[background,border-color,box-shadow,color] duration-300 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue',
+        'text-sm inline-flex cursor-pointer items-center justify-center border border-transparent font-semibold transition-[background,border-color,box-shadow,color] duration-300 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand',
         variant !== 'text' &&
           cn(pointerLightClassNames, 'active:before:opacity-100', PRESSED_CLASSES),
         DISABLED_CLASSES,

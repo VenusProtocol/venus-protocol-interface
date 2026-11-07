@@ -32,7 +32,7 @@ export const TotalRewardsCard: React.FC<TotalRewardsCardProps> = ({
   const { t, Trans } = useTranslation();
 
   const cardClassName = cn(
-    'flex flex-col gap-y-3 rounded-lg p-4 min-h-[182px] relative isolate border border-border-glass bg-surface-glass shadow-glass before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-glass',
+    'flex flex-col gap-y-3 rounded-lg p-4 min-h-[182px] relative isolate border border-glass bg-surface-glass shadow-glass before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-glass',
     className,
   );
 
@@ -47,19 +47,19 @@ export const TotalRewardsCard: React.FC<TotalRewardsCardProps> = ({
   return (
     <div className={cn(cardClassName, 'justify-between')}>
       <div>
-        <p className="text-b1r text-light-grey">
+        <p className="text-b1r text-secondary">
           {title ?? t('primeLeaderboard.totalRewards.title')}
         </p>
 
-        <p className="text-h5 text-white">
+        <p className="text-h5 text-primary">
           {formatCentsToReadableValue({ value: totalRewardsCents })}
         </p>
 
         {!!totalEstimatedRewardsCents && (
-          <p className="text-b1r text-light-grey">
+          <p className="text-b1r text-secondary">
             <Trans
               i18nKey="primeLeaderboard.totalRewards.totalPoolLabel"
-              components={{ Highlight: <span className="text-white" /> }}
+              components={{ Highlight: <span className="text-primary" /> }}
               values={{ amount: formatCentsToReadableValue({ value: totalEstimatedRewardsCents }) }}
             />
           </p>

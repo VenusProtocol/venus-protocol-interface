@@ -288,7 +288,7 @@ exports[`formatToLiquidityHub > formats yield groups 1`] = `
       "allocationCents": "100000",
       "allocationTokens": "400",
       "averageSupplyApyPercentage": "4",
-      "bgClassName": "bg-blue",
+      "bgClassName": "bg-brand",
       "iconSrc": "/src/assets/img/venusCoreIcon.png",
       "liquidityCents": "75000",
       "liquidityTokens": "300",

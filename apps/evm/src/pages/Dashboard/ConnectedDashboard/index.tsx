@@ -78,7 +78,7 @@ export const ConnectedDashboard: React.FC = () => {
           </SectionErrorBoundary>
         </section>
 
-        <Delimiter className="hidden border-border-subtle sm:my-6 sm:block" />
+        <Delimiter className="hidden border-subtle sm:my-6 sm:block" />
 
         <SectionErrorBoundary>
           <PoolPositions
@@ -93,7 +93,7 @@ export const ConnectedDashboard: React.FC = () => {
 
         {isHistoricalTransactionsFeatureEnabled && (
           <>
-            <Delimiter className="hidden border-border-subtle sm:my-6 sm:block" />
+            <Delimiter className="hidden border-subtle sm:my-6 sm:block" />
 
             <SectionErrorBoundary>
               <Transactions />

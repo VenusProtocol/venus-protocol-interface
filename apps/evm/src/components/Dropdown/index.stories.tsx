@@ -12,7 +12,7 @@ const optionsDom = ({
       <button
         type="button"
         className={
-          optionClassName ?? 'block w-full cursor-pointer px-4 py-2 text-left hover:bg-lightGrey'
+          optionClassName ?? 'block w-full cursor-pointer px-4 py-2 text-left hover:bg-neutral'
         }
         key={option}
         onClick={() => setIsDropdownOpen(false)}

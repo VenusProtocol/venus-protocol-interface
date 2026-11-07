@@ -69,7 +69,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
     <nav className="relative">
       <div
         className={cn(
-          'group/navbar bg-background-active h-20 pr-2 flex items-center justify-between sm:pr-5',
+          'group/navbar bg-canvas h-20 pr-2 flex items-center justify-between sm:pr-5',
           className,
         )}
         {...containerProps}
@@ -127,7 +127,9 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
             >
               <Icon
                 name={isMobileMenuOpen ? 'close' : 'burger'}
-                className={cn(isMobileMenuOpen ? 'text-light-grey size-5' : 'text-white w-4.5 h-3')}
+                className={cn(
+                  isMobileMenuOpen ? 'text-secondary size-5' : 'text-primary w-4.5 h-3',
+                )}
               />
             </NavButtonWrapper>
           )}
@@ -142,7 +144,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
       <div
         className={cn(
           !isLite && isMobileMenuOpen ? 'fixed' : 'hidden',
-          'top-20 bottom-0 left-0 right-0 z-40 p-5 bg-background-active bg-linear-to-b from-background/50 to-background/50 overflow-y-auto lg:hidden',
+          'top-20 bottom-0 left-0 right-0 z-40 p-5 bg-canvas bg-linear-to-b from-surface-2/50 to-surface-2/50 overflow-y-auto lg:hidden',
         )}
       >
         <div className="flex items-center justify-between mb-5">
@@ -159,7 +161,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
           <>
             {isMobileMenuOpen && (
               <div className="mb-6 md:hidden">
-                <p className="mb-2 text-sm text-light-grey">{t('layout.chainSelect.label')}</p>
+                <p className="mb-2 text-sm text-secondary">{t('layout.chainSelect.label')}</p>
 
                 <ChainSelect buttonClassName="h-12 px-3" />
               </div>

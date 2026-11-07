@@ -7,7 +7,7 @@ export interface TableRowControlProps extends React.HTMLAttributes<HTMLButtonEle
 export const TableRowControl: React.FC<TableRowControlProps> = ({ className, ...otherProps }) => (
   <button
     type="button"
-    className={cn('p-2 -mr-2 cursor-pointer text-light-grey hover:text-white', className)}
+    className={cn('p-2 -mr-2 cursor-pointer text-secondary hover:text-primary', className)}
     {...otherProps}
   >
     <Icon name="pendingOutline" className="text-inherit transition-colors" />

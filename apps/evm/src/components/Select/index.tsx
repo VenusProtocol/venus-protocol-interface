@@ -56,24 +56,24 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       switch (variant) {
         case 'secondary':
           return cn(
-            'border-lightGrey bg-lightGrey hover:border-blue hover:bg-lightGrey active:border-blue active:bg-lightGrey',
-            isDropdownOpen && 'border-blue hover:border-blue',
+            'border-muted bg-neutral hover:border-brand hover:bg-neutral active:border-brand active:bg-neutral',
+            isDropdownOpen && 'border-brand hover:border-brand',
           );
         case 'tertiary':
           return cn(
-            'border-transparent bg-cards hover:bg-cards hover:border-white active:bg-cards active:border-blue',
-            isDropdownOpen && 'border-blue hover:border-blue',
+            'border-transparent bg-surface-4 hover:bg-surface-4 hover:border-inverse active:bg-surface-4 active:border-brand',
+            isDropdownOpen && 'border-brand hover:border-brand',
           );
         case 'quaternary':
           return cn(
-            'border-transparent bg-lightGrey rounded-xl hover:bg-lightGrey hover:border-grey active:bg-lightGrey active:border-blue',
-            isDropdownOpen && 'border-blue bg-lightGrey hover:border-blue',
+            'border-transparent bg-neutral rounded-xl hover:bg-neutral hover:border-bold active:bg-neutral active:border-brand',
+            isDropdownOpen && 'border-brand bg-neutral hover:border-brand',
           );
         // primary
         default:
           return cn(
-            'rounded-lg border-transparent bg-background-active bg-linear-to-b from-surface-raised to-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-transparent hover:bg-background-active active:bg-background-active',
-            isDropdownOpen && 'border-blue hover:border-blue',
+            'rounded-lg border-transparent bg-input bg-linear-to-b from-surface-raised to-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-transparent hover:bg-input active:bg-input',
+            isDropdownOpen && 'border-brand hover:border-brand',
           );
       }
     };
@@ -108,7 +108,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
                 <Icon
                   name="mark"
                   className={cn(
-                    'text-green ml-4 w-5 h-5 shrink-0 opacity-0',
+                    'text-success ml-4 w-5 h-5 shrink-0 opacity-0',
                     value === option.value && 'opacity-100',
                   )}
                 />
@@ -176,7 +176,10 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
             {!disabled && (
               <Icon
                 name="chevronDown"
-                className={cn('text-grey ml-2 size-3 flex-none', isDropdownOpen && 'rotate-180')}
+                className={cn(
+                  'text-secondary ml-2 size-3 flex-none',
+                  isDropdownOpen && 'rotate-180',
+                )}
               />
             )}
           </Button>

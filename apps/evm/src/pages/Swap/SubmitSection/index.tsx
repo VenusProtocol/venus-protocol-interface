@@ -92,7 +92,7 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
 
   let dom = (
     <PrimaryButton
-      className={cn('w-full', isSwappingWithHighPriceImpact && 'border-red bg-red')}
+      className={cn('w-full', isSwappingWithHighPriceImpact && 'border-danger bg-danger')}
       disabled={
         !isFormValid ||
         isSubmitting ||

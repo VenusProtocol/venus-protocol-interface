@@ -141,7 +141,7 @@ export const Form: React.FC<FormProps> = ({
       Number(formValues.amountTokens) > 0,
     description:
       isUserConnected && !isSubmitting && !!formError?.message ? (
-        <p className="text-red">{formError.message}</p>
+        <p className="text-danger">{formError.message}</p>
       ) : undefined,
   };
 

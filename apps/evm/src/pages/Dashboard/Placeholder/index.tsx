@@ -24,11 +24,11 @@ export const Placeholder: React.FC<PlaceholderProps> = ({
     <Card className="flex min-h-60.5 flex-col items-center justify-center gap-3 p-3 text-center">
       <h2 className="text-b1r">{title}</h2>
 
-      {description && <p className="text-b1r text-grey">{description}</p>}
+      {description && <p className="text-b1r text-secondary">{description}</p>}
 
       {!!to && (
         <ConnectWallet className="w-fit">
-          <ButtonWrapper className="text-white hover:no-underline" asChild>
+          <ButtonWrapper className="text-primary hover:no-underline" asChild>
             <Link noStyle to={to} onClick={onButtonClick}>
               {buttonLabel ?? t('account.placeholder.buttonLabel')}
             </Link>

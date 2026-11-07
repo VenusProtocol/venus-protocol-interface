@@ -56,13 +56,13 @@ export const Toggle = ({
         type="checkbox"
       />
 
-      <span aria-hidden className="block h-5.5 w-11 rounded-full bg-lightGrey" />
+      <span aria-hidden className="block h-5.5 w-11 rounded-full bg-neutral" />
 
       <span
         aria-hidden
         className={cn(
-          'absolute top-0 left-0 size-5.5 rounded-full transition-transform duration-300 peer-checked:translate-x-5.5 peer-checked:bg-blue',
-          isDark ? 'bg-lightGrey' : 'bg-grey',
+          'absolute top-0 left-0 size-5.5 rounded-full transition-transform duration-300 peer-checked:translate-x-5.5 peer-checked:bg-brand',
+          isDark ? 'bg-neutral' : 'bg-neutral-bold',
         )}
       />
     </label>

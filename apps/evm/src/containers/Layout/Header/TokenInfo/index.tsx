@@ -76,7 +76,7 @@ export const TokenInfo: React.FC<TokenInfoProps> = ({
                   noStyle
                   href={oracleContractHref}
                   aria-label={t('layout.header.resilientOracle')}
-                  className="inline-flex h-8 shrink-0 items-center justify-center gap-x-2 self-start rounded-lg bg-surface-raised text-sm font-semibold text-light-grey shadow-raised backdrop-blur-raised transition-colors duration-150 hover:text-white max-sm:w-8 sm:px-4"
+                  className="inline-flex h-8 shrink-0 items-center justify-center gap-x-2 self-start rounded-lg bg-surface-raised text-sm font-semibold text-secondary shadow-raised backdrop-blur-raised transition-colors duration-150 hover:text-primary max-sm:w-8 sm:px-4"
                 >
                   <span className="max-sm:hidden">{t('layout.header.resilientOracle')}</span>
 

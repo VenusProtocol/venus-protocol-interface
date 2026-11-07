@@ -78,7 +78,7 @@ export const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({
       <div className="relative">
         <button
           type="button"
-          className="absolute left-0 top-[50%] -translate-y-[50%] cursor-pointer transition-colors text-light-grey hover:text-white"
+          className="absolute left-0 top-[50%] -translate-y-[50%] cursor-pointer transition-colors text-secondary hover:text-primary"
           onClick={hideWithdrawalRequestList}
         >
           <Icon className="rotate-180 size-5 text-inherit" name="arrowRight" />
@@ -98,7 +98,7 @@ export const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({
         {isGetXvsVaultUserLockedDepositsLoading || getXvsVaultUserLockedDepositsError ? (
           <Spinner />
         ) : userLockedDepositsData.lockedDeposits.length === 0 ? (
-          <p className="text-b1r text-center text-light-grey">
+          <p className="text-b1r text-center text-secondary">
             {t('requestWithdrawalFromVestingVaultForm.withdrawalRequestList.emptyState')}
           </p>
         ) : (
@@ -116,7 +116,7 @@ export const WithdrawalRequestList: React.FC<WithdrawalRequestListProps> = ({
                   })}
                 >
                   {isBefore(userLockedDeposit.unlockedAt, now) ? (
-                    <span className="text-white">
+                    <span className="text-primary">
                       {t('requestWithdrawalFromVestingVaultForm.withdrawalRequestList.unlocked')}
                     </span>
                   ) : (

@@ -37,13 +37,15 @@ export const displayServiceIssueNotification = (details?: ServiceIssueDetails) =
         <p>{t('errors.serviceIssue')}</p>
 
         <details>
-          <summary className="cursor-pointer text-grey">{t('errors.serviceIssueDetails')}</summary>
+          <summary className="cursor-pointer text-secondary">
+            {t('errors.serviceIssueDetails')}
+          </summary>
 
-          <p className="break-all text-grey">
+          <p className="break-all text-secondary">
             {details.method} {details.endpoint} · {details.status}
           </p>
 
-          {!!details.error && <p className="break-all text-grey">{details.error}</p>}
+          {!!details.error && <p className="break-all text-secondary">{details.error}</p>}
         </details>
       </div>
     ) : (

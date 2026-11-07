@@ -39,10 +39,10 @@ export const CollateralSelect: React.FC<CollateralSelectProps> = ({ options, val
         optionsDom={({ setIsDropdownOpen }) => (
           <div className="min-w-full md:pt-3">
             {isMdOrUp && (
-              <p className="px-4 pb-3 text-b1s text-white">{t('lite.collateralSelect.title')}</p>
+              <p className="px-4 pb-3 text-b1s text-primary">{t('lite.collateralSelect.title')}</p>
             )}
 
-            <div className="grid grid-cols-[1fr_5rem_5rem] items-center gap-x-3 px-4 pb-2 text-b1r text-light-grey">
+            <div className="grid grid-cols-[1fr_5rem_5rem] items-center gap-x-3 px-4 pb-2 text-b1r text-secondary">
               <span>{t('lite.collateralSelect.asset')}</span>
 
               <span className="inline-flex items-center justify-end gap-x-1">
@@ -78,8 +78,8 @@ export const CollateralSelect: React.FC<CollateralSelectProps> = ({ options, val
                       onChange(option);
                     }}
                     className={cn(
-                      'grid w-full cursor-pointer grid-cols-[1fr_5rem_5rem] items-center gap-x-3 px-4 py-3 text-left text-b1r tabular-nums hover:bg-background-hover',
-                      isSelected && 'bg-background-hover',
+                      'grid w-full cursor-pointer grid-cols-[1fr_5rem_5rem] items-center gap-x-3 px-4 py-3 text-left text-b1r tabular-nums hover:bg-hover',
+                      isSelected && 'bg-selected',
                     )}
                   >
                     <span className="flex min-w-0 items-center gap-x-2">
@@ -95,7 +95,7 @@ export const CollateralSelect: React.FC<CollateralSelectProps> = ({ options, val
                       {formatPercentageToReadableValue(asset.liquidationThresholdPercentage)}
                       <Icon
                         name="mark"
-                        className={cn('size-4 shrink-0 text-green', !isSelected && 'invisible')}
+                        className={cn('size-4 shrink-0 text-success', !isSelected && 'invisible')}
                       />
                     </span>
                   </button>
@@ -110,14 +110,14 @@ export const CollateralSelect: React.FC<CollateralSelectProps> = ({ options, val
             variant="secondary"
             aria-label={t('lite.collateralSelect.ariaLabel')}
             onClick={handleToggleDropdown}
-            className={cn('h-9 px-3', isDropdownOpen && 'border-blue')}
+            className={cn('h-9 px-3', isDropdownOpen && 'border-brand')}
             contentClassName="gap-x-2 text-b1s"
           >
             <TokenIcon token={value.token} />
             <span>{value.token.symbol}</span>
             <Icon
               name="chevronDown"
-              className={cn('size-3 text-grey', isDropdownOpen && 'rotate-180')}
+              className={cn('size-3 text-secondary', isDropdownOpen && 'rotate-180')}
             />
           </Button>
         )}

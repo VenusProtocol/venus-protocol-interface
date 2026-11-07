@@ -139,7 +139,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
 
         {isListShown && (
           <div className="relative">
-            <div className="absolute top-2 right-0 left-0 z-[2] overflow-hidden rounded-lg border border-border-raised bg-surface-popup shadow-popup backdrop-blur-popup backdrop-saturate-[1.2]">
+            <div className="absolute top-2 right-0 left-0 z-[2] overflow-hidden rounded-lg border border-raised bg-popover shadow-popup backdrop-blur-popup backdrop-saturate-[1.2]">
               {tokenBalances.length > 5 && (
                 <div className="mb-3 pl-3 pr-3 pt-3 space-y-3">
                   <TextField
@@ -188,11 +188,11 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
                   >
                     <TokenIconWithSymbol
                       token={tokenBalance.token}
-                      className={cn(tokenBalance.isDeemed && 'text-light-grey')}
+                      className={cn(tokenBalance.isDeemed && 'text-secondary')}
                     />
 
                     {tokenBalance.balanceMantissa && (
-                      <span className="text-sm text-white">
+                      <span className="text-sm text-primary">
                         {convertMantissaToTokens({
                           value: tokenBalance.balanceMantissa,
                           token: tokenBalance.token,
@@ -204,7 +204,7 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
 
                     {!tokenBalance.balanceMantissa &&
                       areTokensEqual(tokenBalance.token, selectedToken) && (
-                        <Icon name="mark" className="text-green size-5" />
+                        <Icon name="mark" className="text-success size-5" />
                       )}
                   </div>
                 ))}

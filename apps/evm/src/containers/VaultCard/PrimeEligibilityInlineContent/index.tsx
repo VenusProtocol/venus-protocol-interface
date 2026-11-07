@@ -63,7 +63,7 @@ export const PrimeEligibilityInlineContent: React.FC<PrimeEligibilityInlineConte
         <Trans
           i18nKey="primeStatusBanner.description.primeCalculator"
           components={{
-            WhiteText: <span className="text-white font-semibold" />,
+            WhiteText: <span className="text-primary font-semibold" />,
             Link: <Link to={routes.primeCalculator.path} onClick={e => e.stopPropagation()} />,
           }}
           values={{

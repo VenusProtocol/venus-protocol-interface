@@ -37,7 +37,7 @@ export const SunsetIndicator: React.FC<SunsetIndicatorProps> = ({
         className,
       )}
     >
-      <Icon name="sunset" className="size-5 text-orange" />
+      <Icon name="sunset" className="size-5 text-caution" />
     </span>
   );
 };

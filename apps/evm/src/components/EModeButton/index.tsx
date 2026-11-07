@@ -37,7 +37,7 @@ export const EModeButton: React.FC<EModeButtonProps> = ({
   return (
     <ButtonWrapper
       asChild
-      className={cn('text-white no-underline hover:no-underline whitespace-nowrap', className)}
+      className={cn('text-primary no-underline hover:no-underline whitespace-nowrap', className)}
       {...otherProps}
     >
       <Link to={to} onClick={handleClick}>

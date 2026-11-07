@@ -23,6 +23,6 @@ export const Distribution: React.FC<DistributionProps> = ({
       {!!value && <p>{value}</p>}
     </div>
 
-    {!!description && <div className="text-grey text-sm">{description}</div>}
+    {!!description && <div className="text-secondary text-sm">{description}</div>}
   </div>
 );

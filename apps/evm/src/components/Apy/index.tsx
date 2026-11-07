@@ -158,10 +158,12 @@ export const Apy: React.FC<ApyProps> = ({
 
       {isApyBoosted ? (
         <BoostTooltip className="shrink-0" {...distributionListProps}>
-          <p className="font-semibold text-green whitespace-nowrap">{readableApy}</p>
+          <p className="font-semibold text-success whitespace-nowrap">{readableApy}</p>
         </BoostTooltip>
       ) : (
-        <p className={cn('whitespace-nowrap shrink-0', isMuted && 'text-grey')}>{readableApy}</p>
+        <p className={cn('whitespace-nowrap shrink-0', isMuted && 'text-secondary')}>
+          {readableApy}
+        </p>
       )}
 
       {badgeDom}

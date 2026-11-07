@@ -39,7 +39,7 @@ export const StatusTab: React.FC<StatusTabProps> = ({ row }) => {
     {
       label: t('trade.positions.status.netApy.label'),
       value: formatPercentageToReadableValue(row.netApyPercentage),
-      className: row.netApyPercentage < 0 ? 'text-red' : 'text-green',
+      className: row.netApyPercentage < 0 ? 'text-danger' : 'text-success',
     },
   ];
 

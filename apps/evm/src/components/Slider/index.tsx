@@ -51,11 +51,11 @@ export const Slider: React.FC<SliderProps> = ({
     >
       <SliderPrimitive.Track
         data-slot="slider-track"
-        className="bg-dark-blue-hover relative grow overflow-hidden rounded-full h-2 w-full"
+        className="bg-neutral-hover relative grow overflow-hidden rounded-full h-2 w-full"
       >
         <SliderPrimitive.Range
           data-slot="slider-range"
-          className={cn('bg-blue absolute h-full', rangeClassName)}
+          className={cn('bg-brand absolute h-full', rangeClassName)}
         />
       </SliderPrimitive.Track>
 
@@ -73,13 +73,13 @@ export const Slider: React.FC<SliderProps> = ({
       <SliderPrimitive.Thumb
         data-slot="slider-thumb"
         className={cn(
-          'block relative size-5 shrink-0 outline-hidden rounded-full border-white border-4 bg-blue shadow-sm',
+          'block relative size-5 shrink-0 outline-hidden rounded-full border-inverse border-4 bg-brand shadow-sm',
         )}
         onMouseEnter={showValueIndicator}
         onMouseLeave={hideValueIndicator}
       >
         {isValueIndicatorVisible && (
-          <div className="absolute left-[50%] translate-x-[-50%] bottom-5 px-1 py-0.5 bg-dark-blue-hover rounded-md text-center text-xs">
+          <div className="absolute left-[50%] translate-x-[-50%] bottom-5 px-1 py-0.5 bg-neutral-hover rounded-md text-center text-xs">
             {valuePercentage}%
           </div>
         )}

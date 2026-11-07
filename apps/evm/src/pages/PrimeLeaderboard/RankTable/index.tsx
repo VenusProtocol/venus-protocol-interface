@@ -61,7 +61,7 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
                     // biome-ignore lint/a11y/useAnchorContent: content is provided by Trans
                     <a
                       href={rankVerificationUrl}
-                      className="text-blue underline"
+                      className="text-brand underline"
                       target="_blank"
                       rel="noopener noreferrer"
                     />
@@ -77,12 +77,12 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
         <div className="flex items-center gap-x-2">
           {rank <= 3 && <RankBadge rank={rank} />}
 
-          <span className="text-b1r text-white">#{rank}</span>
+          <span className="text-b1r text-primary">#{rank}</span>
 
-          <Username address={userAddress} className="text-b1r text-light-grey" />
+          <Username address={userAddress} className="text-b1r text-secondary" />
 
           {accountAddress && areAddressesEqual(userAddress, accountAddress) && (
-            <span className="size-2 shrink-0 rounded-full bg-blue" />
+            <span className="size-2 shrink-0 rounded-full bg-brand" />
           )}
         </div>
       ),
@@ -94,7 +94,7 @@ export const RankTable: React.FC<RankTableProps> = ({ className }) => {
       align: 'right',
       sortable: true,
       renderCell: ({ effectiveStakeMantissa }) => (
-        <span className="text-b1r text-white">
+        <span className="text-b1r text-primary">
           {shortenValueWithSuffix({
             value:
               convertMantissaToTokens({

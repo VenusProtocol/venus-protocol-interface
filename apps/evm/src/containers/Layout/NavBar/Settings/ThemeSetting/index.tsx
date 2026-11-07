@@ -11,7 +11,7 @@ export const ThemeSetting: React.FC = () => {
 
   return (
     <div className="flex items-center justify-between gap-x-3">
-      <p className="text-light-grey">{t('layout.menu.settings.theme.label')}</p>
+      <p className="text-secondary">{t('layout.menu.settings.theme.label')}</p>
 
       <ButtonGroup
         ariaLabel={t('layout.menu.settings.theme.label')}

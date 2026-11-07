@@ -62,17 +62,17 @@ const Skills: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-full bg-background text-white leading-[1.6]">
+    <div className="min-h-full bg-surface-2 text-primary leading-[1.6]">
       <div className="py-[60px]">
         <header className="mb-[60px] text-center">
-          <h1 className="mb-3 bg-linear-to-r from-blue to-green bg-clip-text text-2xl font-bold text-transparent md:text-[3rem]">
+          <h1 className="mb-3 bg-linear-to-r from-brand to-success bg-clip-text text-2xl font-bold text-transparent md:text-[3rem]">
             {t('skillsPage.header.title')}{' '}
-            <span className="text-[1.5rem] font-normal text-yellow">
+            <span className="text-[1.5rem] font-normal text-warning">
               {t('skillsPage.header.beta')}
             </span>
           </h1>
 
-          <p className="text-[1.2rem] text-light-grey">{t('skillsPage.header.tagline')}</p>
+          <p className="text-[1.2rem] text-secondary">{t('skillsPage.header.tagline')}</p>
         </header>
 
         <TerminalSection />
@@ -84,7 +84,7 @@ const Skills: React.FC = () => {
               title={t('skillsPage.sections.introduction.title')}
             />
 
-            <p className="mb-4 text-[1.05rem] text-light-grey">
+            <p className="mb-4 text-[1.05rem] text-secondary">
               {t('skillsPage.sections.introduction.paragraph1')}
             </p>
 
@@ -98,7 +98,7 @@ const Skills: React.FC = () => {
               ))}
             </ul>
 
-            <p className="font-semibold text-blue">
+            <p className="font-semibold text-brand">
               {t('skillsPage.sections.introduction.highlight')}
             </p>
           </SectionCard>
@@ -109,7 +109,7 @@ const Skills: React.FC = () => {
               title={t('skillsPage.sections.installation.title')}
             />
 
-            <p className="mb-4 text-[1.05rem] text-light-grey">
+            <p className="mb-4 text-[1.05rem] text-secondary">
               {t('skillsPage.sections.installation.paragraph1')}
             </p>
 
@@ -124,15 +124,15 @@ const Skills: React.FC = () => {
               {t('skillsPage.sections.installation.note.securityText')}
             </NoteBox>
 
-            <p className="text-[1.05rem] text-light-grey">
-              <strong className="text-white">
+            <p className="text-[1.05rem] text-secondary">
+              <strong className="text-primary">
                 {t('skillsPage.sections.installation.repository.label')}
               </strong>{' '}
               <a
                 href={REPO_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="text-blue hover:underline"
+                className="text-brand hover:underline"
               >
                 {REPO_URL}
               </a>
@@ -145,7 +145,7 @@ const Skills: React.FC = () => {
               title={t('skillsPage.sections.verification.title')}
             />
 
-            <p className="mb-4 text-[1.05rem] text-light-grey">
+            <p className="mb-4 text-[1.05rem] text-secondary">
               {t('skillsPage.sections.verification.paragraph1')}
             </p>
 
@@ -157,7 +157,7 @@ const Skills: React.FC = () => {
               <DialogMessage variant="agent">
                 {t('skillsPage.sections.verification.dialog1.agentIntro')}
 
-                <ul className="mt-2 ml-10 list-disc text-light-grey marker:text-light-grey">
+                <ul className="mt-2 ml-10 list-disc text-secondary marker:text-secondary">
                   {capabilities.map(capability => (
                     <li key={capability}>
                       <em>{capability}</em>
@@ -165,13 +165,13 @@ const Skills: React.FC = () => {
                   ))}
                 </ul>
 
-                <em className="text-light-grey">
+                <em className="text-secondary">
                   {t('skillsPage.sections.verification.dialog1.agentOutro')}
                 </em>
               </DialogMessage>
             </DialogExample>
 
-            <p className="mb-4 text-[1.05rem] text-light-grey">
+            <p className="mb-4 text-[1.05rem] text-secondary">
               {t('skillsPage.sections.verification.paragraph2')}
             </p>
 
@@ -183,7 +183,7 @@ const Skills: React.FC = () => {
               />
             ))}
 
-            <p className="font-semibold text-blue">
+            <p className="font-semibold text-brand">
               {t('skillsPage.sections.verification.highlight')}
             </p>
 
@@ -194,7 +194,7 @@ const Skills: React.FC = () => {
           </SectionCard>
         </div>
 
-        <footer className="pt-25 text-center text-light-grey">
+        <footer className="pt-25 text-center text-secondary">
           <p>{t('skillsPage.footer.tagline')}</p>
         </footer>
       </div>

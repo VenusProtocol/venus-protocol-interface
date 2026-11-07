@@ -208,12 +208,12 @@ describe('Trade PositionForm Footer', () => {
   it.each([
     {
       pnlDsaTokens: new BigNumber('2'),
-      expectedClassName: 'text-green',
+      expectedClassName: 'text-success',
       expectedSign: '+',
     },
     {
       pnlDsaTokens: new BigNumber('-2'),
-      expectedClassName: 'text-red',
+      expectedClassName: 'text-danger',
       expectedSign: '-',
     },
   ])(

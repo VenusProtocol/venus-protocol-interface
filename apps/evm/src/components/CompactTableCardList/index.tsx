@@ -44,7 +44,7 @@ export const CompactTableCardList = <R,>({
               <div
                 className={cn(
                   'block w-full space-y-4 text-left p-4 rounded-xl',
-                  onRowClick && 'cursor-pointer hover:bg-dark-grey',
+                  onRowClick && 'cursor-pointer hover:bg-neutral-subtle',
                 )}
                 onClick={onRowClick ? () => onRowClick(row) : undefined}
               >

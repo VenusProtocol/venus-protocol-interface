@@ -35,7 +35,7 @@ export const ImgGroup: React.FC<ImgGroupProps> = ({
       ))}
 
       {limit > 0 && sanitizedImgs.length > limit && (
-        <span className="text-b1r text-white ml-2">+{sanitizedImgs.length - limit}</span>
+        <span className="text-b1r text-primary ml-2">+{sanitizedImgs.length - limit}</span>
       )}
     </div>
   );

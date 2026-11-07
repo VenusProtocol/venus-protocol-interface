@@ -76,7 +76,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
         {(!!label || topRightAdornment) && (
           <div className="flex items-center justify-between">
             {!!label && (
-              <label className="text-b1r text-light-grey block" htmlFor={inputProps.id}>
+              <label className="text-b1r text-secondary block" htmlFor={inputProps.id}>
                 {label}
               </label>
             )}
@@ -87,19 +87,19 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
 
         <div
           className={cn(
-            'flex items-center justify-between gap-x-2 h-14 p-4 border border-dark-blue-hover rounded-xl bg-background-active transition-[border-color] hover:border-light-grey focus-within:border-blue focus-within:bg-dark-blue-active focus-within:hover:border-blue',
+            'flex items-center justify-between gap-x-2 h-14 p-4 border border-default rounded-xl bg-input transition-[border-color] hover:border-bold focus-within:border-brand focus-within:bg-input-focus focus-within:hover:border-brand',
             rightAdornment && 'pr-2',
             leftAdornment && !leftIconSrc && 'pl-2',
             size === 'xs' && 'h-10 py-1 rounded-lg',
             size === 'sm' && 'h-12 py-2 rounded-lg',
             type === 'number' &&
               size === 'md' &&
-              'rounded-lg border-border-subtle bg-surface-input py-3 pr-2 shadow-input hover:border-border-glass focus-within:bg-surface-input',
+              'rounded-lg border-subtle bg-surface-input py-3 pr-2 shadow-input hover:border-glass focus-within:bg-surface-input',
             type === 'number' && size === 'md' && leftAdornment && 'pl-2',
-            disabled && 'border-lightGrey bg-cards',
-            hasError && 'border-red focus-within:border-red focus-within:hover:border-red',
-            variant === 'secondary' && disabled && 'bg-lightGrey',
-            variant === 'secondary' && !disabled && 'bg-cards',
+            disabled && 'border-muted bg-surface-4',
+            hasError && 'border-danger focus-within:border-danger focus-within:hover:border-danger',
+            variant === 'secondary' && disabled && 'bg-neutral',
+            variant === 'secondary' && !disabled && 'bg-surface-4',
             inputContainerClassName,
           )}
         >
@@ -120,7 +120,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
           <div className="flex grow items-center gap-x-2 h-full">
             <input
               className={cn(
-                'bg-transparent w-full h-full font-semibold leading-6 placeholder:text-grey  placeholder:font-normal outline-hidden',
+                'bg-transparent w-full h-full font-semibold leading-6 placeholder:text-secondary  placeholder:font-normal outline-hidden',
                 type === 'number' && 'text-right',
                 size === 'xs' && 'text-sm',
                 size === 'sm' && 'text-sm',
@@ -139,7 +139,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
           </div>
         </div>
 
-        {!!description && <div className="block text-grey text-sm">{description}</div>}
+        {!!description && <div className="block text-secondary text-sm">{description}</div>}
       </div>
     );
   },

@@ -68,7 +68,7 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
                 ?.dividedBy(votedTotalMantissa || 0)
                 .times(100)
                 .toNumber() || 0,
-            className: 'bg-red',
+            className: 'bg-danger',
           },
         ],
       },
@@ -85,7 +85,7 @@ export const ActiveVotingProgress: React.FC<ActiveVotingProgressProps> = ({
                 ?.dividedBy(votedTotalMantissa || 0)
                 .times(100)
                 .toNumber() || 0,
-            className: 'bg-grey',
+            className: 'bg-neutral-bold',
           },
         ],
       },

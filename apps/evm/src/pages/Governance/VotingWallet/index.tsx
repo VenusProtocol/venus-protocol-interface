@@ -132,7 +132,7 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
 
       <Card className="mt-6 flex flex-col px-6 py-6 sm:flex-row sm:items-center sm:justify-between sm:py-10 lg:flex-col lg:items-start lg:py-6">
         <div className="border-r-[#21293A] pb-4 sm:border-r sm:pb-0 sm:pr-[26px] md:pr-10 lg:border-r-0 lg:pb-4">
-          <p className="text-grey text-base font-semibold sm:text-sm md:text-base">
+          <p className="text-secondary text-base font-semibold sm:text-sm md:text-base">
             {t('vote.votingWeight')}
           </p>
 
@@ -145,7 +145,7 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
 
         <div className="mt-4 sm:ml-[26px] sm:mr-auto sm:mt-0 md:ml-10 lg:ml-0 lg:mr-0 lg:mt-4">
           <div className="mb-1 flex items-end sm:mb-0 lg:mb-1">
-            <p className="text-grey mr-2 text-base font-semibold sm:text-sm md:text-base">
+            <p className="text-secondary mr-2 text-base font-semibold sm:text-sm md:text-base">
               {t('vote.totalLocked')}
             </p>
 
@@ -165,7 +165,7 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
 
         {!isUserConnected && (
           <PrimaryButton
-            className="text-white mt-6 sm:mt-0 lg:mt-6 lg:w-full"
+            className="text-primary mt-6 sm:mt-0 lg:mt-6 lg:w-full"
             onClick={handleOpenAuthModal}
           >
             {t('connectWallet.connectButton')}
@@ -174,7 +174,7 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
 
         {showDepositXvs && (
           <ButtonWrapper
-            className="text-white mt-6 hover:no-underline sm:mt-0 sm:w-auto lg:mt-6 lg:w-full"
+            className="text-primary mt-6 hover:no-underline sm:mt-0 sm:w-auto lg:mt-6 lg:w-full"
             asChild
           >
             <Link to={routes.vaults.path}>{t('vote.depositXvs')}</Link>
@@ -183,7 +183,7 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
 
         {showDelegateButton && (
           <PrimaryButton
-            className="text-white mt-6 sm:mt-0 sm:w-auto lg:mt-6 lg:w-full"
+            className="text-primary mt-6 sm:mt-0 sm:w-auto lg:mt-6 lg:w-full"
             onClick={() => setDelegateModelIsOpen(true)}
             data-testid={TEST_IDS.delegateButton}
           >
@@ -212,7 +212,7 @@ const VotingWallet: React.FC<VotingWalletProps> = ({ className }) => {
                 components={{
                   Anchor: (
                     <span
-                      className="text-blue hover:cursor-pointer hover:underline"
+                      className="text-brand hover:cursor-pointer hover:underline"
                       role="button"
                       aria-pressed="false"
                       tabIndex={0}

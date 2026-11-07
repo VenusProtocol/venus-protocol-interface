@@ -20,32 +20,32 @@ export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, handleClose }) =
       title={t('primeLeaderboard.rulesModal.title')}
       className="max-w-138"
     >
-      <div className="flex flex-col gap-6 text-b1r text-light-grey">
+      <div className="flex flex-col gap-6 text-b1r text-secondary">
         <div>
           <p>
             <Trans
               i18nKey="primeLeaderboard.rulesModal.intro1"
               values={{ limit: rankLimit }}
-              components={{ Highlight: <span className="text-b1s text-white" /> }}
+              components={{ Highlight: <span className="text-b1s text-primary" /> }}
             />
           </p>
 
           <p>
             <Trans
               i18nKey="primeLeaderboard.rulesModal.intro2"
-              components={{ Highlight: <span className="text-b1s text-white" /> }}
+              components={{ Highlight: <span className="text-b1s text-primary" /> }}
             />
           </p>
         </div>
 
         <table className="w-full border-collapse">
           <thead>
-            <tr className="bg-dark-blue-active">
-              <th className="w-1/2 px-3 py-2 text-left text-b1r text-white">
+            <tr className="bg-surface-4">
+              <th className="w-1/2 px-3 py-2 text-left text-b1r text-primary">
                 {t('primeLeaderboard.rulesModal.daysHeldColumn')}
               </th>
 
-              <th className="w-1/2 px-3 py-2 text-left text-b1r text-white">
+              <th className="w-1/2 px-3 py-2 text-left text-b1r text-primary">
                 {t('primeLeaderboard.rulesModal.boostColumn')}
               </th>
             </tr>
@@ -54,11 +54,11 @@ export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, handleClose }) =
           <tbody>
             {BOOST_TIERS.map(({ range, boost, isMax }) => (
               <tr key={range}>
-                <td className="border-b border-dark-grey px-3 py-2 text-b1r text-white">
+                <td className="border-b border-neutral px-3 py-2 text-b1r text-primary">
                   {t('primeLeaderboard.rulesModal.daysHeld', { range })}
                 </td>
 
-                <td className="border-b border-dark-grey px-3 py-2 text-b1r text-white">
+                <td className="border-b border-neutral px-3 py-2 text-b1r text-primary">
                   {isMax ? t('primeLeaderboard.rulesModal.boostMax', { boost }) : boost}
                 </td>
               </tr>
@@ -70,7 +70,7 @@ export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, handleClose }) =
           <p>
             <Trans
               i18nKey="primeLeaderboard.rulesModal.contribution"
-              components={{ Highlight: <span className="text-b1s text-white" /> }}
+              components={{ Highlight: <span className="text-b1s text-primary" /> }}
             />
           </p>
 
@@ -81,21 +81,21 @@ export const RulesModal: React.FC<RulesModalProps> = ({ isOpen, handleClose }) =
               <li>
                 <Trans
                   i18nKey="primeLeaderboard.rulesModal.point1"
-                  components={{ Highlight: <span className="text-b1s text-white" /> }}
+                  components={{ Highlight: <span className="text-b1s text-primary" /> }}
                 />
               </li>
 
               <li>
                 <Trans
                   i18nKey="primeLeaderboard.rulesModal.point2"
-                  components={{ Highlight: <span className="text-b1s text-white" /> }}
+                  components={{ Highlight: <span className="text-b1s text-primary" /> }}
                 />
               </li>
 
               <li>
                 <Trans
                   i18nKey="primeLeaderboard.rulesModal.point3"
-                  components={{ Highlight: <span className="text-b1s text-white" /> }}
+                  components={{ Highlight: <span className="text-b1s text-primary" /> }}
                 />
               </li>
             </ul>

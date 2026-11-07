@@ -22,13 +22,13 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   return (
     <nav
       aria-label={modeLabel}
-      className="flex flex-wrap items-center gap-2 text-b1r text-light-grey"
+      className="flex flex-wrap items-center gap-2 text-b1r text-secondary"
     >
       <button
         type="button"
         onClick={onBackToAssets}
         aria-label={t('lite.breadcrumb.backToAssets', { mode: modeLabel })}
-        className="inline-flex cursor-pointer items-center gap-2 hover:text-white focus-visible:outline-2 focus-visible:outline-blue"
+        className="inline-flex cursor-pointer items-center gap-2 hover:text-primary focus-visible:outline-2 focus-visible:outline-brand"
       >
         <Icon name="chevronLeft" className="size-4 text-inherit" />
         <span>{modeLabel}</span>
@@ -43,7 +43,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
             onClick={onBackToMarkets}
             disabled={!onBackToMarkets}
             aria-label={t('lite.breadcrumb.backToMarkets', { symbol: token.symbol })}
-            className="inline-flex items-center gap-1.5 enabled:cursor-pointer enabled:hover:text-white focus-visible:outline-2 focus-visible:outline-blue"
+            className="inline-flex items-center gap-1.5 enabled:cursor-pointer enabled:hover:text-primary focus-visible:outline-2 focus-visible:outline-brand"
           >
             <TokenIcon token={token} size="md" className="size-4 shrink-0" />
             <span>{token.symbol}</span>

@@ -99,7 +99,7 @@ export const LeverageFactorModal: React.FC<LeverageFactorModalProps> = ({
   return (
     <Modal isOpen handleClose={onClose} title={t('marketForm.leverageFactorModal.title')}>
       <form onSubmit={handleSubmit} className="flex flex-col gap-y-6">
-        <div className="border border-background-hover rounded-lg flex items-center justify-between text-b1s">
+        <div className="border border-secondary rounded-lg flex items-center justify-between text-b1s">
           <StepButton onClick={decreaseLeverageFactor}>-</StepButton>
 
           <p>{t('marketForm.leverageFactor', { leverageFactor: newLeverageFactor })}</p>
@@ -118,7 +118,7 @@ export const LeverageFactorModal: React.FC<LeverageFactorModalProps> = ({
 
           <div className="flex items-center justify-between">
             {steps.map(step => (
-              <p className="text-b2r text-light-grey">
+              <p className="text-b2r text-secondary">
                 {t('marketForm.leverageFactor', { leverageFactor: step })}
               </p>
             ))}
@@ -126,7 +126,7 @@ export const LeverageFactorModal: React.FC<LeverageFactorModalProps> = ({
         </div>
 
         {maximumShortAmountTokens && (
-          <p className="text-light-grey text-b1r">
+          <p className="text-secondary text-b1r">
             {t('marketForm.leverageFactorModal.maximumShortAmount', {
               value: readableMaximumShortAmount,
             })}

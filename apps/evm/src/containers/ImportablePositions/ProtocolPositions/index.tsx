@@ -28,9 +28,9 @@ export const ProtocolPositions: React.FC<ProtocolPositionsProps> = ({
         </div>
 
         <div className="flex items-center gap-x-1">
-          <Icon name="gas" className="text-green" />
+          <Icon name="gas" className="text-success" />
 
-          <span className="text-green text-sm font-semibold [font-variant:all-small-caps]">
+          <span className="text-success text-sm font-semibold [font-variant:all-small-caps]">
             {t('importPositionsModal.gasLess.label')}
           </span>
 
