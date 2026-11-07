@@ -417,7 +417,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool, onSub
           </TokenListWrapper>
 
           {!!accountAddress && !isSubmitting && !!formError?.message && (
-            <p className="text-red text-sm">{formError.message}</p>
+            <p className="text-danger text-sm">{formError.message}</p>
           )}
         </div>
 
@@ -434,7 +434,7 @@ const BoostForm: React.FC<BoostFormProps> = ({ asset: borrowedAsset, pool, onSub
             data-testid={TEST_IDS.availableAmount}
           >
             <button
-              className="transition-colors cursor-pointer hover:text-blue"
+              className="transition-colors cursor-pointer hover:text-brand"
               type="button"
               onClick={handleMaxButtonClick}
             >

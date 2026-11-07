@@ -88,13 +88,13 @@ export const CapProgressCircle: React.FC<CapProgressCircleProps> = ({
       {tooltip ? <Tooltip content={tooltip}>{progressCircle}</Tooltip> : progressCircle}
 
       <div>
-        <p className="text-grey mb-1 text-sm">{title}</p>
+        <p className="text-secondary mb-1 text-sm">{title}</p>
 
         <p className="text-sm font-semibold sm:text-lg">
           {readableValueDollars} / {readableLimitDollars}
         </p>
 
-        <p className="text-grey text-xs">
+        <p className="text-secondary text-xs">
           {readableValueTokens} / {readableLimitTokens}
         </p>
       </div>

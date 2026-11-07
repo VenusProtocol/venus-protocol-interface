@@ -81,14 +81,14 @@ export const Layout: React.FC = () => {
 
   return (
     <>
-      <div className="h-dvh flex flex-col bg-background-active">
+      <div className="h-dvh flex flex-col bg-canvas">
         <Starfield />
 
         <div className="relative flex min-h-0 grow flex-col">
           <NavBar
             className={cn(
               'absolute inset-x-0 top-0 z-10000 shrink-0 bg-transparent before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:transition-colors',
-              isPageScrolled && 'before:bg-background-active/20 before:backdrop-blur-xs',
+              isPageScrolled && 'before:bg-canvas/20 before:backdrop-blur-xs',
             )}
           />
 

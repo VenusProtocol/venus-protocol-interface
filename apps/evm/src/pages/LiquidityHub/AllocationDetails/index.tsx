@@ -79,7 +79,7 @@ export const AllocationDetails: React.FC<AllocationDetailsProps> = ({ liquidityH
       // Translation key: do not remove this comment
       // t('liquidityHub.allocationDetails.unallocated')
       nameTranslationKey: 'liquidityHub.allocationDetails.unallocated',
-      bgClassname: 'bg-lightGrey',
+      bgClassname: 'bg-neutral',
       allocationPercentage: unallocatedPercentage,
     });
   }

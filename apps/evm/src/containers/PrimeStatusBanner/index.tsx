@@ -121,7 +121,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
         <Trans
           i18nKey="primeStatusBanner.promotionalTitle"
           components={{
-            GreenText: <span className="text-green" />,
+            GreenText: <span className="text-success" />,
           }}
           values={{
             percentage: readableApyBoostPercentage,
@@ -210,12 +210,12 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
             {!!title && <h3 className={cn('text-lg', displayProgress && 'mb-2')}>{title}</h3>}
 
             {displayProgress && (
-              <p className="text-grey text-b1r">
+              <p className="text-secondary text-b1r">
                 {isPrimeCalculatorEnabled ? (
                   <Trans
                     i18nKey="primeStatusBanner.description.primeCalculator"
                     components={{
-                      WhiteText: <span className="text-white font-semibold" />,
+                      WhiteText: <span className="text-primary font-semibold" />,
                       Link: (
                         <Link to={routes.primeCalculator.path} onClick={e => e.stopPropagation()} />
                       ),
@@ -229,7 +229,7 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
                   <Trans
                     i18nKey="primeStatusBanner.description.primeDoc"
                     components={{
-                      WhiteText: <span className="text-white" />,
+                      WhiteText: <span className="text-primary" />,
                       Link: <Link href={VENUS_PRIME_DOC_URL} onClick={e => e.stopPropagation()} />,
                     }}
                     values={{
@@ -252,11 +252,11 @@ export const PrimeStatusBannerUi: React.FC<PrimeStatusBannerUiProps> = ({
               max={+minXvsToStakeForPrimeTokens.toFixed(0)}
             />
 
-            <p className="text-grey text-sm">
+            <p className="text-secondary text-sm">
               <Trans
                 i18nKey="primeStatusBanner.progressBar.label"
                 components={{
-                  WhiteText: <span className="text-white font-semibold" />,
+                  WhiteText: <span className="text-primary font-semibold" />,
                 }}
                 values={{
                   minXvsToStakeForPrimeTokens: readableMinXvsToStakeForPrimeTokens,

@@ -11,7 +11,7 @@ export const LanguageSetting: React.FC = () => {
 
   return (
     <div className="flex items-center justify-between gap-x-3">
-      <p className="text-light-grey">{t('layout.menu.settings.language.label')}</p>
+      <p className="text-secondary">{t('layout.menu.settings.language.label')}</p>
 
       <Select
         value={language.bcp47Tag}
@@ -20,7 +20,7 @@ export const LanguageSetting: React.FC = () => {
         dropdownClassName="lg:overflow-auto lg:max-h-48"
         menuPosition="right"
         className="w-40"
-        buttonClassName="text-light-grey"
+        buttonClassName="text-secondary"
       />
     </div>
   );

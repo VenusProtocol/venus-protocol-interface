@@ -39,8 +39,8 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
       <Icon
         name={iconName}
         className={cn(
-          'text-light-grey size-6 transition-colors group-hover:text-white',
-          isActive && 'text-white',
+          'text-secondary size-6 transition-colors group-hover:text-primary',
+          isActive && 'text-primary',
         )}
       />
     );
@@ -65,9 +65,9 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
       className={cn(
         'block rounded-lg group transition-colors hover:no-underline',
         variant === 'secondary'
-          ? 'p-2 hover:bg-dark-blue-active focus-visible:bg-dark-blue-active'
-          : 'py-3 px-4 bg-background-active hover:bg-background-hover',
-        isActive && (variant === 'secondary' ? 'bg-dark-blue-active' : 'bg-background-hover'),
+          ? 'p-2 hover:bg-hover-subtle focus-visible:bg-hover-subtle'
+          : 'py-3 px-4 bg-surface-1 hover:bg-hover',
+        isActive && (variant === 'secondary' ? 'bg-selected-subtle' : 'bg-selected'),
       )}
     >
       <div className="flex gap-x-3">
@@ -76,7 +76,7 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
             className={cn(
               'rounded-lg shrink-0 flex items-center justify-center',
               variant === 'secondary' ? 'size-10' : 'size-12',
-              !!iconName && 'bg-dark-blue',
+              !!iconName && 'bg-surface-3',
               !!menuIconName && menuIconName !== 'core' && 'nav-icon-glint',
             )}
           >
@@ -90,9 +90,9 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
               className={cn(
                 variant === 'secondary' ? 'text-p3s' : 'font-semibold',
                 iconName
-                  ? 'text-light-grey transition-colors group-hover:text-white'
-                  : 'text-white',
-                isActive && 'text-white',
+                  ? 'text-secondary transition-colors group-hover:text-primary'
+                  : 'text-primary',
+                isActive && 'text-primary',
               )}
             >
               {label}
@@ -102,7 +102,7 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
           </div>
 
           {!!description && (
-            <p className={cn('text-light-grey', variant === 'secondary' ? 'text-b2r' : 'text-xs')}>
+            <p className={cn('text-secondary', variant === 'secondary' ? 'text-b2r' : 'text-xs')}>
               {description}
             </p>
           )}

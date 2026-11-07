@@ -42,7 +42,7 @@ export const useMarketColumns = () => {
           })}
         </p>
 
-        <p className="text-light-grey">{formatCentsToReadableValue({ value: getCents(row) })}</p>
+        <p className="text-secondary">{formatCentsToReadableValue({ value: getCents(row) })}</p>
       </div>
     ),
   });
@@ -65,7 +65,7 @@ export const useMarketColumns = () => {
         </div>
 
         {isMobile && secondary && (
-          <p className="mt-1 text-xs text-grey">
+          <p className="mt-1 text-xs text-secondary">
             {formatCentsToReadableValue({ value: secondary.getCents(row) })} {secondary.label}
           </p>
         )}

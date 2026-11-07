@@ -50,7 +50,7 @@ export const TokenSelect: React.FC<TokenSelectProps> = ({
       <SelectButton
         className={cn(
           'w-full p-0 overflow-hidden',
-          type === 'long' ? 'border-green' : 'border-red',
+          type === 'long' ? 'border-success' : 'border-danger',
         )}
         contentClassName="w-full"
         onClick={showTokenList}
@@ -60,7 +60,7 @@ export const TokenSelect: React.FC<TokenSelectProps> = ({
         <div
           className={cn(
             'h-full flex w-12 shrink-0 items-center justify-center py-3 rounded-r-lg',
-            type === 'long' ? 'bg-green' : 'bg-red',
+            type === 'long' ? 'bg-success' : 'bg-danger',
           )}
         >
           {type === 'long' ? t('trade.longTokenSelect.label') : t('trade.shortTokenSelect.label')}
@@ -76,7 +76,7 @@ export const TokenSelect: React.FC<TokenSelectProps> = ({
             className={cn(
               'w-5 h-5',
               !isTokenListShown && 'rotate-180',
-              disabled ? 'text-grey' : 'text-white',
+              disabled ? 'text-secondary' : 'text-primary',
             )}
           />
         </div>

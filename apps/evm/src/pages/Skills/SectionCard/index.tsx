@@ -3,7 +3,7 @@ interface SectionCardProps {
 }
 
 export const SectionCard: React.FC<SectionCardProps> = ({ children }) => (
-  <section className="rounded-xl border border-white/5 bg-white/[0.02] p-4 md:p-10">
+  <section className="rounded-xl border border-inverse/5 bg-inverse/[0.02] p-4 md:p-10">
     {children}
   </section>
 );

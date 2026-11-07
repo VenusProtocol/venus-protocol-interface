@@ -104,7 +104,7 @@ export const Pagination = ({
         className,
       )}
     >
-      <p className="m-0 mb-2 w-full whitespace-nowrap text-center text-sm text-light-grey sm:mr-2 sm:mb-0 sm:w-auto sm:text-left">
+      <p className="m-0 mb-2 w-full whitespace-nowrap text-center text-sm text-secondary sm:mr-2 sm:mb-0 sm:w-auto sm:text-left">
         {itemsCountString}
       </p>
 
@@ -127,7 +127,7 @@ export const Pagination = ({
       )}
 
       <input
-        className="mx-1 size-8 cursor-pointer rounded border border-dark-blue-hover bg-transparent p-0 text-center text-white transition-colors duration-300 selection:bg-blue hover:border-blue focus:border-blue focus:outline-none"
+        className="mx-1 size-8 cursor-pointer rounded border border-default bg-transparent p-0 text-center text-primary transition-colors duration-300 selection:bg-brand hover:border-brand focus:border-brand focus:outline-none"
         value={inputValue}
         inputMode="numeric"
         aria-label={t('pagination.currentPage')}

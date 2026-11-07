@@ -30,7 +30,7 @@ describe('Progress', () => {
 
     const progressFill = getProgressFill(container);
 
-    expect(progressFill).toHaveClass('bg-blue');
+    expect(progressFill).toHaveClass('bg-brand');
     expect(progressFill).toHaveStyle({ width: '50%' });
   });
 
@@ -42,7 +42,7 @@ describe('Progress', () => {
     const progressFill = getProgressFill(container);
 
     expect(getByText('80%')).toBeInTheDocument();
-    expect(progressFill).toHaveClass('bg-green');
+    expect(progressFill).toHaveClass('bg-success');
     expect(progressFill).toHaveStyle({ width: '80%' });
   });
 
@@ -68,10 +68,10 @@ describe('Progress', () => {
         token={usdc}
         amountTokens={new BigNumber('50')}
         maxTokens={new BigNumber('100')}
-        progressBarClassName="bg-yellow"
+        progressBarClassName="bg-warning"
       />,
     );
 
-    expect(getProgressFill(container)).toHaveClass('bg-yellow');
+    expect(getProgressFill(container)).toHaveClass('bg-warning');
   });
 });

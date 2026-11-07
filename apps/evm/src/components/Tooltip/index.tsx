@@ -65,7 +65,7 @@ export const Tooltip = ({
             >
               <path
                 d="M0 0L15 10L30 0"
-                className="fill-none stroke-border-raised stroke-2"
+                className="fill-none stroke-tooltip stroke-2"
                 strokeLinejoin="round"
               />
             </svg>

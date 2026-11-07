@@ -33,7 +33,7 @@ export const RowFooter: React.FC<RowFooterProps> = ({ row, isOpen }) => {
 
   return (
     <AccordionAnimatedContent className="flex flex-col gap-y-6" isOpen={isOpen}>
-      <Card className="flex flex-col gap-y-6 bg-dark-blue border-background-hover p-3 md:p-6">
+      <Card className="flex flex-col gap-y-6 bg-surface-3 border-secondary p-3 md:p-6">
         {isTransactionHistoryFeatureEnabled ? (
           <Tabs tabs={tabs} variant="secondary" />
         ) : (

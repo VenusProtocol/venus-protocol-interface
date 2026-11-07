@@ -182,7 +182,7 @@ export function Table<R>({
 
               <Head
                 className={cn(
-                  variant === 'primary' && 'border-b border-border-subtle',
+                  variant === 'primary' && 'border-b border-subtle',
                   tableHeaderClassName,
                 )}
                 controls={controls}
@@ -218,8 +218,8 @@ export function Table<R>({
                     <Fragment key={rowKey}>
                       <TableRow
                         className={cn(
-                          'group text-white hover:no-underline',
-                          size === 'compact' ? 'h-15' : 'h-18 hover:bg-surface-row-hover',
+                          'group text-primary hover:no-underline',
+                          size === 'compact' ? 'h-15' : 'h-18 hover:bg-table-row-hover',
                           isRowClickable && 'cursor-pointer',
                           tableRowClassName,
                           getRowClassName?.(row),

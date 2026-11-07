@@ -9,12 +9,12 @@ const NoPrimeTokensLeftWarning = ({ primeTokenLimit }: PrimeTokensLeftProps) => 
   const { t } = useTranslation();
   return (
     <>
-      <p className="text-orange mr-2 text-sm">{t('primeStatusBanner.noPrimeTokenWarning.text')}</p>
+      <p className="text-caution mr-2 text-sm">{t('primeStatusBanner.noPrimeTokenWarning.text')}</p>
 
       <InfoIcon
         tooltip={t('primeStatusBanner.noPrimeTokenWarning.tooltip', { primeTokenLimit })}
         className="inline-flex"
-        iconClassName="text-orange"
+        iconClassName="text-caution"
       />
     </>
   );

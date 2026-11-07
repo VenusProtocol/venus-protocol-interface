@@ -40,7 +40,7 @@ export const Command: React.FC<CommandProps> = ({
 
                 <Icon
                   name="arrowUp"
-                  className={cn('text-grey w-5 h-5 ml-1', !isOpen && 'rotate-180')}
+                  className={cn('text-secondary w-5 h-5 ml-1', !isOpen && 'rotate-180')}
                 />
               </div>
             </div>

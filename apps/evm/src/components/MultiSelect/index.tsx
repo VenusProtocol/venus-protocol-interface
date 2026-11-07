@@ -55,13 +55,13 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
       optionsDom={() => (
         <div className="min-w-full">
           <div className="flex h-12 items-center justify-between gap-3 px-4 py-3">
-            <span className="text-b1r truncate text-white">{title}</span>
+            <span className="text-b1r truncate text-primary">{title}</span>
 
             <button
               type="button"
               onClick={() => onChange([])}
               disabled={value.length === 0}
-              className="text-blue text-b1r shrink-0 cursor-pointer disabled:cursor-default disabled:opacity-50"
+              className="text-brand text-b1r shrink-0 cursor-pointer disabled:cursor-default disabled:opacity-50"
             >
               {resetLabel}
             </button>
@@ -74,7 +74,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               onClick={() => toggle(option.value)}
               className="hover:bg-surface-segment-hover active:bg-surface-segment-hover flex h-12 w-full cursor-pointer items-center justify-between px-4 py-3 text-left"
             >
-              <span className="text-b1r whitespace-nowrap text-white">{option.label}</span>
+              <span className="text-b1r whitespace-nowrap text-primary">{option.label}</span>
 
               <Icon
                 name={value.includes(option.value) ? 'checked' : 'checkboxBorder'}
@@ -93,10 +93,10 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
             isDropdownOpen && 'font-semibold',
           )}
           className={cn(
-            'group/trigger relative w-full rounded-lg border-transparent bg-background-active bg-linear-to-b from-surface-raised to-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-transparent hover:bg-background-active active:bg-background-active',
+            'group/trigger relative w-full rounded-lg border-select bg-input text-primary bg-linear-to-b from-surface-raised to-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-select hover:bg-input active:bg-input',
             size === 'xs' ? 'h-10 px-3' : 'h-12 px-4',
-            isDropdownOpen && 'border-blue hover:border-blue',
-            value.length > 0 && 'border-blue',
+            isDropdownOpen && 'border-brand hover:border-brand',
+            value.length > 0 && 'border-brand',
             buttonClassName,
           )}
         >
@@ -106,7 +106,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
 
           <Icon
             name="chevronDown"
-            className={cn('text-grey ml-2 size-3 flex-none', isDropdownOpen && 'rotate-180')}
+            className={cn('text-secondary ml-2 size-3 flex-none', isDropdownOpen && 'rotate-180')}
           />
         </Button>
       )}

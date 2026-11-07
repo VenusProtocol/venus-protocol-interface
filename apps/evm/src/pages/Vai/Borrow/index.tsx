@@ -194,7 +194,7 @@ export const Borrow: React.FC = () => {
             <Trans
               i18nKey="vai.borrow.primeOnlyWarning"
               components={{
-                WhiteText: <span className="text-white" />,
+                WhiteText: <span className="text-primary" />,
                 Link: <Link href={VENUS_PRIME_DOC_URL} />,
               }}
             />
@@ -240,7 +240,7 @@ export const Borrow: React.FC = () => {
         {feeTokens?.isGreaterThan(0) && (
           <LabeledInlineContent
             iconSrc="fee"
-            iconClassName="text-lightGrey"
+            iconClassName="text-tertiary"
             label={t('vai.borrow.fee.label')}
           >
             {readableFee}

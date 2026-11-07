@@ -14,21 +14,21 @@ export const Indicator: React.FC<IndicatorProps> = ({
   className,
   ...otherProps
 }) => {
-  let colorClass = 'bg-grey';
+  let colorClass = 'bg-neutral-bold';
   let iconName: IconName = 'dots';
 
   if (isExecutable) {
-    colorClass = 'bg-orange';
+    colorClass = 'bg-caution';
     iconName = 'exclamation';
   } else if (state === ProposalState.Executed) {
-    colorClass = 'bg-green';
+    colorClass = 'bg-success';
     iconName = 'mark';
   } else if (
     state === ProposalState.Defeated ||
     state === ProposalState.Expired ||
     state === ProposalState.Canceled
   ) {
-    colorClass = 'bg-red';
+    colorClass = 'bg-danger';
     iconName = 'close';
   }
 
@@ -41,7 +41,7 @@ export const Indicator: React.FC<IndicatorProps> = ({
       )}
       {...otherProps}
     >
-      <Icon name={iconName} className="w-6 h-6 text-white" />
+      <Icon name={iconName} className="w-6 h-6 text-primary" />
     </div>
   );
 };

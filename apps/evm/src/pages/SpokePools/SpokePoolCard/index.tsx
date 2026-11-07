@@ -62,7 +62,7 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
           <div className="flex items-start justify-between gap-x-4">
             <div>
               <p className="text-p2s">{spokePool.name}</p>
-              <p className="text-b1r text-grey">{spokePool.description}</p>
+              <p className="text-b1r text-secondary">{spokePool.description}</p>
             </div>
 
             {hasUserPosition && spokePool.userHealthFactor !== undefined && (

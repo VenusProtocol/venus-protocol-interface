@@ -27,25 +27,25 @@ export const UserButton: React.FC<UserButtonProps> = ({
     <button
       type="button"
       className={cn(
-        'group h-9 text-b1s text-white rounded-lg p-px sm:h-12',
+        'group h-9 text-b1s text-primary rounded-lg p-px sm:h-12',
         disabled && (isPrime ? 'md:min-w-36.75' : 'md:min-w-36.25'),
         !disabled && 'cursor-pointer',
         !disabled && (isPrime ? 'min-w-21.25 sm:min-w-36.75' : 'min-w-20.75 sm:min-w-36.25'),
-        isPrime ? 'bg-[linear-gradient(135deg,#FFECE3,#6D4637,#674031)]' : 'bg-dark-blue-hover',
+        isPrime ? 'bg-[linear-gradient(135deg,#FFECE3,#6D4637,#674031)]' : 'bg-neutral-hover',
         className,
       )}
       {...otherProps}
     >
       <div
         className={cn(
-          'relative px-3 flex items-center gap-x-3 bg-background-active h-full rounded-[7px] transition-colors',
-          !disabled && 'max-sm:px-2 max-sm:gap-x-2 group-hover:bg-dark-blue-hover',
+          'relative px-3 flex items-center gap-x-3 bg-input h-full rounded-[7px] transition-colors',
+          !disabled && 'max-sm:px-2 max-sm:gap-x-2 group-hover:bg-neutral-hover',
         )}
       >
         {isPrime ? (
           <img className="h-4" src={primeLogoSrc} alt={t('primeButton.primeLogoAlt')} />
         ) : (
-          <Icon name="user" className="h-4 text-light-grey mb-1" />
+          <Icon name="user" className="h-4 text-secondary mb-1" />
         )}
 
         <Username
@@ -73,7 +73,7 @@ export const UserButton: React.FC<UserButtonProps> = ({
           />
         )}
 
-        {!isVip && !disabled && <Icon name="expand" className="text-light-grey max-sm:hidden" />}
+        {!isVip && !disabled && <Icon name="expand" className="text-secondary max-sm:hidden" />}
       </div>
     </button>
   );

@@ -105,7 +105,8 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({ swap, className, ...ot
           >
             <span
               className={cn(
-                swap.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE && 'text-red',
+                swap.priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
+                  'text-danger',
               )}
             >
               {t('swap.swapDetails.value.priceImpact', { priceImpact: readablePriceImpact })}

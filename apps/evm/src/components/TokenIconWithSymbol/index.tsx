@@ -43,7 +43,7 @@ export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({
         </p>
 
         {displayChain && (
-          <p className={cn('truncate text-light-grey', size === 'md' ? 'text-b2r' : 'text-b1r')}>
+          <p className={cn('truncate text-secondary', size === 'md' ? 'text-b2r' : 'text-b1r')}>
             {chain.name}
           </p>
         )}

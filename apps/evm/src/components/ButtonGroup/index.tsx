@@ -37,7 +37,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
       role="group"
       aria-label={ariaLabel}
       className={cn(
-        'flex items-center whitespace-nowrap rounded-lg border border-dark-blue-hover bg-dark-blue-disabled p-[3px] shadow-segment-track',
+        'flex items-center whitespace-nowrap rounded-lg border border-default bg-surface-4 p-[3px] shadow-segment-track',
         fullWidth ? 'w-full' : 'w-fit',
         className,
       )}
@@ -55,15 +55,15 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
               !fullWidth &&
                 (buttonSize === 'sm' ? 'h-7 flex-none py-0' : 'h-[33px] flex-none py-1.5'),
               isActive
-                ? 'border-border-segment-active bg-action font-semibold text-white shadow-segment-active active:shadow-segment-active!'
-                : 'border-transparent bg-none bg-transparent font-normal text-light-grey shadow-none! hover:font-normal hover:text-light-grey active:shadow-none!',
+                ? 'border-segment-active bg-action font-semibold text-on-color shadow-segment-active active:shadow-segment-active!'
+                : 'border-transparent bg-none bg-transparent font-normal text-secondary shadow-none! hover:font-normal hover:text-secondary active:shadow-none!',
               isActive && !disabled && 'hover:bg-action-hover',
               !isActive && !disabled && 'hover:bg-surface-segment-hover',
               disabled && 'cursor-not-allowed aria-disabled:opacity-45',
               disabled && !isActive && 'aria-disabled:bg-transparent',
               disabled &&
                 isActive &&
-                'aria-disabled:border-border-segment-active aria-disabled:bg-action! aria-disabled:text-white',
+                'aria-disabled:border-segment-active aria-disabled:bg-action! aria-disabled:text-on-color',
               buttonClassName,
             )}
             active={isActive}

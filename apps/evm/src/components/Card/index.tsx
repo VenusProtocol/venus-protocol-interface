@@ -18,9 +18,9 @@ export const Card: React.FC<CardProps> = ({
     <Comp
       className={cn(
         'block w-full rounded-lg p-4 border',
-        variant === 'primary' && 'border-dark-blue-hover bg-background-active',
+        variant === 'primary' && 'border-card bg-card',
         variant === 'glass' &&
-          'relative isolate border-border-glass bg-surface-glass shadow-glass before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-glass',
+          'relative isolate border-glass bg-surface-glass shadow-glass before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-glass',
         className,
       )}
       {...otherProps}

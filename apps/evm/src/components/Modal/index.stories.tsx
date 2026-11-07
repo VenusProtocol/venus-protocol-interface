@@ -67,8 +67,8 @@ ModalWithCustomClasses.args = {
   isOpen: true,
   children: <ModalContent />,
   title: <>Title component</>,
-  backdropClassName: 'bg-dark-blue/40',
-  buttonClassName: 'text-blue hover:text-blue-light',
+  backdropClassName: 'bg-surface-3/40',
+  buttonClassName: 'text-brand hover:text-blue-light',
   className: 'max-w-100 border-light-blue',
   rootClassName: 'p-4',
 };

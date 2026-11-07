@@ -1,3 +1,6 @@
+@import './themes/dark.css';
+@import './themes/light.css';
+
 @layer base {
   :root {
     /* The next colors are taken from the UI kit in Figma */
@@ -57,18 +60,93 @@
     --color-darkBlue-rgb: 27 67 152;
     --color-greyBlue-rgb: 42 52 77;
 
-    --accent-highlight: #398cfa;
-    --accent-strong: #2469d8;
-    --accent: #307fee;
-    --accent-deep: #2168d6;
-    --accent-highlight-hover: #529dff;
-    --accent-strong-hover: #2a77eb;
-    --accent-hover: #398cfa;
-    --accent-deep-hover: #2875e6;
-
-    --elevation-tint-rgb: 255 255 255;
-    --elevation-shade-rgb: 0 0 0;
+    --theme-card-bg: var(--theme-bg-surface-1);
+    --theme-card-border: var(--theme-border-default);
+    --theme-table-header-bg: var(--theme-bg-surface-1);
+    --theme-toggle-track-bg: var(--theme-bg-neutral);
+    --theme-toggle-knob-bg: var(--theme-bg-neutral-bold);
+    --theme-select-border: transparent;
   }
+}
+
+@theme inline {
+  --text-color-primary: rgb(var(--theme-fg-primary));
+  --text-color-secondary: rgb(var(--theme-fg-secondary));
+  --text-color-secondary-hover: rgb(var(--theme-fg-secondary-hover));
+  --text-color-tertiary: rgb(var(--theme-fg-tertiary));
+  --text-color-on-color: rgb(var(--theme-fg-on-color));
+  --text-color-on-bright: rgb(var(--theme-fg-on-bright));
+  --text-color-brand: rgb(var(--theme-fg-brand));
+  --text-color-brand-hover: rgb(var(--theme-fg-brand-hover));
+  --text-color-brand-active: rgb(var(--theme-fg-brand-active));
+  --text-color-brand-strong: rgb(var(--theme-fg-brand-strong));
+  --text-color-success: rgb(var(--theme-fg-success));
+  --text-color-danger: rgb(var(--theme-fg-danger));
+  --text-color-warning: rgb(var(--theme-fg-warning));
+  --text-color-caution: rgb(var(--theme-fg-caution));
+
+  --fill-primary: rgb(var(--theme-fg-primary));
+  --fill-success: rgb(var(--theme-fg-success));
+  --stroke-primary: rgb(var(--theme-fg-primary));
+  --stroke-secondary: rgb(var(--theme-fg-secondary));
+
+  --background-color-canvas: rgb(var(--theme-bg-canvas));
+  --background-color-surface-1: rgb(var(--theme-bg-surface-1));
+  --background-color-surface-2: rgb(var(--theme-bg-surface-2));
+  --background-color-surface-3: rgb(var(--theme-bg-surface-3));
+  --background-color-surface-4: rgb(var(--theme-bg-surface-4));
+  --background-color-input: rgb(var(--theme-bg-input));
+  --background-color-input-focus: rgb(var(--theme-bg-input-focus));
+  --background-color-hover: rgb(var(--theme-bg-hover));
+  --background-color-hover-subtle: rgb(var(--theme-bg-hover-subtle));
+  --background-color-selected: rgb(var(--theme-bg-selected));
+  --background-color-selected-subtle: rgb(var(--theme-bg-selected-subtle));
+  --background-color-neutral: rgb(var(--theme-bg-neutral));
+  --background-color-neutral-hover: rgb(var(--theme-bg-neutral-hover));
+  --background-color-neutral-subtle: rgb(var(--theme-bg-neutral-subtle));
+  --background-color-neutral-bold: rgb(var(--theme-bg-neutral-bold));
+  --background-color-inverse: rgb(var(--theme-bg-inverse));
+  --background-color-disabled: rgb(var(--theme-bg-disabled));
+  --background-color-brand: rgb(var(--theme-bg-brand));
+  --background-color-brand-pressed: rgb(var(--theme-bg-brand-pressed));
+  --background-color-success: rgb(var(--theme-bg-success));
+  --background-color-danger: rgb(var(--theme-bg-danger));
+  --background-color-warning: rgb(var(--theme-bg-warning));
+  --background-color-caution: rgb(var(--theme-bg-caution));
+
+  --border-color-default: rgb(var(--theme-border-default));
+  --border-color-muted: rgb(var(--theme-border-muted));
+  --border-color-secondary: rgb(var(--theme-border-secondary));
+  --border-color-strong: rgb(var(--theme-border-strong));
+  --border-color-neutral: rgb(var(--theme-border-neutral));
+  --border-color-bold: rgb(var(--theme-border-bold));
+  --border-color-control: rgb(var(--theme-border-control));
+  --border-color-faint: rgb(var(--theme-border-faint));
+  --border-color-inverse: rgb(var(--theme-border-inverse));
+  --border-color-brand: rgb(var(--theme-border-brand));
+  --border-color-success: rgb(var(--theme-border-success));
+  --border-color-danger: rgb(var(--theme-border-danger));
+  --border-color-warning: rgb(var(--theme-border-warning));
+  --border-color-caution: rgb(var(--theme-border-caution));
+  --border-color-subtle: var(--color-border-subtle);
+  --border-color-glass: var(--color-border-glass);
+  --border-color-raised: var(--color-border-raised);
+  --border-color-segment-active: var(--color-border-segment-active);
+
+  --outline-color-brand: rgb(var(--theme-border-brand));
+
+  --background-color-card: rgb(var(--theme-card-bg));
+  --border-color-card: rgb(var(--theme-card-border));
+  --background-color-table-header: rgb(var(--theme-table-header-bg));
+  --background-color-toggle-track: rgb(var(--theme-toggle-track-bg));
+  --background-color-toggle-knob: rgb(var(--theme-toggle-knob-bg));
+  --border-color-select: var(--theme-select-border);
+  --background-color-table-row-hover: var(--color-surface-row-hover);
+  --background-color-modal: var(--color-surface-popup);
+  --background-color-popover: var(--color-surface-popup);
+  --border-color-tooltip: var(--theme-tooltip-border);
+  --text-color-boost: rgb(var(--theme-boost-fg));
+  --stroke-tooltip: var(--theme-tooltip-border);
 }
 
 @theme {
@@ -289,6 +367,7 @@
     #76a8ff 75%,
     #4b89ff 100%
   );
+  --background-image-prime-text: linear-gradient(26deg, #674031 -49.72%, #ffece3 85.68%, #6d4637 221.08%, #ffece3 383.56%);
   --background-image-pearl-text: linear-gradient(
     180deg,
     #c5d8ed 0%,

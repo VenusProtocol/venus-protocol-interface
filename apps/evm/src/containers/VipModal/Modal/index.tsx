@@ -37,7 +37,7 @@ const Modal: React.FC = () => {
           </div>
         </div>
 
-        <p className="text-p2s text-center text-light-grey">{t('vipModal.description')}</p>
+        <p className="text-p2s text-center text-secondary">{t('vipModal.description')}</p>
 
         <div className="flex flex-col gap-y-3">
           <VipTelegramGroupButton onClick={handleClose} />

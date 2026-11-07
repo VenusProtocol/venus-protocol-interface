@@ -398,7 +398,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
                   !isSubmitting &&
                   !!formError &&
                   formError.code !== 'HIGHER_THAN_BORROW_BALANCE' ? (
-                    <p className="text-red">{formError.message}</p>
+                    <p className="text-danger">{formError.message}</p>
                   ) : undefined
                 }
               />
@@ -409,7 +409,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
                   data-testid={TEST_IDS.availableAmount}
                 >
                   <button
-                    className="transition-colors cursor-pointer hover:text-blue"
+                    className="transition-colors cursor-pointer hover:text-brand"
                     type="button"
                     onClick={handleMaxCollateralButtonClick}
                   >
@@ -421,7 +421,10 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
 
             <Icon
               name="arrowRightFull"
-              className={cn('rotate-90 size-6 mb-1 mx-auto text-grey', !accountAddress && 'mt-7')}
+              className={cn(
+                'rotate-90 size-6 mb-1 mx-auto text-secondary',
+                !accountAddress && 'mt-7',
+              )}
             />
 
             <TokenTextField
@@ -449,7 +452,7 @@ export const RepayWithCollateralForm: React.FC<RepayWithCollateralFormProps> = (
               }
               description={
                 !isSubmitting && !!formError && formError.code === 'HIGHER_THAN_BORROW_BALANCE' ? (
-                  <p className="text-red">{formError.message}</p>
+                  <p className="text-danger">{formError.message}</p>
                 ) : undefined
               }
               rightMaxButton={{

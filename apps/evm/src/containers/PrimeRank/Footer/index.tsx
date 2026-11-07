@@ -24,13 +24,13 @@ export const Footer: React.FC<FooterProps> = ({ hideLeaderboardLink }) => {
     : { rankLabel: '#—', primeScoreLabel: '—' };
 
   const leaderboardLink = !hideLeaderboardLink && (
-    <span className="text-white">
+    <span className="text-primary">
       {' '}
       <Trans
         i18nKey="primeLeaderboard.rankFooter.learnMore"
         components={{
           LeaderboardLink: (
-            <Link className="text-blue underline" to={routes.primeLeaderboard.path} />
+            <Link className="text-brand underline" to={routes.primeLeaderboard.path} />
           ),
         }}
       />
@@ -38,26 +38,26 @@ export const Footer: React.FC<FooterProps> = ({ hideLeaderboardLink }) => {
   );
 
   return (
-    <div className="flex flex-col gap-1 rounded-lg border border-dark-blue-hover p-3">
+    <div className="flex flex-col gap-1 rounded-lg border border-default p-3">
       {accountAddress && isLoading ? (
         <Spinner />
       ) : (
         <>
           <div className="flex items-start justify-between">
             <div className="flex flex-col">
-              <span className="text-b1r text-light-grey">
+              <span className="text-b1r text-secondary">
                 {t('primeLeaderboard.rankCard.rankLabel')}
               </span>
 
-              <span className="text-p1s text-white">{rankLabel}</span>
+              <span className="text-p1s text-primary">{rankLabel}</span>
             </div>
 
             <div className="flex flex-col items-end">
-              <span className="text-b1r text-light-grey">
+              <span className="text-b1r text-secondary">
                 {t('primeLeaderboard.rankCard.primeScoreLabel')}
               </span>
 
-              <span className="text-p1s text-white">{primeScoreLabel}</span>
+              <span className="text-p1s text-primary">{primeScoreLabel}</span>
             </div>
           </div>
 
@@ -69,7 +69,7 @@ export const Footer: React.FC<FooterProps> = ({ hideLeaderboardLink }) => {
               linkSlot={leaderboardLink}
             />
           ) : (
-            <p className="text-b1r text-light-grey">
+            <p className="text-b1r text-secondary">
               {t('primeLeaderboard.rankFooter.connectPrompt')}
               {leaderboardLink}
             </p>

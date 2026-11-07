@@ -8,11 +8,14 @@ export interface WarningProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Warning: React.FC<WarningProps> = ({ variant, ...otherProps }) => (
   <div
     className={cn(
-      'w-4 h-4 rounded-full flex items-center justify-center absolute top-[-2px] right-[-2px] border-2 border-cards',
-      variant === 'warning' ? 'bg-orange' : 'bg-red',
+      'w-4 h-4 rounded-full flex items-center justify-center absolute top-[-2px] right-[-2px] border-2 border-control',
+      variant === 'warning' ? 'bg-caution' : 'bg-danger',
     )}
     {...otherProps}
   >
-    <Icon name={variant === 'warning' ? 'exclamation' : 'close'} className="w-2 h-2 text-white" />
+    <Icon
+      name={variant === 'warning' ? 'exclamation' : 'close'}
+      className="w-2 h-2 text-on-color"
+    />
   </div>
 );

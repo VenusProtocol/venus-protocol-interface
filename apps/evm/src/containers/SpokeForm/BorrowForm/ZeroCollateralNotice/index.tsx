@@ -12,7 +12,7 @@ export const ZeroCollateralNotice: React.FC<ZeroCollateralNoticeProps> = ({
   const { Trans } = useTranslation();
 
   return (
-    <p className="text-b1r text-grey">
+    <p className="text-b1r text-secondary">
       <Trans
         i18nKey="spokeForm.borrow.zeroCollateralNotice"
         values={{ tokenSymbol }}
@@ -20,7 +20,7 @@ export const ZeroCollateralNotice: React.FC<ZeroCollateralNoticeProps> = ({
           SupplyLink: (
             <button
               type="button"
-              className="text-blue cursor-pointer underline"
+              className="text-brand cursor-pointer underline"
               onClick={onSupplyClick}
             />
           ),

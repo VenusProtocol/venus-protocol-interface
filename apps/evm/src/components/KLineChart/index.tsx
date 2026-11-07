@@ -42,7 +42,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
   const intervalOptions = Object.values(ApiOhlcInterval).map<SelectOption<ApiOhlcInterval>>(
     intervalOption => ({
       label: ({ isRenderedInButton }) => (
-        <span className={cn(isRenderedInButton && 'text-light-grey')}>{intervalOption}</span>
+        <span className={cn(isRenderedInButton && 'text-secondary')}>{intervalOption}</span>
       ),
       value: intervalOption,
     }),
@@ -194,7 +194,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
   return (
     <>
       <div
-        className="bg-dark-blue w-full h-full min-h-0 flex flex-col"
+        className="bg-surface-3 w-full h-full min-h-0 flex flex-col"
         ref={fullScreenContainerRef}
       >
         <div className="relative z-10 flex items-center justify-between px-3 py-1">
@@ -204,7 +204,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
               value={interval}
               onChange={newInterval => onIntervalChange(newInterval as ApiOhlcInterval)}
               size="small"
-              buttonClassName="py-0 px-2 h-7 bg-dark-blue-active"
+              buttonClassName="py-0 px-2 h-7 bg-surface-4"
               modalPortalContainer={isFullScreenMode ? fullScreenContainerRef.current : undefined}
             />
 
@@ -213,7 +213,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
             <button
               type="button"
               onClick={showDisclaimerModal}
-              className="cursor-pointer transition-colors text-b1r text-light-grey hover:text-blue"
+              className="cursor-pointer transition-colors text-b1r text-secondary hover:text-brand"
             >
               {t('kLineChart.disclaimer.buttonLabel')}
             </button>
@@ -223,7 +223,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
             <button
               type="button"
               onClick={toggleFullScreenMode}
-              className="cursor-pointer text-light-grey hover:text-blue"
+              className="cursor-pointer text-secondary hover:text-brand"
             >
               <Icon name="fullScreen" className="size-6 transition-colors text-inherit" />
             </button>

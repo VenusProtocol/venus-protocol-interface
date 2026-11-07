@@ -26,11 +26,11 @@ export const Notice = ({
 }: NoticeProps) => (
   <div
     className={cn(
-      'relative bg-background rounded-lg border transition-colors overflow-hidden',
-      (variant === 'info' || variant === 'loading') && 'border-lightGrey',
-      variant === 'error' && 'border-red',
-      variant === 'success' && 'border-green',
-      variant === 'warning' && 'border-orange',
+      'relative bg-surface-2 rounded-lg border transition-colors overflow-hidden',
+      (variant === 'info' || variant === 'loading') && 'border-muted',
+      variant === 'error' && 'border-danger',
+      variant === 'success' && 'border-success',
+      variant === 'warning' && 'border-caution',
       className,
     )}
     {...otherProps}
@@ -39,10 +39,10 @@ export const Notice = ({
       className={cn(
         'flex transition-colors ease-linear px-3 py-2',
         size === 'md' && 'md:px-4 md:py-3',
-        variant === 'info' && 'bg-blue/5',
-        variant === 'error' && 'bg-red/5',
-        variant === 'success' && 'bg-green/5',
-        variant === 'warning' && 'bg-orange/5',
+        variant === 'info' && 'bg-brand/5',
+        variant === 'error' && 'bg-danger/5',
+        variant === 'success' && 'bg-success/5',
+        variant === 'warning' && 'bg-caution/5',
       )}
     >
       <div className="flex grow overflow-hidden">
@@ -54,10 +54,10 @@ export const Notice = ({
               className={cn(
                 'h-4 w-4',
                 size === 'md' && 'md:h-5 md:w-5',
-                variant === 'info' && 'text-blue',
-                variant === 'error' && 'text-red',
-                variant === 'success' && 'text-green',
-                variant === 'warning' && 'text-orange',
+                variant === 'info' && 'text-brand',
+                variant === 'error' && 'text-danger',
+                variant === 'success' && 'text-success',
+                variant === 'warning' && 'text-caution',
               )}
               name={iconMapping[variant]}
             />
@@ -75,7 +75,7 @@ export const Notice = ({
 
       {onClose && (
         <TextButton className="group h-5 p-0" onClick={onClose}>
-          <Icon name="close" className="group-hover:text-white h-5 w-5 transition-colors" />
+          <Icon name="close" className="group-hover:text-primary h-5 w-5 transition-colors" />
         </TextButton>
       )}
     </div>

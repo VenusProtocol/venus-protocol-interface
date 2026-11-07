@@ -15,12 +15,12 @@ export const PendleVaultBanner: React.FC = () => {
         <div className="flex flex-col gap-y-0.5">
           <p className="font-semibold text-sm lg:text-base">{t('pendleVaultBanner.title')}</p>
 
-          <p className="text-xs text-grey lg:text-sm">
+          <p className="text-xs text-secondary lg:text-sm">
             {
               <Trans
                 i18nKey="pendleVaultBanner.description"
                 components={{
-                  White: <span className="text-white" />,
+                  White: <span className="text-primary" />,
                 }}
               />
             }

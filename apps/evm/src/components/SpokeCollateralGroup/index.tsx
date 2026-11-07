@@ -43,7 +43,7 @@ export const SpokeCollateralGroup = <TCollateral extends Collateral>({
 
           {collateral.isInactive && (
             <InfoIcon
-              iconClassName="text-orange"
+              iconClassName="text-caution"
               iconName="attention"
               tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
             />
@@ -57,7 +57,7 @@ export const SpokeCollateralGroup = <TCollateral extends Collateral>({
       selectOptionLabel: t('spokeCollateralGroup.maxLtv'),
       align: 'right',
       renderCell: collateral => (
-        <span className={cn(collateral.isInactive && 'text-grey')}>
+        <span className={cn(collateral.isInactive && 'text-secondary')}>
           {formatPercentageToReadableValue(collateral.collateralFactor * 100)}
         </span>
       ),

@@ -14,8 +14,8 @@ export const RewardGroupFrame: React.FC<RewardGroupFrameProps> = ({
   title,
 }: RewardGroupFrameProps) => {
   return (
-    <div className={cn('rounded-lg border border-border-subtle p-4', className)}>
-      <div className="border-border-subtle flex items-center justify-between border-b pb-4 mb-4">
+    <div className={cn('rounded-lg border border-subtle p-4', className)}>
+      <div className="border-subtle flex items-center justify-between border-b pb-4 mb-4">
         <p className="text-lg">{title}</p>
         {claimComponent}
       </div>

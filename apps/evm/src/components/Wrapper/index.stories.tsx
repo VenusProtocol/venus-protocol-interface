@@ -6,7 +6,7 @@ const meta = {
   title: 'Components/Wrapper',
   component: Wrapper,
   args: {
-    children: <div className="rounded-lg bg-dark-blue p-6">Wrapped content</div>,
+    children: <div className="rounded-lg bg-surface-3 p-6">Wrapped content</div>,
   },
 } satisfies Meta<typeof Wrapper>;
 

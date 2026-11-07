@@ -52,13 +52,13 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
           <button
             type="button"
             onClick={() => onSelect(market)}
-            className="cursor-pointer text-left font-normal text-white group-hover:font-semibold hover:text-blue focus-visible:outline-2 focus-visible:outline-blue max-md:min-h-11"
+            className="cursor-pointer text-left font-normal text-primary group-hover:font-semibold hover:text-brand focus-visible:outline-2 focus-visible:outline-brand max-md:min-h-11"
           >
             {getMarketName(market)}
           </button>
 
           {isMobile && (
-            <div className="mt-1 flex flex-wrap items-center gap-1 text-xs text-grey">
+            <div className="mt-1 flex flex-wrap items-center gap-1 text-xs text-secondary">
               <span>{t('lite.columns.collateral')}</span>
 
               {renderCollaterals(market)}

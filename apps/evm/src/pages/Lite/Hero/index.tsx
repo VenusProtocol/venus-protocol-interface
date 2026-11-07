@@ -9,7 +9,7 @@ export const Hero: React.FC = () => {
         {t('lite.title')}
       </h1>
 
-      <p className="lite-enter lite-enter--subtitle mt-1 text-b1r text-light-grey text-balance">
+      <p className="lite-enter lite-enter--subtitle mt-1 text-b1r text-secondary text-balance">
         {t('lite.description')}
       </p>
     </div>
