@@ -137,7 +137,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
           <Button
             onClick={handleToggleDropdown}
             className={cn(
-              'relative w-full font-normal hover:font-semibold',
+              'relative w-full font-normal text-primary hover:font-semibold',
               isDropdownOpen && 'font-semibold',
               getVariantClasses({ variant, isDropdownOpen }),
               buttonSizeClasses,

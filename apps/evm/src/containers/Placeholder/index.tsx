@@ -41,7 +41,7 @@ export const Placeholder: React.FC<PlaceholderProps> = ({
           </div>
 
           {!!accountAddress && !!to && !!buttonLabel && (
-            <ButtonWrapper className="text-primary hover:no-underline" size="xs" asChild>
+            <ButtonWrapper className="text-on-color hover:no-underline" size="xs" asChild>
               <Link noStyle to={to}>
                 {buttonLabel}
               </Link>

@@ -93,7 +93,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
             isDropdownOpen && 'font-semibold',
           )}
           className={cn(
-            'group/trigger relative w-full rounded-lg border-transparent bg-input bg-linear-to-b from-surface-raised to-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-transparent hover:bg-input active:bg-input',
+            'group/trigger relative w-full rounded-lg border-transparent bg-input text-primary bg-linear-to-b from-surface-raised to-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-transparent hover:bg-input active:bg-input',
             size === 'xs' ? 'h-10 px-3' : 'h-12 px-4',
             isDropdownOpen && 'border-brand hover:border-brand',
             value.length > 0 && 'border-brand',
