@@ -65,6 +65,7 @@
     --theme-table-header-bg: var(--theme-bg-surface-1);
     --theme-toggle-track-bg: var(--theme-bg-neutral);
     --theme-toggle-knob-bg: var(--theme-bg-neutral-bold);
+    --theme-select-border: transparent;
   }
 }
 
@@ -139,6 +140,7 @@
   --background-color-table-header: rgb(var(--theme-table-header-bg));
   --background-color-toggle-track: rgb(var(--theme-toggle-track-bg));
   --background-color-toggle-knob: rgb(var(--theme-toggle-knob-bg));
+  --border-color-select: var(--theme-select-border);
   --background-color-table-row-hover: var(--color-surface-row-hover);
   --background-color-modal: var(--color-surface-popup);
   --background-color-popover: var(--color-surface-popup);

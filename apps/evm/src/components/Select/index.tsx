@@ -72,7 +72,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
         // primary
         default:
           return cn(
-            'rounded-lg border-transparent bg-input bg-linear-to-b from-surface-raised to-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-transparent hover:bg-input active:bg-input',
+            'rounded-lg border-select bg-input bg-linear-to-b from-surface-raised to-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-select hover:bg-input active:bg-input',
             isDropdownOpen && 'border-brand hover:border-brand',
           );
       }
