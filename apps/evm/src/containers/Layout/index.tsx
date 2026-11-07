@@ -84,8 +84,6 @@ export const Layout: React.FC = () => {
       <div className="h-dvh flex flex-col bg-background-active">
         <Starfield />
 
-        <TestEnvWarning className="relative shrink-0" />
-
         <div className="relative flex min-h-0 grow flex-col">
           <NavBar
             className={cn(
@@ -99,6 +97,8 @@ export const Layout: React.FC = () => {
             id={PAGE_CONTAINER_ID}
             onScroll={handleScroll}
           >
+            <TestEnvWarning className="relative shrink-0" />
+
             <Header />
 
             <div className="relative flex grow flex-col">
