@@ -1,8 +1,12 @@
 import { ButtonGroup, Icon } from 'components';
+import { type Theme, useTheme } from 'hooks/useTheme';
 import { useTranslation } from 'libs/translations';
+
+const THEMES: Theme[] = ['dark', 'light'];
 
 export const ThemeSetting: React.FC = () => {
   const { t } = useTranslation();
+  const { theme, setTheme } = useTheme();
 
   const themes = [
     { iconName: 'moon' as const, label: t('layout.menu.settings.theme.dark') },
@@ -15,15 +19,14 @@ export const ThemeSetting: React.FC = () => {
 
       <ButtonGroup
         ariaLabel={t('layout.menu.settings.theme.label')}
-        buttonLabels={themes.map(theme => (
+        buttonLabels={themes.map(item => (
           <>
-            <Icon name={theme.iconName} className="size-5 text-inherit" />
-            <span className="sr-only">{theme.label}</span>
+            <Icon name={item.iconName} className="size-5 text-inherit" />
+            <span className="sr-only">{item.label}</span>
           </>
         ))}
-        activeButtonIndex={0}
-        onButtonClick={() => {}}
-        disabled
+        activeButtonIndex={THEMES.indexOf(theme)}
+        onButtonClick={index => setTheme(THEMES[index])}
         buttonClassName="h-10 w-11 px-0"
       />
     </div>

@@ -1,0 +1,114 @@
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --accent-highlight: #2c6fd6;
+  --accent-strong: #2059be;
+  --accent: #2468cf;
+  --accent-deep: #1e55b4;
+  --accent-highlight-hover: #2c6fd6;
+  --accent-strong-hover: #205fc4;
+  --accent-hover: #2468cf;
+  --accent-deep-hover: #2059be;
+
+  --elevation-tint-rgb: 255 255 255;
+  --elevation-shade-rgb: 31 53 83;
+  --scrollbar-thumb-rgb: 0 0 0;
+  --scrollbar-thumb-alpha: 12%;
+  --scrollbar-thumb-hover-alpha: 22%;
+
+  --theme-fg-primary: 23 38 61;
+  --theme-fg-secondary: 83 98 122;
+  --theme-fg-secondary-hover: 23 38 61;
+  --theme-fg-tertiary: 183 196 213;
+  --theme-fg-on-color: 255 255 255;
+  --theme-fg-on-bright: 24 26 32;
+  --theme-fg-brand: 36 100 203;
+  --theme-fg-brand-hover: 32 95 196;
+  --theme-fg-brand-active: 30 85 180;
+  --theme-fg-brand-strong: 30 85 180;
+  --theme-fg-success: 0 129 94;
+  --theme-fg-danger: 191 48 69;
+  --theme-fg-warning: 146 97 9;
+  --theme-fg-caution: 184 77 8;
+
+  --theme-bg-canvas: 244 247 251;
+  --theme-bg-surface-1: 251 252 254;
+  --theme-bg-surface-2: 247 249 252;
+  --theme-bg-surface-3: 255 255 255;
+  --theme-bg-surface-4: 237 242 248;
+  --theme-bg-input: 247 249 252;
+  --theme-bg-input-focus: 255 255 255;
+  --theme-bg-hover: 230 238 249;
+  --theme-bg-hover-subtle: 242 244 247;
+  --theme-bg-selected: 230 238 249;
+  --theme-bg-selected-subtle: 237 242 248;
+  --theme-bg-neutral: 212 221 232;
+  --theme-bg-neutral-hover: 183 196 213;
+  --theme-bg-neutral-subtle: 237 242 248;
+  --theme-bg-neutral-bold: 91 107 131;
+  --theme-bg-inverse: 23 38 61;
+  --theme-bg-disabled: 228 234 242;
+  --theme-bg-brand: 36 100 203;
+  --theme-bg-brand-pressed: 30 85 180;
+  --theme-bg-success: 0 129 94;
+  --theme-bg-danger: 191 48 69;
+  --theme-bg-warning: 146 97 9;
+  --theme-bg-caution: 184 77 8;
+
+  --theme-border-default: 212 221 232;
+  --theme-border-muted: 212 221 232;
+  --theme-border-secondary: 228 234 242;
+  --theme-border-strong: 183 196 213;
+  --theme-border-neutral: 228 234 242;
+  --theme-border-bold: 91 107 131;
+  --theme-border-control: 212 221 232;
+  --theme-border-faint: 237 242 248;
+  --theme-border-inverse: 23 38 61;
+  --theme-border-brand: 36 100 203;
+  --theme-border-success: 0 129 94;
+  --theme-border-danger: 191 48 69;
+  --theme-border-warning: 146 97 9;
+  --theme-border-caution: 184 77 8;
+
+  --theme-tooltip-border: rgb(36 100 203);
+  --theme-toggle-track-bg: 202 212 225;
+  --theme-toggle-knob-bg: 255 255 255;
+  --theme-boost-fg: 13 128 120;
+
+  --color-surface-glass: rgb(251 252 254);
+  --color-surface-raised: rgb(255 255 255 / 55%);
+  --color-surface-popup: rgb(251 253 255 / 96%);
+  --color-surface-tooltip: rgb(251 252 254);
+  --color-surface-input: rgb(237 242 248);
+  --color-surface-row-hover: rgb(30 55 85 / 4%);
+  --color-surface-segment-hover: rgb(230 238 249);
+
+  --color-border-glass: rgb(212 221 232);
+  --color-border-raised: rgb(212 221 232);
+  --color-border-subtle: rgb(0 0 0 / 6%);
+
+  --background-image-row-hover: linear-gradient(rgb(30 55 85 / 5%), rgb(30 55 85 / 4%));
+  --background-image-menu: linear-gradient(125deg, rgb(255 255 255 / 35%), transparent 65%),
+    linear-gradient(rgb(251 253 255 / 96%) 0 100%);
+  --background-image-tooltip: linear-gradient(rgb(251 252 254) 0 100%);
+  --background-image-hero-text: linear-gradient(115deg, #1460ff, #2873ff 48%, #1557ed);
+  --background-image-page-title: linear-gradient(115deg, #1460ff, #2873ff 48%, #1557ed);
+  --background-image-pearl-text: linear-gradient(
+    180deg,
+    #405a7a,
+    #5e7594 25%,
+    #405a7a 50%,
+    #5e7594 75%,
+    #405a7a
+  );
+  --background-image-prime-text: linear-gradient(26deg, #72452e, #986447 50%, #72452e);
+
+  --shadow: 0 4px 15px 0 rgb(31 53 83 / 12%);
+  --shadow-glass: 0 4px 12px -4px rgb(31 53 83 / 10%);
+  --shadow-raised: inset 0 1px 0 rgb(255 255 255 / 90%), inset 0 -1px 0 rgb(45 78 110 / 12%),
+    0 2px 6px rgb(30 55 85 / 7%);
+  --shadow-segment-track: inset 0 1px 2px rgb(31 53 83 / 7%);
+  --shadow-popup: inset 0 1px 0 rgb(255 255 255 / 90%), 0 24px 64px -20px rgb(31 53 83 / 24%);
+  --shadow-menu: inset 0 1px 0 rgb(255 255 255 / 90%), 0 12px 40px -12px rgb(31 53 83 / 18%);
+  --shadow-input: inset 0 1px 3px rgb(31 53 83 / 9%);
+}

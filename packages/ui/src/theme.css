@@ -1,4 +1,5 @@
 @import './themes/dark.css';
+@import './themes/light.css';
 
 @layer base {
   :root {
@@ -62,6 +63,8 @@
     --theme-card-bg: var(--theme-bg-surface-1);
     --theme-card-border: var(--theme-border-default);
     --theme-table-header-bg: var(--theme-bg-surface-1);
+    --theme-toggle-track-bg: var(--theme-bg-neutral);
+    --theme-toggle-knob-bg: var(--theme-bg-neutral-bold);
   }
 }
 
@@ -83,6 +86,7 @@
 
   --fill-primary: rgb(var(--theme-fg-primary));
   --fill-success: rgb(var(--theme-fg-success));
+  --stroke-primary: rgb(var(--theme-fg-primary));
   --stroke-secondary: rgb(var(--theme-fg-secondary));
 
   --background-color-canvas: rgb(var(--theme-bg-canvas));
@@ -133,9 +137,14 @@
   --background-color-card: rgb(var(--theme-card-bg));
   --border-color-card: rgb(var(--theme-card-border));
   --background-color-table-header: rgb(var(--theme-table-header-bg));
+  --background-color-toggle-track: rgb(var(--theme-toggle-track-bg));
+  --background-color-toggle-knob: rgb(var(--theme-toggle-knob-bg));
   --background-color-table-row-hover: var(--color-surface-row-hover);
   --background-color-modal: var(--color-surface-popup);
   --background-color-popover: var(--color-surface-popup);
+  --border-color-tooltip: var(--theme-tooltip-border);
+  --text-color-boost: rgb(var(--theme-boost-fg));
+  --stroke-tooltip: var(--theme-tooltip-border);
 }
 
 @theme {
@@ -356,6 +365,7 @@
     #76a8ff 75%,
     #4b89ff 100%
   );
+  --background-image-prime-text: linear-gradient(26deg, #674031 -49.72%, #ffece3 85.68%, #6d4637 221.08%, #ffece3 383.56%);
   --background-image-pearl-text: linear-gradient(
     180deg,
     #c5d8ed 0%,

@@ -2,6 +2,7 @@ import { cn } from '@venusprotocol/ui';
 
 import venusLogoSrc from 'assets/img/venusLogo.svg';
 import venusLogoWithTextSrc from 'assets/img/venusLogoWithText.svg';
+import venusLogoWithTextLightSrc from 'assets/img/venusLogoWithTextLight.svg';
 import { Delimiter, Icon } from 'components';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
@@ -85,7 +86,13 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
             <img
               src={venusLogoWithTextSrc}
               alt={t('layout.menu.venusLogoAlt')}
-              className="h-8 hidden sm:block"
+              className="h-8 hidden sm:block sm:light:hidden"
+            />
+
+            <img
+              src={venusLogoWithTextLightSrc}
+              alt={t('layout.menu.venusLogoAlt')}
+              className="h-8 hidden sm:light:block"
             />
           </Link>
 
