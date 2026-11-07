@@ -21,6 +21,8 @@
   --theme-fg-tertiary: var(--color-lightGrey-rgb);
   --theme-fg-on-color: var(--color-white-rgb);
   --theme-fg-on-bright: var(--color-background-rgb);
+  --theme-fg-on-color-secondary: var(--color-light-grey-rgb);
+  --theme-fg-on-emphasis: var(--color-background-rgb);
   --theme-fg-brand: var(--color-blue-rgb);
   --theme-fg-brand-hover: var(--color-blue-hover-rgb);
   --theme-fg-brand-active: var(--color-blue-active-rgb);

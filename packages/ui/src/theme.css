@@ -66,6 +66,8 @@
     --theme-toggle-track-bg: var(--theme-bg-neutral);
     --theme-toggle-knob-bg: var(--theme-bg-neutral-bold);
     --theme-select-border: transparent;
+    --theme-merkl-border: #ffe4aa;
+    --theme-merkl-border-hover: #ffd370;
   }
 }
 
@@ -76,6 +78,8 @@
   --text-color-tertiary: rgb(var(--theme-fg-tertiary));
   --text-color-on-color: rgb(var(--theme-fg-on-color));
   --text-color-on-bright: rgb(var(--theme-fg-on-bright));
+  --text-color-on-color-secondary: rgb(var(--theme-fg-on-color-secondary));
+  --text-color-on-emphasis: rgb(var(--theme-fg-on-emphasis));
   --text-color-brand: rgb(var(--theme-fg-brand));
   --text-color-brand-hover: rgb(var(--theme-fg-brand-hover));
   --text-color-brand-active: rgb(var(--theme-fg-brand-active));
@@ -147,6 +151,8 @@
   --border-color-tooltip: var(--theme-tooltip-border);
   --text-color-boost: rgb(var(--theme-boost-fg));
   --stroke-tooltip: var(--theme-tooltip-border);
+  --border-color-merkl: var(--theme-merkl-border);
+  --border-color-merkl-hover: var(--theme-merkl-border-hover);
 }
 
 @theme {
@@ -368,6 +374,7 @@
     #4b89ff 100%
   );
   --background-image-prime-text: linear-gradient(26deg, #674031 -49.72%, #ffece3 85.68%, #6d4637 221.08%, #ffece3 383.56%);
+  --background-image-merkl-text: linear-gradient(17deg, #ffe4aa 5%, #ffd370 36%, #fae2b6 68%, #f2d081 106%);
   --background-image-pearl-text: linear-gradient(
     180deg,
     #c5d8ed 0%,

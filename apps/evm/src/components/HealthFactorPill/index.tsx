@@ -20,7 +20,7 @@ export const HealthFactorPill: React.FC<HealthFactorPillProps> = ({
   return (
     <div {...otherProps} className={cn('inline-flex items-center justify-center', className)}>
       <div className={cn('flex items-center px-2 rounded-full h-[21px]', bgClass)}>
-        <p className="text-on-bright text-sm font-semibold">
+        <p className="text-on-emphasis text-sm font-semibold">
           {formatHealthFactorToReadableValue({ value: factor })}
         </p>
       </div>

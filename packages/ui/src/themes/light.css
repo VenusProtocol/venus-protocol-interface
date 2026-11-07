@@ -22,6 +22,8 @@
   --theme-fg-tertiary: 183 196 213;
   --theme-fg-on-color: 255 255 255;
   --theme-fg-on-bright: 24 26 32;
+  --theme-fg-on-color-secondary: 170 179 202;
+  --theme-fg-on-emphasis: 255 255 255;
   --theme-fg-brand: 36 100 203;
   --theme-fg-brand-hover: 32 95 196;
   --theme-fg-brand-active: 30 85 180;
@@ -75,6 +77,8 @@
   --theme-toggle-knob-bg: 255 255 255;
   --theme-select-border: rgb(212 221 232);
   --theme-boost-fg: 13 128 120;
+  --theme-merkl-border: #c99a3a;
+  --theme-merkl-border-hover: #a97c22;
 
   --color-surface-glass: rgb(251 252 254);
   --color-surface-raised: rgb(255 255 255 / 55%);
@@ -103,6 +107,7 @@
     #405a7a
   );
   --background-image-prime-text: linear-gradient(26deg, #72452e, #986447 50%, #72452e);
+  --background-image-merkl-text: linear-gradient(17deg, #8a5a0c 5%, #a8740f 36%, #8f6417 68%, #9c6d12 106%);
 
   --shadow: 0 4px 15px 0 rgb(31 53 83 / 12%);
   --shadow-glass: 0 4px 12px -4px rgb(31 53 83 / 10%);

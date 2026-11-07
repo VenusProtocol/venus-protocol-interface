@@ -13,7 +13,7 @@ export const BoostBanner: React.FC = () => {
       className="bg-gradient-to-r from-[#01193A] to-[#0D3CB1]"
       title={<span className="text-on-color">{t('boostBanner.title')}</span>}
       description={
-        <span className="text-secondary">
+        <span className="text-on-color-secondary">
           <Trans
             i18nKey="boostBanner.description"
             components={{

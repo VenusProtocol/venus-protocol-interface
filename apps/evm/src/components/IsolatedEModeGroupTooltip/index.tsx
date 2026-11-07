@@ -20,7 +20,7 @@ export const IsolatedEModeGroupTooltip: React.FC<IsolatedEModeGroupTooltipProps>
     <Tooltip
       className={cn(
         'rounded-full inline-flex items-center gap-1 pl-2 pr-1 cursor-pointer',
-        variant === 'primary' ? 'text-warning bg-warning/[.07]' : 'text-primary bg-inverse/15',
+        variant === 'primary' ? 'text-warning bg-warning/[.07]' : 'text-on-color bg-current/15',
         className,
       )}
       content={t('markets.isolatedEModeGroupTooltip.content', {

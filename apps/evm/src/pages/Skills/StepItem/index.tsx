@@ -5,7 +5,7 @@ interface StepItemProps {
 
 export const StepItem: React.FC<StepItemProps> = ({ step, children }) => (
   <li className="my-4 rounded-md border-l-[3px] border-brand bg-brand/5 px-5 py-4">
-    <span className="mr-3 inline-block h-7 w-7 rounded-full bg-brand text-center text-[0.9rem] leading-7 font-bold text-on-bright">
+    <span className="mr-3 inline-block h-7 w-7 rounded-full bg-brand text-center text-[0.9rem] leading-7 font-bold text-on-emphasis">
       {step}
     </span>
     {children}

@@ -48,7 +48,9 @@ export const MarketsAdBanner: React.FC = () => {
     <div className="w-full px-5 py-4 bg-linear-to-r from-[#01193A] to-[#0D3CB1] flex items-center justify-center">
       <div className="flex items-center gap-x-3">
         <div className="flex flex-col gap-y-1 sm:gap-y-2 lg:flex-row lg:items-center lg:gap-x-3">
-          <p className="text-p3s text-center">{t('layout.header.dashboardAdBanner.title')}</p>
+          <p className="text-p3s text-center text-on-color">
+            {t('layout.header.dashboardAdBanner.title')}
+          </p>
 
           <ButtonWrapper asChild size="xs">
             <Link
@@ -63,7 +65,7 @@ export const MarketsAdBanner: React.FC = () => {
         </div>
 
         <button type="button" className="cursor-pointer" onClick={handleClose} aria-label="Close">
-          <Icon name="close" className="size-5" />
+          <Icon name="close" className="size-5 text-on-color-secondary" />
         </button>
       </div>
     </div>

@@ -1,13 +1,11 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+import { applyTheme } from './applyTheme';
+
 export type Theme = 'dark' | 'light';
 
 export const THEME_STORAGE_KEY = 'venus-theme';
-
-export const applyTheme = (theme: Theme) => {
-  document.documentElement.dataset.theme = theme;
-};
 
 interface State {
   theme: Theme;
