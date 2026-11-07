@@ -24,7 +24,7 @@ export const ProtocolTotals: React.FC = () => {
       {totals.map(total => (
         <div
           key={total.key}
-          className="flex min-h-9 flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-lg border border-raised bg-surface-4/78 px-3 py-1 shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]"
+          className="flex min-h-9 flex-col items-center justify-center gap-x-2 gap-y-0.5 rounded-lg sm:flex-row border border-raised bg-surface-4/78 px-3 py-1 shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]"
         >
           <p className="text-b1r text-secondary">{total.label}</p>
 

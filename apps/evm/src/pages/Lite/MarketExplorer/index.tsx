@@ -52,7 +52,6 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
 
   const { borrowAssets, isLoading: isBorrowLoading, isReady: isBorrowReady } = useBorrowAssets();
 
-  // One source skips the list and opens its form
   const getOnlyMarket = <TMarket,>({
     markets,
     isReady,
