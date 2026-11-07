@@ -53,8 +53,12 @@
     },
     "pools": {
       "placeholder": {
-        "title": "暂无市场持仓"
+        "buttonLabel": "探索市场",
+        "title": "暂无持仓"
       }
+    },
+    "positions": {
+      "label": "持仓"
     },
     "settings": {
       "gaslessTransactions": {
@@ -71,7 +75,7 @@
         },
         "title": "已借款"
       },
-      "corePoolPill": "核心池",
+      "corePoolPill": "Venus Core",
       "summary": {
         "borrowApy": "借款 APY",
         "dailyBorrowInterest": "每日借款利息",
@@ -105,8 +109,7 @@
       "title": "概览"
     },
     "tabs": {
-      "hubs": "中心",
-      "markets": "市场",
+      "hubs": "流动性中心",
       "settings": "设置",
       "transactions": "交易",
       "vaults": "金库"
@@ -192,6 +195,7 @@
     "label": "每日收益"
   },
   "accountModal": {
+    "dashboardButtonLabel": "查看仪表盘",
     "disconnectButtonLabel": "断开连接"
   },
   "accountPoolDailyEarnings": {
@@ -296,10 +300,10 @@
       "tooltip": {
         "calculatorLink": "计算你的 Prime 奖励",
         "liquidityHubCorePoolBoost": "该加成来自 Core 池，不会重复发放。",
-        "primeBorrowSimulation": "Prime 加成基于用户借款平均值 {{borrowBalance}} 与金库存入 {{xvsStaked}} 提升 APY。",
+        "primeBorrowSimulation": "<PrimeLink>Prime 计划</PrimeLink> 加成基于用户借款平均值 {{borrowBalance}} 与金库存入 {{xvsStaked}} 提升 APY。",
         "primeDocLink": "了解更多",
         "primeMarket": "Prime 提升 APY。",
-        "primeSupplySimulation": "Prime 加成基于用户存款平均值 {{supplyBalance}} 与金库存入 {{xvsStaked}} 提升 APY。"
+        "primeSupplySimulation": "<PrimeLink>Prime 计划</PrimeLink> 加成基于用户存款平均值 {{supplyBalance}} 与金库存入 {{xvsStaked}} 提升 APY。"
       }
     }
   },
@@ -519,22 +523,6 @@
     }
   },
   "dashboard": {
-    "guide": {
-      "completed": "已完成",
-      "step1": {
-        "description": "通过存款或将现有持仓迁移到 Venus 协议来赚取收益。",
-        "title": "存款 / 迁移"
-      },
-      "step2": {
-        "description": "活用借贷来应用你的Defi策略，或使用一键杠杆来放大持仓。",
-        "title": "借款 / 杠杆"
-      },
-      "step3": {
-        "description": "将 XVS 供应至金库，赚取由协议收入提供的收益。",
-        "title": "供应 XVS"
-      },
-      "uncompleted": "未完成"
-    },
     "hubs": {
       "apy": "APY",
       "dailyEarnings": "每日收益",
@@ -578,10 +566,12 @@
       "todaysChange": "今日变化"
     },
     "performanceChart": {
+      "balancesHidden": "余额已隐藏",
+      "connectWallet": "连接钱包以查看收益表现",
       "dataPoint": {
         "date": "{{ date, textual }}"
       },
-      "xAxisValue": "{{ date, numeric }}"
+      "xAxisValue": "{{ date, dayMonth }}"
     },
     "previewCard": {
       "apr": "APR",
@@ -787,80 +777,6 @@
     "0": "0%",
     "100": "100%"
   },
-  "landing": {
-    "benefits": {
-      "text1": "直接在链上访问不可篡改的货币市场。",
-      "text2": "所有 Venus Protocol 资产均符合 BEP-20 和 ERC-20 标准。",
-      "text3": "构建于兼容 EVM 的链上，实现快速、安全、低成本交易。",
-      "title1": "去中心化",
-      "title2": "BEP-20/ERC-20",
-      "title3": "全链"
-    },
-    "governance": {
-      "backgroundGradientAlt": "背景插图",
-      "buttonLabel": "治理论坛",
-      "description": "Venus 是由社区驱动的去中心化协议，为加密货币市场提供一流功能。",
-      "proposalCountLegend": "Venus 改进提案已执行并持续增加",
-      "title": "由社区治理的<br />货币市场"
-    },
-    "hero": {
-      "1Year": "1年",
-      "30Day": "30天",
-      "6Month": "6个月",
-      "assets": "资产",
-      "borrow": "借款",
-      "earned": "已赚取",
-      "earnedAmount": "已赚取 {{amount}}",
-      "earnNow": "立即赚取",
-      "from": "来自 {{percentage}}",
-      "highestApy": "最高 APY",
-      "monthNo": "第 {{number}} 个月",
-      "startNow": "立即开始",
-      "subtitle": "适用于任何 DeFi 收益策略的简单而强大的借贷。",
-      "supply": "存款",
-      "supplyTips": "基于 10,000 美元的初始存款，收益/利息按区块复利计算。<Link>了解更多</Link>",
-      "title": "通用<br /><hl>货币市场</hl>",
-      "totalApy": "总 APY",
-      "upToPercentage": "最高 {{percentage}}",
-      "venusTvl": "Venus TVL",
-      "yearlyEarnings": "年收益",
-      "yearlyInterests": "年利息"
-    },
-    "markets": {
-      "button": {
-        "label": "查看更多"
-      },
-      "title": "Venus 顶级市场"
-    },
-    "protection": {
-      "bugBountyAlt": "漏洞赏金插图",
-      "challengeText": "在我们的代码中寻找并报告漏洞即可获得奖励资格。了解更多请阅读我们的漏洞赏金计划。",
-      "challengeTitle": "挑战我们的代码并获得奖励",
-      "protectionAlt": "保护插图",
-      "protectionText": "安全审计、7x24 监控以及强健的风险基金可在异常市场事件中保障协议安全。",
-      "protectionTitle": "安全保障优先"
-    },
-    "safety": {
-      "audit_one": "审计",
-      "audit_other": "审计",
-      "otherAuditors": "+14 次审计，来自 <br />Fairyproof、Hacken 和 HashEx",
-      "scoreAlt": "评分插图",
-      "securityScore": "安全评分",
-      "text": "放心交易，Venus 将您的资产安全置于首位",
-      "title": "安全第一",
-      "venusScored": "Venus 在 Certik 的评估中于 BNB Chain 安全性排名 <Link>第 3</Link>（2021 年 6 月）"
-    },
-    "venusPrime": {
-      "illustrationAlt": "Venus Prime 插图",
-      "imageAlt": "Venus Prime 插图",
-      "learnMore": "了解更多",
-      "text": "Venus Protocol 的高阶用户可铸造 Venus Prime 代币，在 Venus core 池的部分市场享受更优费率。",
-      "title": "<hl>Venus Prime</hl> <br />提升您的回报"
-    },
-    "wallets": {
-      "title": "深受众多用户信赖"
-    }
-  },
   "layout": {
     "chainSelect": {
       "label": "选择链"
@@ -883,13 +799,15 @@
       "supply": "存款",
       "utilizationRate": "利用率"
     },
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "切换到 {{mode}}"
+    },
     "menu": {
       "beta": "beta",
       "borrow": {
         "label": "借款"
-      },
-      "dashboard": {
-        "label": "仪表盘"
       },
       "earn": {
         "label": "赚取"
@@ -938,6 +856,11 @@
         },
         "language": {
           "label": "语言（测试版）"
+        },
+        "theme": {
+          "dark": "深色",
+          "label": "主题",
+          "light": "浅色"
         }
       },
       "vaults": {
@@ -1104,13 +1027,8 @@
     "withdrawTabTitle": "提取"
   },
   "liquidityHubs": {
-    "description": "根据治理制定的政策，在 Venus 协议的多个收益来源之间进行路由。收益会自动累积。",
+    "description": "一次供应，自动分配到 Venus 的多个收益来源。",
     "header": "流动性中心",
-    "stats": {
-      "hubs": "中心数",
-      "totalLiquidity": "总流动性",
-      "totalSupply": "总供应量"
-    },
     "table": {
       "columns": {
         "asset": "资产",
@@ -1126,6 +1044,74 @@
       "search": {
         "placeholder": "搜索资产"
       }
+    }
+  },
+  "lite": {
+    "assetAriaLabel": "比较 {{symbol}} 的各个市场",
+    "breadcrumb": {
+      "backToAssets": "返回{{mode}}资产列表",
+      "backToMarkets": "返回 {{symbol}} 市场列表"
+    },
+    "collateralSelect": {
+      "ariaLabel": "选择抵押品",
+      "asset": "资产",
+      "liquidationThreshold": "LT",
+      "liquidationThresholdTooltip": "当你的借款金额达到抵押品价值的这一百分比时，你的仓位可能被清算。",
+      "maxLtv": "最大 LTV",
+      "maxLtvTooltip": "以该抵押品价值计算，你最多可借出的百分比。",
+      "optionLabel": "{{symbol}}（{{marketSymbol}} 市场）",
+      "title": "选择抵押品"
+    },
+    "columns": {
+      "apy": "APY",
+      "asset": "资产",
+      "collateral": "可抵押",
+      "liquidity": "流动性",
+      "loan": "借款资产",
+      "market": "市场",
+      "pool": "资金池",
+      "totalBorrow": "总借款",
+      "totalSupply": "总存款"
+    },
+    "description": "简单而强大的存借服务，适配任意 DeFi 收益策略。",
+    "filters": {
+      "allCategories": "全部类别",
+      "category": "类别",
+      "categoryCount_other": "{{count}} 个类别",
+      "reset": "重置",
+      "searchAsset": "搜索资产",
+      "searchAssetAriaLabel": "搜索资产",
+      "searchCollateral": "搜索抵押品",
+      "searchCollateralAriaLabel": "搜索抵押品"
+    },
+    "formTitle": "{{symbol}} / {{marketName}}",
+    "markets": {
+      "corePool": "Venus Core",
+      "liquidityHub": "流动性中心",
+      "xvsVault": "XVS 金库"
+    },
+    "modes": {
+      "borrow": "借款",
+      "earn": "赚取",
+      "label": "市场模式"
+    },
+    "placeholders": {
+      "noAssets": "未找到资产，换个代号试试。",
+      "noBorrowableAssets": "没有可借款的资产。",
+      "noMarkets": "没有符合当前筛选条件的市场。",
+      "unavailable": "市场数据暂不可用，请刷新后重试。"
+    },
+    "planets": {
+      "earnNow": "立即赚取",
+      "label": "查看赚取 APY",
+      "market": "市场",
+      "openAriaLabel": "查看 {{symbol}} 的存款 APY",
+      "supplyApy": "存款 APY"
+    },
+    "title": "通用货币市场",
+    "totals": {
+      "availableLiquidity": "可用流动性",
+      "totalSupply": "总供应量"
     }
   },
   "markdownEditor": {
@@ -1562,6 +1548,7 @@
     },
     "rankCutoffNote": "排名 <Rank/> 目前持有 <Score/> Prime 分数，质押了 <Staked/>。",
     "rankFooter": {
+      "connectPrompt": "连接钱包查看你的排名。",
       "learnMore": "从 <LeaderboardLink>Prime 排行榜</LeaderboardLink> 了解更多"
     },
     "rankTable": {

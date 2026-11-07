@@ -1,3 +1,6 @@
+import { routes } from 'constants/routing';
+import { Link } from 'containers/Link';
+import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import type { PrimeSimulationDistribution, Token } from 'types';
@@ -16,7 +19,8 @@ export const SimulationText: React.FC<SimulationTextProps> = ({
   referenceValues,
   isLiquidityHub = false,
 }) => {
-  const { t } = useTranslation();
+  const { t, Trans } = useTranslation();
+  const isPrimeLeaderboardEnabled = useIsFeatureEnabled({ name: 'primeLeaderboard' });
 
   const xvs = useGetToken({
     symbol: 'XVS',
@@ -28,6 +32,14 @@ export const SimulationText: React.FC<SimulationTextProps> = ({
     addSymbol: true,
   });
 
+  const components = {
+    PrimeLink: isPrimeLeaderboardEnabled ? (
+      <Link to={routes.primeLeaderboard.path} onClick={e => e.stopPropagation()} />
+    ) : (
+      <span />
+    ),
+  };
+
   if (type === 'supply') {
     const readableReferenceSupplyBalance = formatTokensToReadableValue({
       value: referenceValues?.userSupplyBalanceTokens,
@@ -35,14 +47,20 @@ export const SimulationText: React.FC<SimulationTextProps> = ({
       addSymbol: true,
     });
 
-    const simulationText = t('apy.primeBadge.tooltip.primeSupplySimulation', {
-      supplyBalance: readableReferenceSupplyBalance,
-      xvsStaked: readableReferenceXvsStaked,
-    });
+    return (
+      <>
+        <Trans
+          i18nKey="apy.primeBadge.tooltip.primeSupplySimulation"
+          values={{
+            supplyBalance: readableReferenceSupplyBalance,
+            xvsStaked: readableReferenceXvsStaked,
+          }}
+          components={components}
+        />
 
-    return isLiquidityHub
-      ? `${simulationText} ${t('apy.primeBadge.tooltip.liquidityHubCorePoolBoost')}`
-      : simulationText;
+        {isLiquidityHub && ` ${t('apy.primeBadge.tooltip.liquidityHubCorePoolBoost')}`}
+      </>
+    );
   }
 
   const readableReferenceBorrowBalance = formatTokensToReadableValue({
@@ -51,8 +69,14 @@ export const SimulationText: React.FC<SimulationTextProps> = ({
     addSymbol: true,
   });
 
-  return t('apy.primeBadge.tooltip.primeBorrowSimulation', {
-    borrowBalance: readableReferenceBorrowBalance,
-    xvsStaked: readableReferenceXvsStaked,
-  });
+  return (
+    <Trans
+      i18nKey="apy.primeBadge.tooltip.primeBorrowSimulation"
+      values={{
+        borrowBalance: readableReferenceBorrowBalance,
+        xvsStaked: readableReferenceXvsStaked,
+      }}
+      components={components}
+    />
+  );
 };

@@ -16,7 +16,9 @@ export interface MultiSelectProps {
   renderCount: (count: number) => React.ReactNode;
   title: React.ReactNode;
   resetLabel: React.ReactNode;
+  size?: 'xs' | 'sm';
   className?: string;
+  buttonClassName?: string;
 }
 
 export const MultiSelect: React.FC<MultiSelectProps> = ({
@@ -27,7 +29,9 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   renderCount,
   title,
   resetLabel,
+  size = 'sm',
   className,
+  buttonClassName,
 }) => {
   const toggle = (optionValue: string) =>
     onChange(
@@ -47,7 +51,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
       menuPosition="right"
       // Clip the options to the menu's rounded corners, so the hover highlight of the last
       // option does not bleed past the border
-      menuClassName="bg-background border-blue overflow-hidden"
+      menuClassName="venus-multiselect-menu overflow-hidden"
       optionsDom={() => (
         <div className="min-w-full">
           <div className="flex h-12 items-center justify-between gap-3 px-4 py-3">
@@ -68,7 +72,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               key={option.value}
               type="button"
               onClick={() => toggle(option.value)}
-              className="hover:bg-background-hover active:bg-background-hover flex h-12 w-full cursor-pointer items-center justify-between px-4 py-3 text-left"
+              className="hover:bg-surface-segment-hover active:bg-surface-segment-hover flex h-12 w-full cursor-pointer items-center justify-between px-4 py-3 text-left"
             >
               <span className="text-b1r whitespace-nowrap text-white">{option.label}</span>
 
@@ -84,11 +88,16 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
       {({ isDropdownOpen, handleToggleDropdown }) => (
         <Button
           onClick={handleToggleDropdown}
-          contentClassName="text-b1s w-full justify-center"
+          contentClassName={cn(
+            'text-b1r w-full justify-center group-hover/trigger:font-semibold',
+            isDropdownOpen && 'font-semibold',
+          )}
           className={cn(
-            'border-dark-blue-hover hover:border-light-grey active:bg-dark-blue relative h-12 w-full rounded-lg bg-transparent px-4 hover:bg-transparent',
-            isDropdownOpen && 'bg-dark-blue-active border-blue',
+            'group/trigger relative w-full rounded-lg border-transparent bg-background-active bg-linear-to-b from-surface-raised to-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-transparent hover:bg-background-active active:bg-background-active',
+            size === 'xs' ? 'h-10 px-3' : 'h-12 px-4',
+            isDropdownOpen && 'border-blue hover:border-blue',
             value.length > 0 && 'border-blue',
+            buttonClassName,
           )}
         >
           <span className="grow overflow-hidden text-ellipsis whitespace-nowrap text-left">

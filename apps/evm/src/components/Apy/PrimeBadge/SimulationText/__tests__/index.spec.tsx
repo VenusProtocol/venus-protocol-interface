@@ -1,6 +1,8 @@
 import BigNumber from 'bignumber.js';
+import type { Mock } from 'vitest';
 
 import { assetData } from '__mocks__/models/asset';
+import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 import { SimulationText } from '..';
@@ -30,6 +32,29 @@ describe('SimulationText', () => {
       expect(
         container.textContent?.includes(en.apy.primeBadge.tooltip.liquidityHubCorePoolBoost),
       ).toBe(shouldMention);
+    },
+  );
+
+  it.each([
+    [true, 1],
+    [false, 0],
+  ])(
+    'links "Prime program" to the leaderboard only when it is available (%s)',
+    (isPrimeLeaderboardEnabled, linkCount) => {
+      (useIsFeatureEnabled as Mock).mockImplementation(({ name }: UseIsFeatureEnabledInput) =>
+        name === 'primeLeaderboard' ? isPrimeLeaderboardEnabled : true,
+      );
+
+      const { container } = renderComponent(
+        <SimulationText
+          token={assetData[0].vToken.underlyingToken}
+          type="supply"
+          referenceValues={referenceValues}
+        />,
+      );
+
+      expect(container.querySelectorAll('a')).toHaveLength(linkCount);
+      expect(container.textContent).toContain('Prime program');
     },
   );
 });

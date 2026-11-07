@@ -26,6 +26,7 @@ export interface ApyProps {
   showPrimeIcon?: boolean;
   // Trade positions are out of the campaigns' scope, so that page leaves them out entirely
   showCampaignRewards?: boolean;
+  showBadgeOnly?: boolean;
   vTokenAddress?: Address;
   isLiquidityHub?: boolean;
   className?: string;
@@ -42,6 +43,7 @@ export const Apy: React.FC<ApyProps> = ({
   showPrimeSimulation = true,
   showPrimeIcon = true,
   showCampaignRewards = true,
+  showBadgeOnly = false,
   vTokenAddress,
   isLiquidityHub,
   className,
@@ -78,7 +80,11 @@ export const Apy: React.FC<ApyProps> = ({
 
   const isPrimeAsset = !!(primeDistribution || primeSimulationDistribution);
   let simulatedApyPercentage: BigNumber | undefined;
-  const isApyBoostedByPrime = !!primeDistribution && !!userBalanceTokens?.isGreaterThan(0);
+  const isApyBoostedByPrime =
+    !!primeDistribution &&
+    !primeDistribution.apyPercentage.isZero() &&
+    !!userBalanceTokens?.isGreaterThan(0);
+  const isPrimeBoostAvailable = !combinedApy.apyPrimeSimulationPercentage.isZero();
 
   const isApyBoosted =
     isApyBoostedByPrime ||
@@ -124,7 +130,7 @@ export const Apy: React.FC<ApyProps> = ({
         {...distributionListProps}
       />
     );
-  } else if (showPrimeSimulation && isPrimeAsset && !isApyBoostedByPrime) {
+  } else if (showPrimeSimulation && isPrimeAsset && isPrimeBoostAvailable && !isApyBoostedByPrime) {
     badgeDom = (
       <PrimeBadge
         className="shrink-0"
@@ -138,6 +144,10 @@ export const Apy: React.FC<ApyProps> = ({
     );
   }
 
+  if (showBadgeOnly && badgeDom) {
+    return <div className={cn('inline-flex items-center', className)}>{badgeDom}</div>;
+  }
+
   return (
     <div
       className={cn('inline-flex gap-1 items-center flex-wrap', isMuted && 'opacity-50', className)}
@@ -147,7 +157,7 @@ export const Apy: React.FC<ApyProps> = ({
       )}
 
       {isApyBoosted ? (
-        <BoostTooltip {...distributionListProps}>
+        <BoostTooltip className="shrink-0" {...distributionListProps}>
           <p className="font-semibold text-green whitespace-nowrap">{readableApy}</p>
         </BoostTooltip>
       ) : (

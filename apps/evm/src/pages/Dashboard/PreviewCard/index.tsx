@@ -70,7 +70,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
     <Card
       asChild={!!to}
       className={cn(
-        'w-full h-full flex flex-col p-6 gap-3 duration-200',
+        'w-full h-full flex flex-col p-6 gap-3 bg-background-active duration-200',
         (onClick || to) && 'cursor-pointer hover:border-blue',
         className,
       )}

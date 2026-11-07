@@ -1,5 +1,15 @@
-import { InfoIcon, MultiSelect, TextField, type TextFieldProps, Toggle, cn } from 'components';
+import {
+  InfoIcon,
+  MultiSelect,
+  Pagination,
+  TextField,
+  type TextFieldProps,
+  Toggle,
+  cn,
+} from 'components';
 import { VaultCard } from 'containers/VaultCard';
+import { useBreakpointUp } from 'hooks/responsive';
+import { useCardGridPagination } from 'hooks/useCardGridPagination';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useId, useState } from 'react';
@@ -44,6 +54,7 @@ export const VaultList: FC<VaultListProps> = ({
   const [search, setSearch] = useState('');
   const onChange: TextFieldProps['onChange'] = e => {
     setSearch(e.currentTarget?.value);
+    goToFirstPage();
   };
 
   const handleResetAll = () => {
@@ -64,22 +75,34 @@ export const VaultList: FC<VaultListProps> = ({
     );
   });
 
+  const isXlOrUp = useBreakpointUp('xl');
+  const { currentPage, pageItems, itemsPerPageCount, setCurrentPage } = useCardGridPagination({
+    items: filteredVaults,
+    columnCount: isXlOrUp ? 3 : 1,
+  });
+
+  function goToFirstPage() {
+    if (currentPage > 0) {
+      setCurrentPage(0);
+    }
+  }
+
   return (
     <div className="flex flex-col">
       <div className="pb-6">
-        <div className="mb-3">
-          <h1 className="text-p1s sm:text-h6">{t('vault.header')}</h1>
-          <p className="text-1br">{t('vault.description')}</p>
+        <div className="mb-6 sm:mb-12">
+          <h1 className="venus-page-title">{t('vault.header')}</h1>
+          <p className="venus-page-subtitle">{t('vault.description')}</p>
         </div>
 
         <div className="flex flex-col xl:flex-row xl:items-center gap-3">
           <TextField
             value={search}
             onChange={onChange}
-            size="sm"
+            size="xs"
             leftIconSrc="magnifier"
             placeholder={t('vault.filter.inputPlaceholder')}
-            className="w-full xl:w-75"
+            className="w-full xl:w-60"
           />
 
           <div className="grid grid-cols-2 sm:flex gap-3 w-full xl:w-fit">
@@ -92,6 +115,7 @@ export const VaultList: FC<VaultListProps> = ({
               renderCount={count => t('vault.filter.nCategories', { count })}
               title={t('vault.filter.selectCategories')}
               resetLabel={t('vault.filter.reset')}
+              size="xs"
             />
             <MultiSelect
               className={multiSelectClassName}
@@ -102,6 +126,7 @@ export const VaultList: FC<VaultListProps> = ({
               renderCount={count => t('vault.filter.nVenues', { count })}
               title={t('vault.filter.selectVenues')}
               resetLabel={t('vault.filter.reset')}
+              size="xs"
             />
             <MultiSelect
               className={multiSelectClassName}
@@ -112,6 +137,7 @@ export const VaultList: FC<VaultListProps> = ({
               renderCount={count => t('vault.filter.nStates', { count })}
               title={t('vault.filter.selectStates')}
               resetLabel={t('vault.filter.reset')}
+              size="xs"
             />
           </div>
 
@@ -125,7 +151,10 @@ export const VaultList: FC<VaultListProps> = ({
             <Toggle
               aria-labelledby={archivedVaultsToggleLabelId}
               value={showArchivedVaults}
-              onChange={() => setUserChainSettings({ showArchivedVaults: !showArchivedVaults })}
+              onChange={() => {
+                setUserChainSettings({ showArchivedVaults: !showArchivedVaults });
+                goToFirstPage();
+              }}
             />
           </div>
         </div>
@@ -134,11 +163,23 @@ export const VaultList: FC<VaultListProps> = ({
       {filteredVaults.length === 0 ? (
         <NoResults onReset={handleResetAll} />
       ) : (
-        <div className={cn('relative grid grid-cols-1 xl:grid-cols-3 gap-3', className)} {...props}>
-          {filteredVaults.map(vault => (
-            <VaultCard vault={vault} key={vault.key} />
-          ))}
-        </div>
+        <>
+          <div
+            className={cn('relative grid grid-cols-1 xl:grid-cols-3 gap-3', className)}
+            {...props}
+          >
+            {pageItems.map(vault => (
+              <VaultCard vault={vault} key={vault.key} />
+            ))}
+          </div>
+
+          <Pagination
+            className="mt-6"
+            itemsCount={filteredVaults.length}
+            itemsPerPageCount={itemsPerPageCount}
+            onChange={setCurrentPage}
+          />
+        </>
       )}
     </div>
   );

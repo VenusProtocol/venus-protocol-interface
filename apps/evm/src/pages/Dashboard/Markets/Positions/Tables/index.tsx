@@ -3,10 +3,12 @@ import { Card } from 'components';
 import { useState } from 'react';
 
 import { ButtonGroup } from 'components';
+import { CoreBorrowModal } from 'containers/CoreBorrowModal';
+import { CoreSupplyModal } from 'containers/CoreSupplyModal';
 import { MarketTable, type MarketTableProps } from 'containers/MarketTable';
 import { useIsSmDown } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
-import type { Pool } from 'types';
+import type { Asset, Pool } from 'types';
 
 import { EModeHeader } from './EModeHeader';
 import { IsolatedModeHeader } from './IsolatedModeHeader';
@@ -20,6 +22,8 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
   const styles = useStyles();
   const { t } = useTranslation();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [selectedSupplyAsset, setSelectedSupplyAsset] = useState<Asset>();
+  const [selectedBorrowAsset, setSelectedBorrowAsset] = useState<Asset>();
 
   const isMobile = useIsSmDown();
 
@@ -35,10 +39,14 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
       poolComptrollerContractAddress: pool.comptrollerAddress,
       userEModeGroup: pool.userEModeGroup,
       marketType: 'supply',
+      rowOnClick: (_event, asset) => setSelectedSupplyAsset(asset),
       controls: false,
       rowControl: false,
       breakpoint: 'sm',
       columns: ['asset', 'supplyApy', 'userSupplyBalance', 'collateral'],
+      columnWidths: ['24%', '32%', '20%', '24%'],
+      tableRowClassName: 'h-15 hover:bg-surface-row-hover',
+      tableHeaderClassName: 'border-border-subtle',
       initialOrder: {
         orderBy: 'userSupplyBalance',
         orderDirection: 'desc',
@@ -51,10 +59,14 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
       poolComptrollerContractAddress: pool.comptrollerAddress,
       userEModeGroup: pool.userEModeGroup,
       marketType: 'borrow',
+      rowOnClick: (_event, asset) => setSelectedBorrowAsset(asset),
       controls: false,
       rowControl: false,
       breakpoint: 'sm',
       columns: ['asset', 'borrowApy', 'userBorrowBalance', 'userBorrowLimitSharePercentage'],
+      columnWidths: ['24%', '32%', '20%', '24%'],
+      tableRowClassName: 'h-15 hover:bg-surface-row-hover',
+      tableHeaderClassName: 'border-border-subtle',
       initialOrder: {
         orderBy: 'userBorrowBalance',
         orderDirection: 'desc',
@@ -105,6 +117,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
             </div>
 
             <ButtonGroup
+              fullWidth
               buttonSize="sm"
               css={styles.tabletHeaderButtonGroup}
               buttonLabels={[
@@ -164,6 +177,21 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
             />
           )}
         </Card>
+      )}
+
+      {selectedSupplyAsset && (
+        <CoreSupplyModal
+          asset={selectedSupplyAsset}
+          onClose={() => setSelectedSupplyAsset(undefined)}
+        />
+      )}
+
+      {selectedBorrowAsset && (
+        <CoreBorrowModal
+          asset={selectedBorrowAsset}
+          collaterals={pool.assets.filter(asset => asset.collateralFactor > 0)}
+          onClose={() => setSelectedBorrowAsset(undefined)}
+        />
       )}
     </>
   );

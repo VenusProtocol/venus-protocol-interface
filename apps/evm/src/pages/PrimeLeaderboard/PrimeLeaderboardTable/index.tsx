@@ -50,7 +50,9 @@ export function PrimeLeaderboardTable<R>({
         breakpoint={breakpoint}
         tableLayout={tableLayout}
         hideCardDelimiter={hideCardDelimiter}
-        className="sm:border-0"
+        className="sm:border-0 sm:bg-transparent sm:shadow-none sm:before:hidden"
+        tableRowClassName="h-15"
+        tableHeaderClassName="h-10"
         columns={columns}
         data={data}
         isFetching={isFetching}

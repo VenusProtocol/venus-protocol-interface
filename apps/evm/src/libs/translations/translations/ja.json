@@ -53,8 +53,12 @@
     },
     "pools": {
       "placeholder": {
-        "title": "マーケットポジションはまだありません"
+        "buttonLabel": "マーケットを見る",
+        "title": "ポジションはまだありません"
       }
+    },
+    "positions": {
+      "label": "ポジション"
     },
     "settings": {
       "gaslessTransactions": {
@@ -71,7 +75,7 @@
         },
         "title": "借入済み"
       },
-      "corePoolPill": "コアプール",
+      "corePoolPill": "Venus Core",
       "summary": {
         "borrowApy": "借入APY",
         "dailyBorrowInterest": "日次借入利息",
@@ -105,8 +109,7 @@
       "title": "サマリー"
     },
     "tabs": {
-      "hubs": "ハブ",
-      "markets": "マーケット",
+      "hubs": "流動性ハブ",
       "settings": "設定",
       "transactions": "取引",
       "vaults": "ボールト"
@@ -192,6 +195,7 @@
     "label": "日次収益"
   },
   "accountModal": {
+    "dashboardButtonLabel": "ダッシュボードを表示",
     "disconnectButtonLabel": "切断"
   },
   "accountPoolDailyEarnings": {
@@ -296,10 +300,10 @@
       "tooltip": {
         "calculatorLink": "Prime報酬を計算",
         "liquidityHubCorePoolBoost": "このブーストはCoreプールから支払われ、二重には支払われません。",
-        "primeBorrowSimulation": "Primeにより、ユーザーの借入平均{{borrowBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。",
+        "primeBorrowSimulation": "<PrimeLink>Primeプログラム</PrimeLink>により、ユーザーの借入平均{{borrowBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。",
         "primeDocLink": "詳細を見る",
         "primeMarket": "PrimeによりAPYがブーストされます。",
-        "primeSupplySimulation": "Primeにより、ユーザーの供給平均{{supplyBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。"
+        "primeSupplySimulation": "<PrimeLink>Primeプログラム</PrimeLink>により、ユーザーの供給平均{{supplyBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。"
       }
     }
   },
@@ -519,22 +523,6 @@
     }
   },
   "dashboard": {
-    "guide": {
-      "completed": "完了",
-      "step1": {
-        "description": "資産を供給するか既存ポジションをVenusプロトコルへ移行して利回りを獲得しましょう。",
-        "title": "供給 / 移行"
-      },
-      "step2": {
-        "description": "資産を借りてDeFi戦略を強化したり、ワンクリックで流動性をレバレッジできます。",
-        "title": "借入 / レバレッジ"
-      },
-      "step3": {
-        "description": "XVSをボールトに供給し、プロトコル収益による利回りを獲得しましょう。",
-        "title": "XVSを供給"
-      },
-      "uncompleted": "未完了"
-    },
     "hubs": {
       "apy": "APY",
       "dailyEarnings": "日次収益",
@@ -578,10 +566,12 @@
       "todaysChange": "本日の変化"
     },
     "performanceChart": {
+      "balancesHidden": "残高は非表示です",
+      "connectWallet": "ウォレットを接続してパフォーマンスを表示",
       "dataPoint": {
         "date": "{{ date, textual }}"
       },
-      "xAxisValue": "{{ date, numeric }}"
+      "xAxisValue": "{{ date, dayMonth }}"
     },
     "previewCard": {
       "apr": "APR",
@@ -787,80 +777,6 @@
     "0": "0%",
     "100": "100%"
   },
-  "landing": {
-    "benefits": {
-      "text1": "改ざん不能なマネーマーケットにオンチェーンで直接アクセス。",
-      "text2": "Venus Protocolのすべての資産はBEP-20およびERC-20規格に準拠しています。",
-      "text3": "高速・安全・低コストな取引のためにEVM互換チェーン上で構築。",
-      "title1": "分散型",
-      "title2": "BEP-20/ERC-20",
-      "title3": "オムニチェーン"
-    },
-    "governance": {
-      "backgroundGradientAlt": "背景イラスト",
-      "buttonLabel": "ガバナンスフォーラム",
-      "description": "Venusはコミュニティ主導の分散型プロトコルで、暗号資産マネーマーケット向けに最高水準の機能を提供します。",
-      "proposalCountLegend": "実行済みのVenus改善提案、さらに増加中",
-      "title": "コミュニティが統治する<br />マネーマーケット"
-    },
-    "hero": {
-      "1Year": "1年",
-      "30Day": "30日",
-      "6Month": "6か月",
-      "assets": "資産",
-      "borrow": "借入",
-      "earned": "獲得済み",
-      "earnedAmount": "獲得済み {{amount}}",
-      "earnNow": "今すぐ運用する",
-      "from": "{{percentage}}から",
-      "highestApy": "最高APY",
-      "monthNo": "第{{number}}月",
-      "startNow": "今すぐ始める",
-      "subtitle": "どんなDeFi利回り戦略にも使えるシンプルで強力なレンディングと借入。",
-      "supply": "供給",
-      "supplyTips": "初期預入額10,000ドルを基準に、収益/利息はブロックごとに複利計算されます。<Link>詳細を見る</Link>",
-      "title": "ユニバーサル<br /><hl>マネーマーケット</hl>",
-      "totalApy": "合計APY",
-      "upToPercentage": "{{percentage}}まで",
-      "venusTvl": "Venus TVL",
-      "yearlyEarnings": "年間収益",
-      "yearlyInterests": "年間利息"
-    },
-    "markets": {
-      "button": {
-        "label": "さらに見る"
-      },
-      "title": "Venusのトップマーケット"
-    },
-    "protection": {
-      "bugBountyAlt": "バグバウンティのイラスト",
-      "challengeText": "コードの脆弱性を見つけて報告すると報酬の対象になります。詳細はバグバウンティプログラムをご覧ください。",
-      "challengeTitle": "コードに挑戦して報酬を獲得",
-      "protectionAlt": "保護のイラスト",
-      "protectionText": "セキュリティ監査、24時間365日の監視、そして強固なリスクファンドが、異常な市場イベントの際にもプロトコルを安全に保ちます。",
-      "protectionTitle": "保護を最優先"
-    },
-    "safety": {
-      "audit_one": "監査",
-      "audit_other": "監査",
-      "otherAuditors": "Fairyproof、Hacken、HashExによる<br />14件以上の監査",
-      "scoreAlt": "スコアのイラスト",
-      "securityScore": "セキュリティスコア",
-      "text": "Venusは資産の安全性を最優先にしているため、安心して取引できます",
-      "title": "安全第一",
-      "venusScored": "VenusはCertikの評価でBNB Chainのセキュリティにおいて<Link>第3位</Link>にランクされました（2021年6月）"
-    },
-    "venusPrime": {
-      "illustrationAlt": "Venus Primeのイラスト",
-      "imageAlt": "Venus Primeのイラスト",
-      "learnMore": "詳細を見る",
-      "text": "Venus ProtocolのパワーユーザーはVenus Primeトークンをミントし、Venusコアプールの一部マーケットで優遇レートを享受できます。",
-      "title": "<hl>Venus Prime</hl> <br />リターンを増幅"
-    },
-    "wallets": {
-      "title": "多くの人に信頼されています"
-    }
-  },
   "layout": {
     "chainSelect": {
       "label": "チェーンを選択"
@@ -883,13 +799,15 @@
       "supply": "供給",
       "utilizationRate": "利用率"
     },
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "{{mode}} に切り替える"
+    },
     "menu": {
       "beta": "beta",
       "borrow": {
         "label": "借入"
-      },
-      "dashboard": {
-        "label": "ダッシュボード"
       },
       "earn": {
         "label": "獲得"
@@ -938,6 +856,11 @@
         },
         "language": {
           "label": "言語 (ベータ版)"
+        },
+        "theme": {
+          "dark": "ダーク",
+          "label": "テーマ",
+          "light": "ライト"
         }
       },
       "vaults": {
@@ -1104,13 +1027,8 @@
     "withdrawTabTitle": "引き出し"
   },
   "liquidityHubs": {
-    "description": "ガバナンスが策定した方針のもとで、Venus Protocol の複数の利回りソースへルーティングされます。利回りは自動で積み上がります。",
+    "description": "一度の供給で、Venus の各利回りソースへ自動的にルーティングされます。",
     "header": "流動性ハブ",
-    "stats": {
-      "hubs": "ハブ数",
-      "totalLiquidity": "総流動性",
-      "totalSupply": "総供給量"
-    },
     "table": {
       "columns": {
         "asset": "資産",
@@ -1126,6 +1044,74 @@
       "search": {
         "placeholder": "資産を検索"
       }
+    }
+  },
+  "lite": {
+    "assetAriaLabel": "{{symbol}} のマーケットを比較",
+    "breadcrumb": {
+      "backToAssets": "{{mode}} の資産一覧に戻る",
+      "backToMarkets": "{{symbol}} のマーケット一覧に戻る"
+    },
+    "collateralSelect": {
+      "ariaLabel": "担保を選択",
+      "asset": "資産",
+      "liquidationThreshold": "LT",
+      "liquidationThresholdTooltip": "借入額が担保価値のこの割合に達すると、ポジションが清算される可能性があります。",
+      "maxLtv": "最大 LTV",
+      "maxLtvTooltip": "この担保の価値に対して借りられる最大の割合です。",
+      "optionLabel": "{{symbol}}（{{marketSymbol}} マーケット）",
+      "title": "担保を選択"
+    },
+    "columns": {
+      "apy": "APY",
+      "asset": "資産",
+      "collateral": "担保",
+      "liquidity": "流動性",
+      "loan": "借入",
+      "market": "マーケット",
+      "pool": "プール",
+      "totalBorrow": "総借入",
+      "totalSupply": "総供給"
+    },
+    "description": "あらゆる DeFi 利回り戦略に対応する、シンプルかつ強力なレンディングとボローイング。",
+    "filters": {
+      "allCategories": "すべてのカテゴリー",
+      "category": "カテゴリー",
+      "categoryCount_other": "{{count}} 件のカテゴリー",
+      "reset": "リセット",
+      "searchAsset": "資産を検索",
+      "searchAssetAriaLabel": "資産を検索",
+      "searchCollateral": "担保を検索",
+      "searchCollateralAriaLabel": "担保を検索"
+    },
+    "formTitle": "{{symbol}} / {{marketName}}",
+    "markets": {
+      "corePool": "Venus Core",
+      "liquidityHub": "流動性ハブ",
+      "xvsVault": "XVS ボールト"
+    },
+    "modes": {
+      "borrow": "借入",
+      "earn": "獲得",
+      "label": "マーケットモード"
+    },
+    "placeholders": {
+      "noAssets": "該当する資産がありません。別のシンボルをお試しください。",
+      "noBorrowableAssets": "借入可能な資産がありません。",
+      "noMarkets": "条件に一致するマーケットがありません。",
+      "unavailable": "マーケットデータを取得できません。ページを再読み込みしてください。"
+    },
+    "planets": {
+      "earnNow": "今すぐ獲得",
+      "label": "獲得 APY を見る",
+      "market": "マーケット",
+      "openAriaLabel": "{{symbol}} の供給 APY を見る",
+      "supplyApy": "供給 APY"
+    },
+    "title": "ユニバーサル・マネーマーケット",
+    "totals": {
+      "availableLiquidity": "利用可能な流動性",
+      "totalSupply": "総供給量"
     }
   },
   "markdownEditor": {
@@ -1562,6 +1548,7 @@
     },
     "rankCutoffNote": "ランク<Rank/>は現在、<Staked/>をステークし、<Score/>のPrimeスコアを保有しています。",
     "rankFooter": {
+      "connectPrompt": "ウォレットを接続してランクを確認してください。",
       "learnMore": "<LeaderboardLink>Prime リーダーボード</LeaderboardLink> で詳しく見る"
     },
     "rankTable": {

@@ -11,6 +11,10 @@
 
 @import './navigation.css';
 
+:root {
+  --font-proxima-nova: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
 @layer base {
   body {
     font-family: var(--font-proxima-nova), sans-serif;
@@ -26,20 +30,46 @@
 
     /* Track */
     &::-webkit-scrollbar-track {
-      border-radius: 4px;
-      background-color: var(--color-background);
+      border-radius: var(--radius-lg);
+      background-color: transparent;
     }
 
     /* Handle */
     &::-webkit-scrollbar-thumb {
-      background-color: var(--color-grey);
-      border-radius: 4px;
+      background-color: rgb(var(--elevation-tint-rgb) / 16%);
+      border-radius: var(--radius-lg);
     }
 
     /* Handle on hover */
     &::-webkit-scrollbar-thumb:hover {
-      background-color: var(--color-white);
+      background-color: rgb(var(--elevation-tint-rgb) / 26%);
     }
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    * {
+      scrollbar-color: rgb(var(--elevation-tint-rgb) / 16%) transparent;
+    }
+  }
+}
+
+@keyframes tooltip-in {
+  from {
+    opacity: 0;
+    translate: 0 var(--tooltip-rise, 4px);
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@utility animate-tooltip-in {
+  animation: tooltip-in 180ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
   }
 }
 
@@ -68,5 +98,43 @@
 
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+.venus-page-title {
+  background-image: var(--background-image-hero-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: var(--text-h5);
+  font-weight: 500;
+  line-height: var(--text-3xl--line-height);
+  text-wrap: balance;
+}
+
+.venus-page-subtitle {
+  margin-top: var(--spacing);
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  color: var(--color-light-grey);
+  text-wrap: pretty;
+}
+
+@media (min-width: 768px) {
+  .venus-page-title {
+    font-size: var(--text-h4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .venus-page-title {
+    font-size: var(--text-h3);
+  }
+}
+
+@media (forced-colors: active) {
+  .venus-page-title {
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
   }
 }

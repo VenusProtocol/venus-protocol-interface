@@ -70,7 +70,7 @@ export function TableCards<R>({
     >
       {controls && selectOptions.length > 0 && (
         <Select
-          className="mb-4 hidden w-56 sm:block"
+          className="mb-4 hidden w-56 md:block"
           label={t('table.cardsSelect.label')}
           placeLabelToLeft
           options={selectOptions}
@@ -88,14 +88,16 @@ export function TableCards<R>({
           const content = (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <div>{titleColumn.renderCell(row, rowIndex)}</div>
+                <div className="[&_p:first-child]:font-semibold">
+                  {titleColumn.renderCell(row, rowIndex)}
+                </div>
 
                 {renderRowControl ? renderRowControl(row, rowIndex) : undefined}
               </div>
 
               {renderRowFooter ? renderRowFooter(row, rowIndex) : undefined}
 
-              {!hideCardDelimiter && <Delimiter />}
+              {!hideCardDelimiter && <Delimiter className="-mx-4 border-border-subtle" />}
 
               {otherColumns.map(column => (
                 <LabeledInlineContent key={`${rowKey}-${column.key}`} label={column.label}>
@@ -109,7 +111,8 @@ export function TableCards<R>({
             <Card
               key={rowKey}
               className={cn(
-                !!(rowOnClick || getRowHref) && 'cursor-pointer hover:bg-cards',
+                'border-border-raised bg-surface-popup backdrop-blur-raised',
+                !!(rowOnClick || getRowHref) && 'cursor-pointer hover:bg-row-hover',
                 cardClassName,
               )}
               onClick={rowOnClick && ((e: React.MouseEvent<HTMLDivElement>) => rowOnClick(e, row))}

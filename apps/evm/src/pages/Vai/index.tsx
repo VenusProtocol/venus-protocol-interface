@@ -30,8 +30,8 @@ const Vai: React.FC = () => {
           }
         />
 
-        <Card>
-          <Tabs tabs={tabsContent} navType="searchParam" />
+        <Card variant="glass">
+          <Tabs tabs={tabsContent} navType="searchParam" variant="secondary" />
         </Card>
       </div>
     </Page>

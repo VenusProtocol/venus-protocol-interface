@@ -1,6 +1,6 @@
 import { useTranslation } from 'libs/translations';
 
-import { Icon, type IconName } from 'components';
+import { Icon, type IconName, cn } from 'components';
 import {
   VENUS_COMMUNITY_URL,
   VENUS_DOC_URL,
@@ -11,6 +11,7 @@ import {
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { forwardRef } from 'react';
+import { matchPath, useLocation } from 'react-router';
 
 interface SocialLink {
   iconName: IconName;
@@ -25,6 +26,8 @@ interface LinkConfig {
 
 export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
   const { t } = useTranslation();
+  const { pathname } = useLocation();
+  const isDashboard = !!matchPath(routes.dashboard.path, pathname);
 
   const socialLinks: SocialLink[] = [
     {
@@ -45,46 +48,57 @@ export const Footer = forwardRef<HTMLDivElement>((_, ref) => {
     },
   ];
 
-  const footerLinks: LinkConfig[] = [
-    {
-      label: t('footer.links.documentation'),
-      href: VENUS_DOC_URL,
-    },
-    {
-      label: t('footer.links.skills'),
-      to: routes.skills.path,
-    },
-    {
-      label: t('footer.links.privacyPolicy'),
-      to: routes.privacyPolicy.path,
-    },
-    {
-      label: t('footer.links.termsOfUse'),
-      to: routes.termsOfUse.path,
-    },
+  const footerLinkGroups: LinkConfig[][] = [
+    [
+      {
+        label: t('footer.links.documentation'),
+        href: VENUS_DOC_URL,
+      },
+      {
+        label: t('footer.links.skills'),
+        to: routes.skills.path,
+      },
+    ],
+    [
+      {
+        label: t('footer.links.privacyPolicy'),
+        to: routes.privacyPolicy.path,
+      },
+      {
+        label: t('footer.links.termsOfUse'),
+        to: routes.termsOfUse.path,
+      },
+    ],
   ];
 
   return (
     <footer
       ref={ref}
-      className="bg-background-active mt-10 p-5 space-y-4 sm:flex sm:justify-between sm:items-center sm:space-y-0 md:px-6 xl:px-10"
+      className={cn(
+        'mt-10 flex flex-col items-center gap-4 px-5 pt-2 pb-5 md:flex-row md:flex-wrap md:justify-between md:p-5 md:px-6 xl:px-10',
+        isDashboard && 'mt-0 pt-12 md:pt-12',
+      )}
     >
-      <div className="flex items-center gap-4 flex-wrap">
-        {footerLinks.map(footerLink => {
-          const { label, ...restProps } = footerLink;
+      <nav className="flex flex-col items-center gap-4 md:flex-row md:flex-wrap">
+        {footerLinkGroups.map(footerLinks => (
+          <div className="flex items-center justify-center gap-4" key={footerLinks[0].label}>
+            {footerLinks.map(footerLink => {
+              const { label, ...restProps } = footerLink;
 
-          return (
-            <Link className="text-grey text-sm" key={label} {...restProps}>
-              {label}
-            </Link>
-          );
-        })}
-      </div>
+              return (
+                <Link className="text-grey text-sm" key={label} {...restProps}>
+                  {label}
+                </Link>
+              );
+            })}
+          </div>
+        ))}
+      </nav>
 
-      <div className="flex flex-none items-center">
+      <div className="flex flex-none items-center justify-center">
         {socialLinks.map(socialLink => (
           <a
-            className="bg-lightGrey hover:bg-blue active:bg-darkBlue ml-4 flex h-6 w-6 items-center justify-center rounded-sm transition-colors first-of-type:ml-0"
+            className="bg-lightGrey hover:bg-blue focus-visible:bg-blue active:bg-darkBlue ml-4 flex h-6 w-6 items-center justify-center rounded-sm transition-colors first-of-type:ml-0"
             href={socialLink.href}
             key={socialLink.href}
             target="_blank"

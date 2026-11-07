@@ -1,48 +1,40 @@
-import { ButtonWrapper, type ButtonWrapperProps, Card, Icon, type IconName } from 'components';
+import { ButtonWrapper, Card } from 'components';
 import { ConnectWallet } from 'containers/ConnectWallet';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
 
 export interface PlaceholderProps {
-  iconName: IconName;
   title: string;
   description?: string;
   to?: string;
-  buttonSize?: ButtonWrapperProps['size'];
+  buttonLabel?: string;
   onButtonClick?: () => void;
 }
 
 export const Placeholder: React.FC<PlaceholderProps> = ({
-  iconName,
   title,
   description,
   to,
-  buttonSize = 'xs',
+  buttonLabel,
   onButtonClick,
 }) => {
   const { t } = useTranslation();
 
   return (
-    <Card className="flex items-center justify-center h-72">
-      <div className="flex flex-col items-center text-center">
-        <div className="w-10 h-10 rounded-lg bg-lightGrey flex items-center justify-center mb-4 mx-auto">
-          <Icon name={iconName} className="w-6 h-6 text-grey" />
-        </div>
+    <Card className="flex min-h-60.5 flex-col items-center justify-center gap-3 p-3 text-center">
+      <h2 className="text-b1r">{title}</h2>
 
-        <h2 className="mb-1 font-semibold">{title}</h2>
+      {description && <p className="text-b1r text-grey">{description}</p>}
 
-        {description && <p className="text-grey text-sm">{description}</p>}
-
-        {!!to && (
-          <ConnectWallet buttonSize={buttonSize} className="mt-5 w-fit">
-            <ButtonWrapper className="text-white hover:no-underline" size={buttonSize} asChild>
-              <Link to={to} onClick={onButtonClick}>
-                {t('account.placeholder.buttonLabel')}
-              </Link>
-            </ButtonWrapper>
-          </ConnectWallet>
-        )}
-      </div>
+      {!!to && (
+        <ConnectWallet className="w-fit">
+          <ButtonWrapper className="text-white hover:no-underline" asChild>
+            <Link noStyle to={to} onClick={onButtonClick}>
+              {buttonLabel ?? t('account.placeholder.buttonLabel')}
+            </Link>
+          </ButtonWrapper>
+        </ConnectWallet>
+      )}
     </Card>
   );
 };

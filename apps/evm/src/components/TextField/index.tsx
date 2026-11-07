@@ -9,6 +9,7 @@ export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
   ref?: React.Ref<HTMLInputElement>;
   className?: string;
   inputContainerClassName?: string;
+  inputClassName?: string;
   label?: string;
   description?: string | React.ReactElement;
   hasError?: boolean;
@@ -25,6 +26,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
     {
       className,
       inputContainerClassName,
+      inputClassName,
       label,
       description,
       hasError = false,
@@ -85,11 +87,15 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
 
         <div
           className={cn(
-            'flex items-center justify-between gap-x-2 h-14 p-4 border border-dark-blue-hover rounded-xl bg-transparent transition-[border-color] hover:border-light-grey focus-within:border-blue focus-within:bg-dark-blue-active focus-within:hover:border-blue',
+            'flex items-center justify-between gap-x-2 h-14 p-4 border border-dark-blue-hover rounded-xl bg-background-active transition-[border-color] hover:border-light-grey focus-within:border-blue focus-within:bg-dark-blue-active focus-within:hover:border-blue',
             rightAdornment && 'pr-2',
             leftAdornment && !leftIconSrc && 'pl-2',
             size === 'xs' && 'h-10 py-1 rounded-lg',
             size === 'sm' && 'h-12 py-2 rounded-lg',
+            type === 'number' &&
+              size === 'md' &&
+              'rounded-lg border-border-subtle bg-surface-input py-3 pr-2 shadow-input hover:border-border-glass focus-within:bg-surface-input',
+            type === 'number' && size === 'md' && leftAdornment && 'pl-2',
             disabled && 'border-lightGrey bg-cards',
             hasError && 'border-red focus-within:border-red focus-within:hover:border-red',
             variant === 'secondary' && disabled && 'bg-lightGrey',
@@ -118,6 +124,7 @@ export const TextField: React.FC<TextFieldProps> = forwardRef<HTMLInputElement, 
                 type === 'number' && 'text-right',
                 size === 'xs' && 'text-sm',
                 size === 'sm' && 'text-sm',
+                inputClassName,
               )}
               max={max}
               min={min}

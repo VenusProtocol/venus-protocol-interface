@@ -72,28 +72,24 @@ const PrimeLeaderboard: React.FC = () => {
         endDate={endOfCycleDate}
         lastCycleIndex={lastCycleIndex}
         isLoading={isCurrentCycleLoading}
-        className="relative mx-auto mt-8 w-full max-w-[467px]"
+        className="relative mx-auto mt-8 w-full max-w-130"
       />
 
       {isSideBySide ? (
         <div className="relative mt-10 space-y-3">
           <RefreshNote />
 
-          <div className="flex gap-3">
-            <div className="min-w-0 grow">
-              <RewardsPanel />
-            </div>
+          <div className="grid grid-cols-[minmax(0,1fr)_--spacing(107)] gap-x-3">
+            <RewardsPanel />
 
-            <div className="w-107 shrink-0">
-              <RankingPanel />
-            </div>
+            <RankingPanel />
           </div>
         </div>
       ) : (
         <Tabs
           className="relative mt-10 space-y-3"
           variant="tertiary"
-          headerClassName="justify-center"
+          headerClassName="justify-center text-base"
           tabs={tabs}
         />
       )}

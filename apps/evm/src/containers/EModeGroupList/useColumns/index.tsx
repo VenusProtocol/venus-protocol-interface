@@ -15,7 +15,12 @@ export const useColumns = () => {
       key: ASSET_COLUMN_KEY,
       label: t('eModeGroupList.table.columns.asset'),
       selectOptionLabel: t('eModeGroupList.table.columns.asset'),
-      renderCell: ({ vToken }) => <TokenIconWithSymbol token={vToken.underlyingToken} />,
+      renderCell: ({ vToken }) => (
+        <TokenIconWithSymbol
+          token={vToken.underlyingToken}
+          symbolClassName="font-normal group-hover:font-semibold"
+        />
+      ),
     },
     {
       key: 'collateral',

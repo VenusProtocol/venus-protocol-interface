@@ -1,0 +1,52 @@
+@property --venus-mode-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.venus-mode-switch {
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--color-blue) 18%, transparent);
+  border-color: var(--color-blue);
+}
+
+.venus-mode-switch__border {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--venus-mode-border-angle),
+    #429aff 0%,
+    #429aff33 25%,
+    #80caff 42%,
+    #ffffff 50%,
+    #80caff 58%,
+    #429aff33 75%,
+    #429aff 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: venus-mode-border-orbit 4.5s linear infinite;
+}
+
+@keyframes venus-mode-border-orbit {
+  to {
+    --venus-mode-border-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .venus-mode-switch__border {
+    animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .venus-mode-switch__border {
+    display: none;
+  }
+}

@@ -1,14 +1,17 @@
 import { Button } from '@venusprotocol/ui';
+import { useLocation, useNavigate } from 'react-router';
 import type { Address } from 'viem';
 import { useDisconnect } from 'wagmi';
 
 import { BodyBackdrop, Icon } from 'components';
 import config from 'config';
+import { routes } from 'constants/routing';
 import { AccountOverview } from 'containers/AccountOverview';
 import { CopyAddressButton } from 'containers/CopyAddressButton';
 import { VipTelegramGroupButton } from 'containers/VipTelegramGroupButton';
+import { useInterfaceMode } from 'hooks/useInterfaceMode';
 import { useTranslation } from 'libs/translations';
-import { ClaimRewardsButton } from '../../ClaimRewardsButton';
+import { ChainSelect } from '../../ChainSelect';
 import { Settings } from '../../Settings';
 import { UserButton } from '../UserButton';
 
@@ -20,14 +23,26 @@ export interface AccountModalProps {
 }
 
 export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPrime, onClose }) => {
+  const { t } = useTranslation();
+  const { isLite } = useInterfaceMode();
+  const navigate = useNavigate();
+  const { pathname, search } = useLocation();
   const { disconnect } = useDisconnect();
+
   const handleDisconnect = () => {
     disconnect();
+
+    if (pathname === routes.dashboard.path) {
+      navigate({ pathname: routes.landing.path, search });
+    }
 
     onClose?.();
   };
 
-  const { t } = useTranslation();
+  const handleViewDashboard = () => {
+    navigate({ pathname: routes.dashboard.path, search });
+    onClose?.();
+  };
 
   return (
     <>
@@ -38,11 +53,15 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
           <div className="w-full h-full bg-background-active p-6 flex flex-col gap-y-6 overflow-auto sm:w-123 sm:overflow-visible sm:rounded-lg sm:border sm:border-blue">
             <div className="flex flex-col gap-y-3">
               <div className="flex items-start justify-between">
-                <div className="flex items-center gap-x-3">
+                <div className="flex items-center gap-x-2 md:gap-x-3">
+                  {!isLite && (
+                    <ChainSelect className="md:hidden" buttonClassName="h-12 px-3 py-0" />
+                  )}
+
                   <UserButton
                     address={address}
-                    isVip={isVip}
                     isPrime={isPrime}
+                    isVip={isVip}
                     disabled
                     className="h-12"
                   />
@@ -58,8 +77,6 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
                   <Icon name="close" className="size-5 text-inherit transition-colors" />
                 </button>
               </div>
-
-              <ClaimRewardsButton className="h-12 bg-dark-blue-active sm:hidden" />
             </div>
 
             <AccountOverview accountAddress={address} showGraph={false} />
@@ -67,6 +84,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
             <Settings />
 
             <div className="flex flex-col gap-y-3">
+              <Button variant="secondary" className="w-full" onClick={handleViewDashboard}>
+                {t('accountModal.dashboardButtonLabel')}
+              </Button>
+
               {isVip && <VipTelegramGroupButton />}
 
               {/* When running in Safe Wallet app, user's wallet should be kept connected at all time */}

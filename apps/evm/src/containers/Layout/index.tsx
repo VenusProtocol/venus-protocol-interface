@@ -4,11 +4,14 @@ import { BODY_PORTAL_ID, PAGE_CONTAINER_ID } from 'constants/layout';
 
 import { SectionErrorBoundary, Wrapper, cn } from 'components';
 import { Subdirectory, routes } from 'constants/routing';
-import { useRef } from 'react';
+import { usePointerLight } from 'hooks/usePointerLight';
+import { useWindowFocusFlag } from 'hooks/useWindowFocusFlag';
+import { useRef, useState } from 'react';
 import { Footer } from './Footer';
 import { Header } from './Header';
 import { NavBar } from './NavBar';
 import ScrollToTop from './ScrollToTop';
+import { Starfield } from './Starfield';
 import { TestEnvWarning } from './TestEnvWarning';
 import { useStore } from './store';
 
@@ -19,6 +22,10 @@ export const Layout: React.FC = () => {
   const footerRef = useRef<HTMLDivElement>(null);
 
   const { pathname } = useLocation();
+  const [isPageScrolled, setIsPageScrolled] = useState(false);
+
+  usePointerLight();
+  useWindowFocusFlag();
 
   const isCloseToBottomState = useStore(state => state.isCloseToBottom);
   const setIsCloseToBottom = useStore(state => state.setIsCloseToBottom);
@@ -28,6 +35,7 @@ export const Layout: React.FC = () => {
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const scrollElem = event.currentTarget;
+    setIsPageScrolled(scrollElem.scrollTop > 0);
     const shouldShowScrollToTopVisible =
       scrollElem?.scrollTop && scrollElem.scrollTop > viewportHeight;
 
@@ -73,30 +81,39 @@ export const Layout: React.FC = () => {
 
   return (
     <>
-      <div className="h-dvh flex flex-col">
-        <NavBar className="shrink-0" />
+      <div className="h-dvh flex flex-col bg-background-active">
+        <Starfield />
 
-        <TestEnvWarning className="shrink-0" />
+        <div className="relative flex min-h-0 grow flex-col">
+          <NavBar
+            className={cn(
+              'absolute inset-x-0 top-0 z-10000 shrink-0 bg-transparent before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:transition-colors',
+              isPageScrolled && 'before:bg-background-active/20 before:backdrop-blur-xs',
+            )}
+          />
 
-        <div
-          className="flex flex-col grow overflow-x-hidden"
-          id={PAGE_CONTAINER_ID}
-          onScroll={handleScroll}
-        >
-          <Header />
+          <div
+            className="relative flex grow scroll-pt-20 flex-col overflow-x-hidden pt-20"
+            id={PAGE_CONTAINER_ID}
+            onScroll={handleScroll}
+          >
+            <TestEnvWarning className="relative shrink-0" />
 
-          <div className="relative flex grow flex-col">
-            <WrapperComp
-              className={cn('relative w-full shrink-0 grow', !noWrapper && 'pt-5 sm:pt-10')}
-            >
-              {contentDom}
-            </WrapperComp>
+            <Header />
 
-            <div id={BODY_PORTAL_ID} />
+            <div className="relative flex grow flex-col">
+              <WrapperComp
+                className={cn('relative w-full shrink-0 grow', !noWrapper && 'pt-5 sm:pt-10')}
+              >
+                {contentDom}
+              </WrapperComp>
 
-            <Footer ref={footerRef} />
+              <Footer ref={footerRef} />
+            </div>
           </div>
         </div>
+
+        <div id={BODY_PORTAL_ID} />
       </div>
     </>
   );

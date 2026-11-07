@@ -1,6 +1,12 @@
 import { type Locale, enUS, ja, th, tr, vi, zhCN, zhTW } from 'date-fns/locale';
 
-export type DateFormatType = 'textual' | 'textualWithTime' | 'numeric' | 'numericWithTime' | 'time';
+export type DateFormatType =
+  | 'textual'
+  | 'textualWithTime'
+  | 'numeric'
+  | 'numericWithTime'
+  | 'dayMonth'
+  | 'time';
 
 export interface SupportedLanguage {
   name: string;
@@ -18,6 +24,7 @@ export const supportedLanguages: SupportedLanguage[] = [
       textual: 'MMM d, yyyy',
       textualWithTime: 'MMM d, yyyy h:mm a',
       numeric: 'MM/dd/yy',
+      dayMonth: 'MM/dd',
       numericWithTime: 'MM/dd/yy h:mm a',
       time: 'h:mm a',
     },
@@ -30,6 +37,7 @@ export const supportedLanguages: SupportedLanguage[] = [
       textual: 'yyyy年M月d日',
       textualWithTime: 'yyyy年M月d日 HH:mm',
       numeric: 'yyyy/MM/dd',
+      dayMonth: 'MM/dd',
       numericWithTime: 'yyyy/MM/dd HH:mm',
       time: 'HH:mm',
     },
@@ -42,6 +50,7 @@ export const supportedLanguages: SupportedLanguage[] = [
       textual: 'yyyy年M月d日',
       textualWithTime: 'yyyy年M月d日 HH:mm',
       numeric: 'yyyy/MM/dd',
+      dayMonth: 'MM/dd',
       numericWithTime: 'yyyy/MM/dd HH:mm',
       time: 'HH:mm',
     },
@@ -54,6 +63,7 @@ export const supportedLanguages: SupportedLanguage[] = [
       textual: 'yyyy年M月d日',
       textualWithTime: 'yyyy年M月d日 HH:mm',
       numeric: 'yyyy/MM/dd',
+      dayMonth: 'MM/dd',
       numericWithTime: 'yyyy/MM/dd HH:mm',
       time: 'HH:mm',
     },
@@ -66,6 +76,7 @@ export const supportedLanguages: SupportedLanguage[] = [
       textual: 'd MMM yyyy',
       textualWithTime: 'd MMM yyyy HH:mm',
       numeric: 'dd/MM/yy',
+      dayMonth: 'dd/MM',
       numericWithTime: 'dd/MM/yy HH:mm',
       time: 'HH:mm',
     },
@@ -78,6 +89,7 @@ export const supportedLanguages: SupportedLanguage[] = [
       textual: 'd MMM yyyy',
       textualWithTime: 'd MMM yyyy HH:mm',
       numeric: 'dd/MM/yy',
+      dayMonth: 'dd/MM',
       numericWithTime: 'dd/MM/yy HH:mm',
       time: 'HH:mm',
     },
@@ -90,6 +102,7 @@ export const supportedLanguages: SupportedLanguage[] = [
       textual: 'd MMM yyyy',
       textualWithTime: 'd MMM yyyy HH:mm',
       numeric: 'dd.MM.yy',
+      dayMonth: 'dd.MM',
       numericWithTime: 'dd.MM.yy HH:mm',
       time: 'HH:mm',
     },

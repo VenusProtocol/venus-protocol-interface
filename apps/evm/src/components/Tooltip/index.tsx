@@ -51,7 +51,7 @@ export const Tooltip = ({
         <TooltipContent
           onPointerDownOutside={e => e.preventDefault()}
           className={cn(
-            'block overflow-visible p-3 z-99999 bg-dark-blue border border-blue',
+            'block overflow-visible p-3 z-99999',
             !hasHoverPointer && 'hidden',
             contentClassName,
           )}
@@ -59,10 +59,13 @@ export const Tooltip = ({
           {content}
 
           <Arrow asChild>
-            <svg className="h-[7px] w-[14px] -translate-y-px overflow-visible" aria-hidden>
+            <svg
+              className="-mt-px h-[7px] w-[14px] overflow-visible bg-surface-tooltip backdrop-blur-raised backdrop-saturate-[1.2] [clip-path:polygon(0_0,100%_0,50%_100%)]"
+              aria-hidden
+            >
               <path
                 d="M0 0L15 10L30 0"
-                className="fill-dark-blue stroke-blue stroke-2"
+                className="fill-none stroke-border-raised stroke-2"
                 strokeLinejoin="round"
               />
             </svg>

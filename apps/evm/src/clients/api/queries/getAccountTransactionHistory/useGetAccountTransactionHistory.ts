@@ -1,5 +1,5 @@
 import { type QueryObserverOptions, useQuery } from '@tanstack/react-query';
-import type { Address } from 'viem';
+import { type Address, isAddress } from 'viem';
 
 import FunctionKey from 'constants/functionKey';
 import { useChainId } from 'libs/wallet';
@@ -39,12 +39,20 @@ export const useGetAccountTransactionHistory = (
   options?: Partial<Options>,
 ) => {
   const { chainId } = useChainId();
-  const { data: getPoolsData } = useGetPools({ includeIsolatedPools: true });
-  const { data: getSpokePoolsData } = useGetSpokePools();
+  const accountAddress = isAddress(params.accountAddress) ? params.accountAddress : undefined;
+  const { data: getPoolsData, isLoading: arePoolsLoading } = useGetPools({
+    accountAddress,
+    includeIsolatedPools: true,
+  });
+  const { data: getSpokePoolsData, isLoading: areSpokePoolsLoading } = useGetSpokePools({
+    accountAddress,
+  });
   const pools = getPoolsData?.pools ?? [];
   const spokePools = getSpokePoolsData?.spokePools ?? [];
 
-  const { data: getLiquidityHubsData } = useGetLiquidityHubs();
+  const { data: getLiquidityHubsData, isLoading: areLiquidityHubsLoading } = useGetLiquidityHubs({
+    accountAddress,
+  });
   const liquidityHubs = getLiquidityHubsData?.liquidityHubs ?? [];
 
   // Sort addresses alphabetically to prevent unnecessary re-renders
@@ -75,5 +83,10 @@ export const useGetAccountTransactionHistory = (
     ],
     queryFn: () => getAccountTransactionHistory(extendedParams),
     ...options,
+    enabled:
+      (options?.enabled === undefined || options.enabled) &&
+      !arePoolsLoading &&
+      !areSpokePoolsLoading &&
+      !areLiquidityHubsLoading,
   });
 };

@@ -58,8 +58,8 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
               <TertiaryButton
                 onClick={handleButtonClick}
                 className={cn(
-                  'pl-2 pr-1 max-w-34 min-w-0',
-                  isTokenListShown && 'relative z-10 border-blue hover:border-blue',
+                  'h-9 pl-2 pr-1 max-w-34 min-w-0',
+                  isTokenListShown && 'relative z-10 outline-1 outline-offset-2 outline-blue',
                 )}
                 contentClassName="min-w-0"
                 variant="tertiary"
@@ -90,7 +90,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
                 disabled={disabled}
                 data-testid={!!testId && getTokenMaxButtonTestId({ parentTestId: testId })}
                 size="sm"
-                className="ml-2 whitespace-nowrap px-2"
+                className="ml-2 h-9 whitespace-nowrap px-3 py-2 hover:bg-white/11 disabled:opacity-50"
                 {...rightMaxButton}
               >
                 {rightMaxButton.label}

@@ -25,7 +25,7 @@ export const RankCard: React.FC<RankCardProps> = ({
   className,
 }) => {
   const cardClassName = cn(
-    'flex flex-col gap-y-3 rounded-lg bg-background-active p-4 min-h-[182px] xl:h-58',
+    'flex flex-col gap-y-3 rounded-lg p-4 min-h-[182px] relative isolate border border-border-glass bg-surface-glass shadow-glass before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-glass',
     className,
   );
 

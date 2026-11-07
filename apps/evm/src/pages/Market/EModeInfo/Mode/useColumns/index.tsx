@@ -15,7 +15,7 @@ export const useColumns = () => {
       selectOptionLabel: t('market.eModeInfo.table.columns.group'),
       renderCell: ({ eModeGroup, isEnabledByUser }) => (
         <div className="flex items-center gap-x-3 text-p3s">
-          <span className="truncate">{eModeGroup.name}</span>
+          <span className="whitespace-normal">{eModeGroup.name}</span>
 
           {isEnabledByUser && <EModeIcon isIsolated={eModeGroup.isIsolated} className="shrink-0" />}
         </div>

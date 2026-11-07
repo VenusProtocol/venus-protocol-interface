@@ -15,6 +15,7 @@ export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
   handleBackAction?: () => void;
   title?: string | ReactElement | ReactElement[];
   noHorizontalPadding?: boolean;
+  contentClassName?: string;
   portalContainer?: Element | DocumentFragment | null;
 }
 
@@ -29,6 +30,7 @@ export const Modal: FC<ModalProps> = ({
   isOpen,
   title,
   noHorizontalPadding,
+  contentClassName,
   portalContainer,
   ...otherModalProps
 }) => {
@@ -70,7 +72,7 @@ export const Modal: FC<ModalProps> = ({
       <div className={cn('pointer-events-none fixed inset-0 z-99999', rootClassName)}>
         <div
           className={cn(
-            'pointer-events-auto absolute top-1/2 left-1/2 flex max-h-[calc(100%-2rem)] w-[calc(100%-2rem)] max-w-136 -translate-x-1/2 -translate-y-1/2 flex-col overflow-auto rounded-xl border border-blue bg-dark-blue outline-hidden',
+            'pointer-events-auto absolute top-1/2 left-1/2 flex max-h-[calc(100%-2rem)] w-[calc(100%-2rem)] max-w-136 -translate-x-1/2 -translate-y-1/2 flex-col overflow-auto rounded-xl border border-border-raised bg-surface-popup shadow-popup backdrop-blur-popup backdrop-saturate-[1.2] outline-hidden',
             !hasHeader && 'pt-4 md:pt-6',
             className,
           )}
@@ -79,14 +81,15 @@ export const Modal: FC<ModalProps> = ({
           {hasHeader && (
             <div
               className={cn(
-                'sticky top-0 z-10 flex items-center justify-center rounded-t-2xl px-6 pt-6',
-                title ? 'mb-4 bg-dark-blue pb-6 md:mb-0' : 'pb-0',
+                'relative flex items-center px-4 pt-6 sm:px-6',
+                handleBackAction ? 'justify-center' : 'justify-start',
+                title ? 'mb-4 pb-6 md:mb-0' : 'pb-0',
               )}
             >
               {!!handleBackAction && (
                 <button
                   className={cn(
-                    'absolute left-6 flex size-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0',
+                    'absolute left-4 flex size-6 sm:left-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0',
                     buttonClassName,
                   )}
                   type="button"
@@ -98,7 +101,12 @@ export const Modal: FC<ModalProps> = ({
 
               {title ? (
                 <h2
-                  className="m-0 flex min-h-6 items-center justify-center px-6 text-center text-lg"
+                  className={cn(
+                    'm-0 flex min-h-6 items-center text-lg',
+                    handleBackAction
+                      ? 'justify-center px-6 text-center'
+                      : 'justify-start pr-8 text-left',
+                  )}
                   id={titleId}
                 >
                   {title}
@@ -111,7 +119,7 @@ export const Modal: FC<ModalProps> = ({
                 <button
                   aria-label="Close"
                   className={cn(
-                    'absolute right-6 top-1/2 -mt-3 flex size-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0',
+                    'absolute right-4 top-1/2 -mt-3 flex size-6 sm:right-6 cursor-pointer items-center justify-center border-0 bg-transparent p-0',
                     buttonClassName,
                   )}
                   type="button"
@@ -123,7 +131,13 @@ export const Modal: FC<ModalProps> = ({
             </div>
           )}
 
-          <div className={cn('pb-4 md:pb-6', noHorizontalPadding ? 'px-0' : 'px-4 md:px-6')}>
+          <div
+            className={cn(
+              'pb-4 md:pb-6',
+              noHorizontalPadding ? 'px-0' : 'px-4 sm:px-6',
+              contentClassName,
+            )}
+          >
             {children}
           </div>
         </div>

@@ -124,7 +124,7 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
   }));
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {tabs.length > 1 && (
         <div>
           <Select
@@ -137,7 +137,6 @@ export const Tabs: React.FC<TabsProps> = ({ pool }) => {
           <ButtonGroup
             className="hidden w-auto sm:inline-flex"
             buttonSize="sm"
-            variant="secondary"
             buttonLabels={tabs.map(({ title }) => title)}
             activeButtonIndex={tabs.findIndex(tab => activeTab.id === tab.id)}
             onButtonClick={index => setActiveTab(tabs[index])}

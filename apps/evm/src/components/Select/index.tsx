@@ -27,6 +27,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       menuTitle,
       menuPosition,
       triggerOnHover,
+      wrapLabels = false,
       ...otherProps
     }: SelectProps,
     ref: React.Ref<HTMLInputElement>,
@@ -71,8 +72,8 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
         // primary
         default:
           return cn(
-            'rounded-lg border-dark-blue-hover bg-transparent hover:bg-transparent hover:border-light-grey active:bg-dark-blue',
-            isDropdownOpen && 'bg-dark-blue-active border-blue',
+            'rounded-lg border-transparent bg-background-active bg-linear-to-b from-surface-raised to-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-transparent hover:bg-background-active active:bg-background-active',
+            isDropdownOpen && 'border-blue hover:border-blue',
           );
       }
     };
@@ -91,11 +92,16 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
                 onClick={() => handleChange(option.value)}
                 type="button"
                 className={cn(
-                  'hover:bg-lightGrey active:bg-lightGrey flex min-w-full items-center justify-between py-3 text-left text-sm font-semibold cursor-pointer',
+                  'hover:bg-surface-segment-hover active:bg-surface-segment-hover flex min-w-full items-center justify-between py-3 text-left text-sm font-semibold cursor-pointer',
                   optionClassName,
                 )}
               >
-                <span className={cn('grow whitespace-nowrap')}>
+                <span
+                  className={cn(
+                    'grow',
+                    wrapLabels ? 'whitespace-normal [overflow-wrap:anywhere]' : 'whitespace-nowrap',
+                  )}
+                >
                   {renderLabel({ label: option.label })}
                 </span>
 
@@ -111,7 +117,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
           </div>
         );
       },
-      [onChange, options, optionClassName, dropdownClassName, value],
+      [onChange, options, optionClassName, dropdownClassName, value, wrapLabels],
     );
 
     return (
@@ -131,13 +137,14 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
           <Button
             onClick={handleToggleDropdown}
             className={cn(
-              'relative w-full',
+              'relative w-full font-normal hover:font-semibold',
+              isDropdownOpen && 'font-semibold',
               getVariantClasses({ variant, isDropdownOpen }),
               buttonSizeClasses,
               buttonClassName,
             )}
             disabled={disabled}
-            contentClassName={cn('w-full justify-center text-sm font-semibold')}
+            contentClassName="w-full justify-center text-sm"
           >
             <input
               ref={ref}
@@ -154,7 +161,14 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
               {...otherProps}
             />
 
-            <span className="grow overflow-hidden text-ellipsis whitespace-nowrap text-left">
+            <span
+              className={cn(
+                'grow text-left',
+                wrapLabels
+                  ? 'whitespace-normal [overflow-wrap:anywhere]'
+                  : 'overflow-hidden text-ellipsis whitespace-nowrap',
+              )}
+            >
               {selectedOption &&
                 renderLabel({ label: selectedOption.label, isRenderedInButton: true })}
             </span>

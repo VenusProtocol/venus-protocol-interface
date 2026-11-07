@@ -60,7 +60,7 @@ export const Dropdown = ({
               >
                 <div
                   className={cn(
-                    'border-lightGrey bg-cards overflow-visible border shadow',
+                    'border-border-raised bg-menu shadow-menu overflow-visible border backdrop-blur-raised backdrop-saturate-[1.2]',
                     variant === 'quaternary' ? 'rounded-xl' : 'rounded-lg',
                     menuClassName,
                   )}
@@ -91,6 +91,8 @@ export const Dropdown = ({
         backdropClassName="z-100000"
         rootClassName="z-100001"
         noHorizontalPadding
+        className="overflow-hidden"
+        contentClassName="min-h-0 overflow-y-auto overscroll-contain"
         onBlur={onBlur}
         title={menuTitle}
         portalContainer={modalPortalContainer}

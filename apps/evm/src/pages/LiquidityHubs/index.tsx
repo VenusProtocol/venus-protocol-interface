@@ -1,6 +1,4 @@
-import BigNumber from 'bignumber.js';
-
-import { useGetLiquidityHubs } from 'clients/api';
+import { useGetLiquidityHubs, useGetLiteTotals } from 'clients/api';
 import { type CellProps, Page, PageStatHeader } from 'components';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -19,40 +17,18 @@ const LiquidityHubs: React.FC = () => {
   } = useGetLiquidityHubs({
     accountAddress,
   });
-  const { liquidityHubs } = getLiquidityHubsData;
+  const { data: getLiteTotalsData } = useGetLiteTotals();
 
-  const { supplyBalanceCents, liquidityCents, count } = liquidityHubs.reduce(
-    (acc, liquidityHub) => ({
-      ...acc,
-      supplyBalanceCents: acc.supplyBalanceCents.plus(liquidityHub.supplyBalanceCents),
-      liquidityCents: acc.liquidityCents.plus(liquidityHub.liquidityCents),
-      count: acc.count + 1,
-    }),
+  const totals: CellProps[] = [
+    { label: t('lite.totals.totalSupply'), valueCents: getLiteTotalsData?.totalSupplyCents },
     {
-      supplyBalanceCents: new BigNumber(0),
-      liquidityCents: new BigNumber(0),
-      count: 0,
+      label: t('lite.totals.availableLiquidity'),
+      valueCents: getLiteTotalsData?.availableLiquidityCents,
     },
-  );
-
-  const cells: CellProps[] = [
-    {
-      label: t('liquidityHubs.stats.totalSupply'),
-      value: formatCentsToReadableValue({
-        value: supplyBalanceCents,
-      }),
-    },
-    {
-      label: t('liquidityHubs.stats.totalLiquidity'),
-      value: formatCentsToReadableValue({
-        value: liquidityCents,
-      }),
-    },
-    {
-      label: t('liquidityHubs.stats.hubs'),
-      value: count,
-    },
-  ];
+  ].map(({ label, valueCents }) => ({
+    label,
+    value: valueCents ? formatCentsToReadableValue({ value: valueCents }) : '—',
+  }));
 
   return (
     <Page>
@@ -60,10 +36,10 @@ const LiquidityHubs: React.FC = () => {
         <PageStatHeader
           title={t('liquidityHubs.header')}
           description={t('liquidityHubs.description')}
-          cells={cells}
+          cells={totals}
         />
 
-        <LiquidityHubTable data={liquidityHubs} isFetching={isLoading} />
+        <LiquidityHubTable data={getLiquidityHubsData.liquidityHubs} isFetching={isLoading} />
       </div>
     </Page>
   );

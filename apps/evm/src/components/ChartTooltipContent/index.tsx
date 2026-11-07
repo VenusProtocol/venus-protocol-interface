@@ -8,7 +8,7 @@ export interface ChartTooltipContentProps {
 }
 
 export const ChartTooltipContent: React.FC<ChartTooltipContentProps> = ({ items }) => (
-  <div className="space-y-1 sm:space-y-2 p-3 bg-background rounded-lg">
+  <div className="space-y-1 sm:space-y-2 rounded-lg border border-border-raised bg-menu p-3 shadow-menu backdrop-blur-raised backdrop-saturate-[1.2]">
     {items.map(item => (
       <div className="flex items-center mr-auto" key={`tooltip-content-item-${item.label}`}>
         <span className="mr-2 text-grey text-xs">{item.label}</span>

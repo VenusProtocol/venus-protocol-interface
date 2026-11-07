@@ -6,23 +6,25 @@ import { ProtectionModeIndicator } from 'components/ProtectionModeIndicator';
 import type { TableColumn } from 'components/Table';
 import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
 import { useTranslation } from 'libs/translations';
-import type { SpokeAsset } from 'types';
+import type { Asset } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
 
-export interface SpokeCollateralGroupProps {
-  collaterals: SpokeAsset[];
-  onRowClick?: (collateral: SpokeAsset) => void;
+type Collateral = Asset & { isInactive?: boolean };
+
+export interface SpokeCollateralGroupProps<TCollateral extends Collateral> {
+  collaterals: TCollateral[];
+  onRowClick?: (collateral: TCollateral) => void;
   className?: string;
 }
 
-export const SpokeCollateralGroup: React.FC<SpokeCollateralGroupProps> = ({
+export const SpokeCollateralGroup = <TCollateral extends Collateral>({
   collaterals,
   onRowClick,
   className,
-}) => {
+}: SpokeCollateralGroupProps<TCollateral>) => {
   const { t } = useTranslation();
 
-  const columns: TableColumn<SpokeAsset>[] = [
+  const columns: TableColumn<TCollateral>[] = [
     {
       key: 'asset',
       label: t('spokeCollateralGroup.asset'),

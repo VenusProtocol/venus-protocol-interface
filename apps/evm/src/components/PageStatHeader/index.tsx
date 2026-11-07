@@ -1,7 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 
 import type { CellProps } from 'components/Cell';
-import { CellGroup } from 'components/CellGroup';
+import { InfoIcon } from 'components/InfoIcon';
 
 export interface PageStatHeaderProps {
   title: string;
@@ -17,17 +17,26 @@ export const PageStatHeader: React.FC<PageStatHeaderProps> = ({
   className,
 }) => (
   <div
-    className={cn(
-      'space-y-6 xl:flex xl:space-y-0 xl:gap-x-6 xl:justify-between xl:items-center',
-      className,
-    )}
+    className={cn('flex flex-col gap-8 xl:flex-row xl:items-start xl:justify-between', className)}
   >
     <div className="xl:max-w-140">
-      <h1 className="text-p1s sm:text-h6">{title}</h1>
+      <h1 className="venus-page-title">{title}</h1>
 
-      {description && <p className="hidden sm:block text-p3r">{description}</p>}
+      {description && <p className="venus-page-subtitle">{description}</p>}
     </div>
 
-    <CellGroup cells={cells} className="xl:w-auto" variant="secondary" />
+    <div className="flex shrink-0 flex-wrap gap-8 sm:gap-12">
+      {cells.map(cell => (
+        <div key={cell.label}>
+          <div className="mb-3 flex items-center gap-x-2">
+            <p className="text-sm text-light-grey">{cell.label}</p>
+
+            {!!cell.tooltip && <InfoIcon tooltip={cell.tooltip} />}
+          </div>
+
+          <div className="text-xl font-normal tabular-nums xl:text-2xl">{cell.value}</div>
+        </div>
+      ))}
+    </div>
   </div>
 );

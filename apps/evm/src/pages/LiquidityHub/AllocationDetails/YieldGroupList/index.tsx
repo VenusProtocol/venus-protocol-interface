@@ -42,7 +42,7 @@ export const YieldGroupList: React.FC<YieldGroupListProps> = ({ liquidityHub }) 
   };
 
   return (
-    <div className="px-2">
+    <div className="px-2 max-xl:[&_:is(th,td):not(:has(table))]:px-3">
       <CompactTableCardList
         className="md:hidden lg:block 2xl:hidden"
         columns={columns}
@@ -65,7 +65,7 @@ export const YieldGroupList: React.FC<YieldGroupListProps> = ({ liquidityHub }) 
           tableLayout="fixed"
           rowOnClick={(_event, row) => handleRowClick(row)}
           renderRowFooter={renderRowFooter}
-          size="sm"
+          size="compact"
         />
       </div>
     </div>

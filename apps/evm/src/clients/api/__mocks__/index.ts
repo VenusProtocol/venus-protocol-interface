@@ -255,6 +255,14 @@ export const useGetLiquidityHubs = vi.fn(() => ({
   },
 }));
 
+export const useGetLiteTotals = vi.fn(() => ({
+  isLoading: false,
+  data: {
+    totalSupplyCents: new BigNumber('152880492483'),
+    availableLiquidityCents: new BigNumber('116806969962'),
+  },
+}));
+
 export const useGetChainIdsWithIsolatedPoolPosition = vi.fn(() => ({
   isLoading: false,
   chainIds: [],

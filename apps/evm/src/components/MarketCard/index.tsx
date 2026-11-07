@@ -27,7 +27,8 @@ export const MarketCard: React.FC<MarketCardProps> = ({
   ...otherProps
 }) => (
   <Card
-    className={cn('@container/marketCard space-y-5 p-6 md:space-y-8', className)}
+    variant="glass"
+    className={cn('@container/marketCard space-y-5 p-4 sm:p-6 md:space-y-8', className)}
     {...otherProps}
   >
     <div className="space-y-5 md:space-y-6">

@@ -13,8 +13,9 @@ interface PaginationProps {
   initialPageIndex?: number;
   itemsPerPageCount?: number;
   paramKey?: string;
-  scrollToRef?: RefObject<HTMLDivElement | null>;
+  scrollToRef?: RefObject<HTMLElement | null>;
   className?: string;
+  showSinglePage?: boolean;
 }
 
 export const Pagination = ({
@@ -25,6 +26,7 @@ export const Pagination = ({
   paramKey,
   scrollToRef,
   className,
+  showSinglePage = false,
 }: PaginationProps) => {
   const { pagesCount, activePageIndex, goToPageByIndex, itemsCountString } = usePagination({
     itemsCount,
@@ -46,7 +48,7 @@ export const Pagination = ({
     setInputValue(String(currentPage));
   }, [currentPage]);
 
-  if (pagesCount <= 1) {
+  if (pagesCount === 0 || (pagesCount === 1 && !showSinglePage)) {
     return null;
   }
 
@@ -98,11 +100,11 @@ export const Pagination = ({
   return (
     <div
       className={cn(
-        'my-5 flex flex-wrap items-center justify-center sm:flex-nowrap sm:justify-end',
+        'my-3 flex flex-wrap items-center justify-center sm:flex-nowrap sm:justify-end',
         className,
       )}
     >
-      <p className="m-0 mb-2 w-full whitespace-nowrap text-center text-base sm:mr-2 sm:mb-0 sm:w-auto sm:text-left">
+      <p className="m-0 mb-2 w-full whitespace-nowrap text-center text-sm text-light-grey sm:mr-2 sm:mb-0 sm:w-auto sm:text-left">
         {itemsCountString}
       </p>
 
