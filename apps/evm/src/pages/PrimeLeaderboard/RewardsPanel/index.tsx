@@ -9,7 +9,10 @@ export const RewardsPanel: React.FC = () => {
   const { accountAddress } = useAccountAddress();
 
   return (
-    <Card variant="glass" className="flex h-full flex-col gap-2.5 p-3">
+    <Card
+      variant="glass"
+      className="flex h-full flex-col gap-2.5 p-3 2xl:row-span-2 2xl:grid 2xl:grid-cols-[minmax(0,1fr)] 2xl:grid-rows-subgrid"
+    >
       {accountAddress ? (
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
           <TotalRewardsSection />
