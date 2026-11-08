@@ -698,4 +698,11 @@ export const bscMainnet: Token[] = [
     symbol: 'COINB',
     iconSrc: iconSrcs.coinb,
   },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0x6d7C501cF2603d8A3d9aE10Fee8809fd4EA9D689',
+    decimals: 18,
+    symbol: 'BPNC',
+    iconSrc: iconSrcs.bpnc,
+  },
 ];
