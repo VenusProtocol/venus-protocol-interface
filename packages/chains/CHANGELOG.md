@@ -1,5 +1,15 @@
 # @venusprotocol/chains
 
+## 0.33.0
+
+### Minor Changes
+
+- ab530af: add the 16 bStock tokens of the bStock mainstream pool on BNB Chain
+
+### Patch Changes
+
+- 7a14f84: add the BPNC token and its icon
+
 ## 0.32.2
 
 ### Patch Changes
