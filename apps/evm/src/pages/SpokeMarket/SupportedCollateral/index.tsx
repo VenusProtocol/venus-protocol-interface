@@ -1,4 +1,4 @@
-import { Table } from 'components';
+import { type Order, Table } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
 
@@ -15,6 +15,12 @@ export const SupportedCollateral: React.FC<SupportedCollateralProps> = ({
 }) => {
   const { t } = useTranslation();
   const columns = useColumns();
+  const suppliedColumn = columns.find(column => column.key === 'supplied');
+
+  const initialOrder: Order<SpokeAsset> | undefined = suppliedColumn && {
+    orderBy: suppliedColumn,
+    orderDirection: 'desc',
+  };
 
   return (
     <Table
@@ -25,6 +31,8 @@ export const SupportedCollateral: React.FC<SupportedCollateralProps> = ({
       columns={columns}
       rowKeyExtractor={asset => asset.vToken.address}
       rowOnClick={(_event, asset) => onRowClick(asset)}
+      initialOrder={initialOrder}
+      tableContainerClassName="max-h-104 [&_thead]:sticky [&_thead]:top-0 [&_thead]:z-10 [&_thead_th]:bg-background"
       tableLayout="auto"
       breakpoint="md"
       hideCardDelimiter
