@@ -52,4 +52,12 @@ describe('utilities/formatPercentageToReadableValue', () => {
     const result = formatPercentageToReadableValue(value);
     expect(result).toBe('200.56%');
   });
+
+  it('should round to 6 decimals half up before truncating to 2 decimals', () => {
+    expect(formatPercentageToReadableValue('5.9999999976')).toBe('6%');
+    expect(formatPercentageToReadableValue('5.2799996')).toBe('5.28%');
+    expect(formatPercentageToReadableValue('5.2799994')).toBe('5.27%');
+    expect(formatPercentageToReadableValue('5.2777776')).toBe('5.27%');
+    expect(formatPercentageToReadableValue('-5.2799996')).toBe('-5.28%');
+  });
 });
