@@ -1,4 +1,4 @@
-import { TokenIcon } from 'components';
+import { TabsSpacingContext, TokenIcon } from 'components';
 import { CoreBorrowModal } from 'containers/CoreBorrowModal';
 import { CoreSupplyModal } from 'containers/CoreSupplyModal';
 import { LiquidityHubFormModal } from 'containers/LiquidityHubFormModal';
@@ -16,7 +16,7 @@ export interface MarketFormModalProps {
   onClose: () => void;
 }
 
-export const MarketFormModal: React.FC<MarketFormModalProps> = ({
+const MarketFormModalContent: React.FC<MarketFormModalProps> = ({
   market,
   mode,
   preselectedCollateral,
@@ -77,3 +77,9 @@ export const MarketFormModal: React.FC<MarketFormModalProps> = ({
     />
   );
 };
+
+export const MarketFormModal: React.FC<MarketFormModalProps> = props => (
+  <TabsSpacingContext.Provider value="compact">
+    <MarketFormModalContent {...props} />
+  </TabsSpacingContext.Provider>
+);

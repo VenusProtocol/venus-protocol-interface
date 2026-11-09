@@ -1,7 +1,10 @@
 import { cn } from '@venusprotocol/ui';
 import { Delimiter } from 'components';
 import { type Tab, type TabNavType, useTabs } from 'hooks/useTabs';
+import { createContext, useContext } from 'react';
 import { ButtonGroup } from '../ButtonGroup';
+
+export const TabsSpacingContext = createContext<'default' | 'compact'>('default');
 
 export interface TabsProps {
   tabs: Tab[];
@@ -26,6 +29,7 @@ export const Tabs = ({
   buttonClassName,
   navType = 'state',
 }: TabsProps) => {
+  const spacing = useContext(TabsSpacingContext);
   const { activeTab, setActiveTab } = useTabs({
     tabs,
     navType,
@@ -47,7 +51,7 @@ export const Tabs = ({
   };
 
   return (
-    <div className={cn('space-y-6', className)}>
+    <div className={cn(spacing === 'compact' ? 'space-y-3' : 'space-y-6', className)}>
       {variant === 'primary' ? (
         <ButtonGroup
           buttonLabels={tabs.map(({ title }) => title)}
