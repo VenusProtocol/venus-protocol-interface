@@ -5,6 +5,7 @@ import { Icon } from '../Icon';
 
 const MENU_VIEWPORT_MARGIN_PX = 16;
 const MENU_MIN_HEIGHT_PX = 144;
+const MENU_GAP_PX = 8;
 
 export interface MultiSelectOption {
   value: string;
@@ -42,13 +43,33 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     );
 
   const fitMenuToViewport = (node: HTMLDivElement | null) => {
-    if (!node?.closest('.venus-multiselect-menu')) {
+    const menu = node?.closest<HTMLElement>('.venus-multiselect-menu');
+
+    if (!node || !menu) {
       return;
     }
 
-    const availableHeight =
+    const spaceBelow =
       window.innerHeight - node.getBoundingClientRect().top - MENU_VIEWPORT_MARGIN_PX;
-    node.style.maxHeight = `${Math.max(availableHeight, MENU_MIN_HEIGHT_PX)}px`;
+    const menuWrapper = menu.parentElement;
+    const menuAnchor = menuWrapper?.parentElement;
+    const trigger = menuAnchor?.parentElement;
+
+    if (spaceBelow < MENU_MIN_HEIGHT_PX && menuWrapper && menuAnchor && trigger) {
+      const triggerTop = trigger.getBoundingClientRect().top;
+      const spaceAbove = triggerTop - MENU_VIEWPORT_MARGIN_PX - MENU_GAP_PX;
+
+      if (spaceAbove > spaceBelow) {
+        menuWrapper.style.top = 'auto';
+        menuWrapper.style.bottom = `${menuAnchor.getBoundingClientRect().top - triggerTop}px`;
+        menuWrapper.style.paddingTop = '0';
+        menuWrapper.style.paddingBottom = `${MENU_GAP_PX}px`;
+        node.style.maxHeight = `${spaceAbove}px`;
+        return;
+      }
+    }
+
+    node.style.maxHeight = `${Math.max(spaceBelow, MENU_MIN_HEIGHT_PX)}px`;
   };
 
   let triggerLabel = placeholder;
