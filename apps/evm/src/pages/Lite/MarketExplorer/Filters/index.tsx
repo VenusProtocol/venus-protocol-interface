@@ -50,6 +50,7 @@ export const Filters: React.FC<FiltersProps> = ({
         renderCount={renderOptionCount}
         size="xs"
         className="w-full min-w-0 shrink-0 sm:w-45"
+        buttonClassName="bg-surface-raised bg-none hover:bg-surface-raised active:bg-surface-raised"
       />
     </div>
   );
