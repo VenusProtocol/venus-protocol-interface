@@ -30,7 +30,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
   );
 
   const sharedContainerClassName = cn(
-    'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active lg:font-normal lg:px-4 lg:py-3 lg:rounded-lg lg:hover:text-white lg:hover:font-semibold lg:whitespace-nowrap group-has-[[data-rewards-button]]/navbar:lg:px-2 group-has-[[data-rewards-button]]/navbar:xl:px-4',
+    'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active lg:font-normal lg:px-3 xl:px-4 lg:py-3 lg:rounded-lg lg:hover:text-white lg:hover:font-semibold lg:whitespace-nowrap group-has-[[data-rewards-button]]/navbar:lg:px-2 group-has-[[data-rewards-button]]/navbar:xl:px-4',
     isActive && 'lg:font-semibold lg:text-white',
   );
 
@@ -54,7 +54,11 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
           <div className="flex items-center gap-x-2">
             <span className="whitespace-nowrap">{item.label}</span>
 
-            {!!item.tagLabel && <Tag>{item.tagLabel}</Tag>}
+            {!!item.tagLabel && (
+              <Tag className="lg:max-xl:absolute lg:max-xl:-top-2 lg:max-xl:-right-3 lg:max-xl:z-1">
+                {item.tagLabel}
+              </Tag>
+            )}
           </div>
 
           <Icon
@@ -116,7 +120,11 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
               {item.label}
             </span>
 
-            {!!item.tagLabel && <Tag>{item.tagLabel}</Tag>}
+            {!!item.tagLabel && (
+              <Tag className="lg:max-xl:absolute lg:max-xl:-top-2 lg:max-xl:-right-3 lg:max-xl:z-1">
+                {item.tagLabel}
+              </Tag>
+            )}
 
             <Icon name="chevronDown" className={cn('size-3', isDropdownOpen && 'rotate-180')} />
           </button>
