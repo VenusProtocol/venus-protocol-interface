@@ -147,7 +147,7 @@
   display: grid;
   gap: 0;
   width: calc(var(--spacing) * 64);
-  padding: calc(var(--spacing) * 3);
+  padding: calc(var(--spacing) * 2);
   border: 1px solid var(--color-dark-blue-hover);
   border-radius: var(--radius-lg);
   background: var(--color-background-active);
@@ -171,8 +171,8 @@
 }
 
 .lite-planet-detail__title {
-  padding: var(--spacing) calc(var(--spacing) * 2) calc(var(--spacing) * 3);
-  font-size: var(--text-base);
+  padding: var(--spacing) calc(var(--spacing) * 2) calc(var(--spacing) * 2);
+  font-size: var(--text-sm);
   font-weight: 600;
   line-height: 1.5;
 }
@@ -191,8 +191,8 @@
   align-items: center;
   justify-content: space-between;
   gap: calc(var(--spacing) * 3);
-  min-height: calc(var(--spacing) * 11);
-  padding: calc(var(--spacing) * 2);
+  min-height: calc(var(--spacing) * 9);
+  padding: var(--spacing) calc(var(--spacing) * 2);
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
   line-height: 1.5;
@@ -213,6 +213,8 @@
 
 .lite-planet-detail__action {
   margin-top: calc(var(--spacing) * 2);
+  min-height: calc(var(--spacing) * 10);
+  height: calc(var(--spacing) * 10);
 }
 
 @media (min-width: 1101px) {
