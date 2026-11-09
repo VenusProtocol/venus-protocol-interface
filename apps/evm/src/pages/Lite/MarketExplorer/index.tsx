@@ -167,7 +167,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       onButtonClick={index => changeMode(index === 0 ? 'earn' : 'borrow')}
       fullWidth={isSmDown}
       buttonSize="sm"
-      buttonClassName="sm:w-20"
+      buttonClassName="sm:min-w-20 sm:px-3"
     />
   );
 
