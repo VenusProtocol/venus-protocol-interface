@@ -1548,7 +1548,7 @@
     "rankCutoffNote": "ランク<Rank/>は現在、<Staked/>をステークし、<Score/>のPrimeスコアを保有しています。",
     "rankFooter": {
       "connectPrompt": "ウォレットを接続してランクを確認してください。",
-      "learnMore": "<LeaderboardLink>Prime リーダーボード</LeaderboardLink> で詳しく見る"
+      "learnMore": "<LeaderboardLink>Prime リーダーボードを見る</LeaderboardLink>"
     },
     "rankTable": {
       "columns": {

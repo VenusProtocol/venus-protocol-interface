@@ -1548,7 +1548,7 @@
     "rankCutoffNote": "อันดับ <Rank/> ปัจจุบันถือครองคะแนน Prime <Score/> โดยมีการสเตก <Staked/>",
     "rankFooter": {
       "connectPrompt": "เชื่อมต่อกระเป๋าเงินเพื่อดูอันดับของคุณ",
-      "learnMore": "เรียนรู้เพิ่มเติมจาก <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
+      "learnMore": "<LeaderboardLink>ดู Prime Leaderboard</LeaderboardLink>"
     },
     "rankTable": {
       "columns": {
