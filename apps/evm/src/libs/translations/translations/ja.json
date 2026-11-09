@@ -555,8 +555,7 @@
           "dailyEarnings": "日次収益",
           "mintedVai": "ミント済みVAI",
           "netApy": "実質APY",
-          "netApyTooltip": "総供給残高に対して年利として受け取る割合",
-          "netApyWithVaultStakeTooltip": "総供給とボールト供給に対して年利として受け取る割合",
+          "netApyTooltip": "Core、Spoke、Liquidity Hub、XVS / VAI Vault、固定金利 Vault、Trade 全体での年間純利回りを、これらの商品への総供給額に対する割合で示したものです",
           "totalBorrow": "総借入",
           "totalSupply": "総供給",
           "totalVaultStake": "ボールト総供給量"

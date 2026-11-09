@@ -555,8 +555,7 @@
           "dailyEarnings": "รายได้รายวัน",
           "mintedVai": "VAI ที่มินต์แล้ว",
           "netApy": "APY สุทธิ",
-          "netApyTooltip": "เปอร์เซ็นต์ของยอดฝากรวมของคุณที่ได้รับเป็นดอกเบี้ยรายปี",
-          "netApyWithVaultStakeTooltip": "เปอร์เซ็นต์ของยอดฝากรวมและการฝากในวอลต์ของคุณที่ได้รับเป็นดอกเบี้ยรายปี",
+          "netApyTooltip": "ผลตอบแทนสุทธิต่อปีของคุณจาก Core, Spoke, Liquidity Hub, XVS / VAI Vault, Vault อัตราคงที่ และ Trade คิดเป็นเปอร์เซ็นต์ของยอดฝากรวมในผลิตภัณฑ์เหล่านี้",
           "totalBorrow": "ยอดยืมรวม",
           "totalSupply": "ยอดฝากรวม",
           "totalVaultStake": "ยอดฝากในวอลต์รวม"

@@ -9,7 +9,6 @@ import {
   useGetLiquidityHubs,
   useGetPool,
   useGetSpokePools,
-  useGetTokenUsdPrice,
   useGetVaults,
 } from 'clients/api';
 import {
@@ -25,16 +24,12 @@ import {
 import { NULL_ADDRESS } from 'constants/address';
 import { HidableUserBalance } from 'containers/HidableUserBalance';
 import { useChain } from 'hooks/useChain';
+import { useGetTradePositions } from 'hooks/useGetTradePositions';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
-import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useStore } from 'store';
-import {
-  convertDollarsToCents,
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
-} from 'utilities';
+import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 import type { Address } from 'viem';
 import { DollarValueChange } from './DollarValueChange';
 import { GridCellGroup } from './GridCellGroup';
@@ -163,23 +158,18 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
 
   const areBalancesLoading = isGetPoolLoading || isGetVaultsLoading || isGetLiquidityHubsLoading;
 
-  const xvs = useGetToken({
-    symbol: 'XVS',
-  });
-  const { data: getXvsUsdPriceData } = useGetTokenUsdPrice({
-    token: xvs,
-  });
-  const xvsPriceCents =
-    getXvsUsdPriceData && convertDollarsToCents(getXvsUsdPriceData.tokenPriceUsd);
+  const isTradeFeatureEnabled = useIsFeatureEnabled({ name: 'trade' });
+  const { data: getTradePositionsData, isLoading: isGetTradePositionsLoading } =
+    useGetTradePositions({
+      accountAddress: isTradeFeatureEnabled ? accountAddress : undefined,
+    });
+  const tradePositions = isTradeFeatureEnabled ? getTradePositionsData.positions : [];
 
-  const vai = useGetToken({
-    symbol: 'VAI',
-  });
-  const { data: getVaiUsdPriceData } = useGetTokenUsdPrice({
-    token: vai,
-  });
-  const vaiPriceCents =
-    getVaiUsdPriceData && convertDollarsToCents(getVaiUsdPriceData.tokenPriceUsd);
+  const isYieldDataAvailable =
+    isAccountDataAvailable &&
+    !isGetLiquidityHubsLoading &&
+    !isGetLiquidityHubsLoadingError &&
+    (!isTradeFeatureEnabled || !isGetTradePositionsLoading);
 
   const {
     data: getAccountPerformanceHistoryData,
@@ -202,8 +192,8 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
       pool,
       vaults,
       spokePools,
-      xvsPriceCents,
-      vaiPriceCents,
+      liquidityHubs: getLiquidityHubsData.liquidityHubs,
+      tradePositions,
     },
   );
 
@@ -291,11 +281,9 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     {
       label: t('dashboard.overview.summary.cellGroup.netApy'),
       value: formatPercentageToReadableValue(
-        isAccountDataAvailable ? userNetApyPercentage : undefined,
+        isYieldDataAvailable ? userNetApyPercentage : undefined,
       ),
-      tooltip: vaults
-        ? t('dashboard.overview.summary.cellGroup.netApyWithVaultStakeTooltip')
-        : t('dashboard.overview.summary.cellGroup.netApyTooltip'),
+      tooltip: t('dashboard.overview.summary.cellGroup.netApyTooltip'),
       className:
         typeof userNetApyPercentage === 'number' && userNetApyPercentage < 0
           ? 'text-red'
@@ -304,7 +292,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     {
       label: t('dashboard.overview.summary.cellGroup.dailyEarnings'),
       value: formatCentsToReadableValue({
-        value: isAccountDataAvailable ? userDailyEarningsCents : undefined,
+        value: isYieldDataAvailable ? userDailyEarningsCents : undefined,
       }),
     },
     {

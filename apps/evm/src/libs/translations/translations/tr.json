@@ -556,8 +556,7 @@
           "dailyEarnings": "Günlük kazanç",
           "mintedVai": "Basılmış VAI",
           "netApy": "Net APY",
-          "netApyTooltip": "Toplam arz bakiyenizin yıllık faiz olarak alınan yüzdesi",
-          "netApyWithVaultStakeTooltip": "Toplam arz ve kasa arzınızın yıllık faiz olarak alınan yüzdesi",
+          "netApyTooltip": "Core, Spoke, Liquidity Hub, XVS / VAI kasaları, sabit faizli kasalar ve Trade genelindeki yıllık net getirinizin, bu ürünlerdeki toplam arzınıza yüzde oranı",
           "totalBorrow": "Toplam borç",
           "totalSupply": "Toplam arz",
           "totalVaultStake": "Toplam kasa arzı"

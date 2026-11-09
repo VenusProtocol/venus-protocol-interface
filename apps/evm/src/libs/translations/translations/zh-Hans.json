@@ -555,8 +555,7 @@
           "dailyEarnings": "每日收益",
           "mintedVai": "已铸 VAI",
           "netApy": "净 APY",
-          "netApyTooltip": "您总存款余额与金库存入按年利息获得的百分比",
-          "netApyWithVaultStakeTooltip": "您总供应余额与金库供应按年利息获得的百分比",
+          "netApyTooltip": "您在 Core、Spoke、Liquidity Hub、XVS / VAI 金库、固定利率金库和 Trade 中的年化净收益，占您在这些产品中总存款的百分比",
           "totalBorrow": "总借款",
           "totalSupply": "总存款",
           "totalVaultStake": "金库供应总额"
