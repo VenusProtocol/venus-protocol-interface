@@ -17,7 +17,7 @@ export const SubMenuContent: React.FC<SubMenuContentProps> = ({ variant = 'prima
   >
     <div
       className={cn(
-        variant === 'secondary' ? 'grid gap-6 sm:grid-cols-2 lg:grid-cols-1' : 'space-y-3',
+        variant === 'secondary' ? 'grid gap-6 sm:grid-cols-2 lg:grid-cols-1 lg:gap-3' : 'space-y-3',
       )}
     >
       {items.map(subItem => (

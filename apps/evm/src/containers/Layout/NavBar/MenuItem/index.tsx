@@ -30,7 +30,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
   );
 
   const sharedContainerClassName = cn(
-    'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active lg:font-normal lg:px-3 xl:px-4 lg:py-3 lg:rounded-lg lg:hover:text-white lg:hover:font-semibold lg:whitespace-nowrap group-has-[[data-rewards-button]]/navbar:lg:px-2 group-has-[[data-rewards-button]]/navbar:xl:px-4',
+    'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active lg:font-normal lg:text-sm lg:leading-5 lg:px-3 xl:px-4 lg:py-4 lg:rounded-lg lg:hover:text-white lg:hover:font-semibold lg:whitespace-nowrap group-has-[[data-rewards-button]]/navbar:lg:px-2 group-has-[[data-rewards-button]]/navbar:xl:px-4',
     isActive && 'lg:font-semibold lg:text-white',
   );
 
@@ -84,7 +84,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
       {/* XL and up dropdown */}
       <Dropdown
         className="hidden lg:block"
-        menuClassName={cn('mt-5', item.variant !== 'secondary' && 'p-2')}
+        menuClassName={cn('mt-2.5', item.variant !== 'secondary' && 'p-2')}
         triggerOnHover
         optionsDom={({ setIsDropdownOpen }) => {
           const items: SubMenuItemProps[] = item.items.map(i => ({

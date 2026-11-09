@@ -48,7 +48,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
     <>
       <BodyBackdrop onClick={onClose} className="hidden sm:block" />
 
-      <div className="fixed top-20 bottom-0 left-0 right-0 z-99999 min-w-full sm:relative sm:top-0">
+      <div className="fixed top-16 bottom-0 left-0 right-0 z-99999 min-w-full sm:relative sm:top-0">
         <div className="absolute inset-0 right-0 min-w-full sm:pt-7 sm:left-auto sm:top-auto sm:bottom-auto">
           <div className="w-full h-full bg-surface-popup shadow-popup backdrop-blur-popup backdrop-saturate-[1.2] p-6 flex flex-col gap-y-6 overflow-auto sm:w-123 sm:overflow-visible sm:rounded-xl sm:border sm:border-border-raised">
             <div className="flex flex-col gap-y-3">
