@@ -23,6 +23,22 @@ describe('getRoundedYAxisTicks', () => {
     expect(ticks.every((tick, index) => index === 0 || tick > ticks[index - 1])).toBe(true);
   });
 
+  it('does not go below zero when every value is positive', () => {
+    const ticks = getRoundedYAxisTicks([150_000, 600_000]) ?? [];
+
+    expect(ticks[0]).toBe(0);
+    expect(ticks[4]).toBeGreaterThanOrEqual(600_000);
+  });
+
+  it('widens the step until every formatted label is distinct', () => {
+    const formatValue = (value: number) => `$${(value / 100_000_000).toFixed(2)}M`;
+    const ticks = getRoundedYAxisTicks([210_000_000, 210_020_000], formatValue) ?? [];
+
+    expect(new Set(ticks.map(formatValue)).size).toBe(ticks.length);
+    expect(ticks[0]).toBeLessThanOrEqual(210_000_000);
+    expect(ticks[4]).toBeGreaterThanOrEqual(210_020_000);
+  });
+
   it('ignores non-finite values', () => {
     expect(getRoundedYAxisTicks([])).toBeUndefined();
     expect(getRoundedYAxisTicks([Number.NaN, Number.POSITIVE_INFINITY])).toBeUndefined();

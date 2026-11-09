@@ -61,7 +61,10 @@ export const AreaChart = <T extends Record<string, any>>({
   const xAxisTicks = getXAxisTicks({ data, interval, xAxisDataKey, formatValue: formatXAxisValue });
   const isLine = variant === 'line';
   const yAxisTicks = isLine
-    ? getRoundedYAxisTicks(data.map(dataPoint => Number(dataPoint[yAxisDataKey as keyof T])))
+    ? getRoundedYAxisTicks(
+        data.map(dataPoint => Number(dataPoint[yAxisDataKey as keyof T])),
+        formatYAxisValue,
+      )
     : getYAxisTicks({
         data,
         tickCount: yAxisTickCount,
