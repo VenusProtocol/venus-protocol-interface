@@ -4,7 +4,7 @@
     <script>
       try {
         var storedTheme = JSON.parse(localStorage.getItem('venus-theme') || 'null');
-        if (storedTheme && storedTheme.state && storedTheme.state.theme === 'light') {
+        if (!storedTheme || !storedTheme.state || storedTheme.state.theme !== 'dark') {
           document.documentElement.dataset.theme = 'light';
         }
       } catch (error) {}

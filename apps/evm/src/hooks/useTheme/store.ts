@@ -15,7 +15,7 @@ interface State {
 export const useStore = create<State>()(
   persist(
     set => ({
-      theme: 'dark',
+      theme: 'light',
       setTheme: theme => {
         applyTheme(theme);
         set({ theme });
