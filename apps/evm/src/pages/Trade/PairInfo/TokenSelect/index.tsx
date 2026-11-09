@@ -59,7 +59,7 @@ export const TokenSelect: React.FC<TokenSelectProps> = ({
       >
         <div
           className={cn(
-            'h-full flex w-12 shrink-0 items-center justify-center py-3 rounded-r-lg',
+            'h-full flex w-12 shrink-0 items-center justify-center py-3 rounded-r-lg text-on-color',
             type === 'long' ? 'bg-success' : 'bg-danger',
           )}
         >
