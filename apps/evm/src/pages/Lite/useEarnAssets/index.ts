@@ -3,8 +3,8 @@ import { useChain } from 'hooks/useChain';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
 import { type MarketCategory, VaultType, type VenusVault } from 'types';
+import { isAssetPaused } from 'utilities/isAssetPaused';
 import { aggregateEarnAssets } from '../aggregateEarnAssets';
-import { isRestrictedAsset } from '../isRestrictedAsset';
 
 export const useEarnAssets = () => {
   const { accountAddress } = useAccountAddress();
@@ -22,7 +22,6 @@ export const useEarnAssets = () => {
 
   const assets = getPoolData?.pool.assets ?? [];
   const liquidityHubs = getLiquidityHubsData?.liquidityHubs ?? [];
-  const eModeGroups = getPoolData?.pool.eModeGroups ?? [];
 
   const xvsVaults = vaults.filter(
     (vault): vault is VenusVault =>
@@ -30,7 +29,9 @@ export const useEarnAssets = () => {
   );
 
   const earnAssets = aggregateEarnAssets({
-    assets: assets.filter(asset => !isRestrictedAsset({ asset, eModeGroups })),
+    assets: assets.filter(
+      asset => !isAssetPaused({ disabledTokenActions: asset.disabledTokenActions }),
+    ),
     liquidityHubs,
     vaults: xvsVaults,
   });
