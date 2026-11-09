@@ -167,7 +167,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
                   })
                 }
                 className="grow"
-                buttonClassName="px-0 max-w-90"
+                buttonClassName="flex-1"
               />
 
               <Controller
