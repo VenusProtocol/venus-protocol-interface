@@ -316,16 +316,21 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     });
   }
 
-  if (pool?.vai?.userBorrowBalanceCents) {
-    summaryCells.push({
-      label: t('dashboard.overview.summary.cellGroup.mintedVai'),
-      value: formatCentsToReadableValue({ value: pool?.vai?.userBorrowBalanceCents }),
-    });
+  const mintedVaiCents = pool?.vai?.userBorrowBalanceCents;
+  const hasMintedVai = !!mintedVaiCents?.gt(0);
+
+  const mintedVaiCell: CellProps = {
+    label: t('dashboard.overview.summary.cellGroup.mintedVai'),
+    value: formatCentsToReadableValue({ value: mintedVaiCents }),
+  };
+
+  if (hasMintedVai) {
+    summaryCells.push(mintedVaiCell);
   }
 
   const overviewCells: CellProps[] = [
     ...graphCells,
-    ...summaryCells.slice(0, 2).map(cell => ({
+    ...[...summaryCells.slice(0, 2), ...(hasMintedVai ? [mintedVaiCell] : [])].map(cell => ({
       ...cell,
       value: <HidableUserBalance>{cell.value}</HidableUserBalance>,
     })),
@@ -398,9 +403,16 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
             <div
               className={cn(
                 'grid grid-cols-2 gap-x-5 gap-y-3 sm:gap-x-10 sm:gap-y-6',
-                isPerformanceHistoryEmpty
-                  ? 'sm:grid-cols-[repeat(4,max-content)]'
-                  : 'lg:grid-cols-[repeat(2,max-content)]',
+                isPerformanceHistoryEmpty &&
+                  !hasMintedVai &&
+                  'sm:grid-cols-[repeat(4,max-content)]',
+                isPerformanceHistoryEmpty && hasMintedVai && 'sm:grid-cols-[repeat(5,max-content)]',
+                !isPerformanceHistoryEmpty &&
+                  !hasMintedVai &&
+                  'lg:grid-cols-[repeat(2,max-content)]',
+                !isPerformanceHistoryEmpty &&
+                  hasMintedVai &&
+                  'lg:grid-cols-[repeat(3,max-content)]',
               )}
             >
               {overviewCells.map((cell, index) => (
@@ -410,7 +422,9 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
                   className={cn(
                     'relative min-w-0 before:absolute before:top-1/2 before:-left-2.5 before:h-10 before:w-px before:-translate-y-1/2 before:bg-border-subtle sm:before:-left-5',
                     index % 2 === 0 && 'before:hidden',
-                    isPerformanceHistoryEmpty && index === 2 && 'sm:before:block',
+                    isPerformanceHistoryEmpty && index >= 2 && 'sm:before:block',
+                    !isPerformanceHistoryEmpty && hasMintedVai && index === 2 && 'lg:col-start-1',
+                    !isPerformanceHistoryEmpty && hasMintedVai && index === 4 && 'lg:before:block',
                     cell.className,
                   )}
                 />
