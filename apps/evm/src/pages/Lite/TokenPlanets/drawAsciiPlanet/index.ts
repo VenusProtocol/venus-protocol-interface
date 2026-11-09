@@ -22,6 +22,7 @@ export interface DrawAsciiPlanetInput {
   phase: number;
   interaction: number;
   scrambleElapsedMs: number;
+  isLight: boolean;
 }
 
 export const drawAsciiPlanet = ({
@@ -32,6 +33,7 @@ export const drawAsciiPlanet = ({
   phase,
   interaction,
   scrambleElapsedMs,
+  isLight,
 }: DrawAsciiPlanetInput) => {
   ctx.clearRect(0, 0, ASCII_PLANET_SIZE, ASCII_PLANET_SIZE);
   ctx.font = `${9 * glyphScale}px monospace`;
@@ -39,7 +41,15 @@ export const drawAsciiPlanet = ({
   ctx.textBaseline = 'middle';
 
   ctx.fillStyle = glyphColor;
-  drawAsciiRing({ ctx, center: CENTER, phase, interaction, scrambleElapsedMs, isFront: false });
+  drawAsciiRing({
+    ctx,
+    center: CENTER,
+    phase,
+    interaction,
+    scrambleElapsedMs,
+    isFront: false,
+    isLight,
+  });
 
   ctx.fillStyle = surfaceGradient;
 
@@ -60,7 +70,10 @@ export const drawAsciiPlanet = ({
       const z = Math.sqrt(1 - squaredRadius);
       const edge = (1 - z) ** 1.4;
       const facing = Math.max(0, nx * 0.8 - ny * 0.5);
-      const density = Math.min(1, 0.22 + z * 0.15 + edge * 0.24 + facing * 0.65);
+      const shade = Math.max(0, -0.45 * nx - 0.4 * ny + 0.75 * z);
+      const density = isLight
+        ? Math.min(1, 0.3 + shade * 0.45 + edge * 0.12)
+        : Math.min(1, 0.22 + z * 0.15 + edge * 0.24 + facing * 0.65);
 
       ctx.globalAlpha = 0.18 + density * 0.82;
       ctx.fillText(
@@ -77,7 +90,15 @@ export const drawAsciiPlanet = ({
   }
 
   ctx.fillStyle = glyphColor;
-  drawAsciiRing({ ctx, center: CENTER, phase, interaction, scrambleElapsedMs, isFront: true });
+  drawAsciiRing({
+    ctx,
+    center: CENTER,
+    phase,
+    interaction,
+    scrambleElapsedMs,
+    isFront: true,
+    isLight,
+  });
 
   for (let star = 0; star < PARTICLE_COUNT; star++) {
     for (let tail = 0; tail < PARTICLE_TAIL_LENGTH; tail++) {

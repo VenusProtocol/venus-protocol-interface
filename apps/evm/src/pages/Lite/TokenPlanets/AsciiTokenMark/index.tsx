@@ -1,3 +1,4 @@
+import { useTheme } from 'hooks/useTheme';
 import { useEffect, useRef, useState } from 'react';
 import { SCRAMBLE_STEP_MS, getScrambledGlyph } from '../getScrambledGlyph';
 import { PLANET_PALETTES } from '../palettes';
@@ -19,6 +20,7 @@ export const AsciiTokenMark: React.FC<AsciiTokenMarkProps> = ({
   isOpen,
   replayToken,
 }) => {
+  const { isLight } = useTheme();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [{ glyphs, fontSize }, setMarkGlyphs] = useState<MarkGlyphs>({ glyphs: [], fontSize: 0 });
 
@@ -50,7 +52,7 @@ export const AsciiTokenMark: React.FC<AsciiTokenMarkProps> = ({
       return;
     }
 
-    const [highlight] = PLANET_PALETTES[symbol] ?? PLANET_PALETTES.USDC;
+    const [highlight, , shadow] = PLANET_PALETTES[symbol] ?? PLANET_PALETTES.USDC;
     const pixelRatio = Math.min(window.devicePixelRatio || 1, MAX_PIXEL_RATIO);
 
     canvas.width = ASCII_MARK_SIZE * pixelRatio;
@@ -59,7 +61,7 @@ export const AsciiTokenMark: React.FC<AsciiTokenMarkProps> = ({
     ctx.font = `bold ${fontSize}px monospace`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillStyle = highlight;
+    ctx.fillStyle = isLight ? shadow : highlight;
 
     const draw = (elapsedMs: number) => {
       ctx.clearRect(0, 0, ASCII_MARK_SIZE, ASCII_MARK_SIZE);
@@ -137,7 +139,7 @@ export const AsciiTokenMark: React.FC<AsciiTokenMarkProps> = ({
       motionQuery.removeEventListener('change', syncLoop);
       draw(Number.POSITIVE_INFINITY);
     };
-  }, [glyphs, fontSize, symbol, isOpen, replayToken]);
+  }, [glyphs, fontSize, symbol, isLight, isOpen, replayToken]);
 
   if (glyphs.length === 0) {
     return <img className="lite-planet__mark-fallback" alt="" src={src} />;

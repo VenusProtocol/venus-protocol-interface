@@ -1,3 +1,4 @@
+import { useTheme } from 'hooks/useTheme';
 import { useEffect, useRef } from 'react';
 import { ASCII_PLANET_SIZE, drawAsciiPlanet } from '../drawAsciiPlanet';
 import { mixHexColors } from '../mixHexColors';
@@ -15,6 +16,7 @@ export interface AsciiPlanetProps {
 }
 
 export const AsciiPlanet: React.FC<AsciiPlanetProps> = ({ symbol, isOpen, replayToken }) => {
+  const { isLight } = useTheme();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const scrambleRef = useRef({ isOpen: false, startedAtMs: Number.NEGATIVE_INFINITY });
 
@@ -41,14 +43,28 @@ export const AsciiPlanet: React.FC<AsciiPlanetProps> = ({ symbol, isOpen, replay
     canvas.height = ASCII_PLANET_SIZE * pixelRatio;
     ctx.scale(pixelRatio, pixelRatio);
 
-    const glyphColor = mixHexColors({ from: color, to: highlight, ratio: 0.3 });
-    const rimAmbient = mixHexColors({ from: shadow, to: color, ratio: 0.3 });
+    const glyphColor = isLight ? color : mixHexColors({ from: color, to: highlight, ratio: 0.3 });
 
-    const surfaceGradient = ctx.createLinearGradient(60, 220, 290, 110);
-    surfaceGradient.addColorStop(0, rimAmbient);
-    surfaceGradient.addColorStop(0.3, rimAmbient);
-    surfaceGradient.addColorStop(0.76, color);
-    surfaceGradient.addColorStop(1, highlight);
+    const getSurfaceGradient = () => {
+      if (isLight) {
+        const gradient = ctx.createRadialGradient(142, 128, 12, 188, 182, 164);
+        gradient.addColorStop(0, highlight);
+        gradient.addColorStop(0.32, color);
+        gradient.addColorStop(0.72, mixHexColors({ from: shadow, to: color, ratio: 0.4 }));
+        gradient.addColorStop(1, shadow);
+        return gradient;
+      }
+
+      const rimAmbient = mixHexColors({ from: shadow, to: color, ratio: 0.3 });
+      const gradient = ctx.createLinearGradient(60, 220, 290, 110);
+      gradient.addColorStop(0, rimAmbient);
+      gradient.addColorStop(0.3, rimAmbient);
+      gradient.addColorStop(0.76, color);
+      gradient.addColorStop(1, highlight);
+      return gradient;
+    };
+
+    const surfaceGradient = getSurfaceGradient();
 
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -66,6 +82,7 @@ export const AsciiPlanet: React.FC<AsciiPlanetProps> = ({ symbol, isOpen, replay
         surfaceGradient,
         glyphColor,
         glyphScale: GLYPH_SCALE,
+        isLight,
         phase,
         interaction: isEngaged ? 1 : 0,
         scrambleElapsedMs: isScrambling
@@ -127,7 +144,7 @@ export const AsciiPlanet: React.FC<AsciiPlanetProps> = ({ symbol, isOpen, replay
       window.removeEventListener('blur', syncLoop);
       motionQuery.removeEventListener('change', syncMotion);
     };
-  }, [symbol]);
+  }, [symbol, isLight]);
 
   return <canvas ref={canvasRef} className="lite-planet__ascii" />;
 };
