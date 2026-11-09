@@ -8,6 +8,7 @@ import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useInterfaceMode } from 'hooks/useInterfaceMode';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
+import { useProHomePath } from 'hooks/useProHomePath';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useEffect } from 'react';
@@ -30,6 +31,7 @@ export type NavBarProps = React.HTMLAttributes<HTMLDivElement>;
 export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) => {
   const { t } = useTranslation();
   const { isLite } = useInterfaceMode();
+  const proHomePath = useProHomePath();
   const isLiteModeEnabled = useIsFeatureEnabled({ name: 'liteMode' });
   const openModal = useStore(state => state.openModal);
   const { accountAddress } = useAccountAddress();
@@ -77,7 +79,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
         <div className="flex items-center gap-x-0">
           <Link
             className="flex h-full flex-none items-center justify-center py-6 pl-2 pr-0 sm:pl-5"
-            to={routes.landing.path}
+            to={isLite ? routes.landing.path : proHomePath}
             onClick={closeMobileMenu}
           >
             <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="h-8 sm:hidden" />
