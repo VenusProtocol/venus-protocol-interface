@@ -160,21 +160,6 @@
   border-color: rgb(var(--theme-border-strong));
 }
 
-.lite-planet:nth-child(even) .lite-planet-detail {
-  left: auto;
-  right: 0;
-}
-
-.lite-planet:nth-child(n + 3) .lite-planet-detail {
-  top: auto;
-  bottom: 100%;
-}
-
-.lite-planet.lite-planet--5 .lite-planet-detail {
-  top: 100%;
-  bottom: auto;
-}
-
 .lite-planet-detail__title {
   padding: var(--spacing) calc(var(--spacing) * 2) calc(var(--spacing) * 2);
   font-size: var(--text-sm);
@@ -281,19 +266,6 @@
     top: 14%;
     --planet-size: 20;
     --ascii-depth: 0.75;
-  }
-  .lite-planet--1 .lite-planet-detail {
-    left: calc(var(--spacing) * 8);
-  }
-
-  .lite-planet.lite-planet--6 .lite-planet-detail {
-    top: 100%;
-    bottom: auto;
-  }
-  .lite-planet--2 .lite-planet-detail {
-    top: auto;
-    bottom: 100%;
-    right: calc(var(--spacing) * 16);
   }
 }
 
