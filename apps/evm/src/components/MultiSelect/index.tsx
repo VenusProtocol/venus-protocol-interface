@@ -3,6 +3,9 @@ import { Button, cn } from '@venusprotocol/ui';
 import { Dropdown } from '../Dropdown';
 import { Icon } from '../Icon';
 
+const MENU_VIEWPORT_MARGIN_PX = 16;
+const MENU_MIN_HEIGHT_PX = 144;
+
 export interface MultiSelectOption {
   value: string;
   label: React.ReactNode;
@@ -38,6 +41,16 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
       value.includes(optionValue) ? value.filter(v => v !== optionValue) : [...value, optionValue],
     );
 
+  const fitMenuToViewport = (node: HTMLDivElement | null) => {
+    if (!node?.closest('.venus-multiselect-menu')) {
+      return;
+    }
+
+    const availableHeight =
+      window.innerHeight - node.getBoundingClientRect().top - MENU_VIEWPORT_MARGIN_PX;
+    node.style.maxHeight = `${Math.max(availableHeight, MENU_MIN_HEIGHT_PX)}px`;
+  };
+
   let triggerLabel = placeholder;
   if (value.length === 1) {
     triggerLabel = options.find(option => option.value === value[0])?.label ?? placeholder;
@@ -53,7 +66,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
       // option does not bleed past the border
       menuClassName="venus-multiselect-menu overflow-hidden"
       optionsDom={() => (
-        <div className="min-w-full">
+        <div ref={fitMenuToViewport} className="min-w-full overflow-y-auto">
           <div className="flex h-12 items-center justify-between gap-3 px-4 py-3">
             <span className="text-b1r truncate text-white">{title}</span>
 
