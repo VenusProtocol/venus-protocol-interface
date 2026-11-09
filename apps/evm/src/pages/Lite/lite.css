@@ -22,6 +22,10 @@
   box-shadow: var(--shadow-glass);
 }
 
+.lite-panel:has(.venus-multiselect-menu) {
+  z-index: 30;
+}
+
 .lite-panel .venus-multiselect-menu {
   max-height: calc(var(--spacing) * 80);
   overflow-y: auto;
