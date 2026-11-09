@@ -164,7 +164,7 @@ describe('NavBar', () => {
     const { container } = renderNavBar();
 
     expect(screen.getByTestId('nav-bar')).toHaveClass('custom-nav');
-    expect(screen.getAllByAltText('Venus logo')).toHaveLength(3);
+    expect(screen.getAllByAltText('Venus logo')).toHaveLength(1);
     expect(screen.queryByText('Dashboard')).toBeNull();
     expect(screen.getAllByText('Borrow').length).toBeGreaterThan(1);
     expect(screen.queryByText('Markets')).toBeNull();
