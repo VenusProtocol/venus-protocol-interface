@@ -1535,7 +1535,7 @@
     "rankCard": {
       "connectPrompt": "Kết nối ví để kiểm tra điều kiện Prime của bạn.",
       "eligible": "Bạn hiện đủ điều kiện nhận Prime trong chu kỳ tiếp theo",
-      "notEligible": "Bạn hiện không đủ điều kiện nhận Prime trong chu kỳ tiếp theo.",
+      "notEligible": "Bạn hiện KHÔNG đủ điều kiện nhận Prime trong chu kỳ tiếp theo.",
       "primeScoreLabel": "Điểm Prime",
       "rankLabel": "Hạng của bạn",
       "rulesButton": "Quy tắc",
@@ -1548,7 +1548,7 @@
     "rankCutoffNote": "Hạng <Rank/> hiện đang nắm giữ <Score/> điểm Prime với <Staked/> đã stake.",
     "rankFooter": {
       "connectPrompt": "Kết nối ví để xem thứ hạng của bạn.",
-      "learnMore": "Tìm hiểu thêm từ <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
+      "learnMore": "<LeaderboardLink>Xem Prime Leaderboard</LeaderboardLink>"
     },
     "rankTable": {
       "columns": {

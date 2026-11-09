@@ -1537,7 +1537,7 @@
     "rankCard": {
       "connectPrompt": "Connect wallet to check your Prime eligibility.",
       "eligible": "You are currently eligible for Prime during the next cycle.",
-      "notEligible": "You are currently not eligible for Prime during the next cycle.",
+      "notEligible": "You are currently NOT eligible for Prime during the next cycle.",
       "primeScoreLabel": "Prime score",
       "rankLabel": "Your rank",
       "rulesButton": "Rules",
@@ -1550,7 +1550,7 @@
     "rankCutoffNote": "Rank <Rank/> currently holds a <Score/> Prime score with <Staked/> staked.",
     "rankFooter": {
       "connectPrompt": "Connect wallet to see your rank.",
-      "learnMore": "Learn more about the <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
+      "learnMore": "<LeaderboardLink>View Prime Leaderboard</LeaderboardLink>"
     },
     "rankTable": {
       "columns": {

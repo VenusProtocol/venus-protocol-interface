@@ -1548,7 +1548,7 @@
     "rankCutoffNote": "排名 <Rank/> 目前持有 <Score/> Prime 分數，質押了 <Staked/>。",
     "rankFooter": {
       "connectPrompt": "連接錢包查看你的排名。",
-      "learnMore": "從 <LeaderboardLink>Prime 排行榜</LeaderboardLink> 了解更多"
+      "learnMore": "<LeaderboardLink>查看 Prime 排行榜</LeaderboardLink>"
     },
     "rankTable": {
       "columns": {

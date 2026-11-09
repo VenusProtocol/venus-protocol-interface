@@ -1537,7 +1537,7 @@
     "rankCard": {
       "connectPrompt": "Prime uygunluğunu görmek için cüzdanını bağla.",
       "eligible": "Bir sonraki döngüde Prime için uygunsun",
-      "notEligible": "Bir sonraki döngüde Prime için uygun değilsin.",
+      "notEligible": "Bir sonraki döngüde Prime için uygun DEĞİLSİN.",
       "primeScoreLabel": "Prime puanı",
       "rankLabel": "Sıralaman",
       "rulesButton": "Kurallar",
@@ -1550,7 +1550,7 @@
     "rankCutoffNote": "<Rank/>. sıra şu anda <Staked/> stake ederek <Score/> Prime puanına sahip.",
     "rankFooter": {
       "connectPrompt": "Sıralamanızı görmek için cüzdanınızı bağlayın.",
-      "learnMore": "<LeaderboardLink>Prime Leaderboard</LeaderboardLink> üzerinden daha fazla bilgi edinin"
+      "learnMore": "<LeaderboardLink>Prime Leaderboard'u görüntüle</LeaderboardLink>"
     },
     "rankTable": {
       "columns": {
