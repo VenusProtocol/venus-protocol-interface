@@ -102,7 +102,7 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
   return (
     <Table
       data={markets}
-      {...getTableProps({ columns, columnWidths: ['20%', '22%', '20%', '16%', '22%'] })}
+      {...getTableProps({ columns, columnWidths: ['20%', '20%', '18%', '20%', '22%'] })}
       rowKeyExtractor={market => market.id}
       rowOnClick={(_event, market) => onSelect(market)}
       initialOrder={{ orderBy: columns[1], orderDirection: 'asc' }}

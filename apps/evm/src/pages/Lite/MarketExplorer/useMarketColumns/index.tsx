@@ -98,8 +98,7 @@ export const useMarketColumns = () => {
     stickyHeader: true,
     hideCardDelimiter: true,
     className: 'rounded-[7px] border-0 md:border-0',
-    tableContainerClassName:
-      'rounded-b-[7px] scrollbar-thin scrollbar-track-transparent scrollbar-thumb-grey md:max-h-100 md:overscroll-contain',
+    tableContainerClassName: 'lite-table-scroll rounded-b-[7px] md:max-h-100 md:overscroll-contain',
   });
 
   return { buildAmountColumn, buildApyColumn, getTableProps, isMobile };

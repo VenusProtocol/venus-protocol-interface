@@ -72,14 +72,14 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
     <nav className="relative">
       <div
         className={cn(
-          'group/navbar bg-canvas h-20 pr-2 flex items-center justify-between sm:pr-5',
+          'group/navbar bg-canvas h-16 pr-2 flex items-center justify-between sm:pr-5',
           className,
         )}
         {...containerProps}
       >
         <div className="flex items-center gap-x-0">
           <Link
-            className="flex h-full flex-none items-center justify-center py-6 pl-2 pr-0 sm:pl-5"
+            className="flex h-full flex-none items-center justify-center py-4 pl-2 pr-0 sm:pl-5"
             to={isLite ? routes.landing.path : proHomePath}
             onClick={closeMobileMenu}
           >
@@ -153,7 +153,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
       <div
         className={cn(
           !isLite && isMobileMenuOpen ? 'fixed' : 'hidden',
-          'top-20 bottom-0 left-0 right-0 z-40 p-5 bg-canvas bg-linear-to-b from-surface-2/50 to-surface-2/50 overflow-y-auto lg:hidden',
+          'top-16 bottom-0 left-0 right-0 z-40 p-5 bg-canvas bg-linear-to-b from-surface-2/50 to-surface-2/50 overflow-y-auto lg:hidden',
         )}
       >
         <div className="flex items-center justify-between mb-5">
