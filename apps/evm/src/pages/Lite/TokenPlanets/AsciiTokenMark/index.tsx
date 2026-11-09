@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { SCRAMBLE_STEP_MS, getScrambledGlyph } from '../getScrambledGlyph';
 import { PLANET_PALETTES } from '../palettes';
-import { ASCII_MARK_SIZE, type MarkGlyph, sampleMarkGlyphs } from '../sampleMarkGlyphs';
+import { ASCII_MARK_SIZE, type MarkGlyphs, sampleMarkGlyphs } from '../sampleMarkGlyphs';
 
 const GLYPH_SCALE = 1.1;
 const MAX_PIXEL_RATIO = 2;
@@ -20,7 +20,7 @@ export const AsciiTokenMark: React.FC<AsciiTokenMarkProps> = ({
   replayToken,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [glyphs, setGlyphs] = useState<MarkGlyph[]>([]);
+  const [{ glyphs, fontSize }, setMarkGlyphs] = useState<MarkGlyphs>({ glyphs: [], fontSize: 0 });
 
   useEffect(() => {
     let isCancelled = false;
@@ -31,7 +31,7 @@ export const AsciiTokenMark: React.FC<AsciiTokenMarkProps> = ({
         return;
       }
 
-      setGlyphs(sampleMarkGlyphs({ image, symbol, glyphScale: GLYPH_SCALE }));
+      setMarkGlyphs(sampleMarkGlyphs({ image, symbol, glyphScale: GLYPH_SCALE }));
     };
 
     image.src = src;
@@ -56,7 +56,7 @@ export const AsciiTokenMark: React.FC<AsciiTokenMarkProps> = ({
     canvas.width = ASCII_MARK_SIZE * pixelRatio;
     canvas.height = ASCII_MARK_SIZE * pixelRatio;
     ctx.scale(pixelRatio, pixelRatio);
-    ctx.font = `bold ${7 * GLYPH_SCALE}px monospace`;
+    ctx.font = `bold ${fontSize}px monospace`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillStyle = highlight;
@@ -137,7 +137,7 @@ export const AsciiTokenMark: React.FC<AsciiTokenMarkProps> = ({
       motionQuery.removeEventListener('change', syncLoop);
       draw(Number.POSITIVE_INFINITY);
     };
-  }, [glyphs, symbol, isOpen, replayToken]);
+  }, [glyphs, fontSize, symbol, isOpen, replayToken]);
 
   if (glyphs.length === 0) {
     return <img className="lite-planet__mark-fallback" alt="" src={src} />;

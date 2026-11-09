@@ -9,6 +9,11 @@ import { AsciiTokenMark } from './AsciiTokenMark';
 import { PlanetDetail } from './PlanetDetail';
 import { getPlanetRank } from './getPlanetRank';
 import './planets.css';
+import usd1PlanetMarkSrc from './usd1PlanetMark.svg';
+
+const PLANET_MARK_SOURCES: Record<string, string> = {
+  USD1: usd1PlanetMarkSrc,
+};
 
 export interface TokenPlanetsProps {
   earnAssets: LiteEarnAsset[];
@@ -72,7 +77,7 @@ export const TokenPlanets: React.FC<TokenPlanetsProps> = ({ earnAssets, onSelect
 
             <AsciiTokenMark
               symbol={earnAsset.token.symbol}
-              src={earnAsset.token.iconSrc}
+              src={PLANET_MARK_SOURCES[earnAsset.token.symbol] ?? earnAsset.token.iconSrc}
               isOpen={openKey === earnAsset.key}
               replayToken={replay.key === earnAsset.key ? replay.count : 0}
             />
