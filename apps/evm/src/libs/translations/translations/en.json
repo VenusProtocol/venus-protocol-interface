@@ -556,8 +556,7 @@
           "dailyEarnings": "Daily earnings",
           "mintedVai": "Minted VAI",
           "netApy": "Net APY",
-          "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
-          "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault supply received as yearly interests",
+          "netApyTooltip": "Your yearly net yield across Core, Spoke, Liquidity Hub, XVS / VAI vaults, fixed-rate vaults and Trade, as a percentage of your total supply in these products",
           "totalBorrow": "Total borrow",
           "totalSupply": "Total supply",
           "totalVaultStake": "Total vault supply"

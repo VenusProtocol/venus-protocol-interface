@@ -1,64 +1,84 @@
 import BigNumber from 'bignumber.js';
 
-import type { Pool, SpokePool, Vault } from 'types';
 import {
-  calculateDailyInterests,
-  calculateYearlyInterests,
-  convertMantissaToTokens,
-} from 'utilities';
+  type LiquidityHub,
+  type Pool,
+  type SpokePool,
+  type TradePosition,
+  type Vault,
+  VaultType,
+} from 'types';
+import { calculateDailyInterests, calculateYearlyInterests } from 'utilities';
 import calculateNetApy from './calculateNetApy';
 
 interface UseExtractDataInput {
   pool?: Pool;
-  xvsPriceCents?: BigNumber;
-  vaiPriceCents?: BigNumber;
   vaults?: Vault[];
   spokePools?: SpokePool[];
+  liquidityHubs?: LiquidityHub[];
+  tradePositions?: TradePosition[];
 }
 
 export const useExtractData = ({
   pool,
   vaults,
   spokePools = [],
-  xvsPriceCents = new BigNumber(0),
-  vaiPriceCents = new BigNumber(0),
+  liquidityHubs = [],
+  tradePositions = [],
 }: UseExtractDataInput) => {
-  let userTotalVaultStakeCents: BigNumber | undefined;
-  let yearlyVaultEarningsCents: BigNumber | undefined;
+  const userTotalVaultStakeCents = vaults?.length
+    ? vaults.reduce((acc, vault) => acc.plus(vault.userStakeBalanceCents || 0), new BigNumber(0))
+    : undefined;
 
-  if (vaults) {
-    vaults.forEach(vault => {
-      const vaultStakeCents = convertMantissaToTokens({
-        value: new BigNumber(vault.userStakeBalanceMantissa || 0),
-        token: vault.stakedToken,
-      }).multipliedBy(vault.stakedToken.symbol === 'XVS' ? xvsPriceCents : vaiPriceCents);
+  const yieldingVaults = (vaults ?? []).filter(vault => vault.vaultType !== VaultType.Pendle);
 
-      if (!userTotalVaultStakeCents) {
-        userTotalVaultStakeCents = new BigNumber(0);
-      }
+  const positions = [
+    {
+      supplyCents: new BigNumber(pool?.userSupplyBalanceCents || 0),
+      yearlyEarningsCents: new BigNumber(pool?.userYearlyEarningsCents || 0),
+    },
+    ...spokePools.map(spokePool => ({
+      supplyCents: new BigNumber(spokePool.userSupplyBalanceCents || 0),
+      yearlyEarningsCents: new BigNumber(spokePool.userYearlyEarningsCents || 0),
+    })),
+    ...liquidityHubs.map(liquidityHub => ({
+      supplyCents: new BigNumber(liquidityHub.userVhTokenBalanceCents || 0),
+      yearlyEarningsCents: new BigNumber(liquidityHub.userYearlyEarningsCents || 0),
+    })),
+    ...yieldingVaults.map(vault => {
+      const supplyCents = new BigNumber(vault.userStakeBalanceCents || 0);
 
-      if (!yearlyVaultEarningsCents) {
-        yearlyVaultEarningsCents = new BigNumber(0);
-      }
-
-      userTotalVaultStakeCents = userTotalVaultStakeCents.plus(vaultStakeCents);
-      yearlyVaultEarningsCents = yearlyVaultEarningsCents.plus(
-        calculateYearlyInterests({
-          balance: vaultStakeCents,
+      return {
+        supplyCents,
+        yearlyEarningsCents: calculateYearlyInterests({
+          balance: supplyCents,
           interestPercentage: new BigNumber(vault.stakeAprPercentage),
         }),
+      };
+    }),
+    ...tradePositions.map(tradePosition => {
+      const supplyCents = new BigNumber(tradePosition.dsaBalanceCents).plus(
+        tradePosition.longBalanceCents,
       );
-    });
-  }
 
-  const supplyBalanceCents = spokePools.reduce(
-    (acc, spokePool) => acc.plus(spokePool.userSupplyBalanceCents || 0),
-    new BigNumber(pool?.userSupplyBalanceCents || 0).plus(userTotalVaultStakeCents || 0),
+      return {
+        supplyCents,
+        yearlyEarningsCents: calculateYearlyInterests({
+          balance: supplyCents,
+          interestPercentage: new BigNumber(tradePosition.netApyPercentage),
+        }),
+      };
+    }),
+  ];
+
+  const supplyBalanceCents = positions.reduce(
+    (acc, position) => acc.plus(position.supplyCents),
+    new BigNumber(0),
   );
 
-  const yearlyEarningsCents = spokePools.reduce(
-    (acc, spokePool) => acc.plus(spokePool.userYearlyEarningsCents || 0),
-    new BigNumber(pool?.userYearlyEarningsCents || 0).plus(yearlyVaultEarningsCents || 0),
+  const yearlyEarningsCents = positions.reduce(
+    (acc, position) => acc.plus(position.yearlyEarningsCents),
+    new BigNumber(0),
   );
 
   const userNetApyPercentage = calculateNetApy({

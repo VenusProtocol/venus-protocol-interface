@@ -555,8 +555,7 @@
           "dailyEarnings": "Thu nhập hàng ngày",
           "mintedVai": "VAI đã mint",
           "netApy": "APY ròng",
-          "netApyTooltip": "Tỷ lệ phần trăm trên tổng số dư cung của bạn nhận được dưới dạng lãi suất hằng năm",
-          "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm trên tổng số dư cung và lượng cung cấp trong vault của bạn nhận được dưới dạng lãi suất hằng năm",
+          "netApyTooltip": "Lợi suất ròng hằng năm của bạn trên Core, Spoke, Liquidity Hub, XVS / VAI Vault, vault lãi suất cố định và Trade, tính theo phần trăm tổng số tiền bạn đã gửi vào các sản phẩm này",
           "totalBorrow": "Tổng số vay",
           "totalSupply": "Tổng số cung",
           "totalVaultStake": "Tổng cung cấp trong vault"
