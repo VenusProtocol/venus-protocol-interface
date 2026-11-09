@@ -7,36 +7,6 @@
   opacity: 0.75;
 }
 
-.venus-starfield::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 58% 34% at 8% 104%, rgb(44 145 160 / 30%), transparent 78%),
-    radial-gradient(ellipse 40% 42% at 100% 14%, rgb(73 123 183 / 19%), transparent 82%),
-    radial-gradient(ellipse 65% 22% at 54% 115%, rgb(108 182 215 / 14%), transparent 82%);
-}
-
-.venus-starfield::after {
-  content: '';
-  position: absolute;
-  left: -18%;
-  bottom: -70%;
-  width: 136%;
-  height: 104%;
-  border-radius: 50%;
-  border: 1px solid rgb(149 214 234 / 14%);
-  background: radial-gradient(ellipse 50% 24% at 50% 0%, rgb(73 150 174 / 10%), transparent 85%);
-  box-shadow: 0 -24px 90px -36px rgb(70 160 182 / 18%);
-}
-
-@media (max-width: 767px) {
-  .venus-starfield::before,
-  .venus-starfield::after {
-    opacity: 0.65;
-  }
-}
-
 .venus-starfield__motion,
 .venus-starfield__still-layer,
 .venus-starfield__canvas {
