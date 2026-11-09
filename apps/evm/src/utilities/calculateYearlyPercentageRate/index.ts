@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 
-import { COMPOUND_DECIMALS } from 'constants/compoundMantissa';
 import { ONE_MILLION } from 'constants/numbers';
 import { DAYS_PER_YEAR } from 'constants/time';
 
@@ -33,5 +32,5 @@ export const calculateYearlyPercentageRate = ({
     apy = MIN_VALUE;
   }
 
-  return new BigNumber(apy).dp(COMPOUND_DECIMALS);
+  return new BigNumber(apy).div(100).dp(6, BigNumber.ROUND_HALF_UP).multipliedBy(100);
 };

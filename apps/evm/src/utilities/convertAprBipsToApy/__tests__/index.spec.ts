@@ -6,6 +6,6 @@ describe('convertAprBipsToApy', () => {
       aprBips: '23',
     });
 
-    expect(res).toMatchInlineSnapshot('"0.23026397657694986"');
+    expect(res).toMatchInlineSnapshot('"0.2303"');
   });
 });
