@@ -40,6 +40,10 @@
   -webkit-backdrop-filter: blur(var(--blur-raised));
 }
 
+.lite-table-scroll::-webkit-scrollbar-track {
+  margin-top: calc(var(--spacing) * 10);
+}
+
 .lite-panel::before {
   content: '';
   position: absolute;
