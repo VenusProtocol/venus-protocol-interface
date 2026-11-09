@@ -39,7 +39,7 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
       <Icon
         name={iconName}
         className={cn(
-          'text-secondary size-6 transition-colors group-hover:text-primary',
+          'text-secondary size-5 transition-colors group-hover:text-primary',
           isActive && 'text-primary',
         )}
       />
@@ -63,20 +63,20 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({
       onClick={onClick}
       data-nav-item
       className={cn(
-        'block rounded-lg group transition-colors hover:no-underline',
-        variant === 'secondary'
-          ? 'p-2 hover:bg-hover-subtle focus-visible:bg-hover-subtle'
-          : 'py-3 px-4 bg-surface-1 hover:bg-hover',
-        isActive && (variant === 'secondary' ? 'bg-selected-subtle' : 'bg-selected'),
+        'block rounded-lg group transition-[background-color,box-shadow] hover:no-underline hover:bg-surface-segment-hover hover:shadow-menu-item-hover focus-visible:bg-surface-segment-hover focus-visible:shadow-menu-item-hover',
+        variant === 'secondary' ? 'p-2' : 'p-3',
       )}
     >
-      <div className="flex gap-x-3">
+      <div className={cn('flex gap-x-3', !!iconName && 'items-center')}>
         {(iconName || imgSrc || menuIconName) && (
           <div
             className={cn(
               'rounded-lg shrink-0 flex items-center justify-center',
-              variant === 'secondary' ? 'size-10' : 'size-12',
-              !!iconName && 'bg-surface-3',
+              iconName
+                ? 'size-9 bg-surface-raised shadow-menu-icon transition-[background-color,box-shadow] group-hover:bg-blue/14 group-hover:shadow-menu-icon-hover group-focus-visible:bg-blue/14 group-focus-visible:shadow-menu-icon-hover'
+                : variant === 'secondary'
+                  ? 'size-10'
+                  : 'size-12',
               !!menuIconName && menuIconName !== 'core' && 'nav-icon-glint',
             )}
           >

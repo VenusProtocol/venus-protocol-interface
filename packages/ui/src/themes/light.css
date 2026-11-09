@@ -116,5 +116,9 @@
   --shadow-segment-track: inset 0 1px 2px rgb(31 53 83 / 7%);
   --shadow-popup: inset 0 1px 0 rgb(255 255 255 / 90%), 0 24px 64px -20px rgb(31 53 83 / 24%);
   --shadow-menu: inset 0 1px 0 rgb(255 255 255 / 90%), 0 12px 40px -12px rgb(31 53 83 / 18%);
+  --shadow-menu-item-hover: inset 0 0 0 1px rgb(30 55 85 / 6%);
+  --shadow-menu-icon: inset 0 1px 0 rgb(255 255 255 / 90%), 0 0 0 1px rgb(30 55 85 / 8%);
+  --shadow-menu-icon-hover: inset 0 1px 0 rgb(255 255 255 / 90%),
+    0 0 0 1px rgb(var(--color-blue-rgb) / 30%);
   --shadow-input: inset 0 1px 3px rgb(31 53 83 / 9%);
 }
