@@ -32,6 +32,7 @@ export const SupportedCollateral: React.FC<SupportedCollateralProps> = ({
       rowKeyExtractor={asset => asset.vToken.address}
       rowOnClick={(_event, asset) => onRowClick(asset)}
       initialOrder={initialOrder}
+      cardListClassName="max-h-344 overflow-y-auto"
       tableContainerClassName="max-h-104 [&_thead]:sticky [&_thead]:top-0 [&_thead]:z-10 [&_thead_th]:bg-background"
       tableLayout="auto"
       breakpoint="md"

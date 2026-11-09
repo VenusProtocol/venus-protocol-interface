@@ -23,6 +23,7 @@ export function Table<R>({
   columns,
   columnWidths,
   cardClassName,
+  cardListClassName,
   cardColumns,
   data,
   title,
@@ -304,6 +305,7 @@ export function Table<R>({
           <TableCards
             controls={controls}
             cardClassName={cardClassName}
+            cardListClassName={cardListClassName}
             selectVariant={selectVariant}
             data={sortedData}
             isFetching={isFetching}

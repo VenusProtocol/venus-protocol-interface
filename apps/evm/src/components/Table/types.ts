@@ -39,6 +39,7 @@ export interface TableProps<R> extends Omit<CardProps, 'title' | 'variant'> {
   // Notified when the user changes the sort via a column header
   onOrderChange?: (order: Order<R>) => void;
   cardClassName?: string;
+  cardListClassName?: string;
   hideCardDelimiter?: boolean;
   className?: string;
   tableRowClassName?: string;
@@ -65,6 +66,7 @@ export interface TableCardProps<R>
   extends Pick<
     TableProps<R>,
     | 'cardClassName'
+    | 'cardListClassName'
     | 'hideCardDelimiter'
     | 'data'
     | 'rowKeyExtractor'
