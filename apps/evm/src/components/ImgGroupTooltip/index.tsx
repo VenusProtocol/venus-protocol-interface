@@ -42,8 +42,8 @@ export function ImgGroupTooltip<R>({
           tableLayout={tableLayout}
           className="border-0 bg-transparent p-0"
           tableRowClassName="h-12"
-          tableHeaderClassName="sticky top-0 z-10 h-10 bg-surface-tooltip"
-          tableContainerClassName="max-h-49 rounded-md"
+          tableHeaderClassName="h-10"
+          tableContainerClassName="max-h-80 rounded-md"
         />
       }
       className={cn('inline-flex', className)}
