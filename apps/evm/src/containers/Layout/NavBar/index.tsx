@@ -1,7 +1,7 @@
 import { cn } from '@venusprotocol/ui';
 
 import venusLogoSrc from 'assets/img/venusLogo.svg';
-import venusLogoWithTextSrc from 'assets/img/venusLogoWithText.svg';
+import venusWordmarkSrc from 'assets/img/venusWordmark.svg';
 import { Delimiter, Icon } from 'components';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
@@ -14,7 +14,6 @@ import { useAccountAddress } from 'libs/wallet';
 import { useEffect } from 'react';
 import { useStore } from '../store';
 import TEST_IDS from '../testIds';
-import { ChainBadge } from './ChainBadge';
 import { ChainSelect } from './ChainSelect';
 import { ClaimRewardsButton } from './ClaimRewardsButton';
 import { ConnectButton } from './ConnectButton';
@@ -71,27 +70,23 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
     <nav className="relative">
       <div
         className={cn(
-          'group/navbar bg-background-active h-16 pr-2 flex items-center justify-between sm:pr-5',
+          'group/navbar bg-background-active h-16 px-4 flex items-center justify-between gap-x-2',
           className,
         )}
         {...containerProps}
       >
         <div className="flex items-center gap-x-0">
           <Link
-            className="flex h-full flex-none items-center justify-center py-4 pl-2 pr-0 sm:pl-5"
+            className="flex h-full flex-none items-center gap-x-2.5 py-4"
             to={isLite ? routes.landing.path : proHomePath}
             onClick={closeMobileMenu}
           >
-            <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="h-8 sm:hidden" />
+            <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="h-8" />
 
-            <img
-              src={venusLogoWithTextSrc}
-              alt={t('layout.menu.venusLogoAlt')}
-              className="h-8 hidden sm:block"
-            />
+            <img src={venusWordmarkSrc} alt="" aria-hidden="true" className="hidden sm:block" />
           </Link>
 
-          <InterfaceModeLabel className="ml-2 max-xs:hidden" />
+          <InterfaceModeLabel className={cn('ml-2 max-xs:hidden', isLite && 'sm:ml-2.5')} />
 
           {/* LG and up menu */}
           {!isLite && (
@@ -107,7 +102,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
         </div>
 
         <div
-          className="flex items-center gap-x-1 h-9 sm:h-12 sm:gap-x-3"
+          className={cn('flex items-center h-9 sm:h-12', isLite ? 'gap-x-2' : 'gap-x-1 sm:gap-x-2')}
           data-testid={TEST_IDS.navBarActions}
         >
           <ClaimRewardsButton className="h-full max-sm:px-2" data-rewards-button="true" />
@@ -115,8 +110,6 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
           {!isLite && (
             <ChainSelect className="hidden md:block" buttonClassName="h-10 px-3 py-0 sm:h-12" />
           )}
-
-          {isLite && <ChainBadge />}
 
           <ConnectButton />
 

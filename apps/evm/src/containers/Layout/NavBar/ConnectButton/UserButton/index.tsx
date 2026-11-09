@@ -38,7 +38,7 @@ export const UserButton: React.FC<UserButtonProps> = ({
     >
       <div
         className={cn(
-          'relative px-3 flex items-center gap-x-3 bg-background-active h-full rounded-[7px] transition-colors',
+          'relative px-3 flex items-center gap-x-2 bg-background-active h-full rounded-[7px] transition-colors',
           !disabled && 'max-sm:px-2 max-sm:gap-x-2 group-hover:bg-dark-blue-hover',
         )}
       >
