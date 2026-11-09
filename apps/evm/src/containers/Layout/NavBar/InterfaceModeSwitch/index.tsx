@@ -18,15 +18,20 @@ export const InterfaceModeSwitch: React.FC<InterfaceModeSwitchProps> = ({
   const { isLite, setMode } = useInterfaceMode();
   const proHomePath = useProHomePath();
   const navigate = useNavigate();
-  const { search } = useLocation();
+  const location = useLocation();
 
   const targetMode = isLite ? 'pro' : 'lite';
   const label = isLite ? t('layout.interfaceMode.pro') : t('layout.interfaceMode.lite');
 
   const handleClick = () => {
-    const chainId = new URLSearchParams(search).get('chainId');
+    const chainId = new URLSearchParams(location.search).get('chainId');
 
     onSwitch?.();
+
+    if (isLite) {
+      navigate(location, { replace: true, state: { ...location.state, liteEntry: true } });
+    }
+
     setMode(targetMode);
     navigate({
       pathname: targetMode === 'pro' ? proHomePath : '/',

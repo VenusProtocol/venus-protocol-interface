@@ -50,7 +50,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
 
       <div className="fixed top-20 bottom-0 left-0 right-0 z-99999 min-w-full sm:relative sm:top-0">
         <div className="absolute inset-0 right-0 min-w-full sm:pt-7 sm:left-auto sm:top-auto sm:bottom-auto">
-          <div className="w-full h-full bg-surface-1 p-6 flex flex-col gap-y-6 overflow-auto sm:w-123 sm:overflow-visible sm:rounded-lg sm:border sm:border-brand">
+          <div className="w-full h-full bg-popover shadow-popup backdrop-blur-popup backdrop-saturate-[1.2] p-6 flex flex-col gap-y-6 overflow-auto sm:w-123 sm:overflow-visible sm:rounded-xl sm:border sm:border-raised">
             <div className="flex flex-col gap-y-3">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-x-2 md:gap-x-3">
@@ -81,10 +81,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
 
             <AccountOverview accountAddress={address} showGraph={false} />
 
-            <Settings />
-
             <div className="flex flex-col gap-y-3">
-              <Button variant="secondary" className="w-full" onClick={handleViewDashboard}>
+              <Settings />
+
+              <Button variant="secondary" className="w-full min-h-12" onClick={handleViewDashboard}>
                 {t('accountModal.dashboardButtonLabel')}
               </Button>
 
@@ -92,7 +92,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
 
               {/* When running in Safe Wallet app, user's wallet should be kept connected at all time */}
               {!config.isSafeApp && (
-                <Button variant="secondary" onClick={handleDisconnect} className="w-full">
+                <Button variant="secondary" onClick={handleDisconnect} className="w-full min-h-12">
                   <div className="flex items-center gap-x-2">
                     <Icon name="connect" className="size-5 text-inherit transition-colors" />
 
