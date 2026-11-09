@@ -9,7 +9,6 @@ export interface ToggleProps
   > {
   value: boolean;
   className?: string;
-  isDark?: boolean;
   label?: string;
   tooltip?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
@@ -22,7 +21,6 @@ export const Toggle = ({
   onClick,
   value,
   className,
-  isDark = false,
   disabled = false,
   label,
   tooltip,
@@ -56,14 +54,14 @@ export const Toggle = ({
         type="checkbox"
       />
 
-      <span aria-hidden className="block h-5.5 w-11 rounded-full bg-lightGrey" />
+      <span
+        aria-hidden
+        className="block h-5.5 w-11 rounded-full bg-black/22 shadow-[inset_0_0_0_1px_rgb(255_255_255/8%),inset_0_2px_3px_rgb(0_0_0/28%)] transition-[background,box-shadow] duration-200 ease-out peer-checked:bg-action peer-checked:shadow-[inset_0_1px_1px_rgb(255_255_255/25%),inset_0_-1px_1px_rgb(255_255_255/9%),0_2px_6px_rgb(0_0_0/10%)]"
+      />
 
       <span
         aria-hidden
-        className={cn(
-          'absolute top-0 left-0 size-5.5 rounded-full transition-transform duration-300 peer-checked:translate-x-5.5 peer-checked:bg-blue',
-          isDark ? 'bg-lightGrey' : 'bg-grey',
-        )}
+        className="absolute top-0.5 left-0.5 size-4.5 rounded-full bg-white/13 shadow-[inset_0_1px_1px_rgb(255_255_255/27%),0_1px_3px_rgb(0_0_0/18%)] transition-[translate,background-color] duration-300 ease-[cubic-bezier(0.3,0.7,0.2,1)] peer-checked:translate-x-5.5 peer-checked:bg-white peer-checked:shadow-[0_1px_4px_rgb(0_0_0/28%)]"
       />
     </label>
   </div>
