@@ -54,6 +54,8 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       isDropdownOpen: boolean;
     }) => {
       switch (variant) {
+        case 'raised':
+          return cn('shadow-none', isDropdownOpen && 'text-primary');
         case 'secondary':
           return cn(
             'border-muted bg-neutral hover:border-brand hover:bg-neutral active:border-brand active:bg-neutral',
@@ -135,6 +137,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       >
         {({ isDropdownOpen, handleToggleDropdown }) => (
           <Button
+            variant={variant === 'raised' ? 'secondary' : 'primary'}
             onClick={handleToggleDropdown}
             className={cn(
               'relative w-full font-normal text-primary hover:font-semibold',

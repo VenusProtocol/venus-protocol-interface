@@ -24,7 +24,7 @@ const ACTION_MATERIAL_CLASSES =
 const PRESSED_CLASSES = 'active:shadow-action-pressed active:duration-100';
 
 const DISABLED_CLASSES =
-  'disabled:cursor-not-allowed disabled:shadow-none aria-disabled:cursor-not-allowed aria-disabled:shadow-none';
+  'disabled:cursor-not-allowed disabled:shadow-none disabled:opacity-45 aria-disabled:cursor-not-allowed aria-disabled:shadow-none aria-disabled:opacity-45';
 
 const DISABLED_MATERIAL_CLASSES =
   'disabled:bg-none disabled:bg-disabled disabled:border-transparent disabled:text-secondary disabled:backdrop-blur-none aria-disabled:bg-none aria-disabled:bg-disabled aria-disabled:border-transparent aria-disabled:text-secondary aria-disabled:backdrop-blur-none disabled:before:hidden aria-disabled:before:hidden';

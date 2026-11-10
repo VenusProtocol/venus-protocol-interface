@@ -69,10 +69,8 @@ export const ChainSelect: React.FC<ChainSelectProps> = ({ buttonClassName, ...pr
         menuPosition="right"
         menuTitle={t('layout.chainSelect.label')}
         triggerOnHover
-        buttonClassName={cn(
-          'bg-surface-3 border-control/50 hover:bg-neutral-hover hover:border-control/50 hover:no-underline active:bg-neutral-hover',
-          buttonClassName,
-        )}
+        variant="raised"
+        buttonClassName={cn('hover:no-underline', buttonClassName)}
         {...props}
       />
 

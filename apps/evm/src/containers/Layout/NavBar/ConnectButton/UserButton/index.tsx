@@ -27,19 +27,29 @@ export const UserButton: React.FC<UserButtonProps> = ({
     <button
       type="button"
       className={cn(
-        'group h-9 text-b1s text-primary rounded-lg p-px sm:h-12',
+        'group relative h-9 text-b1s text-primary rounded-lg border bg-sheen shadow-sheen backdrop-blur-raised backdrop-saturate-[1.3] sm:h-12',
+        isPrime ? 'border-transparent' : 'border-sheen',
         disabled && (isPrime ? 'md:min-w-36.75' : 'md:min-w-36.25'),
         !disabled && 'cursor-pointer',
         !disabled && (isPrime ? 'min-w-21.25 sm:min-w-36.75' : 'min-w-20.75 sm:min-w-36.25'),
-        isPrime ? 'bg-[linear-gradient(135deg,#FFECE3,#6D4637,#674031)]' : 'bg-neutral-hover',
         className,
       )}
       {...otherProps}
     >
+      {isPrime && (
+        <span
+          aria-hidden="true"
+          className={cn(
+            'prime-ring opacity-72 transition-opacity',
+            !disabled && 'group-hover:opacity-100 group-focus-visible:opacity-100',
+          )}
+        />
+      )}
+
       <div
         className={cn(
-          'relative px-3 flex items-center gap-x-2 bg-input h-full rounded-[7px] transition-colors',
-          !disabled && 'max-sm:px-2 max-sm:gap-x-2 group-hover:bg-neutral-hover',
+          'relative px-3 flex items-center gap-x-2 h-full',
+          !disabled && 'max-sm:px-2 max-sm:gap-x-2',
         )}
       >
         {isPrime ? (

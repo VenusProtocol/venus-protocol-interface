@@ -73,4 +73,33 @@
 
   --theme-tooltip-border: var(--color-border-raised);
   --theme-boost-fg: 101 238 224;
+
+  --theme-shadow: 0px 4px 15px 0px #0D1017;
+  --theme-shadow-glass: 0 4px 12px -4px rgb(var(--elevation-shade-rgb) / 18%);
+  --theme-shadow-raised: inset 0 1px 1px rgb(var(--elevation-tint-rgb) / 27%),
+    inset 0 -1px 1px rgb(var(--elevation-tint-rgb) / 9%),
+    0 4px 10px rgb(var(--elevation-shade-rgb) / 12%);
+  --theme-shadow-action: inset 0 1px 1px rgb(var(--elevation-tint-rgb) / 25%),
+    inset 0 -1px 1px rgb(var(--elevation-tint-rgb) / 9%),
+    0 3px 8px rgb(var(--elevation-shade-rgb) / 10%);
+  --theme-shadow-action-pressed: inset 0 1px 1px rgb(var(--elevation-tint-rgb) / 40%),
+    0 2px 5px rgb(var(--elevation-shade-rgb) / 8%);
+  --theme-shadow-sheen: var(--theme-shadow-raised);
+  --theme-shadow-mode-switch: 0 2px 12px rgb(var(--color-blue-rgb) / 18%);
+  --theme-shadow-segment-track: inset 0 1px 1px rgb(var(--elevation-tint-rgb) / 27%),
+    inset 0 -1px 1px rgb(var(--elevation-tint-rgb) / 9%);
+  --theme-shadow-segment-active: inset 0 1px 1px rgb(var(--elevation-tint-rgb) / 25%),
+    0 2px 4px rgb(var(--elevation-shade-rgb) / 16%);
+  --theme-shadow-popup: inset 0 1px 0 rgb(var(--elevation-tint-rgb) / 18%),
+    0 24px 64px rgb(var(--elevation-shade-rgb) / 28%);
+  --theme-shadow-menu: inset 0 1px 0 rgb(var(--elevation-tint-rgb) / 14%),
+    0 12px 32px rgb(var(--elevation-shade-rgb) / 18%);
+  --theme-shadow-menu-item-hover: inset 0 1px 0 rgb(var(--elevation-tint-rgb) / 8%),
+    inset 0 0 0 1px rgb(var(--elevation-tint-rgb) / 4%);
+  --theme-shadow-menu-icon: inset 0 1px 1px rgb(var(--elevation-tint-rgb) / 20%);
+  --theme-shadow-menu-icon-hover: inset 0 1px 1px rgb(var(--elevation-tint-rgb) / 20%),
+    0 0 0 1px rgb(var(--color-blue-rgb) / 30%);
+  --theme-shadow-input: inset 0 2px 4px rgb(var(--elevation-shade-rgb) / 28%);
+  --theme-shadow-glow: 0 0 0 1px rgb(var(--color-blue-rgb) / 25%),
+    0 0 24px -4px rgb(var(--color-blue-rgb) / 45%);
 }

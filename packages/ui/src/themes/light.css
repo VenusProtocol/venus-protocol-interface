@@ -89,11 +89,24 @@
   --color-border-glass: rgb(212 221 232);
   --color-border-raised: rgb(212 221 232);
   --color-border-subtle: rgb(0 0 0 / 6%);
+  --color-border-sheen: rgb(212 221 232);
+  --color-border-input: rgb(212 221 232);
+  --color-border-mode-switch: rgb(36 100 203);
 
   --background-image-row-hover: linear-gradient(rgb(30 55 85 / 5%), rgb(30 55 85 / 4%));
   --background-image-menu: linear-gradient(125deg, rgb(255 255 255 / 35%), transparent 65%),
     linear-gradient(rgb(251 253 255 / 96%) 0 100%);
   --background-image-tooltip: linear-gradient(rgb(251 252 254) 0 100%);
+  --background-image-sheen: linear-gradient(
+      159.44deg,
+      rgb(255 255 255 / 86%) 5.363%,
+      rgb(255 255 255 / 30%) 35.45%,
+      rgb(183 196 213 / 26%) 73.742%,
+      rgb(255 255 255 / 38%) 96.535%
+    ),
+    linear-gradient(rgb(237 242 248 / 78%) 0 100%);
+  --background-image-mode-switch: var(--background-image-sheen);
+  --background-image-prime-ring: linear-gradient(110deg, #7e523c, #d8b49b 45%, #82573f);
   --background-image-hero-text: linear-gradient(115deg, #1460ff, #2873ff 48%, #1557ed);
   --background-image-page-title: linear-gradient(115deg, #1460ff, #2873ff 48%, #1557ed);
   --background-image-pearl-text: linear-gradient(
@@ -107,16 +120,19 @@
   --background-image-prime-text: linear-gradient(26deg, #72452e, #986447 50%, #72452e);
   --background-image-merkl-text: linear-gradient(17deg, #8a5a0c 5%, #a8740f 36%, #8f6417 68%, #9c6d12 106%);
 
-  --shadow: 0 4px 15px 0 rgb(31 53 83 / 12%);
-  --shadow-glass: 0 4px 12px -4px rgb(31 53 83 / 10%);
-  --shadow-raised: inset 0 1px 0 rgb(255 255 255 / 90%), inset 0 -1px 0 rgb(45 78 110 / 12%),
+  --theme-shadow: 0 4px 15px 0 rgb(31 53 83 / 12%);
+  --theme-shadow-glass: 0 4px 12px -4px rgb(31 53 83 / 10%);
+  --theme-shadow-raised: inset 0 1px 0 rgb(255 255 255 / 90%), inset 0 -1px 0 rgb(45 78 110 / 12%),
     0 2px 6px rgb(30 55 85 / 7%);
-  --shadow-segment-track: inset 0 1px 2px rgb(31 53 83 / 7%);
-  --shadow-popup: inset 0 1px 0 rgb(255 255 255 / 90%), 0 24px 64px -20px rgb(31 53 83 / 24%);
-  --shadow-menu: inset 0 1px 0 rgb(255 255 255 / 90%), 0 12px 40px -12px rgb(31 53 83 / 18%);
-  --shadow-menu-item-hover: inset 0 0 0 1px rgb(30 55 85 / 6%);
-  --shadow-menu-icon: inset 0 1px 0 rgb(255 255 255 / 90%), 0 0 0 1px rgb(30 55 85 / 8%);
-  --shadow-menu-icon-hover: inset 0 1px 0 rgb(255 255 255 / 90%),
+  --theme-shadow-sheen: inset 0 1px 4px rgb(255 255 255 / 95%), inset 0 -1px 4px rgb(183 196 213 / 35%),
+    0 2px 4px rgb(31 53 83 / 6%);
+  --theme-shadow-mode-switch: var(--theme-shadow-sheen);
+  --theme-shadow-segment-track: inset 0 1px 2px rgb(31 53 83 / 7%);
+  --theme-shadow-popup: inset 0 1px 0 rgb(255 255 255 / 90%), 0 24px 64px -20px rgb(31 53 83 / 24%);
+  --theme-shadow-menu: inset 0 1px 0 rgb(255 255 255 / 90%), 0 12px 40px -12px rgb(31 53 83 / 18%);
+  --theme-shadow-menu-item-hover: inset 0 0 0 1px rgb(30 55 85 / 6%);
+  --theme-shadow-menu-icon: inset 0 1px 0 rgb(255 255 255 / 90%), 0 0 0 1px rgb(30 55 85 / 8%);
+  --theme-shadow-menu-icon-hover: inset 0 1px 0 rgb(255 255 255 / 90%),
     0 0 0 1px rgb(var(--color-blue-rgb) / 30%);
-  --shadow-input: inset 0 1px 3px rgb(31 53 83 / 9%);
+  --theme-shadow-input: inset 0 1px 3px rgb(31 53 83 / 9%);
 }
