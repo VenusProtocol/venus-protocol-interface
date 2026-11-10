@@ -72,6 +72,7 @@ export const RainwbowKitWrapper: React.FC<RainwbowKitWrapperProps> = ({ children
       locale={language.bcp47Tag as Locale}
       appInfo={{
         appName: 'Venus',
+        learnMoreUrl: 'https://ethereum.org/wallets/find-wallet/',
       }}
       theme={rkTheme}
     >
