@@ -30,7 +30,7 @@ export const BlockingPositionModal: React.FC<BlockingPositionModalProps> = ({
               eModeGroupName,
             }}
             components={{
-              WhiteText: <span className="text-offWhite" />,
+              WhiteText: <span className="text-primary" />,
             }}
           />
         </p>
