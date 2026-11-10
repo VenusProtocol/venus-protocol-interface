@@ -1028,6 +1028,11 @@
   "liquidityHubs": {
     "description": "ฝากครั้งเดียว ระบบจัดสรรไปยังแหล่งผลตอบแทนของ Venus โดยอัตโนมัติ",
     "header": "ศูนย์สภาพคล่อง",
+    "stats": {
+      "hubs": "ศูนย์",
+      "totalLiquidity": "สภาพคล่องรวม",
+      "totalSupply": "ยอดฝากรวม"
+    },
     "table": {
       "columns": {
         "asset": "สินทรัพย์",

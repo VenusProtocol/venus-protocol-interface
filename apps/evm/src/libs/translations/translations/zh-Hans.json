@@ -1028,6 +1028,11 @@
   "liquidityHubs": {
     "description": "一次供应，自动分配到 Venus 的多个收益来源。",
     "header": "流动性中心",
+    "stats": {
+      "hubs": "中心数",
+      "totalLiquidity": "总流动性",
+      "totalSupply": "总供应量"
+    },
     "table": {
       "columns": {
         "asset": "资产",

@@ -1029,6 +1029,11 @@
   "liquidityHubs": {
     "description": "One supply, auto-routed across Venus yield sources.",
     "header": "Liquidity Hub",
+    "stats": {
+      "hubs": "Hubs",
+      "totalLiquidity": "Total liquidity",
+      "totalSupply": "Total supply"
+    },
     "table": {
       "columns": {
         "asset": "Asset",
