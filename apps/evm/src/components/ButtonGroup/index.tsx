@@ -50,7 +50,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
             key={`button-group-button-${index}`}
             onClick={e => handleButtonClick(e, index)}
             className={cn(
-              'min-w-0 rounded-lg px-3 text-sm duration-160 before:hidden backdrop-blur-none! backdrop-saturate-100',
+              'min-w-0 rounded-lg px-3 text-sm duration-160 before:hidden backdrop-blur-none! backdrop-saturate-100 focus-visible:-outline-offset-2',
               fullWidth && 'h-[45px] flex-1 py-0',
               !fullWidth &&
                 (buttonSize === 'sm' ? 'h-7 flex-none py-0' : 'h-[33px] flex-none py-1.5'),
