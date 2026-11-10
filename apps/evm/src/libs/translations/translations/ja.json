@@ -396,7 +396,6 @@
     "proposal": "提案 #{{proposalId}}",
     "spokeMarket": "{{poolName}} の {{tokenSymbol}}",
     "spokePools": "Spoke",
-    "swap": "スワップ",
     "vai": "VAI",
     "vaults": "ボールト"
   },
@@ -918,9 +917,6 @@
         "stats": {
           "description": "リアルタイムリスクパラメータ",
           "label": "統計"
-        },
-        "swap": {
-          "label": "スワップ"
         },
         "trade": {
           "description": "一方をロング、もう一方をショートして、スプレッドで稼ぐ。",
@@ -2093,28 +2089,7 @@
   },
   "swap": {
     "errors": {
-      "amountAboveWalletSpendingLimit": "この資産の支出上限を超える金額を入力しました。この取引を進めるには支出上限を取り消し、新しい上限を設定してください。",
       "incorrectSwapInput": "スワップ入力が正しくありません"
-    },
-    "swapDetails": {
-      "label": {
-        "exchangeRate": "交換レート",
-        "maximumSold": "最大売却量",
-        "minimumReceived": "最小受取額",
-        "priceImpact": "価格影響",
-        "slippageTolerance": "スリッページ許容度"
-      },
-      "tooltip": {
-        "priceImpact": "取引規模による市場価格と推定価格の差。"
-      },
-      "value": {
-        "exactAmount": "{{ value }}",
-        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
-        "priceImpact": "{{ priceImpact }}"
-      }
-    },
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "この取引の価格影響は高く、不利なスワップの可能性があります。交換レートと交換量が想定通りか確認してください。"
     }
   },
   "swapDetails": {
@@ -2128,33 +2103,6 @@
       "description": "スリッページ許容度を高く設定すると取引は成功しやすくなりますが、価格が不利になる可能性があります。注意してください。",
       "title": "スリッページ許容度"
     }
-  },
-  "swapPage": {
-    "connectWalletToSwap": "トークンをスワップするにはウォレットを接続してください",
-    "fromTokenAmountField": {
-      "label": "送信元",
-      "max": "最大"
-    },
-    "submitButton": {
-      "disabledLabels": {
-        "insufficientLiquidity": "このスワップの流動性が不足しています",
-        "insufficientUserBalance": "{{tokenSymbol}}残高が不足しています",
-        "invalidFromTokenAmount": "スワップする有効な金額を入力",
-        "priceImpactHigherThanMaximumTolerated": "価格影響が高すぎます",
-        "processing": "処理中",
-        "spendingLimitTooLow": "支出上限が低すぎます",
-        "unwrappingUnsupported": "アンラップは未対応です",
-        "wrappingUnsupported": "ラップは未対応です"
-      },
-      "enabledLabels": {
-        "swap": "スワップ",
-        "swapWithHighPriceImpact": "高い価格影響でスワップ"
-      }
-    },
-    "toTokenAmountField": {
-      "label": "送信先"
-    },
-    "walletBalance": "ウォレット残高"
   },
   "switchChain": {
     "switchButton": "{{chainName}}に切り替える"

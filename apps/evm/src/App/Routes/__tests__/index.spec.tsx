@@ -29,7 +29,6 @@ const pageMocks = vi.hoisted(() => ({
   Proposal: () => <div>Proposal page</div>,
   Skills: () => <div>Skills page</div>,
   Stats: () => <div>Stats page</div>,
-  Swap: () => <div>Swap page</div>,
   TermsOfUse: () => <div>Terms of use page</div>,
   Trade: () => <div>Trade page</div>,
   Vai: () => <div>VAI page</div>,
@@ -68,7 +67,6 @@ vi.mock('pages/PrivacyPolicy', () => ({ default: pageMocks.PrivacyPolicy }));
 vi.mock('pages/Proposal', () => ({ default: pageMocks.Proposal }));
 vi.mock('pages/Skills', () => ({ default: pageMocks.Skills }));
 vi.mock('pages/Stats', () => ({ default: pageMocks.Stats }));
-vi.mock('pages/Swap', () => ({ default: pageMocks.Swap }));
 vi.mock('pages/TermsOfUse', () => ({ default: pageMocks.TermsOfUse }));
 vi.mock('pages/Trade', () => ({ default: pageMocks.Trade }));
 vi.mock('pages/Vai', () => ({ default: pageMocks.Vai }));
@@ -77,7 +75,6 @@ vi.mock('pages/Voter', () => ({ default: pageMocks.Voter }));
 vi.mock('pages/VoterLeaderboard', () => ({ default: pageMocks.VoterLeaderboard }));
 
 const enabledFeatureNames = [
-  'swapRoute',
   'vaiRoute',
   'bridgeRoute',
   'trade',
@@ -128,7 +125,6 @@ describe('AppRoutes', () => {
   });
 
   it.each([
-    [routes.swap.path, 'Swap page'],
     [routes.vai.path, 'VAI page'],
     [routes.bridge.path, 'Bridge page'],
     [routes.trade.path, 'Trade page'],
@@ -144,7 +140,6 @@ describe('AppRoutes', () => {
   });
 
   it.each([
-    [routes.swap.path, 'swapRoute'],
     [routes.vai.path, 'vaiRoute'],
     [routes.bridge.path, 'bridgeRoute'],
     [routes.trade.path, 'trade'],

@@ -1387,13 +1387,6 @@ export const useExecuteWithdrawalFromXvsVault = vi.fn(
     }),
 );
 
-export const useSwapTokens = vi.fn((options?: MutationObserverOptions) =>
-  useMutation({
-    mutationFn: vi.fn(),
-    ...options,
-  }),
-);
-
 export const useSwapTokensAndRepay = vi.fn((options?: MutationObserverOptions) =>
   useMutation({
     mutationFn: vi.fn(),

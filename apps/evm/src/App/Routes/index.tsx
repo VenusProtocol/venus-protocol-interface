@@ -19,7 +19,6 @@ const Dashboard = safeLazyLoad(() => import('pages/Dashboard'));
 const Port = safeLazyLoad(() => import('pages/Port'));
 const Governance = safeLazyLoad(() => import('pages/Governance'));
 const Proposal = safeLazyLoad(() => import('pages/Proposal'));
-const Swap = safeLazyLoad(() => import('pages/Swap'));
 const Vai = safeLazyLoad(() => import('pages/Vai'));
 const Vaults = safeLazyLoad(() => import('pages/Vaults'));
 const Voter = safeLazyLoad(() => import('pages/Voter'));
@@ -40,7 +39,6 @@ const SpokeMarket = safeLazyLoad(() => import('pages/SpokeMarket'));
 
 const AppRoutes = () => {
   const location = useLocation();
-  const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
   const tradeRouteEnabled = useIsFeatureEnabled({ name: 'trade' });
@@ -183,17 +181,6 @@ const AppRoutes = () => {
             element={
               <PageSuspense>
                 <Trade />
-              </PageSuspense>
-            }
-          />
-        )}
-
-        {swapRouteEnabled && (
-          <Route
-            path={Subdirectory.SWAP}
-            element={
-              <PageSuspense>
-                <Swap />
               </PageSuspense>
             }
           />

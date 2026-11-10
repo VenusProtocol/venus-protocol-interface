@@ -39,7 +39,6 @@ describe('usePathNodes', () => {
     ],
     [routes.vai.path, routes.vai.path],
     [routes.vaults.path, routes.vaults.path],
-    [routes.swap.path, routes.swap.path],
     [routes.primeCalculator.path, routes.primeCalculator.path],
     [routes.liquidityHubs.path, routes.liquidityHubs.path],
     [

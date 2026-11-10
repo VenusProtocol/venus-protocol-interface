@@ -396,7 +396,6 @@
     "proposal": "Proposal #{{proposalId}}",
     "spokeMarket": "{{tokenSymbol}} in {{poolName}}",
     "spokePools": "Spoke",
-    "swap": "Swap",
     "vai": "VAI",
     "vaults": "Vaults"
   },
@@ -919,9 +918,6 @@
         "stats": {
           "description": "Real-time Risk Parameters",
           "label": "Stats"
-        },
-        "swap": {
-          "label": "Swap"
         },
         "trade": {
           "description": "Long one, short the other, earn the spread.",
@@ -2094,28 +2090,7 @@
   },
   "swap": {
     "errors": {
-      "amountAboveWalletSpendingLimit": "You entered an amount that exceeds your spending limit for this asset. Please revoke your spending limit then set a new one in order to proceed with this transaction.",
       "incorrectSwapInput": "Incorrect input provided for swap"
-    },
-    "swapDetails": {
-      "label": {
-        "exchangeRate": "Exchange rate",
-        "maximumSold": "Maximum sold",
-        "minimumReceived": "Minimum received",
-        "priceImpact": "Price impact",
-        "slippageTolerance": "Slippage tolerance"
-      },
-      "tooltip": {
-        "priceImpact": "Difference between the market price and estimated price due to trade size."
-      },
-      "value": {
-        "exactAmount": "{{ value }}",
-        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
-        "priceImpact": "{{ priceImpact }}"
-      }
-    },
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "The price impact of this transaction is high, which might indicate an unfavorable swap. Make sure the exchange rate and the amount of tokens exchanged meet your expectations."
     }
   },
   "swapDetails": {
@@ -2129,33 +2104,6 @@
       "description": "Setting a high slippage tolerance can help transactions succeed, but you may not get such a good price. Use with caution.",
       "title": "Slippage tolerance"
     }
-  },
-  "swapPage": {
-    "connectWalletToSwap": "Please connect your wallet to swap tokens",
-    "fromTokenAmountField": {
-      "label": "From",
-      "max": "Max"
-    },
-    "submitButton": {
-      "disabledLabels": {
-        "insufficientLiquidity": "Insufficient liquidity for this swap",
-        "insufficientUserBalance": "Insufficient {{tokenSymbol}} balance",
-        "invalidFromTokenAmount": "Enter a valid amount to swap",
-        "priceImpactHigherThanMaximumTolerated": "Price impact too high",
-        "processing": "Processing",
-        "spendingLimitTooLow": "Spending limit too low",
-        "unwrappingUnsupported": "Unwrapping unsupported",
-        "wrappingUnsupported": "Wrapping unsupported"
-      },
-      "enabledLabels": {
-        "swap": "Swap",
-        "swapWithHighPriceImpact": "Swap with high price impact"
-      }
-    },
-    "toTokenAmountField": {
-      "label": "To"
-    },
-    "walletBalance": "Wallet balance"
   },
   "switchChain": {
     "switchButton": "Switch to {{chainName}}"

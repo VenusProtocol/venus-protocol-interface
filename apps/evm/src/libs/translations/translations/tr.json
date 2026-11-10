@@ -396,7 +396,6 @@
     "proposal": "Teklif #{{proposalId}}",
     "spokeMarket": "{{poolName}} içindeki {{tokenSymbol}}",
     "spokePools": "Spoke",
-    "swap": "Takas",
     "vai": "VAI",
     "vaults": "Kasalar"
   },
@@ -919,9 +918,6 @@
         "stats": {
           "description": "Gerçek zamanlı risk parametreleri",
           "label": "İstatistikler"
-        },
-        "swap": {
-          "label": "Takas"
         },
         "trade": {
           "description": "Birine long, diğerine short aç, aradaki farktan kazan.",
@@ -2094,28 +2090,7 @@
   },
   "swap": {
     "errors": {
-      "amountAboveWalletSpendingLimit": "Bu varlık için harcama limitinizi aşan bir miktar girdiniz. Bu işleme devam etmek için limiti iptal edip yeni bir limit belirleyin.",
       "incorrectSwapInput": "Takas için yanlış giriş sağlandı"
-    },
-    "swapDetails": {
-      "label": {
-        "exchangeRate": "Döviz kuru",
-        "maximumSold": "Maksimum satılan",
-        "minimumReceived": "Minimum alınan",
-        "priceImpact": "Fiyat etkisi",
-        "slippageTolerance": "Kayma toleransı"
-      },
-      "tooltip": {
-        "priceImpact": "İşlem büyüklüğü nedeniyle piyasa fiyatı ile tahmini fiyat arasındaki fark."
-      },
-      "value": {
-        "exactAmount": "{{ value }}",
-        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
-        "priceImpact": "{{ priceImpact }}"
-      }
-    },
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "Bu işlemin fiyat etkisi yüksek, bu da dezavantajlı bir takası gösterebilir. Kurun ve takas edilen token miktarının beklentilerinizi karşıladığından emin olun."
     }
   },
   "swapDetails": {
@@ -2129,33 +2104,6 @@
       "description": "Yüksek kayma toleransı ayarlamak işlemlerin başarılı olmasına yardımcı olabilir, ancak iyi bir fiyat alamayabilirsiniz. Dikkatli kullanın.",
       "title": "Kayma toleransı"
     }
-  },
-  "swapPage": {
-    "connectWalletToSwap": "Token takası için cüzdanınızı bağlayın",
-    "fromTokenAmountField": {
-      "label": "Gönderen",
-      "max": "Maks"
-    },
-    "submitButton": {
-      "disabledLabels": {
-        "insufficientLiquidity": "Bu takas için yeterli likidite yok",
-        "insufficientUserBalance": "Yetersiz {{tokenSymbol}} bakiyesi",
-        "invalidFromTokenAmount": "Takas için geçerli bir miktar girin",
-        "priceImpactHigherThanMaximumTolerated": "Fiyat etkisi çok yüksek",
-        "processing": "İşleniyor",
-        "spendingLimitTooLow": "Harcama limiti çok düşük",
-        "unwrappingUnsupported": "Unwrap desteklenmiyor",
-        "wrappingUnsupported": "Wrap desteklenmiyor"
-      },
-      "enabledLabels": {
-        "swap": "Takas",
-        "swapWithHighPriceImpact": "Yüksek fiyat etkisiyle takas"
-      }
-    },
-    "toTokenAmountField": {
-      "label": "Alıcı"
-    },
-    "walletBalance": "Cüzdan bakiyesi"
   },
   "switchChain": {
     "switchButton": "{{chainName}} zincirine geç"
