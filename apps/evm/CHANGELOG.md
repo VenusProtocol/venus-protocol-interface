@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.44.4
+
+### Patch Changes
+
+- 6704553: fix: stop loading JavaScript from PostHog at runtime
+
 ## 5.44.3
 
 ### Patch Changes
