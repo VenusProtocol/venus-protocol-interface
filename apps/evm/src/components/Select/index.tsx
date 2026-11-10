@@ -140,7 +140,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
             variant={variant === 'raised' ? 'secondary' : 'primary'}
             onClick={handleToggleDropdown}
             className={cn(
-              'relative w-full font-normal text-primary hover:font-semibold',
+              'relative w-full font-normal text-primary',
               isDropdownOpen && 'font-semibold',
               getVariantClasses({ variant, isDropdownOpen }),
               buttonSizeClasses,

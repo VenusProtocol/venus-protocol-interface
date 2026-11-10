@@ -16,7 +16,7 @@ export type ButtonVariant =
   | 'select';
 
 const NEUTRAL_MATERIAL_CLASSES =
-  'bg-none bg-surface-raised border-transparent text-secondary font-normal hover:text-primary hover:font-semibold aria-pressed:font-semibold aria-expanded:font-semibold disabled:hover:font-normal aria-disabled:hover:font-normal shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]';
+  'bg-none bg-surface-raised border-transparent text-secondary font-normal hover:text-primary aria-pressed:font-semibold aria-expanded:font-semibold shadow-raised backdrop-blur-raised backdrop-saturate-[1.3]';
 
 const ACTION_MATERIAL_CLASSES =
   'bg-action hover:bg-action-hover text-on-color shadow-action backdrop-blur-raised backdrop-saturate-[1.3]';
