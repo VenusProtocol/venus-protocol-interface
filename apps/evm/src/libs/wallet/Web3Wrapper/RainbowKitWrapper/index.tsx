@@ -46,6 +46,11 @@ const rkLightTheme = merge(
     borderRadius: 'small',
   }),
   rkThemeOverrides,
+  {
+    colors: {
+      modalTextSecondary: theme.colors['light-grey'],
+    },
+  },
 );
 
 const ConnectionRecovery: React.FC = () => {
