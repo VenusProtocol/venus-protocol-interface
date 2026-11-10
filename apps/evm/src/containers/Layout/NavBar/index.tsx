@@ -25,7 +25,7 @@ import { Settings } from './Settings';
 import { SettingsButton } from './SettingsButton';
 import { useMenuItems } from './useMenuItems';
 
-export type NavBarProps = React.HTMLAttributes<HTMLDivElement>;
+export type NavBarProps = React.HTMLAttributes<HTMLElement>;
 
 export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) => {
   const { t } = useTranslation();
@@ -67,14 +67,8 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
   const menuItems = useMenuItems();
 
   return (
-    <nav className="relative">
-      <div
-        className={cn(
-          'group/navbar bg-canvas h-16 px-4 flex items-center justify-between gap-x-2',
-          className,
-        )}
-        {...containerProps}
-      >
+    <nav className={cn('relative bg-canvas', className)} {...containerProps}>
+      <div className="group/navbar h-16 px-4 flex items-center justify-between gap-x-2">
         <div className="flex items-center gap-x-0">
           <Link
             className="flex h-full flex-none items-center gap-x-2.5 py-4"

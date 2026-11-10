@@ -1,24 +1,11 @@
 import { PrimaryButton } from '@venusprotocol/ui';
-import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { useTranslation } from 'libs/translations';
+import { getPageContentTop } from 'utilities';
 import { MarketApy } from '../../MarketApy';
 import type { LiteEarnAsset } from '../../types';
 import { useMarketName } from '../../useMarketName';
 
 const VIEWPORT_MARGIN_PX = 16;
-
-const getContentTop = () => {
-  const pageContainer = document.getElementById(PAGE_CONTAINER_ID);
-
-  if (!pageContainer) {
-    return 0;
-  }
-
-  return (
-    pageContainer.getBoundingClientRect().top +
-    Number.parseFloat(window.getComputedStyle(pageContainer).paddingTop)
-  );
-};
 
 const fitToViewport = (node: HTMLDivElement | null) => {
   const planet = node?.parentElement;
@@ -28,7 +15,7 @@ const fitToViewport = (node: HTMLDivElement | null) => {
   }
 
   const planetRect = planet.getBoundingClientRect();
-  const minTop = getContentTop() + VIEWPORT_MARGIN_PX;
+  const minTop = getPageContentTop() + VIEWPORT_MARGIN_PX;
   const maxBottom = window.innerHeight - VIEWPORT_MARGIN_PX;
   const availableHeight = Math.max(maxBottom - minTop, 0);
 
