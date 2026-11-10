@@ -804,6 +804,19 @@
       "pro": "Pro",
       "switchTo": "{{mode}} moduna geç"
     },
+    "interfaceOnboarding": {
+      "closeButtonLabel": "Tanıtımı kapat",
+      "lite": {
+        "description": "Daha az adımla arz edin ve borç alın. Varlıkları keşfedin ve oranları tek bir sade görünümde karşılaştırın.",
+        "title": "Venus Lite ile tanışın.",
+        "tryButtonLabel": "Lite'ı şimdi dene"
+      },
+      "pro": {
+        "description": "Tam arayüzü mü arıyorsunuz? Tüm piyasalar, pozisyonlar ve gelişmiş kontroller hâlâ Pro'da, bir tık uzağınızda.",
+        "title": "Venus Pro burada.",
+        "tryButtonLabel": "Pro'yu şimdi dene"
+      }
+    },
     "menu": {
       "beta": "beta",
       "borrow": {

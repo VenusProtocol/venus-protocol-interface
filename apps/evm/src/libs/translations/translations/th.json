@@ -803,6 +803,19 @@
       "pro": "Pro",
       "switchTo": "สลับไปที่ {{mode}}"
     },
+    "interfaceOnboarding": {
+      "closeButtonLabel": "ปิดคำแนะนำ",
+      "lite": {
+        "description": "ฝากและยืมได้ง่ายขึ้น สำรวจสินทรัพย์และเปรียบเทียบอัตราดอกเบี้ยในมุมมองเดียวที่เรียบง่าย",
+        "title": "พบกับ Venus Lite",
+        "tryButtonLabel": "ลองใช้ Lite เลย"
+      },
+      "pro": {
+        "description": "กำลังมองหาอินเทอร์เฟซแบบเต็มอยู่ใช่ไหม? ทุกตลาด สถานะ และเครื่องมือขั้นสูงยังอยู่ใน Pro เพียงคลิกเดียว",
+        "title": "Venus Pro อยู่ที่นี่",
+        "tryButtonLabel": "ลองใช้ Pro เลย"
+      }
+    },
     "menu": {
       "beta": "beta",
       "borrow": {

@@ -804,6 +804,19 @@
       "pro": "Pro",
       "switchTo": "Switch to {{mode}}"
     },
+    "interfaceOnboarding": {
+      "closeButtonLabel": "Close introduction",
+      "lite": {
+        "description": "Supply and borrow, with less to navigate. Explore assets and compare rates in one simple view.",
+        "title": "Meet Venus Lite.",
+        "tryButtonLabel": "Try Lite now"
+      },
+      "pro": {
+        "description": "Looking for the full interface? Every market, position and advanced control is still in Pro, one click away.",
+        "title": "Venus Pro is here.",
+        "tryButtonLabel": "Try Pro now"
+      }
+    },
     "menu": {
       "beta": "beta",
       "borrow": {

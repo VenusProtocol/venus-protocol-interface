@@ -803,6 +803,19 @@
       "pro": "Pro",
       "switchTo": "Chuyển sang {{mode}}"
     },
+    "interfaceOnboarding": {
+      "closeButtonLabel": "Đóng phần giới thiệu",
+      "lite": {
+        "description": "Cung cấp và vay với ít thao tác hơn. Khám phá tài sản và so sánh lãi suất trong một giao diện đơn giản.",
+        "title": "Làm quen với Venus Lite.",
+        "tryButtonLabel": "Dùng thử Lite ngay"
+      },
+      "pro": {
+        "description": "Bạn cần giao diện đầy đủ? Mọi thị trường, vị thế và công cụ nâng cao vẫn có trong Pro, chỉ cách một cú nhấp.",
+        "title": "Venus Pro vẫn ở đây.",
+        "tryButtonLabel": "Dùng thử Pro ngay"
+      }
+    },
     "menu": {
       "beta": "beta",
       "borrow": {
