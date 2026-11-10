@@ -41,10 +41,18 @@ export const useExtractData = ({
       supplyCents: new BigNumber(spokePool.userSupplyBalanceCents || 0),
       yearlyEarningsCents: new BigNumber(spokePool.userYearlyEarningsCents || 0),
     })),
-    ...liquidityHubs.map(liquidityHub => ({
-      supplyCents: new BigNumber(liquidityHub.userVhTokenBalanceCents || 0),
-      yearlyEarningsCents: new BigNumber(liquidityHub.userYearlyEarningsCents || 0),
-    })),
+    ...liquidityHubs.map(liquidityHub => {
+      const walletSupplyCents = new BigNumber(liquidityHub.userVhTokenBalanceCents || 0);
+      const totalSupplyCents = new BigNumber(liquidityHub.userSupplyBalanceCents || 0);
+      const yearlyEarningsCents = new BigNumber(liquidityHub.userYearlyEarningsCents || 0);
+
+      return {
+        supplyCents: walletSupplyCents,
+        yearlyEarningsCents: totalSupplyCents.isGreaterThan(0)
+          ? yearlyEarningsCents.multipliedBy(walletSupplyCents).dividedBy(totalSupplyCents)
+          : new BigNumber(0),
+      };
+    }),
     ...yieldingVaults.map(vault => {
       const supplyCents = new BigNumber(vault.userStakeBalanceCents || 0);
 

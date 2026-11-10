@@ -31,7 +31,41 @@ describe('useExtractData', () => {
         {
           ...liquidityHubs[0],
           userVhTokenBalanceCents: new BigNumber(100000),
+          userSupplyBalanceCents: new BigNumber(100000),
           userYearlyEarningsCents: new BigNumber(15000),
+        },
+      ],
+    });
+
+    expect(result.userNetApyPercentage).toBe(10);
+  });
+
+  it('leaves out the yield of Liquidity Hub shares supplied to the Core pool', () => {
+    const result = useExtractData({
+      pool,
+      liquidityHubs: [
+        {
+          ...liquidityHubs[0],
+          userVhTokenBalanceCents: new BigNumber(0),
+          userSupplyBalanceCents: new BigNumber(100000),
+          userYearlyEarningsCents: new BigNumber(15000),
+        },
+      ],
+    });
+
+    expect(result.userNetApyPercentage).toBe(5);
+    expect(result.userDailyEarningsCents).toEqual(calculateDailyInterests(new BigNumber(5000)));
+  });
+
+  it('counts the yield of the Liquidity Hub shares held in the wallet only', () => {
+    const result = useExtractData({
+      pool,
+      liquidityHubs: [
+        {
+          ...liquidityHubs[0],
+          userVhTokenBalanceCents: new BigNumber(100000),
+          userSupplyBalanceCents: new BigNumber(200000),
+          userYearlyEarningsCents: new BigNumber(30000),
         },
       ],
     });
