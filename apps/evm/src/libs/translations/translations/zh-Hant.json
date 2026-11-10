@@ -803,6 +803,19 @@
       "pro": "Pro",
       "switchTo": "切換至 {{mode}}"
     },
+    "interfaceOnboarding": {
+      "closeButtonLabel": "關閉介紹",
+      "lite": {
+        "description": "供應和借款，更少操作。在一個簡潔的視圖中瀏覽資產、比較利率。",
+        "title": "認識 Venus Lite。",
+        "tryButtonLabel": "立即體驗 Lite"
+      },
+      "pro": {
+        "description": "想使用完整介面？所有市場、倉位和進階功能都在 Pro 中，一鍵即可切換。",
+        "title": "Venus Pro 仍在這裡。",
+        "tryButtonLabel": "立即體驗 Pro"
+      }
+    },
     "menu": {
       "beta": "beta",
       "borrow": {

@@ -803,6 +803,19 @@
       "pro": "Pro",
       "switchTo": "{{mode}} に切り替える"
     },
+    "interfaceOnboarding": {
+      "closeButtonLabel": "紹介を閉じる",
+      "lite": {
+        "description": "より少ない操作で供給と借入。資産を探し、金利をひとつのシンプルな画面で比較できます。",
+        "title": "Venus Lite のご紹介。",
+        "tryButtonLabel": "Lite を試す"
+      },
+      "pro": {
+        "description": "フル機能のインターフェースをお探しですか？すべてのマーケット、ポジション、高度な操作は Pro にあり、ワンクリックで切り替えられます。",
+        "title": "Venus Pro はこちら。",
+        "tryButtonLabel": "Pro を試す"
+      }
+    },
     "menu": {
       "beta": "beta",
       "borrow": {

@@ -9,6 +9,7 @@ import { useWindowFocusFlag } from 'hooks/useWindowFocusFlag';
 import { useRef, useState } from 'react';
 import { Footer } from './Footer';
 import { Header } from './Header';
+import { InterfaceOnboarding } from './InterfaceOnboarding';
 import { NavBar } from './NavBar';
 import ScrollToTop from './ScrollToTop';
 import { Starfield } from './Starfield';
@@ -114,6 +115,8 @@ export const Layout: React.FC = () => {
         </div>
 
         <div id={BODY_PORTAL_ID} />
+
+        <InterfaceOnboarding />
       </div>
     </>
   );
