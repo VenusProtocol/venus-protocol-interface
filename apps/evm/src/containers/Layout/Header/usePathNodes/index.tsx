@@ -151,7 +151,7 @@ export const usePathNodes = () => {
           break;
       }
 
-      href += hrefFragment;
+      href = `${href}/${hrefFragment}`;
 
       return dom
         ? [
