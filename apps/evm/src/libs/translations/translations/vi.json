@@ -396,7 +396,6 @@
     "proposal": "Đề xuất #{{proposalId}}",
     "spokeMarket": "{{tokenSymbol}} trong {{poolName}}",
     "spokePools": "Spoke",
-    "swap": "Hoán đổi",
     "vai": "VAI",
     "vaults": "Kho"
   },
@@ -918,9 +917,6 @@
         "stats": {
           "description": "Thông số rủi ro thời gian thực",
           "label": "Thống kê"
-        },
-        "swap": {
-          "label": "Hoán đổi"
         },
         "trade": {
           "description": "Long một bên, short bên kia, kiếm lời từ chênh lệch.",
@@ -2093,28 +2089,7 @@
   },
   "swap": {
     "errors": {
-      "amountAboveWalletSpendingLimit": "Bạn đã nhập số lượng vượt quá hạn mức chi tiêu cho tài sản này. Vui lòng hủy hạn mức và đặt lại để tiếp tục giao dịch.",
       "incorrectSwapInput": "Đầu vào hoán đổi không chính xác"
-    },
-    "swapDetails": {
-      "label": {
-        "exchangeRate": "Tỷ giá",
-        "maximumSold": "Bán tối đa",
-        "minimumReceived": "Nhận tối thiểu",
-        "priceImpact": "Tác động giá",
-        "slippageTolerance": "Độ trượt giá"
-      },
-      "tooltip": {
-        "priceImpact": "Chênh lệch giữa giá thị trường và giá ước tính do quy mô giao dịch."
-      },
-      "value": {
-        "exactAmount": "{{ value }}",
-        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
-        "priceImpact": "{{ priceImpact }}"
-      }
-    },
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "Tác động giá của giao dịch này cao, có thể cho thấy hoán đổi bất lợi. Hãy đảm bảo tỷ giá và số lượng token trao đổi phù hợp kỳ vọng."
     }
   },
   "swapDetails": {
@@ -2128,33 +2103,6 @@
       "description": "Thiết lập độ trượt giá cao có thể giúp giao dịch thành công, nhưng bạn có thể không nhận được giá tốt. Hãy thận trọng.",
       "title": "Độ trượt giá"
     }
-  },
-  "swapPage": {
-    "connectWalletToSwap": "Vui lòng kết nối ví để hoán đổi token",
-    "fromTokenAmountField": {
-      "label": "Từ",
-      "max": "Tối đa"
-    },
-    "submitButton": {
-      "disabledLabels": {
-        "insufficientLiquidity": "Không đủ thanh khoản cho hoán đổi này",
-        "insufficientUserBalance": "Không đủ số dư {{tokenSymbol}}",
-        "invalidFromTokenAmount": "Nhập số lượng hợp lệ để hoán đổi",
-        "priceImpactHigherThanMaximumTolerated": "Tác động giá quá cao",
-        "processing": "Đang xử lý",
-        "spendingLimitTooLow": "Hạn mức chi tiêu quá thấp",
-        "unwrappingUnsupported": "Không hỗ trợ unwrapping",
-        "wrappingUnsupported": "Không hỗ trợ wrapping"
-      },
-      "enabledLabels": {
-        "swap": "Hoán đổi",
-        "swapWithHighPriceImpact": "Hoán đổi với tác động giá cao"
-      }
-    },
-    "toTokenAmountField": {
-      "label": "Đến"
-    },
-    "walletBalance": "Số dư ví"
   },
   "switchChain": {
     "switchButton": "Chuyển sang {{chainName}}"

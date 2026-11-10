@@ -396,7 +396,6 @@
     "proposal": "ข้อเสนอ #{{proposalId}}",
     "spokeMarket": "{{tokenSymbol}} ใน {{poolName}}",
     "spokePools": "Spoke",
-    "swap": "สวอป",
     "vai": "VAI",
     "vaults": "คลัง"
   },
@@ -918,9 +917,6 @@
         "stats": {
           "description": "พารามิเตอร์ความเสี่ยงแบบเรียลไทม์",
           "label": "สถิติ"
-        },
-        "swap": {
-          "label": "สวอป"
         },
         "trade": {
           "description": "ลองตัวหนึ่ง ช็อตอีกตัว ทำกำไรจากส่วนต่าง",
@@ -2093,28 +2089,7 @@
   },
   "swap": {
     "errors": {
-      "amountAboveWalletSpendingLimit": "คุณกรอกจำนวนที่เกินขีดจำกัดการใช้จ่ายของสินทรัพย์นี้ โปรดยกเลิกขีดจำกัดแล้วตั้งใหม่เพื่อดำเนินธุรกรรมนี้",
       "incorrectSwapInput": "ข้อมูลที่ป้อนสำหรับการสวอปไม่ถูกต้อง"
-    },
-    "swapDetails": {
-      "label": {
-        "exchangeRate": "อัตราแลกเปลี่ยน",
-        "maximumSold": "ขายสูงสุด",
-        "minimumReceived": "รับขั้นต่ำ",
-        "priceImpact": "ผลกระทบต่อราคา",
-        "slippageTolerance": "ความคลาดเคลื่อนที่ยอมรับได้"
-      },
-      "tooltip": {
-        "priceImpact": "ความแตกต่างระหว่างราคาตลาดและราคาที่คาดการณ์ เนื่องจากขนาดของการซื้อขาย"
-      },
-      "value": {
-        "exactAmount": "{{ value }}",
-        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
-        "priceImpact": "{{ priceImpact }}"
-      }
-    },
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "ผลกระทบต่อราคาของธุรกรรมนี้สูง ซึ่งอาจบ่งชี้ถึงการสวอปที่ไม่เป็นประโยชน์ โปรดตรวจสอบอัตราแลกเปลี่ยนและจำนวนโทเคนให้ตรงกับที่คาดหวัง"
     }
   },
   "swapDetails": {
@@ -2128,33 +2103,6 @@
       "description": "การตั้งค่าความคลาดเคลื่อนสูงอาจช่วยให้ธุรกรรมสำเร็จ แต่คุณอาจได้ราคาที่ไม่ดีนัก โปรดใช้ด้วยความระมัดระวัง",
       "title": "ความคลาดเคลื่อนที่ยอมรับได้"
     }
-  },
-  "swapPage": {
-    "connectWalletToSwap": "โปรดเชื่อมต่อกระเป๋าเพื่อสวอปโทเคน",
-    "fromTokenAmountField": {
-      "label": "จาก",
-      "max": "สูงสุด"
-    },
-    "submitButton": {
-      "disabledLabels": {
-        "insufficientLiquidity": "สภาพคล่องไม่เพียงพอสำหรับการสวอปนี้",
-        "insufficientUserBalance": "ยอดคงเหลือ {{tokenSymbol}} ไม่เพียงพอ",
-        "invalidFromTokenAmount": "ป้อนจำนวนที่ถูกต้องเพื่อสวอป",
-        "priceImpactHigherThanMaximumTolerated": "ผลกระทบต่อราคาสูงเกินไป",
-        "processing": "กำลังประมวลผล",
-        "spendingLimitTooLow": "ขีดจำกัดการใช้จ่ายต่ำเกินไป",
-        "unwrappingUnsupported": "ไม่รองรับการแกะห่อ",
-        "wrappingUnsupported": "ไม่รองรับการห่อ"
-      },
-      "enabledLabels": {
-        "swap": "สวอป",
-        "swapWithHighPriceImpact": "สวอปด้วยผลกระทบต่อราคาสูง"
-      }
-    },
-    "toTokenAmountField": {
-      "label": "ถึง"
-    },
-    "walletBalance": "ยอดคงเหลือในกระเป๋า"
   },
   "switchChain": {
     "switchButton": "สลับไปยัง {{chainName}}"

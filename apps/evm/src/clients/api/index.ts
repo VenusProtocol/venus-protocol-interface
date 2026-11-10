@@ -25,7 +25,6 @@ export * from './mutations/useClaimRewards';
 export * from './mutations/useSupply';
 export * from './mutations/useSwapTokensAndRepay';
 export * from './mutations/useRepay';
-export * from './mutations/useSwapTokens';
 export * from './mutations/useWithdraw';
 export * from './mutations/useSupplyToLiquidityHub';
 export * from './mutations/useSupplyFromWalletToLiquidityHub';

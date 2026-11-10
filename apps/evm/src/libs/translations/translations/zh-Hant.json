@@ -396,7 +396,6 @@
     "proposal": "提案 #{{proposalId}}",
     "spokeMarket": "{{poolName}} 池的 {{tokenSymbol}}",
     "spokePools": "Spoke",
-    "swap": "兌換",
     "vai": "VAI",
     "vaults": "金庫"
   },
@@ -918,9 +917,6 @@
         "stats": {
           "description": "即時風險參數",
           "label": "統計"
-        },
-        "swap": {
-          "label": "兌換"
         },
         "trade": {
           "description": "做多一個、做空另一個,賺取價差。",
@@ -2093,28 +2089,7 @@
   },
   "swap": {
     "errors": {
-      "amountAboveWalletSpendingLimit": "你輸入的金額超過該資產的支出限額。請撤銷上限並重新設置後再繼續交易。",
       "incorrectSwapInput": "兌換輸入不正確"
-    },
-    "swapDetails": {
-      "label": {
-        "exchangeRate": "兌換率",
-        "maximumSold": "最大賣出",
-        "minimumReceived": "最小接收",
-        "priceImpact": "價格影響",
-        "slippageTolerance": "滑點容忍度"
-      },
-      "tooltip": {
-        "priceImpact": "由於交易規模導致的市場價格與估算價格差異。"
-      },
-      "value": {
-        "exactAmount": "{{ value }}",
-        "exchangeRate": "1 {{fromTokenSymbol}} ≈ {{rate}} {{toTokenSymbol}}",
-        "priceImpact": "{{ priceImpact }}"
-      }
-    },
-    "warning": {
-      "swappingWithHighPriceImpactWarning": "該交易價格影響較高，可能意味著不利的兌換。請確保兌換率和兌換數量符合預期。"
     }
   },
   "swapDetails": {
@@ -2128,33 +2103,6 @@
       "description": "設置較高的滑點容忍度有助於交易成功，但可能無法獲得理想價格。請謹慎使用。",
       "title": "滑點容忍度"
     }
-  },
-  "swapPage": {
-    "connectWalletToSwap": "請連接錢包以兌換代幣",
-    "fromTokenAmountField": {
-      "label": "從",
-      "max": "最大"
-    },
-    "submitButton": {
-      "disabledLabels": {
-        "insufficientLiquidity": "兌換流動性不足",
-        "insufficientUserBalance": "{{tokenSymbol}} 餘額不足",
-        "invalidFromTokenAmount": "輸入有效兌換金額",
-        "priceImpactHigherThanMaximumTolerated": "價格影響過高",
-        "processing": "處理中",
-        "spendingLimitTooLow": "支出限額過低",
-        "unwrappingUnsupported": "不支持解包",
-        "wrappingUnsupported": "不支持封裝"
-      },
-      "enabledLabels": {
-        "swap": "兌換",
-        "swapWithHighPriceImpact": "高價格影響兌換"
-      }
-    },
-    "toTokenAmountField": {
-      "label": "到"
-    },
-    "walletBalance": "錢包餘額"
   },
   "switchChain": {
     "switchButton": "切換到 {{chainName}}"
