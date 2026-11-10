@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.44.5
+
+### Patch Changes
+
+- 7e2807d: link each breadcrumb to the absolute path of its route
+
 ## 5.44.4
 
 ### Patch Changes
