@@ -90,7 +90,7 @@ export const SelectTokenTextField: React.FC<SelectTokenTextFieldProps> = ({
                 disabled={disabled}
                 data-testid={!!testId && getTokenMaxButtonTestId({ parentTestId: testId })}
                 size="sm"
-                className="ml-2 h-9 whitespace-nowrap px-3 py-2 hover:bg-inverse/11 disabled:opacity-50"
+                className="ml-2 h-9 whitespace-nowrap px-3 py-2 disabled:opacity-50"
                 {...rightMaxButton}
               >
                 {rightMaxButton.label}

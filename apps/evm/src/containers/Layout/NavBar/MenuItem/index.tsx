@@ -107,7 +107,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
             className={cn(
               sharedContainerClassName,
               'relative flex items-center justify-between cursor-pointer lg:gap-x-2',
-              isDropdownOpen && 'lg:font-semibold lg:text-primary',
+              isDropdownOpen && 'lg:text-primary',
             )}
             type="button"
             data-nav-item

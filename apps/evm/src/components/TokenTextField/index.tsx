@@ -99,7 +99,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = forwardRef<
           rightMaxButton ? (
             <TertiaryButton
               size="sm"
-              className="h-9 px-3 py-2 hover:bg-inverse/11 disabled:opacity-50"
+              className="h-9 px-3 py-2 disabled:opacity-50"
               disabled={disabled}
               {...rightMaxButton}
             >
