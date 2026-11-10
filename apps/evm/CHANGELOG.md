@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.44.3
+
+### Patch Changes
+
+- b50d941: [VPD-2576] fix: round displayed percentages to 6 decimals with ROUND_HALF_UP before truncating them
+
 ## 5.44.2
 
 ### Patch Changes
