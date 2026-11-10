@@ -297,9 +297,11 @@
         "calculatorLink": "Prime報酬を計算",
         "liquidityHubCorePoolBoost": "このブーストはCoreプールから支払われ、二重には支払われません。",
         "primeBorrowSimulation": "Primeにより、ユーザーの借入平均{{borrowBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。",
+        "primeBorrowSimulationCapped": "Primeにより、借入{{borrowBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます（このステーク量で計上される借入の上限）。",
         "primeDocLink": "詳細を見る",
         "primeMarket": "PrimeによりAPYがブーストされます。",
-        "primeSupplySimulation": "Primeにより、ユーザーの供給平均{{supplyBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。"
+        "primeSupplySimulation": "Primeにより、ユーザーの供給平均{{supplyBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。",
+        "primeSupplySimulationCapped": "Primeにより、供給{{supplyBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます（このステーク量で計上される供給の上限）。"
       }
     }
   },

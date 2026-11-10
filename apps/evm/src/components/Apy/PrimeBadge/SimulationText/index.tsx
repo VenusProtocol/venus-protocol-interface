@@ -35,10 +35,16 @@ export const SimulationText: React.FC<SimulationTextProps> = ({
       addSymbol: true,
     });
 
-    const simulationText = t('apy.primeBadge.tooltip.primeSupplySimulation', {
-      supplyBalance: readableReferenceSupplyBalance,
-      xvsStaked: readableReferenceXvsStaked,
-    });
+    const simulationText =
+      referenceValues?.referenceType === 'cap'
+        ? t('apy.primeBadge.tooltip.primeSupplySimulationCapped', {
+            supplyBalance: readableReferenceSupplyBalance,
+            xvsStaked: readableReferenceXvsStaked,
+          })
+        : t('apy.primeBadge.tooltip.primeSupplySimulation', {
+            supplyBalance: readableReferenceSupplyBalance,
+            xvsStaked: readableReferenceXvsStaked,
+          });
 
     return isLiquidityHub
       ? `${simulationText} ${t('apy.primeBadge.tooltip.liquidityHubCorePoolBoost')}`
@@ -51,8 +57,13 @@ export const SimulationText: React.FC<SimulationTextProps> = ({
     addSymbol: true,
   });
 
-  return t('apy.primeBadge.tooltip.primeBorrowSimulation', {
-    borrowBalance: readableReferenceBorrowBalance,
-    xvsStaked: readableReferenceXvsStaked,
-  });
+  return referenceValues?.referenceType === 'cap'
+    ? t('apy.primeBadge.tooltip.primeBorrowSimulationCapped', {
+        borrowBalance: readableReferenceBorrowBalance,
+        xvsStaked: readableReferenceXvsStaked,
+      })
+    : t('apy.primeBadge.tooltip.primeBorrowSimulation', {
+        borrowBalance: readableReferenceBorrowBalance,
+        xvsStaked: readableReferenceXvsStaked,
+      });
 };

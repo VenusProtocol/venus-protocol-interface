@@ -17,6 +17,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "apyPercentage": "0.20019958435848473",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "563078969.54779945903835725538",
                 "userSupplyBalanceTokens": "1071811362327614186.97785297335171745333",
                 "userXvsStakedTokens": "4000",
@@ -74,6 +75,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "apyPercentage": "0.23026397657694986",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "563078969.54779945903835725538",
                 "userSupplyBalanceTokens": "1071811362327614186.97785297335171745333",
                 "userXvsStakedTokens": "4000",
@@ -415,6 +417,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "apyPercentage": "0.20019958435848473",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "29869.57410273493975903614",
                 "userSupplyBalanceTokens": "1.492647258786707882745896752855274471497222778321382e+31",
                 "userXvsStakedTokens": "4000",
@@ -480,6 +483,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "apyPercentage": "0.23026397657694986",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "29869.57410273493975903614",
                 "userSupplyBalanceTokens": "1.492647258786707882745896752855274471497222778321382e+31",
                 "userXvsStakedTokens": "4000",
@@ -549,6 +553,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "apyPercentage": "0.20019958435848473",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "68228692479.8996999825327510917",
                 "userSupplyBalanceTokens": "1891716892603625316.42740964388267541695",
                 "userXvsStakedTokens": "4000",
@@ -614,6 +619,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "apyPercentage": "0.23026397657694986",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "68228692479.8996999825327510917",
                 "userSupplyBalanceTokens": "1891716892603625316.42740964388267541695",
                 "userXvsStakedTokens": "4000",
@@ -1015,6 +1021,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "apyPercentage": "0.20019958435848473",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "0.000004",
                 "userSupplyBalanceTokens": "3677000.0000013330350000006",
                 "userXvsStakedTokens": "4000",
@@ -1073,6 +1080,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "apyPercentage": "0.23026397657694986",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "0.000004",
                 "userSupplyBalanceTokens": "3677000.0000013330350000006",
                 "userXvsStakedTokens": "4000",
@@ -1380,6 +1388,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "apyPercentage": "0.20019958435848473",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1004.648231",
                 "userSupplyBalanceTokens": "999179.18340899996679182859",
                 "userXvsStakedTokens": "4000",
@@ -1438,6 +1447,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "apyPercentage": "0.23026397657694986",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1004.648231",
                 "userSupplyBalanceTokens": "999179.18340899996679182859",
                 "userXvsStakedTokens": "4000",
@@ -1511,6 +1521,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "apyPercentage": "0.20019958435848473",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "0",
                 "userSupplyBalanceTokens": "10000",
                 "userXvsStakedTokens": "4000",
@@ -1554,6 +1565,7 @@ exports[`useGetPools > does not fetch Prime distributions if user is not Prime 1
               "apyPercentage": "0.23026397657694986",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "0",
                 "userSupplyBalanceTokens": "10000",
                 "userXvsStakedTokens": "4000",
@@ -1646,6 +1658,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.20019958435848473",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "563078969.54779945903835725538",
                 "userSupplyBalanceTokens": "1071811362327614186.97785297335171745333",
                 "userXvsStakedTokens": "4000",
@@ -1715,6 +1728,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.23026397657694986",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "563078969.54779945903835725538",
                 "userSupplyBalanceTokens": "1071811362327614186.97785297335171745333",
                 "userXvsStakedTokens": "4000",
@@ -2068,6 +2082,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.20019958435848473",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "29869.57410273493975903614",
                 "userSupplyBalanceTokens": "1.492647258786707882745896752855274471497222778321382e+31",
                 "userXvsStakedTokens": "4000",
@@ -2145,6 +2160,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.23026397657694986",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "29869.57410273493975903614",
                 "userSupplyBalanceTokens": "1.492647258786707882745896752855274471497222778321382e+31",
                 "userXvsStakedTokens": "4000",
@@ -2226,6 +2242,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.20019958435848473",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "68228692479.8996999825327510917",
                 "userSupplyBalanceTokens": "1891716892603625316.42740964388267541695",
                 "userXvsStakedTokens": "4000",
@@ -2303,6 +2320,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.23026397657694986",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "68228692479.8996999825327510917",
                 "userSupplyBalanceTokens": "1891716892603625316.42740964388267541695",
                 "userXvsStakedTokens": "4000",
@@ -2716,6 +2734,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.20019958435848473",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "0.000004",
                 "userSupplyBalanceTokens": "3677000.0000013330350000006",
                 "userXvsStakedTokens": "4000",
@@ -2786,6 +2805,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.23026397657694986",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "0.000004",
                 "userSupplyBalanceTokens": "3677000.0000013330350000006",
                 "userXvsStakedTokens": "4000",
@@ -3105,6 +3125,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.20019958435848473",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1004.648231",
                 "userSupplyBalanceTokens": "999179.18340899996679182859",
                 "userXvsStakedTokens": "4000",
@@ -3175,6 +3196,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.23026397657694986",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1004.648231",
                 "userSupplyBalanceTokens": "999179.18340899996679182859",
                 "userXvsStakedTokens": "4000",
@@ -3260,6 +3282,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.20019958435848473",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "0",
                 "userSupplyBalanceTokens": "10000",
                 "userXvsStakedTokens": "4000",
@@ -3315,6 +3338,7 @@ exports[`useGetPools > fetches and formats Prime distributions and Prime distrib
               "apyPercentage": "0.23026397657694986",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "0",
                 "userSupplyBalanceTokens": "10000",
                 "userXvsStakedTokens": "4000",

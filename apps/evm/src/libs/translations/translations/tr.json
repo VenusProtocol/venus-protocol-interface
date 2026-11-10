@@ -297,9 +297,11 @@
         "calculatorLink": "Prime ödüllerinizi hesaplayın",
         "liquidityHubCorePoolBoost": "Bu artış Core havuzundan gelir ve iki kez ödenmez.",
         "primeBorrowSimulation": "Prime ile APY, kullanıcıların ortalama {{borrowBalance}} borcuna ve {{xvsStaked}} vault yatırımına göre artırılır.",
+        "primeBorrowSimulationCapped": "Prime ile APY, {{borrowBalance}} borca ve {{xvsStaked}} vault yatırımına göre artırılır (bu stake için sayılan azami borç).",
         "primeDocLink": "Daha fazla bilgi",
         "primeMarket": "Prime ile APY artırılır.",
-        "primeSupplySimulation": "Prime ile APY, kullanıcıların ortalama {{supplyBalance}} tedarikine ve {{xvsStaked}} vault yatırımına göre artırılır."
+        "primeSupplySimulation": "Prime ile APY, kullanıcıların ortalama {{supplyBalance}} tedarikine ve {{xvsStaked}} vault yatırımına göre artırılır.",
+        "primeSupplySimulationCapped": "Prime ile APY, {{supplyBalance}} tedarike ve {{xvsStaked}} vault yatırımına göre artırılır (bu stake için sayılan azami tedarik)."
       }
     }
   },

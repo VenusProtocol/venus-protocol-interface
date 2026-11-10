@@ -40,6 +40,7 @@ const vhAsset: Asset = {
         userSupplyBalanceTokens: new BigNumber(1),
         userBorrowBalanceTokens: new BigNumber(0),
         userXvsStakedTokens: new BigNumber(1),
+        referenceType: 'average',
       },
     },
   ],
