@@ -1028,6 +1028,11 @@
   "liquidityHubs": {
     "description": "Một lần cung cấp, tự động định tuyến qua các nguồn lợi suất của Venus.",
     "header": "Trung tâm thanh khoản",
+    "stats": {
+      "hubs": "Trung tâm",
+      "totalLiquidity": "Tổng thanh khoản",
+      "totalSupply": "Tổng cung cấp"
+    },
     "table": {
       "columns": {
         "asset": "Tài sản",

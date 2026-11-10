@@ -1029,6 +1029,11 @@
   "liquidityHubs": {
     "description": "Tek bir arz, Venus getiri kaynakları arasında otomatik olarak yönlendirilir.",
     "header": "Likidite Merkezi",
+    "stats": {
+      "hubs": "Merkezler",
+      "totalLiquidity": "Toplam likidite",
+      "totalSupply": "Toplam arz"
+    },
     "table": {
       "columns": {
         "asset": "Varlık",
