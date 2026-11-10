@@ -1,5 +1,6 @@
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
+import { useInterfaceMode } from 'hooks/useInterfaceMode';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 
@@ -16,6 +17,7 @@ export const Footer: React.FC<FooterProps> = ({ hideLeaderboardLink }) => {
   const { t, Trans } = useTranslation();
 
   const { accountAddress } = useAccountAddress();
+  const { isLite } = useInterfaceMode();
   const rankData = useGetPrimeRank();
   const { hasStakedXvs, isCandidate, gapXvsTokens, isLoading } = rankData;
 
@@ -66,6 +68,7 @@ export const Footer: React.FC<FooterProps> = ({ hideLeaderboardLink }) => {
               hasStakedXvs={hasStakedXvs}
               isCandidate={isCandidate}
               gapXvsTokens={gapXvsTokens}
+              hideStakeGap={isLite}
               linkSlot={leaderboardLink}
             />
           ) : (
