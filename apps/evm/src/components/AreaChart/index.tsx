@@ -81,7 +81,7 @@ export const AreaChart = <T extends Record<string, any>>({
   }
 
   return (
-    <div className={cn('w-full h-62', className)}>
+    <div className={cn('w-full h-62 [&_.recharts-surface]:overflow-visible', className)}>
       <ResponsiveContainer>
         <RCAreaChart
           margin={{
