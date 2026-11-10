@@ -7,7 +7,6 @@ import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
 import { useInterfaceMode } from 'hooks/useInterfaceMode';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useProHomePath } from 'hooks/useProHomePath';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -31,7 +30,6 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
   const { t } = useTranslation();
   const { isLite } = useInterfaceMode();
   const proHomePath = useProHomePath();
-  const isLiteModeEnabled = useIsFeatureEnabled({ name: 'liteMode' });
   const openModal = useStore(state => state.openModal);
   const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
@@ -107,7 +105,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
 
           <ConnectButton />
 
-          {isLiteModeEnabled && <InterfaceModeSwitch onSwitch={closeMobileMenu} />}
+          <InterfaceModeSwitch onSwitch={closeMobileMenu} />
 
           {!isLite && (
             <NavButtonWrapper
