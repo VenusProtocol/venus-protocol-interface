@@ -1,8 +1,9 @@
-import type {
-  Address,
-  PublicClient,
-  ReadContractParameters,
-  SimulateContractParameters,
+import {
+  type Address,
+  type PublicClient,
+  type ReadContractParameters,
+  type SimulateContractParameters,
+  maxUint256,
 } from 'viem';
 
 const userLegacyCollateralizedVTokenAddresses = [
@@ -117,6 +118,8 @@ export const fakePublicClient = {
       return {
         borrowAPR: 20n,
         supplyAPR: 23n,
+        cappedBorrow: maxUint256,
+        cappedSupply: maxUint256,
       };
     }
 
@@ -124,6 +127,8 @@ export const fakePublicClient = {
       return {
         borrowAPR: 20n,
         supplyAPR: 23n,
+        cappedBorrow: maxUint256,
+        cappedSupply: maxUint256,
       };
     }
 

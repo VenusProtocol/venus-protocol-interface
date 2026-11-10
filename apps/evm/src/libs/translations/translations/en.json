@@ -297,9 +297,11 @@
         "calculatorLink": "Calculate your Prime rewards",
         "liquidityHubCorePoolBoost": "This boost comes from the Core pool and is not paid twice.",
         "primeBorrowSimulation": "APY boosted by Prime based on the average user borrow of {{borrowBalance}} and vault supply of {{xvsStaked}}.",
+        "primeBorrowSimulationCapped": "APY boosted by Prime based on a borrow of {{borrowBalance}} and vault supply of {{xvsStaked}} (max borrow counted for this stake).",
         "primeDocLink": "Learn more",
         "primeMarket": "APY boosted by Prime.",
-        "primeSupplySimulation": "APY boosted by Prime based on the average user supply of {{supplyBalance}} and vault supply of {{xvsStaked}}."
+        "primeSupplySimulation": "APY boosted by Prime based on the average user supply of {{supplyBalance}} and vault supply of {{xvsStaked}}.",
+        "primeSupplySimulationCapped": "APY boosted by Prime based on a supply of {{supplyBalance}} and vault supply of {{xvsStaked}} (max supply counted for this stake)."
       }
     }
   },

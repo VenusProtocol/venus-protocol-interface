@@ -297,9 +297,11 @@
         "calculatorLink": "计算你的 Prime 奖励",
         "liquidityHubCorePoolBoost": "该加成来自 Core 池，不会重复发放。",
         "primeBorrowSimulation": "Prime 加成基于用户借款平均值 {{borrowBalance}} 与金库存入 {{xvsStaked}} 提升 APY。",
+        "primeBorrowSimulationCapped": "Prime 加成基于借款 {{borrowBalance}} 与金库存入 {{xvsStaked}} 提升 APY（该质押量可计入的最高借款）。",
         "primeDocLink": "了解更多",
         "primeMarket": "Prime 提升 APY。",
-        "primeSupplySimulation": "Prime 加成基于用户存款平均值 {{supplyBalance}} 与金库存入 {{xvsStaked}} 提升 APY。"
+        "primeSupplySimulation": "Prime 加成基于用户存款平均值 {{supplyBalance}} 与金库存入 {{xvsStaked}} 提升 APY。",
+        "primeSupplySimulationCapped": "Prime 加成基于存款 {{supplyBalance}} 与金库存入 {{xvsStaked}} 提升 APY（该质押量可计入的最高存款）。"
       }
     }
   },
