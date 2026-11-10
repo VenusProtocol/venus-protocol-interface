@@ -1,5 +1,7 @@
 import { Button, cn } from '@venusprotocol/ui';
 
+import { getPageContentTop } from 'utilities';
+
 import { Dropdown } from '../Dropdown';
 import { Icon } from '../Icon';
 
@@ -57,7 +59,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
 
     if (spaceBelow < MENU_MIN_HEIGHT_PX && menuWrapper && menuAnchor && trigger) {
       const triggerTop = trigger.getBoundingClientRect().top;
-      const spaceAbove = triggerTop - MENU_VIEWPORT_MARGIN_PX - MENU_GAP_PX;
+      const spaceAbove = triggerTop - getPageContentTop() - MENU_GAP_PX * 2;
 
       if (spaceAbove > spaceBelow) {
         menuWrapper.style.top = 'auto';
