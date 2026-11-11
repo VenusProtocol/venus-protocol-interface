@@ -34,7 +34,7 @@
   --theme-fg-success: 0 129 94;
   --theme-fg-danger: 191 48 69;
   --theme-fg-warning: 146 97 9;
-  --theme-fg-caution: 184 77 8;
+  --theme-fg-caution: 229 95 0;
 
   --theme-bg-canvas: 244 247 251;
   --theme-bg-surface-1: 251 252 254;
@@ -58,7 +58,7 @@
   --theme-bg-success: 0 129 94;
   --theme-bg-danger: 191 48 69;
   --theme-bg-warning: 240 185 11;
-  --theme-bg-caution: 184 77 8;
+  --theme-bg-caution: 229 95 0;
 
   --theme-border-default: 212 221 232;
   --theme-border-muted: 212 221 232;
@@ -73,7 +73,7 @@
   --theme-border-success: 0 129 94;
   --theme-border-danger: 191 48 69;
   --theme-border-warning: 240 185 11;
-  --theme-border-caution: 184 77 8;
+  --theme-border-caution: 229 95 0;
 
   --theme-tooltip-border: rgb(36 100 203);
   --theme-select-border: rgb(212 221 232);
