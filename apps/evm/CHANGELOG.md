@@ -1,5 +1,16 @@
 # @venusprotocol/evm
 
+## 5.45.0
+
+### Minor Changes
+
+- 339e4d8: estimate the Prime badge APY at the position the XVS stake can score when the average market position is above it
+
+### Patch Changes
+
+- 93442d9: hide Liquidity Hub share tokens from the Trade long and short token lists, since they have no price history for the chart
+- 66063dd: chore: update dependencies to patched versions
+
 ## 5.44.5
 
 ### Patch Changes
