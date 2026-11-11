@@ -49,6 +49,7 @@
     "ws@~8.17.1": "^8.21.3",
     "@opentelemetry/core@2.2.0": "2.8.0",
     "@opentelemetry/core@2.4.0": "2.8.0",
-    "immutable@~3.7.6": "~3.8.4"
+    "immutable@~3.7.6": "~3.8.4",
+    "node-libcurl@^4.0.0": "^5.1.2"
   }
 }
