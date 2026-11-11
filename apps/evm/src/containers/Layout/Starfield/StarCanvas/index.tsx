@@ -67,7 +67,6 @@ const FRAGMENT_SHADER = `
 `;
 
 const PIXEL_RATIO = 1;
-const FRAME_INTERVAL_MS = 1000 / 15;
 const TIME_WRAP_SECONDS = 86400;
 const MAX_STEP_SECONDS = 0.25;
 
@@ -218,10 +217,6 @@ export const StarCanvas: React.FC = () => {
       frame = window.requestAnimationFrame(tick);
 
       const sinceLastDraw = timeMs - lastTimeMs;
-
-      if (lastTimeMs && sinceLastDraw < FRAME_INTERVAL_MS) {
-        return;
-      }
 
       elapsedSeconds =
         (elapsedSeconds + (lastTimeMs ? Math.min(sinceLastDraw / 1000, MAX_STEP_SECONDS) : 0)) %
