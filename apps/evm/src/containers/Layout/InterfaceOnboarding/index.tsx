@@ -1,3 +1,4 @@
+import { useIsFetching } from '@tanstack/react-query';
 import { PrimaryButton } from '@venusprotocol/ui';
 import venusLogoSrc from 'assets/img/venusLogo.svg';
 import venusWordmarkSrc from 'assets/img/venusWordmark.svg';
@@ -70,7 +71,7 @@ const getCardPosition = (): CardPosition => {
 export const InterfaceOnboarding: React.FC = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const { accountAddress } = useAccountAddress();
+  const { accountAddress, isAccountPending } = useAccountAddress();
   const { isLite } = useInterfaceMode();
   const isLiteModeEnabled = useIsFeatureEnabled({ name: 'liteMode' });
   const { isConnectedAccountVip, isLoading: isVipStatusLoading } = useIsConnectedAccountVip();
@@ -91,13 +92,15 @@ export const InterfaceOnboarding: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [position, setPosition] = useState<CardPosition>();
 
+  const firstLoadCount = useIsFetching({ predicate: query => query.state.data === undefined });
   const isOnEntryPage = pathname === entry.pathname;
   const isPending = !!entry.variant && !isDismissed && !hasLeftEntryPage && isOnEntryPage;
   const isVipModalPending =
     !!accountAddress &&
     !userChainSettings.doNotShowVipModal &&
     (isVipStatusLoading || isConnectedAccountVip);
-  const canShow = isPending && isPageClear && !isVipModalPending;
+  const isPageLoading = !!isAccountPending || firstLoadCount > 0;
+  const canShow = isPending && isPageClear && !isVipModalPending && (isVisible || !isPageLoading);
 
   useEffect(() => {
     if (!isOnEntryPage) {
