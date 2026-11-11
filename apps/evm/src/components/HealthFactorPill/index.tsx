@@ -13,14 +13,14 @@ export const HealthFactorPill: React.FC<HealthFactorPillProps> = ({
   className,
   ...otherProps
 }) => {
-  const { bgClass, bgSemiTransparentClass, borderClass, label } = useHealthFactor({
+  const { bgClass, onBgTextClass, bgSemiTransparentClass, borderClass, label } = useHealthFactor({
     value: factor,
   });
 
   return (
     <div {...otherProps} className={cn('inline-flex items-center justify-center', className)}>
       <div className={cn('flex items-center px-2 rounded-full h-[21px]', bgClass)}>
-        <p className="text-on-emphasis text-sm font-semibold">
+        <p className={cn('text-sm font-semibold', onBgTextClass)}>
           {formatHealthFactorToReadableValue({ value: factor })}
         </p>
       </div>

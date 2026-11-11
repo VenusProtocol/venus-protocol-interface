@@ -43,7 +43,7 @@ export const theme = {
     'orange-hover': 'rgb(var(--color-orange-hover-rgb))',
     'orange-active': 'rgb(var(--color-orange-active-rgb))',
     'orange-disabled': 'rgb(var(--color-orange-disabled-rgb))',
-    yellow: 'rgb(var(--theme-fg-warning))',
+    yellow: 'rgb(var(--theme-bg-warning))',
     'yellow-hover': 'rgb(var(--color-yellow-hover-rgb))',
     'yellow-active': 'rgb(var(--color-yellow-active-rgb))',
     'yellow-disabled': 'rgb(var(--color-yellow-disabled-rgb))',

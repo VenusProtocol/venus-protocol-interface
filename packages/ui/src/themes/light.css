@@ -24,6 +24,9 @@
   --theme-fg-on-bright: 24 26 32;
   --theme-fg-on-color-secondary: 170 179 202;
   --theme-fg-on-emphasis: 255 255 255;
+  --theme-fg-on-warning: 23 38 61;
+  --theme-chart-up: 0 153 107;
+  --theme-chart-down: 220 42 53;
   --theme-fg-brand: 36 100 203;
   --theme-fg-brand-hover: 32 95 196;
   --theme-fg-brand-active: 30 85 180;
@@ -54,7 +57,7 @@
   --theme-bg-brand-pressed: 30 85 180;
   --theme-bg-success: 0 129 94;
   --theme-bg-danger: 191 48 69;
-  --theme-bg-warning: 146 97 9;
+  --theme-bg-warning: 240 185 11;
   --theme-bg-caution: 184 77 8;
 
   --theme-border-default: 212 221 232;
@@ -69,7 +72,7 @@
   --theme-border-brand: 36 100 203;
   --theme-border-success: 0 129 94;
   --theme-border-danger: 191 48 69;
-  --theme-border-warning: 146 97 9;
+  --theme-border-warning: 240 185 11;
   --theme-border-caution: 184 77 8;
 
   --theme-tooltip-border: rgb(36 100 203);

@@ -25,8 +25,8 @@ const applyChartStyles = (chart: Chart) => {
   const axisColor = rgb('--theme-bg-hover-subtle');
   const mutedColor = rgb('--theme-bg-neutral-bold');
   const textColor = rgb('--theme-fg-primary');
-  const upColor = rgb('--theme-bg-success');
-  const downColor = rgb('--theme-bg-danger');
+  const upColor = rgb('--theme-chart-up');
+  const downColor = rgb('--theme-chart-down');
 
   chart.setStyles({
     grid: {

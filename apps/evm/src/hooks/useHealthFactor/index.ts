@@ -11,6 +11,7 @@ export const useHealthFactor = ({ value }: { value: number }) => {
 
   let borderClass = cn('border-danger');
   let bgClass = cn('bg-danger');
+  let onBgTextClass = cn('text-on-emphasis');
   let textClass = cn('text-danger');
   let bgSemiTransparentClass = cn('bg-danger/10');
   let label = t('healthFactor.label.liquidation');
@@ -28,6 +29,7 @@ export const useHealthFactor = ({ value }: { value: number }) => {
     textClass = cn('text-warning');
     borderClass = cn('border-warning');
     bgClass = cn('bg-warning');
+    onBgTextClass = cn('text-on-warning');
     bgSemiTransparentClass = cn('bg-warning/10');
     color = theme.colors.yellow;
   } else if (value > HEALTH_FACTOR_LIQUIDATION_THRESHOLD) {
@@ -38,6 +40,7 @@ export const useHealthFactor = ({ value }: { value: number }) => {
     label,
     textClass,
     bgClass,
+    onBgTextClass,
     bgSemiTransparentClass,
     borderClass,
     color,

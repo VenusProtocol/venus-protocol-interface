@@ -80,6 +80,7 @@
   --text-color-on-bright: rgb(var(--theme-fg-on-bright));
   --text-color-on-color-secondary: rgb(var(--theme-fg-on-color-secondary));
   --text-color-on-emphasis: rgb(var(--theme-fg-on-emphasis));
+  --text-color-on-warning: rgb(var(--theme-fg-on-warning));
   --text-color-brand: rgb(var(--theme-fg-brand));
   --text-color-brand-hover: rgb(var(--theme-fg-brand-hover));
   --text-color-brand-active: rgb(var(--theme-fg-brand-active));
