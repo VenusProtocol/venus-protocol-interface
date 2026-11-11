@@ -1092,7 +1092,7 @@
     },
     "description": "あらゆる DeFi 利回り戦略に対応する、シンプルかつ強力なレンディングとボローイング。",
     "filters": {
-      "allCategories": "すべてのカテゴリー",
+      "allCategories": "全カテゴリ",
       "category": "カテゴリー",
       "categoryCount_other": "{{count}} 件のカテゴリー",
       "reset": "リセット",
