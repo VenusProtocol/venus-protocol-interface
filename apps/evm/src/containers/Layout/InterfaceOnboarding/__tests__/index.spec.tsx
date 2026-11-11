@@ -1,4 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { useState } from 'react';
 import type { Mock } from 'vitest';
 
 import { en } from 'libs/translations';
@@ -168,6 +170,67 @@ describe('InterfaceOnboarding', () => {
     expect(screen.queryByText(en.layout.interfaceOnboarding.pro.title)).not.toBeInTheDocument();
 
     otherDialog.remove();
+
+    await waitFor(() =>
+      expect(screen.getByText(en.layout.interfaceOnboarding.pro.title)).toBeInTheDocument(),
+    );
+  });
+
+  it('waits while the wallet is reconnecting', async () => {
+    setUp({ isLite: true });
+    (useAccountAddress as Mock).mockImplementation(() => ({
+      accountAddress: undefined,
+      isAccountPending: true,
+    }));
+
+    renderOnboarding({ pathname: '/' });
+
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    expect(screen.queryByText(en.layout.interfaceOnboarding.pro.title)).not.toBeInTheDocument();
+  });
+
+  it('waits for the first page data so a linked modal opens before the introduction', async () => {
+    setUp({ isLite: true });
+
+    let resolveData: (value: string) => void = () => {};
+    const data = new Promise<string>(resolve => {
+      resolveData = resolve;
+    });
+
+    const LinkedModalPage: React.FC = () => {
+      const { isSuccess } = useQuery({ queryKey: ['linked-modal-page'], queryFn: () => data });
+      const [isModalOpen, setIsModalOpen] = useState(true);
+
+      return isSuccess && isModalOpen ? (
+        <div role="dialog">
+          <button type="button" onClick={() => setIsModalOpen(false)}>
+            Close linked modal
+          </button>
+        </div>
+      ) : null;
+    };
+
+    renderComponent(
+      <>
+        <button type="button" data-interface-mode-switch="">
+          Mode
+        </button>
+        <LinkedModalPage />
+        <InterfaceOnboarding />
+      </>,
+      { routerInitialEntries: ['/'], routePath: '*' },
+    );
+
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    expect(screen.queryByText(en.layout.interfaceOnboarding.pro.title)).not.toBeInTheDocument();
+
+    resolveData('loaded');
+    await screen.findByText('Close linked modal');
+
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    expect(screen.queryByText(en.layout.interfaceOnboarding.pro.title)).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Close linked modal'));
 
     await waitFor(() =>
       expect(screen.getByText(en.layout.interfaceOnboarding.pro.title)).toBeInTheDocument(),

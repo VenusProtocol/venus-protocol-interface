@@ -19,6 +19,10 @@ vi.mock('../TestEnvWarning', () => ({
   TestEnvWarning: () => <div>Test warning</div>,
 }));
 
+vi.mock('../InterfaceOnboarding', () => ({
+  InterfaceOnboarding: () => null,
+}));
+
 vi.mock('../Footer', async () => {
   const React = await vi.importActual<typeof import('react')>('react');
 
