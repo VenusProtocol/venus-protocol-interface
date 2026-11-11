@@ -1092,7 +1092,7 @@
     },
     "description": "Cho vay và đi vay đơn giản nhưng mạnh mẽ cho mọi chiến lược lợi nhuận DeFi.",
     "filters": {
-      "allCategories": "Tất cả danh mục",
+      "allCategories": "Mọi danh mục",
       "category": "Danh mục",
       "categoryCount_other": "{{count}} danh mục",
       "reset": "Đặt lại",

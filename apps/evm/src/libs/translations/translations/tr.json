@@ -1093,7 +1093,7 @@
     },
     "description": "Her DeFi getiri stratejisi için basit ama güçlü borç verme ve borç alma.",
     "filters": {
-      "allCategories": "Tüm Kategoriler",
+      "allCategories": "Kategoriler",
       "category": "Kategori",
       "categoryCount_one": "{{count}} kategori",
       "categoryCount_other": "{{count}} kategori",
