@@ -256,6 +256,7 @@ describe('useGetTradeAssets', () => {
     it('waits for the Liquidity Hubs before returning the lists', () => {
       (useGetLiquidityHubs as Mock).mockReturnValue({
         isLoading: true,
+        isFetched: false,
         data: undefined,
       });
 
@@ -267,6 +268,20 @@ describe('useGetTradeAssets', () => {
         supplyAssets: [],
         dsaAssets: [],
       });
+    });
+
+    it('stops waiting once the first Liquidity Hubs request has failed', () => {
+      (useGetLiquidityHubs as Mock).mockReturnValue({
+        isLoading: true,
+        isFetched: true,
+        data: undefined,
+      });
+
+      const { result } = renderHook(() => useGetTradeAssets());
+
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.data.supplyAssets).toHaveLength(pool.assets.length);
+      expect(result.current.data.borrowAssets).toHaveLength(pool.assets.length);
     });
 
     it('returns every asset when the Liquidity Hubs are unavailable', () => {

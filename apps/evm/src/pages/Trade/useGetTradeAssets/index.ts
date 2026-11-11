@@ -19,8 +19,13 @@ export const useGetTradeAssets = (input?: { accountAddress?: Address }) => {
 
   const { data: getDsaVTokensData, isLoading: isGetDsaVTokensLoading } = useGetDsaVTokens();
 
-  const { data: getLiquidityHubsData, isLoading: isGetLiquidityHubsLoading } =
-    useGetLiquidityHubs();
+  const {
+    data: getLiquidityHubsData,
+    isLoading: isGetLiquidityHubsQueryLoading,
+    isFetched: isGetLiquidityHubsFetched,
+  } = useGetLiquidityHubs();
+
+  const isGetLiquidityHubsLoading = isGetLiquidityHubsQueryLoading && !isGetLiquidityHubsFetched;
 
   const corePool = getPoolData?.pool;
   const dsaVTokenAddresses = getDsaVTokensData?.dsaVTokenAddresses;
