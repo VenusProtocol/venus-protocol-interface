@@ -1,19 +1,21 @@
 import centrifugeIconSrc from 'assets/img/centrifugeIcon.svg';
 import spokeIconSrc from 'assets/img/spokeIcon.svg';
 import vaultsIconSrc from 'assets/img/vaultsIcon.svg';
-import venusCoreIconSrc from 'assets/img/venusCoreIcon.png';
+import venusCoreIconSrc from 'assets/img/venusCoreLogo.svg';
 import venusFluxIconSrc from 'assets/img/venusFluxIcon.png';
 import type { LiquidityHubYieldGroupType } from 'types';
 
 export const metadataByType: Record<
   LiquidityHubYieldGroupType,
-  { nameTranslationKey: string; iconSrc: string; bgClassName: string }
+  { nameTranslationKey: string; iconSrc: string; iconClassName?: string; bgClassName: string }
 > = {
   core: {
     // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
     // t('liquidityHub.allocationDetails.yieldGroup.names.core')
     nameTranslationKey: 'liquidityHub.allocationDetails.yieldGroup.names.core',
     iconSrc: venusCoreIconSrc,
+    iconClassName:
+      'rounded-[2px] border-[0.5px] border-venus-core-tile bg-venus-core-tile object-contain p-[3px]',
     bgClassName: 'bg-brand',
   },
   flux: {

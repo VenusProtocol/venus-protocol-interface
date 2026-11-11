@@ -92,6 +92,7 @@
   --color-border-sheen: rgb(212 221 232);
   --color-border-input: rgb(212 221 232);
   --color-border-mode-switch: rgb(36 100 203);
+  --color-border-venus-core-tile: rgb(212 221 232);
 
   --background-image-row-hover: linear-gradient(rgb(30 55 85 / 5%), rgb(30 55 85 / 4%));
   --background-image-menu: linear-gradient(125deg, rgb(255 255 255 / 35%), transparent 65%),
@@ -107,6 +108,8 @@
     linear-gradient(rgb(237 242 248 / 78%) 0 100%);
   --background-image-mode-switch: var(--background-image-sheen);
   --background-image-prime-ring: linear-gradient(110deg, #7e523c, #d8b49b 45%, #82573f);
+  --background-image-venus-core-tile: linear-gradient(135deg, rgb(255 255 255 / 45%), rgb(198 231 254 / 45%)),
+    linear-gradient(rgb(255 255 255) 0 100%);
   --background-image-hero-text: linear-gradient(115deg, #1460ff, #2873ff 48%, #1557ed);
   --background-image-page-title: linear-gradient(115deg, #1460ff, #2873ff 48%, #1557ed);
   --background-image-pearl-text: linear-gradient(

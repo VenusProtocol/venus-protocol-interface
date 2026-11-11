@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import centrifugeIconSrc from 'assets/img/centrifugeIcon.svg';
-import venusCoreIconSrc from 'assets/img/venusCoreIcon.png';
+import venusCoreIconSrc from 'assets/img/venusCoreLogo.svg';
 import venusFluxIconSrc from 'assets/img/venusFluxIcon.png';
 import type { LiquidityHubYieldGroup } from 'types';
 

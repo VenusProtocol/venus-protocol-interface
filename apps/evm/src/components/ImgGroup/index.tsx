@@ -3,6 +3,7 @@ import { cn } from '@venusprotocol/ui';
 export interface ImgGroupItem {
   src: string;
   alt: string;
+  className?: string;
 }
 
 export interface ImgGroupProps {
@@ -28,7 +29,7 @@ export const ImgGroup: React.FC<ImgGroupProps> = ({
       {filteredImgs.map((img, index) => (
         <img
           alt={img.alt}
-          className={cn('size-5', index > 0 && '-ml-1')}
+          className={cn('size-5', index > 0 && '-ml-1', img.className)}
           src={img.src}
           key={`img-group-item-${img.src}-${index}`}
         />
