@@ -110,6 +110,7 @@
   --background-color-neutral-subtle: rgb(var(--theme-bg-neutral-subtle));
   --background-color-neutral-bold: rgb(var(--theme-bg-neutral-bold));
   --background-color-inverse: rgb(var(--theme-bg-inverse));
+  --background-color-on-color: rgb(var(--theme-fg-on-color));
   --background-color-disabled: rgb(var(--theme-bg-disabled));
   --background-color-brand: rgb(var(--theme-bg-brand));
   --background-color-brand-pressed: rgb(var(--theme-bg-brand-pressed));
@@ -127,6 +128,7 @@
   --border-color-control: rgb(var(--theme-border-control));
   --border-color-faint: rgb(var(--theme-border-faint));
   --border-color-inverse: rgb(var(--theme-border-inverse));
+  --border-color-on-color: rgb(var(--theme-fg-on-color));
   --border-color-brand: rgb(var(--theme-border-brand));
   --border-color-success: rgb(var(--theme-border-success));
   --border-color-danger: rgb(var(--theme-border-danger));

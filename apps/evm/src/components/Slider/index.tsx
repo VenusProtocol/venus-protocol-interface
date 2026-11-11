@@ -3,7 +3,7 @@ import { cn } from '@venusprotocol/ui';
 import { useState } from 'react';
 import { TickMark } from './TickMark';
 
-const tickMarks = [25, 50, 75];
+const tickMarks = [0, 25, 50, 75, 100];
 
 export interface SliderProps {
   value: number;
@@ -73,7 +73,7 @@ export const Slider: React.FC<SliderProps> = ({
       <SliderPrimitive.Thumb
         data-slot="slider-thumb"
         className={cn(
-          'block relative size-5 shrink-0 outline-hidden rounded-full border-inverse border-4 bg-brand shadow-sm',
+          'block relative size-5 shrink-0 outline-hidden rounded-full border-on-color border-4 bg-brand shadow-sm',
         )}
         onMouseEnter={showValueIndicator}
         onMouseLeave={hideValueIndicator}
