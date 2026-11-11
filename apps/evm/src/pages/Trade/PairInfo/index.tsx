@@ -188,7 +188,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
         />
       </div>
 
-      <div className="flex min-w-0 flex-col gap-6 md:flex-row md:justify-between lg:flex-col 2xl:flex-row">
+      <div className="flex min-w-0 flex-col gap-6">
         <div className="flex items-center gap-x-2">
           <TokenPair
             shortToken={shortToken}
@@ -226,7 +226,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
         </div>
 
         <div className="overflow-hidden">
-          <CellGroup cells={cells} />
+          <CellGroup cells={cells} className="sm:grid sm:grid-cols-4" />
         </div>
       </div>
     </div>

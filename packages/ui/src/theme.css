@@ -140,6 +140,8 @@
   --border-color-segment-active: var(--color-border-segment-active);
   --border-color-sheen: var(--color-border-sheen);
   --border-color-input: var(--color-border-input);
+  --border-color-input-disabled: var(--color-border-input-disabled);
+  --border-color-input-hover: var(--color-border-input-hover);
   --border-color-mode-switch: var(--color-border-mode-switch);
   --border-color-venus-core-tile: var(--color-border-venus-core-tile);
 
@@ -345,6 +347,9 @@
   --color-border-segment-active: rgb(13 136 224);
   --color-border-sheen: transparent;
   --color-border-input: var(--color-border-subtle);
+  --color-border-input-disabled: rgb(var(--theme-border-muted));
+  --color-border-input-hover: var(--color-border-glass);
+  --color-surface-input-disabled: rgb(var(--theme-bg-surface-4));
   --color-border-mode-switch: var(--color-blue);
   --color-border-venus-core-tile: transparent;
 

@@ -288,7 +288,7 @@ const BridgePage: React.FC = () => {
   return (
     <Page>
       <div className="mx-auto w-full space-y-6 md:max-w-[544px]">
-        <Card>
+        <Card className="light:border-brand">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-4">
               <div className="md:flex md:items-end md:justify-between md:gap-4 grow">
@@ -438,7 +438,7 @@ const BridgePage: React.FC = () => {
         <div className="flex items-center justify-center space-x-3">
           <div className="flex items-center">
             <span className="text-secondary mr-1 text-sm">{t('bridgePage.footer.poweredBy')}</span>
-            <LayerZeroLogo className="w-[80px]" />
+            <LayerZeroLogo className="w-[80px] light:brightness-0" />
           </div>
 
           <div className="bg-neutral h-5 w-px" />

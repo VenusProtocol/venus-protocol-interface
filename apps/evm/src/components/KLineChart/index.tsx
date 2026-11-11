@@ -1,5 +1,5 @@
 import { cn } from '@venusprotocol/ui';
-import { type DataLoader, dispose, init } from 'klinecharts';
+import { type Chart, type DataLoader, dispose, init } from 'klinecharts';
 import { useEffect, useRef, useState } from 'react';
 
 import { Delimiter } from 'components/Delimiter';
@@ -19,6 +19,84 @@ export interface KLineChartProps {
   pricePrecision: number;
   className?: string;
 }
+
+const applyChartStyles = (chart: Chart) => {
+  const gridColor = rgb('--theme-border-default');
+  const axisColor = rgb('--theme-bg-hover-subtle');
+  const mutedColor = rgb('--theme-bg-neutral-bold');
+  const textColor = rgb('--theme-fg-primary');
+  const upColor = rgb('--theme-bg-success');
+  const downColor = rgb('--theme-bg-danger');
+
+  chart.setStyles({
+    grid: {
+      horizontal: { color: gridColor, dashedValue: [3, 3] },
+      vertical: { color: gridColor, dashedValue: [3, 3] },
+    },
+    candle: {
+      bar: {
+        upColor,
+        downColor,
+        upBorderColor: upColor,
+        downBorderColor: downColor,
+        upWickColor: upColor,
+        downWickColor: downColor,
+        noChangeColor: mutedColor,
+        noChangeBorderColor: mutedColor,
+        noChangeWickColor: mutedColor,
+      },
+      tooltip: {
+        rect: {
+          color: gridColor,
+          borderColor: axisColor,
+        },
+        title: { color: textColor },
+        legend: {
+          color: mutedColor,
+          template: [
+            { title: 'time', value: '{time}' },
+            { title: 'open', value: '{open}' },
+            { title: 'high', value: '{high}' },
+            { title: 'low', value: '{low}' },
+            { title: 'close', value: '{close}' },
+          ],
+        },
+      },
+    },
+    xAxis: {
+      axisLine: { color: axisColor },
+      tickLine: { color: axisColor },
+      tickText: { color: mutedColor },
+    },
+    yAxis: {
+      axisLine: { color: axisColor },
+      tickLine: { color: axisColor },
+      tickText: { color: mutedColor },
+    },
+    crosshair: {
+      horizontal: {
+        line: { color: mutedColor },
+        text: {
+          color: textColor,
+          borderColor: axisColor,
+          backgroundColor: gridColor,
+        },
+      },
+      vertical: {
+        line: { color: mutedColor },
+        text: {
+          color: textColor,
+          borderColor: axisColor,
+          backgroundColor: gridColor,
+        },
+      },
+    },
+    separator: {
+      color: axisColor,
+      activeBackgroundColor: gridColor,
+    },
+  });
+};
 
 export const KLineChart: React.FC<KLineChartProps> = ({
   className,
@@ -88,81 +166,12 @@ export const KLineChart: React.FC<KLineChartProps> = ({
     }
 
     chartRef.current = chart;
+    applyChartStyles(chart);
 
-    const darkBlueHover = rgb('--color-dark-blue-hover-rgb');
-    const darkBlueActive = rgb('--color-dark-blue-active-rgb');
-    const grey = rgb('--color-grey-rgb');
-    const white = rgb('--color-white-rgb');
-    const green = rgb('--color-green-rgb');
-    const red = rgb('--color-red-rgb');
-
-    chart.setStyles({
-      grid: {
-        horizontal: { color: darkBlueHover, dashedValue: [3, 3] },
-        vertical: { color: darkBlueHover, dashedValue: [3, 3] },
-      },
-      candle: {
-        bar: {
-          upColor: green,
-          downColor: red,
-          upBorderColor: green,
-          downBorderColor: red,
-          upWickColor: green,
-          downWickColor: red,
-          noChangeColor: grey,
-          noChangeBorderColor: grey,
-          noChangeWickColor: grey,
-        },
-        tooltip: {
-          rect: {
-            color: darkBlueHover,
-            borderColor: darkBlueActive,
-          },
-          title: { color: white },
-          legend: {
-            color: grey,
-            template: [
-              { title: 'time', value: '{time}' },
-              { title: 'open', value: '{open}' },
-              { title: 'high', value: '{high}' },
-              { title: 'low', value: '{low}' },
-              { title: 'close', value: '{close}' },
-            ],
-          },
-        },
-      },
-      xAxis: {
-        axisLine: { color: darkBlueActive },
-        tickLine: { color: darkBlueActive },
-        tickText: { color: grey },
-      },
-      yAxis: {
-        axisLine: { color: darkBlueActive },
-        tickLine: { color: darkBlueActive },
-        tickText: { color: grey },
-      },
-      crosshair: {
-        horizontal: {
-          line: { color: grey },
-          text: {
-            color: white,
-            borderColor: darkBlueActive,
-            backgroundColor: darkBlueHover,
-          },
-        },
-        vertical: {
-          line: { color: grey },
-          text: {
-            color: white,
-            borderColor: darkBlueActive,
-            backgroundColor: darkBlueHover,
-          },
-        },
-      },
-      separator: {
-        color: darkBlueActive,
-        activeBackgroundColor: darkBlueHover,
-      },
+    const themeObserver = new MutationObserver(() => applyChartStyles(chart));
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
     });
 
     const resizeObserver = new ResizeObserver(() => {
@@ -173,6 +182,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
 
     return () => {
       chartRef.current = null;
+      themeObserver.disconnect();
       resizeObserver?.disconnect();
       dispose(chart);
     };

@@ -99,7 +99,7 @@ export const Status: React.FC<StatusProps> = ({
         )}
       </div>
 
-      <p className="text-md font-semibold whitespace-nowrap overflow-hidden text-ellipsis grow">
+      <p className="text-md font-semibold light:font-normal whitespace-nowrap overflow-hidden text-ellipsis grow">
         {label}
       </p>
     </div>

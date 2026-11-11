@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
       <img
         src={illustrationSrc}
         alt={t('statsPage.illustrationAlt')}
-        className="absolute right-0 top-2 hidden h-[135px] w-[240px] md:block"
+        className="absolute right-0 top-2 hidden h-[135px] w-[240px] md:block light:md:hidden"
       />
     </div>
   );

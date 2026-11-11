@@ -95,6 +95,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
                 type="button"
                 className={cn(
                   'hover:bg-surface-segment-hover active:bg-surface-segment-hover flex min-w-full items-center justify-between py-3 text-left text-sm font-semibold cursor-pointer',
+                  value === option.value && 'light:bg-selected light:hover:bg-selected',
                   optionClassName,
                 )}
               >
@@ -110,7 +111,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
                 <Icon
                   name="mark"
                   className={cn(
-                    'text-success ml-4 w-5 h-5 shrink-0 opacity-0',
+                    'text-success light:text-brand ml-4 w-5 h-5 shrink-0 opacity-0',
                     value === option.value && 'opacity-100',
                   )}
                 />

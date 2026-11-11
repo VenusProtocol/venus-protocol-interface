@@ -41,7 +41,7 @@ export const Indicator: React.FC<IndicatorProps> = ({
       )}
       {...otherProps}
     >
-      <Icon name={iconName} className="w-6 h-6 text-primary" />
+      <Icon name={iconName} className="w-6 h-6 text-on-color" />
     </div>
   );
 };

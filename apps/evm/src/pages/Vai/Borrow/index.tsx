@@ -186,7 +186,7 @@ export const Borrow: React.FC = () => {
   }
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       {isUserMissingPrimeToken && (
         <NoticeWarning
           data-testid={TEST_IDS.primeOnlyWarning}
