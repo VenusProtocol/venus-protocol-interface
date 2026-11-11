@@ -77,6 +77,8 @@
   --theme-boost-fg: 13 128 120;
   --theme-merkl-border: #c99a3a;
   --theme-merkl-border-hover: #a97c22;
+  --theme-prime-border: #9b6850;
+  --theme-prime-border-hover: #7e523c;
 
   --color-surface-glass: rgb(251 252 254);
   --color-surface-raised: rgb(255 255 255 / 55%);

@@ -98,7 +98,7 @@ export const Layout: React.FC = () => {
             id={PAGE_CONTAINER_ID}
             onScroll={handleScroll}
           >
-            <TestEnvWarning className="relative shrink-0" />
+            <TestEnvWarning className="relative -mt-4 shrink-0" />
 
             <Header />
 

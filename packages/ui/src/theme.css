@@ -66,6 +66,8 @@
     --theme-select-border: transparent;
     --theme-merkl-border: #ffe4aa;
     --theme-merkl-border-hover: #ffd370;
+    --theme-prime-border: #9b6850;
+    --theme-prime-border-hover: #cea58b;
   }
 }
 
@@ -153,6 +155,8 @@
   --stroke-tooltip: var(--theme-tooltip-border);
   --border-color-merkl: var(--theme-merkl-border);
   --border-color-merkl-hover: var(--theme-merkl-border-hover);
+  --border-color-prime: var(--theme-prime-border);
+  --border-color-prime-hover: var(--theme-prime-border-hover);
 }
 
 @theme {

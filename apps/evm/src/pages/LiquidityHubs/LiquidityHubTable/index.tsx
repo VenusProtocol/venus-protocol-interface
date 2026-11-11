@@ -86,6 +86,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
       renderCell: ({ vhToken }) => (
         <TokenIconWithSymbol
           token={vhToken.underlyingToken}
+          size="xl"
           symbolClassName="font-normal group-hover:font-semibold"
         />
       ),

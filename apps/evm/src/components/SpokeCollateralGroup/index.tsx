@@ -31,7 +31,7 @@ export const SpokeCollateralGroup = <TCollateral extends Collateral>({
       selectOptionLabel: t('spokeCollateralGroup.asset'),
       renderCell: collateral => (
         <div className="flex items-center gap-x-2">
-          <TokenIconWithSymbol token={collateral.vToken.underlyingToken} />
+          <TokenIconWithSymbol token={collateral.vToken.underlyingToken} size="xl" />
 
           {collateral.isProtectionModeEnabled && (
             <ProtectionModeIndicator
