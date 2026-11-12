@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.45.3
+
+### Patch Changes
+
+- d3ebd4c: remove the deprecated Core swap page
+
 ## 5.45.2
 
 ### Patch Changes
