@@ -195,7 +195,7 @@ const SpokePools: React.FC = () => {
           cells={cells}
         />
 
-        <div className="space-y-6">
+        <div className="space-y-3">
           <Controls
             searchValue={searchValue}
             onSearchValueChange={setSearchValue}
