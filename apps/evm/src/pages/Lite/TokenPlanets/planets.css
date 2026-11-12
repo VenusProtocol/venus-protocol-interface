@@ -6,6 +6,10 @@
   color: var(--color-white);
 }
 
+.lite-planets:has(.lite-planet[data-open='true']) {
+  z-index: 22;
+}
+
 .lite-planet {
   position: absolute;
   pointer-events: auto;
