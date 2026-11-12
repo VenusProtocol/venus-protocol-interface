@@ -65,9 +65,14 @@ export const Username: React.FC<UsernameProps> = ({
       : chainDomainNameSpan;
 
     dom = (
-      <div className="flex flex-row items-center text-nowrap space-x-1 mr-1">
+      <div className="flex min-w-0 flex-row items-center text-nowrap space-x-1 mr-1">
         {showProvider && (
-          <InfoIcon iconName={providerIcon} iconClassName="cursor-pointer" tooltip={providerText} />
+          <InfoIcon
+            className="shrink-0"
+            iconName={providerIcon}
+            iconClassName="cursor-pointer"
+            tooltip={providerText}
+          />
         )}
 
         {domainNameComponent}
@@ -86,7 +91,7 @@ export const Username: React.FC<UsernameProps> = ({
                 </span>
               </div>
             }
-            className="inline-flex"
+            className="inline-flex shrink-0"
             iconClassName="cursor-pointer"
           />
         )}
