@@ -65,7 +65,11 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
             <span className="flex h-[30px] w-32 items-center gap-x-1.5 rounded-[5px] bg-surface-2 px-2.5">
               <img src={primeLogoSrc} alt="" className="h-4 shrink-0" />
 
-              <Username address={userAddress} className="text-b1r text-primary" />
+              <Username
+                address={userAddress}
+                showProvider={false}
+                className="text-b1r text-primary"
+              />
             </span>
           </span>
 
