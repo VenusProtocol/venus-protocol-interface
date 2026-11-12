@@ -283,7 +283,7 @@ export const Transactions: React.FC = () => {
             <Select
               className="min-w-0 flex-1 sm:w-60 sm:flex-none lg:w-70"
               size="medium"
-              variant="tertiary"
+              variant="raised"
               placeLabelToLeft
               options={txTypeSelectOptions}
               optionClassName="h-auto min-h-12 px-3 scrollbar-track-cards"
@@ -297,7 +297,7 @@ export const Transactions: React.FC = () => {
             <Select
               className="min-w-0 flex-1 sm:w-60 sm:flex-none lg:w-70"
               size="medium"
-              variant="tertiary"
+              variant="raised"
               placeLabelToLeft
               options={sourceSelectOptions}
               optionClassName="h-auto min-h-12 px-3 scrollbar-track-cards"

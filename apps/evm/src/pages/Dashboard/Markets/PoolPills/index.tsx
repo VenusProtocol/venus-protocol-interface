@@ -66,8 +66,8 @@ export const PoolPills: React.FC<PoolPillsProps> = ({
               className={cn(
                 'h-auto min-h-12 rounded-lg p-3 text-sm',
                 isActive
-                  ? 'border-transparent font-semibold text-on-color hover:border-transparent'
-                  : 'font-normal text-secondary shadow-none! hover:text-primary',
+                  ? 'border-transparent font-normal text-on-color hover:border-transparent'
+                  : 'font-normal text-secondary hover:text-primary',
               )}
             >
               {renderLabel({ pool, showHealth: !isActive })}
