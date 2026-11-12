@@ -50,6 +50,9 @@
     "@opentelemetry/core@2.2.0": "2.8.0",
     "@opentelemetry/core@2.4.0": "2.8.0",
     "immutable@~3.7.6": "~3.8.4",
-    "node-libcurl@^4.0.0": "^5.1.2"
+    "node-libcurl@^4.0.0": "^5.1.2",
+    "axios@^0.21.0": "0.35.0",
+    "tmp@^0.0.33": "^0.2.7",
+    "@graphql-tools/utils": "^12.1.0"
   }
 }
