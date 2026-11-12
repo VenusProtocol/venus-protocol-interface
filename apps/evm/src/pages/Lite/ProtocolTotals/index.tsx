@@ -20,7 +20,7 @@ export const ProtocolTotals: React.FC = () => {
   ];
 
   return (
-    <div className="lite-enter lite-enter--totals grid w-full max-w-192 grid-cols-2 gap-2">
+    <div className="lite-enter lite-enter--totals relative z-21 grid w-full max-w-192 grid-cols-2 gap-2">
       {totals.map(total => (
         <div
           key={total.key}
