@@ -37,30 +37,34 @@ export const Markets: React.FC = () => {
     return <Redirect to={marketsPagePath} />;
   }
 
+  let content = <Spinner />;
+
+  if (hasGetPoolDataLoadingError) {
+    content = (
+      <ErrorState
+        className="my-20"
+        message={t('market.errorState.failedToFetchMessage')}
+        button={{
+          label: t('market.errorState.refetchButtonLabel'),
+          onClick: refetchPoolData,
+        }}
+      />
+    );
+  } else if (pool) {
+    content = (
+      <div className="space-y-6 sm:space-y-12">
+        <Header pool={pool} />
+
+        <Tabs pool={pool} />
+      </div>
+    );
+  }
+
   return (
     <Page>
       <MarketsAdBanner />
 
-      <Wrapper className="pt-5 sm:pt-10">
-        {hasGetPoolDataLoadingError ? (
-          <ErrorState
-            className="my-20"
-            message={t('market.errorState.failedToFetchMessage')}
-            button={{
-              label: t('market.errorState.refetchButtonLabel'),
-              onClick: refetchPoolData,
-            }}
-          />
-        ) : pool ? (
-          <div className="space-y-6 sm:space-y-12">
-            <Header pool={pool} />
-
-            <Tabs pool={pool} />
-          </div>
-        ) : (
-          <Spinner />
-        )}
-      </Wrapper>
+      <Wrapper className="pt-5 sm:pt-10">{content}</Wrapper>
     </Page>
   );
 };
