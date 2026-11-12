@@ -25,9 +25,9 @@ export const PageStatHeader: React.FC<PageStatHeaderProps> = ({
       {description && <p className="venus-page-subtitle">{description}</p>}
     </div>
 
-    <div className="flex shrink-0 flex-wrap gap-8 sm:gap-12">
+    <div className="scrollbar-hidden -mx-5 flex shrink-0 gap-8 overflow-x-auto px-5 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:gap-12">
       {cells.map(cell => (
-        <div key={cell.label}>
+        <div key={cell.label} className="shrink-0">
           <div className="mb-3 flex items-center gap-x-2">
             <p className="text-sm text-secondary">{cell.label}</p>
 
