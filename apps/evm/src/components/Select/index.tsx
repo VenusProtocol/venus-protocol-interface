@@ -92,7 +92,9 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
                 onClick={() => handleChange(option.value)}
                 type="button"
                 className={cn(
-                  'hover:bg-surface-segment-hover active:bg-surface-segment-hover flex min-w-full items-center justify-between py-3 text-left text-sm font-semibold cursor-pointer',
+                  'hover:bg-surface-dropdown-item-hover active:bg-surface-dropdown-item-hover flex min-w-full items-center justify-between py-3 text-left text-sm font-semibold cursor-pointer',
+                  value === option.value &&
+                    'bg-surface-dropdown-item-selected hover:bg-surface-dropdown-item-selected',
                   optionClassName,
                 )}
               >

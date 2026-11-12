@@ -250,6 +250,8 @@
   --color-surface-input: rgb(var(--elevation-shade-rgb) / 22%);
   --color-surface-row-hover: rgb(var(--elevation-tint-rgb) / 4%);
   --color-surface-segment-hover: rgb(var(--elevation-tint-rgb) / 6%);
+  --color-surface-dropdown-item-hover: rgb(255 255 255 / 4%);
+  --color-surface-dropdown-item-selected: rgb(255 255 255 / 9%);
 
   --color-border-glass: rgb(var(--elevation-tint-rgb) / 16%);
   --color-border-raised: rgb(var(--elevation-tint-rgb) / 12%);
