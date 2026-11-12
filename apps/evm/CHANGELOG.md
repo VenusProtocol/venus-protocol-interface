@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 5.45.2
+
+### Patch Changes
+
+- 7281956: show placeholders in the Liquidity Hubs header while the Hubs load or when they fail to load, instead of $0 and 0 Hubs
+- f2738f0: show an error with a retry button on the Markets page when the pools fail to load, instead of redirecting to the same page and rendering nothing
+- d32a50e: treat a null vote count from the API as 0 votes on the voter leaderboard, instead of showing NaN
+
 ## 5.45.1
 
 ### Patch Changes
