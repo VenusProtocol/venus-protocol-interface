@@ -3,6 +3,7 @@ import { useTranslation } from 'libs/translations';
 import { MarketApy } from '../../MarketApy';
 import type { LiteEarnAsset, LiteEarnMarket } from '../../types';
 import { useMarketName } from '../../useMarketName';
+import { EmptyState } from '../EmptyState';
 import { useMarketColumns } from '../useMarketColumns';
 
 export interface EarnMarketTableProps {
@@ -67,7 +68,7 @@ export const EarnMarketTable: React.FC<EarnMarketTableProps> = ({
       rowOnClick={(_event, market) => onSelect(market)}
       initialOrder={{ orderBy: columns[1], orderDirection: 'desc' }}
       header={header}
-      placeholder={t('lite.placeholders.noMarkets')}
+      placeholder={<EmptyState title={t('lite.placeholders.noMarkets')} />}
     />
   );
 };

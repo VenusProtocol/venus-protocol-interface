@@ -1115,10 +1115,15 @@
       "label": "Market mode"
     },
     "placeholders": {
-      "noAssets": "No assets found. Try another symbol.",
-      "noBorrowableAssets": "No borrowable assets found.",
-      "noMarkets": "No markets match these filters.",
-      "unavailable": "Market data is unavailable. Please refresh to try again."
+      "clearSearch": "Clear search",
+      "noAssets": "No assets found",
+      "noBorrowableAssets": "No borrowable assets found",
+      "noMarkets": "No markets match these filters",
+      "noResults": "No results for \"{{query}}\"",
+      "refresh": "Please refresh to try again.",
+      "tryAnotherCollateral": "Try another collateral or clear your search.",
+      "tryAnotherSymbol": "Try another symbol or clear your search.",
+      "unavailable": "Market data is unavailable"
     },
     "planets": {
       "earnNow": "Earn now",

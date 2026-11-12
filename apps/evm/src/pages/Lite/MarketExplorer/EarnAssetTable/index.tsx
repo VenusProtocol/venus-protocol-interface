@@ -4,6 +4,7 @@ import { useTranslation } from 'libs/translations';
 import { MarketApy } from '../../MarketApy';
 import { getHighestApyMarket } from '../../getHighestApyMarket';
 import type { LiteEarnAsset } from '../../types';
+import { EmptyState } from '../EmptyState';
 import { useMarketColumns } from '../useMarketColumns';
 
 export interface EarnAssetTableProps {
@@ -12,6 +13,8 @@ export interface EarnAssetTableProps {
   isReady: boolean;
   onSelect: (earnAsset: LiteEarnAsset) => void;
   header: React.ReactNode;
+  searchValue: string;
+  onClearFilters?: () => void;
 }
 
 export const EarnAssetTable: React.FC<EarnAssetTableProps> = ({
@@ -20,14 +23,31 @@ export const EarnAssetTable: React.FC<EarnAssetTableProps> = ({
   isReady,
   onSelect,
   header,
+  searchValue,
+  onClearFilters,
 }) => {
   const { t } = useTranslation();
   const { buildAmountColumn, buildApyColumn, getTableProps } = useMarketColumns();
 
-  let placeholder: string | undefined;
+  const query = searchValue.trim();
+  let placeholder: React.ReactNode;
 
   if (!isFetching) {
-    placeholder = isReady ? t('lite.placeholders.noAssets') : t('lite.placeholders.unavailable');
+    placeholder = isReady ? (
+      <EmptyState
+        showIcon
+        title={
+          query ? t('lite.placeholders.noResults', { query }) : t('lite.placeholders.noAssets')
+        }
+        hint={onClearFilters && t('lite.placeholders.tryAnotherSymbol')}
+        onClear={onClearFilters}
+      />
+    ) : (
+      <EmptyState
+        title={t('lite.placeholders.unavailable')}
+        hint={t('lite.placeholders.refresh')}
+      />
+    );
   }
 
   const columns: TableColumn<LiteEarnAsset>[] = [

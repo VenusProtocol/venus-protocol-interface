@@ -1113,10 +1113,15 @@
       "label": "Chế độ thị trường"
     },
     "placeholders": {
-      "noAssets": "Không tìm thấy tài sản. Hãy thử ký hiệu khác.",
-      "noBorrowableAssets": "Không có tài sản nào có thể vay.",
-      "noMarkets": "Không có thị trường nào khớp với bộ lọc này.",
-      "unavailable": "Không tải được dữ liệu thị trường. Vui lòng làm mới và thử lại."
+      "clearSearch": "Xóa tìm kiếm",
+      "noAssets": "Không tìm thấy tài sản",
+      "noBorrowableAssets": "Không có tài sản nào có thể vay",
+      "noMarkets": "Không có thị trường nào khớp với bộ lọc này",
+      "noResults": "Không có kết quả cho \"{{query}}\"",
+      "refresh": "Vui lòng làm mới và thử lại.",
+      "tryAnotherCollateral": "Hãy thử tài sản thế chấp khác hoặc xóa tìm kiếm.",
+      "tryAnotherSymbol": "Hãy thử ký hiệu khác hoặc xóa tìm kiếm.",
+      "unavailable": "Không tải được dữ liệu thị trường"
     },
     "planets": {
       "earnNow": "Kiếm lợi nhuận ngay",
