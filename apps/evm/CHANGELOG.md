@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.45.1
+
+### Patch Changes
+
+- a610b74: feat: switch to the new Liquidity Hub Migrator
+
 ## 5.45.0
 
 ### Minor Changes

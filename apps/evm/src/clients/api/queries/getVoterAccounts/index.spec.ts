@@ -64,4 +64,22 @@ describe('getVoterAccounts', () => {
 
     expect(voterAccounts).toMatchSnapshot();
   });
+
+  test('treats a null vote count as 0 votes', async () => {
+    (restService as Mock).mockImplementationOnce(async () => ({
+      status: 200,
+      data: {
+        ...voterAccountsResponse,
+        result: [{ ...voterAccountsResponse.result[0], votesMantissa: null, delegate: null }],
+      },
+    }));
+
+    const { voterAccounts } = await getVoterAccounts({
+      totalStakedXvs: new BigNumber('1000000000000000000000'),
+    });
+
+    expect(voterAccounts[0].votesMantissa.toFixed()).toBe('0');
+    expect(voterAccounts[0].voteWeightPercent).toBe('0');
+    expect(voterAccounts[0].delegate).toBeUndefined();
+  });
 });

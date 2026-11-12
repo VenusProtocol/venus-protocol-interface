@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { useGetLiquidityHubs } from 'clients/api';
 import { type CellProps, Page, PageStatHeader } from 'components';
+import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { formatCentsToReadableValue } from 'utilities';
@@ -11,46 +12,40 @@ const LiquidityHubs: React.FC = () => {
   const { accountAddress } = useAccountAddress();
 
   const { t } = useTranslation();
-  const {
-    data: getLiquidityHubsData = {
-      liquidityHubs: [],
-    },
-    isLoading,
-  } = useGetLiquidityHubs({
+  const { data: getLiquidityHubsData, isLoading } = useGetLiquidityHubs({
     accountAddress,
   });
-  const { liquidityHubs } = getLiquidityHubsData;
+  const liquidityHubs = getLiquidityHubsData?.liquidityHubs ?? [];
 
-  const { supplyBalanceCents, liquidityCents, count } = liquidityHubs.reduce(
-    (acc, liquidityHub) => ({
-      ...acc,
-      supplyBalanceCents: acc.supplyBalanceCents.plus(liquidityHub.supplyBalanceCents),
-      liquidityCents: acc.liquidityCents.plus(liquidityHub.liquidityCents),
-      count: acc.count + 1,
-    }),
-    {
-      supplyBalanceCents: new BigNumber(0),
-      liquidityCents: new BigNumber(0),
-      count: 0,
-    },
-  );
+  const totals = getLiquidityHubsData
+    ? liquidityHubs.reduce(
+        (acc, liquidityHub) => ({
+          supplyBalanceCents: acc.supplyBalanceCents.plus(liquidityHub.supplyBalanceCents),
+          liquidityCents: acc.liquidityCents.plus(liquidityHub.liquidityCents),
+        }),
+        {
+          supplyBalanceCents: new BigNumber(0),
+          liquidityCents: new BigNumber(0),
+        },
+      )
+    : undefined;
 
   const cells: CellProps[] = [
     {
       label: t('liquidityHubs.stats.totalSupply'),
       value: formatCentsToReadableValue({
-        value: supplyBalanceCents,
+        value: totals?.supplyBalanceCents,
       }),
     },
     {
       label: t('liquidityHubs.stats.totalLiquidity'),
       value: formatCentsToReadableValue({
-        value: liquidityCents,
+        value: totals?.liquidityCents,
       }),
     },
     {
       label: t('liquidityHubs.stats.hubs'),
-      value: count,
+      value: getLiquidityHubsData ? liquidityHubs.length : PLACEHOLDER_KEY,
     },
   ];
 

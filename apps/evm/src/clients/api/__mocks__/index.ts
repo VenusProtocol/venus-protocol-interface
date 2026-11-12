@@ -239,6 +239,8 @@ export const useGetPools = vi.fn(() => ({
 
 export const useGetPool = vi.fn(() => ({
   isLoading: false,
+  isLoadingError: false,
+  refetch: vi.fn(),
   data: {
     pool: poolData[0],
   },
