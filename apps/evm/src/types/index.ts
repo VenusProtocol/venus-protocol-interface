@@ -77,6 +77,7 @@ export interface PrimeSimulationDistribution {
     userSupplyBalanceTokens: BigNumber;
     userBorrowBalanceTokens: BigNumber;
     userXvsStakedTokens: BigNumber;
+    referenceType: 'average' | 'cap';
   };
 }
 

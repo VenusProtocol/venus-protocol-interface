@@ -301,9 +301,11 @@
         "calculatorLink": "Tính phần thưởng Prime của bạn",
         "liquidityHubCorePoolBoost": "Khoản boost này đến từ Core pool và không được trả hai lần.",
         "primeBorrowSimulation": "APY được boost bởi <PrimeLink>chương trình Prime</PrimeLink> dựa trên mức vay trung bình của người dùng {{borrowBalance}} và khoản gửi trong vault {{xvsStaked}}.",
+        "primeBorrowSimulationCapped": "APY được boost bởi <PrimeLink>chương trình Prime</PrimeLink> dựa trên khoản vay {{borrowBalance}} và khoản gửi trong vault {{xvsStaked}} (mức vay tối đa được tính cho lượng stake này).",
         "primeDocLink": "Tìm hiểu thêm",
         "primeMarket": "APY được boost bởi Prime.",
-        "primeSupplySimulation": "APY được boost bởi <PrimeLink>chương trình Prime</PrimeLink> dựa trên mức cung cấp trung bình của người dùng {{supplyBalance}} và khoản gửi trong vault {{xvsStaked}}."
+        "primeSupplySimulation": "APY được boost bởi <PrimeLink>chương trình Prime</PrimeLink> dựa trên mức cung cấp trung bình của người dùng {{supplyBalance}} và khoản gửi trong vault {{xvsStaked}}.",
+        "primeSupplySimulationCapped": "APY được boost bởi <PrimeLink>chương trình Prime</PrimeLink> dựa trên khoản cung cấp {{supplyBalance}} và khoản gửi trong vault {{xvsStaked}} (mức cung cấp tối đa được tính cho lượng stake này)."
       }
     }
   },
@@ -1543,7 +1545,8 @@
       "hours": "Giờ",
       "mins": "Phút",
       "sec": "Giây",
-      "title": "Kết thúc chu kỳ"
+      "title": "Kết thúc chu kỳ",
+      "tooltip": "Bộ đếm ngược này chỉ dành cho điều kiện đủ Prime: {{limit}} tài khoản hàng đầu khi kết thúc sẽ nhận thưởng Prime trong chu kỳ tiếp theo. Thưởng Prime dựa trên APY đang hiển thị."
     },
     "lastCycleSummary": {
       "primeScoreLabel": "Điểm Prime",

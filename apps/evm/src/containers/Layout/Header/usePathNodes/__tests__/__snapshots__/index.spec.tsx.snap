@@ -4,7 +4,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /dashbo
 [
   {
     "dom": "Dashboard",
-    "href": "dashboard",
+    "href": "/dashboard",
   },
 ]
 `;
@@ -13,7 +13,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /govern
 [
   {
     "dom": "Governance",
-    "href": "governance",
+    "href": "/governance",
   },
 ]
 `;
@@ -22,11 +22,11 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /govern
 [
   {
     "dom": "Governance",
-    "href": "governance",
+    "href": "/governance",
   },
   {
     "dom": "Leaderboard",
-    "href": "governanceleaderboard",
+    "href": "/governance/leaderboard",
   },
 ]
 `;
@@ -35,11 +35,11 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /govern
 [
   {
     "dom": "Governance",
-    "href": "governance",
+    "href": "/governance",
   },
   {
     "dom": "Leaderboard",
-    "href": "governanceleaderboard",
+    "href": "/governance/leaderboard",
   },
   {
     "dom": <div
@@ -52,7 +52,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /govern
         showTooltip={false}
       />
     </div>,
-    "href": "governanceleaderboardvoter/0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "href": "/governance/leaderboard/voter/0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   },
 ]
 `;
@@ -61,11 +61,11 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /govern
 [
   {
     "dom": "Governance",
-    "href": "governance",
+    "href": "/governance",
   },
   {
     "dom": "Proposal #1",
-    "href": "governanceproposal/:proposalId",
+    "href": "/governance/proposal/:proposalId",
   },
 ]
 `;
@@ -74,11 +74,11 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /govern
 [
   {
     "dom": "Governance",
-    "href": "governance",
+    "href": "/governance",
   },
   {
     "dom": "Proposal #",
-    "href": "governanceproposal/:proposalId",
+    "href": "/governance/proposal/:proposalId",
   },
 ]
 `;
@@ -87,7 +87,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /liquid
 [
   {
     "dom": "Liquidity Hub",
-    "href": "liquidity-hubs",
+    "href": "/liquidity-hubs",
   },
 ]
 `;
@@ -96,13 +96,13 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /liquid
 [
   {
     "dom": "Liquidity Hub",
-    "href": "liquidity-hubs",
+    "href": "/liquidity-hubs",
   },
   {
     "dom": <LiquidityHubName
       vhTokenAddress="0x2000000000000000000000000000000000000001"
     />,
-    "href": "liquidity-hubs0x2000000000000000000000000000000000000001",
+    "href": "/liquidity-hubs/0x2000000000000000000000000000000000000001",
   },
 ]
 `;
@@ -113,7 +113,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /market
     "dom": <PoolName
       poolComptrollerAddress="0x3d759121234cd36F8124C21aFe1c6852d2bEd848"
     />,
-    "href": "markets/0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "href": "/markets/0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   },
 ]
 `;
@@ -124,13 +124,13 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /market
     "dom": <PoolName
       poolComptrollerAddress="0x3d759121234cd36F8124C21aFe1c6852d2bEd848"
     />,
-    "href": "markets/0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
+    "href": "/markets/0x3d759121234cd36F8124C21aFe1c6852d2bEd848",
   },
   {
     "dom": <VTokenSymbol
       vTokenAddress="0x6d6F697e34145Bb95c54E77482d97cc261Dc237E"
     />,
-    "href": "markets/0x3d759121234cd36F8124C21aFe1c6852d2bEd8480x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
+    "href": "/markets/0x3d759121234cd36F8124C21aFe1c6852d2bEd848/0x6d6F697e34145Bb95c54E77482d97cc261Dc237E",
   },
 ]
 `;
@@ -139,7 +139,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /prime-
 [
   {
     "dom": "Prime calculator",
-    "href": "prime-calculator",
+    "href": "/prime-calculator",
   },
 ]
 `;
@@ -148,7 +148,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /swap 1
 [
   {
     "dom": "Swap",
-    "href": "swap",
+    "href": "/swap",
   },
 ]
 `;
@@ -157,7 +157,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /vai 1`
 [
   {
     "dom": "VAI",
-    "href": "vai",
+    "href": "/vai",
   },
 ]
 `;
@@ -166,7 +166,7 @@ exports[`usePathNodes > outputs the right DOM based on the current path: /vaults
 [
   {
     "dom": "Vaults",
-    "href": "vaults",
+    "href": "/vaults",
   },
 ]
 `;

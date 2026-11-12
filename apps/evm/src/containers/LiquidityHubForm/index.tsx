@@ -28,7 +28,11 @@ export const LiquidityHubForm: React.FC<LiquidityHubFormProps> = ({
       content: (
         <LiquidityHubAccessor vhToken={vhToken}>
           {({ liquidityHub }) => (
-            <SupplyTabs liquidityHub={liquidityHub} onSubmitSuccess={onSubmitSuccess} />
+            <SupplyTabs
+              key={vhToken.address}
+              liquidityHub={liquidityHub}
+              onSubmitSuccess={onSubmitSuccess}
+            />
           )}
         </LiquidityHubAccessor>
       ),
@@ -39,7 +43,11 @@ export const LiquidityHubForm: React.FC<LiquidityHubFormProps> = ({
       content: (
         <LiquidityHubAccessor vhToken={vhToken}>
           {({ liquidityHub }) => (
-            <WithdrawForm liquidityHub={liquidityHub} onSubmitSuccess={onSubmitSuccess} />
+            <WithdrawForm
+              key={vhToken.address}
+              liquidityHub={liquidityHub}
+              onSubmitSuccess={onSubmitSuccess}
+            />
           )}
         </LiquidityHubAccessor>
       ),

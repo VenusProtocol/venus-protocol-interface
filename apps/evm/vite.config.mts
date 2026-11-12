@@ -86,6 +86,7 @@ export default defineConfig(({ mode }) => {
       environment: 'jsdom',
       setupFiles: './src/setupTests.tsx',
       restoreMocks: true,
+      mockReset: true,
       coverage: {
         all: true,
         reporter: ['text', 'html', 'json-summary', 'json'],

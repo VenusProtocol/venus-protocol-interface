@@ -150,6 +150,7 @@ exports[`useGetTradePositions > enriches positions with wallet balances from the
               "apyPercentage": "1.015310564979612374",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1000",
                 "userSupplyBalanceTokens": "1000",
                 "userXvsStakedTokens": "1000",
@@ -206,6 +207,7 @@ exports[`useGetTradePositions > enriches positions with wallet balances from the
               "apyPercentage": "1.753105649796123742",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1000",
                 "userSupplyBalanceTokens": "1000",
                 "userXvsStakedTokens": "1000",
@@ -384,6 +386,7 @@ exports[`useGetTradePositions > enriches positions with wallet balances from the
                   "apyPercentage": "1.233105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -453,6 +456,7 @@ exports[`useGetTradePositions > enriches positions with wallet balances from the
                   "apyPercentage": "0.953105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -541,6 +545,7 @@ exports[`useGetTradePositions > enriches positions with wallet balances from the
                   "apyPercentage": "1.015310564979612374",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -597,6 +602,7 @@ exports[`useGetTradePositions > enriches positions with wallet balances from the
                   "apyPercentage": "1.753105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -665,6 +671,7 @@ exports[`useGetTradePositions > enriches positions with wallet balances from the
                   "apyPercentage": "1.753105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -741,6 +748,7 @@ exports[`useGetTradePositions > enriches positions with wallet balances from the
                   "apyPercentage": "1.753105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -1032,6 +1040,7 @@ exports[`useGetTradePositions > enriches positions with wallet balances from the
               "apyPercentage": "1.753105649796123742",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1000",
                 "userSupplyBalanceTokens": "1000",
                 "userXvsStakedTokens": "1000",
@@ -1108,6 +1117,7 @@ exports[`useGetTradePositions > enriches positions with wallet balances from the
               "apyPercentage": "1.753105649796123742",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1000",
                 "userSupplyBalanceTokens": "1000",
                 "userXvsStakedTokens": "1000",
@@ -1324,6 +1334,7 @@ exports[`useGetTradePositions > falls back to the raw Trade position balances wh
               "apyPercentage": "1.015310564979612374",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1000",
                 "userSupplyBalanceTokens": "1000",
                 "userXvsStakedTokens": "1000",
@@ -1380,6 +1391,7 @@ exports[`useGetTradePositions > falls back to the raw Trade position balances wh
               "apyPercentage": "1.753105649796123742",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1000",
                 "userSupplyBalanceTokens": "1000",
                 "userXvsStakedTokens": "1000",
@@ -1558,6 +1570,7 @@ exports[`useGetTradePositions > falls back to the raw Trade position balances wh
                   "apyPercentage": "1.233105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -1627,6 +1640,7 @@ exports[`useGetTradePositions > falls back to the raw Trade position balances wh
                   "apyPercentage": "0.953105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -1715,6 +1729,7 @@ exports[`useGetTradePositions > falls back to the raw Trade position balances wh
                   "apyPercentage": "1.015310564979612374",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -1771,6 +1786,7 @@ exports[`useGetTradePositions > falls back to the raw Trade position balances wh
                   "apyPercentage": "1.753105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -1839,6 +1855,7 @@ exports[`useGetTradePositions > falls back to the raw Trade position balances wh
                   "apyPercentage": "1.753105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -1915,6 +1932,7 @@ exports[`useGetTradePositions > falls back to the raw Trade position balances wh
                   "apyPercentage": "1.753105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -2206,6 +2224,7 @@ exports[`useGetTradePositions > falls back to the raw Trade position balances wh
               "apyPercentage": "1.753105649796123742",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1000",
                 "userSupplyBalanceTokens": "1000",
                 "userXvsStakedTokens": "1000",
@@ -2282,6 +2301,7 @@ exports[`useGetTradePositions > falls back to the raw Trade position balances wh
               "apyPercentage": "1.753105649796123742",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1000",
                 "userSupplyBalanceTokens": "1000",
                 "userXvsStakedTokens": "1000",
@@ -2498,6 +2518,7 @@ exports[`useGetTradePositions > passes the expected query params when the wallet
               "apyPercentage": "1.015310564979612374",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1000",
                 "userSupplyBalanceTokens": "1000",
                 "userXvsStakedTokens": "1000",
@@ -2554,6 +2575,7 @@ exports[`useGetTradePositions > passes the expected query params when the wallet
               "apyPercentage": "1.753105649796123742",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1000",
                 "userSupplyBalanceTokens": "1000",
                 "userXvsStakedTokens": "1000",
@@ -2732,6 +2754,7 @@ exports[`useGetTradePositions > passes the expected query params when the wallet
                   "apyPercentage": "1.233105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -2801,6 +2824,7 @@ exports[`useGetTradePositions > passes the expected query params when the wallet
                   "apyPercentage": "0.953105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -2889,6 +2913,7 @@ exports[`useGetTradePositions > passes the expected query params when the wallet
                   "apyPercentage": "1.015310564979612374",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -2945,6 +2970,7 @@ exports[`useGetTradePositions > passes the expected query params when the wallet
                   "apyPercentage": "1.753105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -3013,6 +3039,7 @@ exports[`useGetTradePositions > passes the expected query params when the wallet
                   "apyPercentage": "1.753105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -3089,6 +3116,7 @@ exports[`useGetTradePositions > passes the expected query params when the wallet
                   "apyPercentage": "1.753105649796123742",
                   "isActive": true,
                   "referenceValues": {
+                    "referenceType": "average",
                     "userBorrowBalanceTokens": "1000",
                     "userSupplyBalanceTokens": "1000",
                     "userXvsStakedTokens": "1000",
@@ -3380,6 +3408,7 @@ exports[`useGetTradePositions > passes the expected query params when the wallet
               "apyPercentage": "1.753105649796123742",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1000",
                 "userSupplyBalanceTokens": "1000",
                 "userXvsStakedTokens": "1000",
@@ -3456,6 +3485,7 @@ exports[`useGetTradePositions > passes the expected query params when the wallet
               "apyPercentage": "1.753105649796123742",
               "isActive": true,
               "referenceValues": {
+                "referenceType": "average",
                 "userBorrowBalanceTokens": "1000",
                 "userSupplyBalanceTokens": "1000",
                 "userXvsStakedTokens": "1000",

@@ -54,4 +54,32 @@ describe('usePathNodes', () => {
 
     expect(result.current).toMatchSnapshot();
   });
+
+  it('links each breadcrumb to its route on the voter page', () => {
+    const { result } = renderHook(() => usePathNodes(), {
+      routerInitialEntries: [routes.governanceVoter.path.replace(':address', fakeAddress)],
+      routePath: routes.governanceVoter.path,
+    });
+
+    expect(result.current.map(pathNode => pathNode.href)).toEqual([
+      routes.governance.path,
+      routes.governanceLeaderBoard.path,
+      routes.governanceVoter.path.replace(':address', fakeAddress),
+    ]);
+  });
+
+  it('links the pool breadcrumb to the pool page on the market page', () => {
+    const poolPath = routes.markets.path.replace(':poolComptrollerAddress', fakeAddress);
+    const vTokenAddress = poolData[0].assets[0].vToken.address;
+
+    const { result } = renderHook(() => usePathNodes(), {
+      routerInitialEntries: [`${poolPath}/${vTokenAddress}`],
+      routePath: routes.market.path,
+    });
+
+    expect(result.current.map(pathNode => pathNode.href)).toEqual([
+      poolPath,
+      `${poolPath}/${vTokenAddress}`,
+    ]);
+  });
 });

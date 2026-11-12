@@ -301,9 +301,11 @@
         "calculatorLink": "คำนวณรางวัล Prime ของคุณ",
         "liquidityHubCorePoolBoost": "การบูสต์นี้มาจาก Core pool และไม่จ่ายซ้ำสองครั้ง",
         "primeBorrowSimulation": "APY ถูกบูสต์ด้วย <PrimeLink>โปรแกรม Prime</PrimeLink> โดยอิงจากการยืมค่าเฉลี่ยของผู้ใช้ {{borrowBalance}} และการฝากในวอลต์ {{xvsStaked}}.",
+        "primeBorrowSimulationCapped": "APY ถูกบูสต์ด้วย <PrimeLink>โปรแกรม Prime</PrimeLink> โดยอิงจากการยืม {{borrowBalance}} และการฝากในวอลต์ {{xvsStaked}} (ยอดยืมสูงสุดที่นับสำหรับการสเตกนี้).",
         "primeDocLink": "เรียนรู้เพิ่มเติม",
         "primeMarket": "APY ถูกบูสต์ด้วย Prime.",
-        "primeSupplySimulation": "APY ถูกบูสต์ด้วย <PrimeLink>โปรแกรม Prime</PrimeLink> โดยอิงจากยอดฝากค่าเฉลี่ยของผู้ใช้ {{supplyBalance}} และการฝากในวอลต์ {{xvsStaked}}."
+        "primeSupplySimulation": "APY ถูกบูสต์ด้วย <PrimeLink>โปรแกรม Prime</PrimeLink> โดยอิงจากยอดฝากค่าเฉลี่ยของผู้ใช้ {{supplyBalance}} และการฝากในวอลต์ {{xvsStaked}}.",
+        "primeSupplySimulationCapped": "APY ถูกบูสต์ด้วย <PrimeLink>โปรแกรม Prime</PrimeLink> โดยอิงจากยอดฝาก {{supplyBalance}} และการฝากในวอลต์ {{xvsStaked}} (ยอดฝากสูงสุดที่นับสำหรับการสเตกนี้)."
       }
     }
   },
@@ -1543,7 +1545,8 @@
       "hours": "ชม.",
       "mins": "นาที",
       "sec": "วินาที",
-      "title": "สิ้นสุดรอบ"
+      "title": "สิ้นสุดรอบ",
+      "tooltip": "การนับถอยหลังนี้ใช้สำหรับคุณสมบัติการรับ Prime เท่านั้น: บัญชีที่อยู่ในอันดับ {{limit}} แรกเมื่อสิ้นสุดจะได้รับรางวัล Prime ในรอบถัดไป รางวัล Prime คำนวณจาก APY ที่แสดงอยู่ในปัจจุบัน"
     },
     "lastCycleSummary": {
       "primeScoreLabel": "คะแนน Prime",

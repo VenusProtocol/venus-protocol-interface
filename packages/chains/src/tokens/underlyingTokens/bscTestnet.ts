@@ -440,11 +440,11 @@ export const bscTestnet: Token[] = [
     iconSrc: iconSrcs.u,
   },
   {
-    chainId: ChainId.BSC_MAINNET,
+    chainId: ChainId.BSC_TESTNET,
     address: '0x60825e8eBbed5C32c1DAA7eA68ceCA70BEA65040',
     decimals: 18,
-    symbol: 'PT-clisBNBx-25JUN2026',
-    iconSrc: iconSrcs.slisBnbX,
+    symbol: 'PT-clisBNB-25JUN2026',
+    iconSrc: iconSrcs.ptClisBNB,
   },
   {
     chainId: ChainId.BSC_TESTNET,

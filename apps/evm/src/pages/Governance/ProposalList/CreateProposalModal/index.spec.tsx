@@ -21,8 +21,13 @@ const fakeAbstainOption = 'fakeAbstainOption';
 
 vi.mock('libs/errors/handleError');
 
+const realNow = performance.now.bind(performance);
+let clockOffsetMs = 0;
+
 const next = async (nextButton: HTMLElement) => {
   await waitFor(() => expect(nextButton).toBeEnabled());
+  clockOffsetMs += 1000;
+  vi.spyOn(performance, 'now').mockImplementation(() => realNow() + clockOffsetMs);
   fireEvent.click(nextButton);
 };
 

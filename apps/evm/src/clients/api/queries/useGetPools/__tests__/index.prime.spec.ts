@@ -14,8 +14,9 @@ import {
 } from 'hooks/useGetContractAddress';
 import { usePublicClient } from 'libs/wallet';
 import { renderHook } from 'testUtils/render';
+import { convertAprBipsToApy } from 'utilities';
 import { restService } from 'utilities/restService';
-import type { ReadContractParameters } from 'viem';
+import { type ReadContractParameters, maxUint256 } from 'viem';
 import { useGetPools } from '..';
 import {
   fakeLegacyPoolComptrollerContractAddress,
@@ -197,6 +198,73 @@ describe('useGetPools', () => {
     await waitFor(() => expect(result.current.data).toBeDefined());
 
     expect(result.current.data).toMatchSnapshot();
+  });
+
+  it('simulates Prime APYs at the capped position when the average position exceeds the cap', async () => {
+    const cappedSupplyMantissa = 1000n;
+    const cappedSupplyAprBips = 700n;
+
+    const readContract = vi.fn((input: ReadContractParameters) => {
+      if (input.functionName === 'estimateAPR' && input.address === fakePrimeContractAddress) {
+        const [, , borrowMantissa, supplyMantissa] = input.args as bigint[];
+        const isSupplyAtCap = supplyMantissa === cappedSupplyMantissa;
+
+        return {
+          borrowAPR: borrowMantissa > 0n ? 20n : 0n,
+          supplyAPR: isSupplyAtCap ? cappedSupplyAprBips : 23n,
+          cappedBorrow: maxUint256,
+          cappedSupply: cappedSupplyMantissa,
+        };
+      }
+
+      return fakePublicClient.readContract(input);
+    });
+
+    (usePublicClient as Mock).mockImplementation(() => ({
+      publicClient: { ...fakePublicClient, readContract },
+    }));
+
+    const { result } = renderHook(() =>
+      useGetPools({
+        accountAddress: fakeAccountAddress,
+        includeIsolatedPools: true,
+      }),
+    );
+
+    await waitFor(() => expect(result.current.data).toBeDefined());
+
+    const assets = result.current.data?.pools.flatMap(pool => pool.assets) ?? [];
+    const supplySimulations = assets.flatMap(asset =>
+      asset.supplyTokenDistributions.flatMap(distribution =>
+        distribution.type === 'primeSimulation' ? [{ asset, distribution }] : [],
+      ),
+    );
+
+    expect(supplySimulations.length).toBeGreaterThan(0);
+
+    supplySimulations.forEach(({ asset, distribution }) => {
+      expect(distribution.referenceValues.referenceType).toBe('cap');
+      expect(distribution.referenceValues.userSupplyBalanceTokens.toFixed()).toBe(
+        new BigNumber(cappedSupplyMantissa.toString())
+          .shiftedBy(-asset.vToken.underlyingToken.decimals)
+          .toFixed(),
+      );
+      expect(distribution.apyPercentage.toFixed()).toBe(
+        convertAprBipsToApy({ aprBips: cappedSupplyAprBips.toString() }).toFixed(),
+      );
+    });
+
+    const borrowSimulations = assets.flatMap(asset =>
+      asset.borrowTokenDistributions.filter(
+        distribution => distribution.type === 'primeSimulation',
+      ),
+    );
+
+    borrowSimulations.forEach(distribution => {
+      expect(
+        distribution.type === 'primeSimulation' && distribution.referenceValues.referenceType,
+      ).toBe('average');
+    });
   });
 
   it('filters out Prime simulations that are 0', async () => {

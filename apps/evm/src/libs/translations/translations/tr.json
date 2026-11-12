@@ -301,9 +301,11 @@
         "calculatorLink": "Prime ödüllerinizi hesaplayın",
         "liquidityHubCorePoolBoost": "Bu artış Core havuzundan gelir ve iki kez ödenmez.",
         "primeBorrowSimulation": "<PrimeLink>Prime programı</PrimeLink> ile APY, kullanıcıların ortalama {{borrowBalance}} borcuna ve {{xvsStaked}} vault yatırımına göre artırılır.",
+        "primeBorrowSimulationCapped": "<PrimeLink>Prime programı</PrimeLink> ile APY, {{borrowBalance}} borca ve {{xvsStaked}} vault yatırımına göre artırılır (bu stake için sayılan azami borç).",
         "primeDocLink": "Daha fazla bilgi",
         "primeMarket": "Prime ile APY artırılır.",
-        "primeSupplySimulation": "<PrimeLink>Prime programı</PrimeLink> ile APY, kullanıcıların ortalama {{supplyBalance}} tedarikine ve {{xvsStaked}} vault yatırımına göre artırılır."
+        "primeSupplySimulation": "<PrimeLink>Prime programı</PrimeLink> ile APY, kullanıcıların ortalama {{supplyBalance}} tedarikine ve {{xvsStaked}} vault yatırımına göre artırılır.",
+        "primeSupplySimulationCapped": "<PrimeLink>Prime programı</PrimeLink> ile APY, {{supplyBalance}} tedarike ve {{xvsStaked}} vault yatırımına göre artırılır (bu stake için sayılan azami tedarik)."
       }
     }
   },
@@ -1545,7 +1547,8 @@
       "hours": "Saat",
       "mins": "Dak.",
       "sec": "Sn.",
-      "title": "Döngü sonu"
+      "title": "Döngü sonu",
+      "tooltip": "Bu geri sayım yalnızca Prime uygunluğu içindir: bittiğinde ilk {{limit}} hesap bir sonraki döngüde Prime ödülleri alır. Prime ödülleri, şu anda görüntülenen APY'ye dayanır."
     },
     "lastCycleSummary": {
       "primeScoreLabel": "Prime puanı",

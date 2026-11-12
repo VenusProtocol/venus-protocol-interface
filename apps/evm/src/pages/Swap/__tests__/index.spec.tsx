@@ -182,7 +182,9 @@ describe('Swap', () => {
     // Check swap direction was updated correctly
     expect(getLastUseGetSwapInfoCallArgs()[0].direction).toBe('exactAmountOut');
 
-    // Click on switch tokens button again
+    // Click on switch tokens button again, after the repeat-click window
+    const realNow = performance.now.bind(performance);
+    vi.spyOn(performance, 'now').mockImplementation(() => realNow() + 1000);
     fireEvent.click(getByTestId(TEST_IDS.switchTokensButton));
 
     // Check input values were updated back correctly

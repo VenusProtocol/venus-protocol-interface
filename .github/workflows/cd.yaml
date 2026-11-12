@@ -11,7 +11,7 @@ concurrency:
 
 permissions:
   id-token: write # Required for OIDC
-  contents: write # to be able to publish a GitHub release
+  contents: read
 
 env:
   NODE_OPTIONS: "--max_old_space_size=4096"
@@ -21,13 +21,14 @@ env:
 
 jobs:
   release:
+    environment: release
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+          persist-credentials: false
 
       - name: Enable Corepack
         run: corepack enable
@@ -52,12 +53,15 @@ jobs:
       # Bump package versions based on changesets and commit changes to the main branch
       - name: Publish
         env:
+          GH_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
           BLOB_READ_WRITE_TOKEN: ${{ secrets.VERCEL_BLOB_TOKEN }}
           IMG_CDN_URL: ${{ vars.IMG_CDN_URL }}
         run: |
           git config user.name toolsvenus
           git config user.email tools@venus.io
+          # Authenticate Git only in this step; gh reads GH_TOKEN without storing the token in Git config.
+          gh auth setup-git --hostname github.com
           git fetch origin
           git rebase --strategy-option=theirs origin/main
 
