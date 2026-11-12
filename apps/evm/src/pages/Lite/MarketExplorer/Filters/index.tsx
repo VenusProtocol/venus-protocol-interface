@@ -35,6 +35,7 @@ export const Filters: React.FC<FiltersProps> = ({
         aria-label={searchAriaLabel}
         placeholder={searchPlaceholder}
         leftIconSrc="magnifier"
+        inputContainerClassName="max-sm:gap-x-1.5 max-sm:px-3"
         value={searchValue}
         onChange={event => onSearchValueChange(event.target.value)}
         className="min-w-0 sm:min-w-40 sm:flex-1 sm:max-w-60"

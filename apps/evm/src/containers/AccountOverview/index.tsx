@@ -433,14 +433,14 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
           ) : (
             <button
               className={cn(
-                'flex items-center w-full h-15 text-left justify-between gap-x-3',
+                'flex items-center w-full min-h-15 text-left justify-between gap-x-3',
                 shouldShowAccountBreakdown && 'cursor-pointer',
               )}
               type="button"
               disabled={!accountAddress}
               onClick={toggleAccordion}
             >
-              <CellGroup cells={graphCells} focusable={false} />
+              <CellGroup cells={graphCells} focusable={false} className="flex-wrap gap-y-3" />
 
               {shouldShowAccountBreakdown && (
                 <div
