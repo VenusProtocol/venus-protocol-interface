@@ -89,6 +89,9 @@
   --color-surface-input-disabled: rgb(241 244 248);
   --color-surface-row-hover: rgb(30 55 85 / 4%);
   --color-surface-segment-hover: rgb(230 238 249);
+  --color-surface-dropdown-item-hover: rgb(23 38 61 / 6%);
+  --color-surface-nav-hover: rgb(243 244 246);
+  --color-surface-dropdown-item-selected: rgb(30 55 85 / 8%);
 
   --color-border-glass: rgb(212 221 232);
   --color-border-raised: rgb(212 221 232);

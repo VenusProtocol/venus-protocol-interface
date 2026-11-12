@@ -108,7 +108,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               key={option.value}
               type="button"
               onClick={() => toggle(option.value)}
-              className="hover:bg-surface-segment-hover active:bg-surface-segment-hover flex h-12 w-full cursor-pointer items-center justify-between px-4 py-3 text-left"
+              className="hover:bg-surface-dropdown-item-hover active:bg-surface-dropdown-item-hover flex h-12 w-full cursor-pointer items-center justify-between px-4 py-3 text-left"
             >
               <span className="text-b1r whitespace-nowrap text-primary">{option.label}</span>
 
