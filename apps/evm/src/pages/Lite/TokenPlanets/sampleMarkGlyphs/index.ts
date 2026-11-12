@@ -2,6 +2,8 @@ export const ASCII_MARK_SIZE = 288;
 
 const BASE_GRID = 48;
 const SIMPLIFIED_GRID = 24;
+const CAKE_GRID = 16;
+const CAKE_SHADOW_LUMINANCE = 0.38;
 const SIMPLIFIED_SOURCE_SIZE = 128;
 const SIMPLIFIED_PADDING = 1.12;
 const BASE_FONT_SIZE = 7;
@@ -10,13 +12,14 @@ const DEFAULT_STRENGTH_THRESHOLD = 0.82;
 const MAX_LUMINANCE = 765;
 
 const INVERTED_SYMBOLS = ['sUSDe', 'ETH'];
-const SIMPLIFIED_SYMBOLS = ['XVS', 'BNB', 'WBNB', 'U', 'ETH', 'USD1'];
+const SIMPLIFIED_SYMBOLS = ['XVS', 'BNB', 'WBNB', 'U', 'ETH', 'USD1', 'CAKE'];
 
 const STRENGTH_THRESHOLDS: Record<string, number> = {
   ETH: 0.3,
   USD1: 0.72,
   XVS: 0.25,
   U: 0.5,
+  CAKE: 0.5,
 };
 
 const MARK_WEIGHTS: Record<string, number> = {
@@ -74,8 +77,14 @@ export const sampleMarkGlyphs = ({
   symbol: string;
   glyphScale: number;
 }): MarkGlyphs => {
+  const isCake = symbol === 'CAKE';
   const isSimplified = SIMPLIFIED_SYMBOLS.includes(symbol);
-  const grid = isSimplified ? SIMPLIFIED_GRID : Math.round(BASE_GRID / glyphScale);
+  let grid = isSimplified ? SIMPLIFIED_GRID : Math.round(BASE_GRID / glyphScale);
+
+  if (isCake) {
+    grid = CAKE_GRID;
+  }
+
   const step = ASCII_MARK_SIZE / grid;
   const fontSize = isSimplified
     ? step * (MARK_WEIGHTS[symbol] ?? DEFAULT_MARK_WEIGHT)
@@ -96,7 +105,17 @@ export const sampleMarkGlyphs = ({
   const isInverted = INVERTED_SYMBOLS.includes(symbol);
   const threshold = STRENGTH_THRESHOLDS[symbol] ?? DEFAULT_STRENGTH_THRESHOLD;
 
+  const getLuminance = (data: Uint8ClampedArray, offset: number) =>
+    (data[offset] + data[offset + 1] + data[offset + 2]) / MAX_LUMINANCE;
+
+  const isCakeBunny = (data: Uint8ClampedArray, offset: number) =>
+    data[offset] > data[offset + 2] + 40 && data[offset] >= data[offset + 1];
+
   const getStrength = (data: Uint8ClampedArray, offset: number) => {
+    if (isCake) {
+      return isCakeBunny(data, offset) ? 1 : 0;
+    }
+
     const luminance = (data[offset] + data[offset + 1] + data[offset + 2]) / MAX_LUMINANCE;
     return isInverted ? 1 - luminance : luminance;
   };
@@ -146,15 +165,24 @@ export const sampleMarkGlyphs = ({
       for (let x = 0; x < grid; x++) {
         const offset = (y * grid + x) * 4;
 
-        if (!isForeground(data, offset)) {
+        if (
+          !isForeground(data, offset) ||
+          (isCake && getLuminance(data, offset) < CAKE_SHADOW_LUMINANCE)
+        ) {
           continue;
+        }
+
+        let glyph = (x + y) % 3 === 0 ? '@' : '#';
+
+        if (isCake) {
+          glyph = (x + y) % 2 === 0 ? '#' : '%';
         }
 
         glyphs.push({
           x: (x + 0.5) * step,
           y: (y + 0.5) * step,
           strength: getStrength(data, offset),
-          glyph: (x + y) % 3 === 0 ? '@' : '#',
+          glyph,
         });
       }
     }
