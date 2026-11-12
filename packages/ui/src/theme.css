@@ -68,6 +68,8 @@
 
     --elevation-tint-rgb: 255 255 255;
     --elevation-shade-rgb: 0 0 0;
+
+    --theme-prime-ring: linear-gradient(110deg, #856153, #f2d8c4 48%, #724c3d);
   }
 }
 
@@ -280,6 +282,9 @@
       var(--accent-hover) 46%,
       var(--accent-deep-hover) 100%
     );
+  --background-color-prime-hover: #30354a;
+  --background-color-prime-active: #101218;
+  --background-image-prime-text: linear-gradient(110deg, #cea58b, #f2d8c4 45%, #d4ab90);
   --background-image-hero-text: linear-gradient(180deg, #d9edff 0%, #99c8ff 50%, #598eff 100%);
   --background-image-page-title: linear-gradient(
     180deg,
