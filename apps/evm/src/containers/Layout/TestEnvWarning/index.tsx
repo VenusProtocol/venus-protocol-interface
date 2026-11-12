@@ -24,7 +24,7 @@ export const TestEnvWarning: React.FC<TestEnvWarningProps> = ({ className }) => 
           components={{
             Link: (
               <Link
-                className="text-primary underline"
+                className="text-on-color underline"
                 target="_self"
                 href={`https://${MAIN_PRODUCTION_HOST}`}
               />
