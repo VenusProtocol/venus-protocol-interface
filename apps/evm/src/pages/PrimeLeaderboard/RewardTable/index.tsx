@@ -61,7 +61,7 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
       selectOptionLabel: t('primeLeaderboard.rewardTable.columns.wallet'),
       renderCell: ({ userAddress }) => (
         <div className="flex items-center gap-x-3">
-          <span className="inline-flex rounded-md bg-[linear-gradient(135deg,#FFECE3,#6D4637,#674031)] p-px">
+          <span className="inline-flex rounded-md bg-(image:--theme-prime-ring) p-px shadow-[0_2px_4px_0_rgb(31_53_83/6%)]">
             <span className="flex h-[30px] w-32 items-center gap-x-1.5 rounded-[5px] bg-background px-2.5">
               <img src={primeLogoSrc} alt="" className="h-4 shrink-0" />
 
