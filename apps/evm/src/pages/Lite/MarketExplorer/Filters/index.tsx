@@ -29,7 +29,7 @@ export const Filters: React.FC<FiltersProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] items-center gap-2 sm:flex sm:grow sm:flex-wrap sm:justify-end sm:gap-3">
+    <div className="grid grid-cols-2 items-center gap-2 sm:flex sm:grow sm:flex-wrap sm:justify-end sm:gap-3">
       <TextField
         size="xs"
         aria-label={searchAriaLabel}
