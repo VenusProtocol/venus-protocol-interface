@@ -5,6 +5,10 @@ import { PLANET_PALETTES } from '../palettes';
 import { ASCII_MARK_SIZE, type MarkGlyphs, sampleMarkGlyphs } from '../sampleMarkGlyphs';
 
 const GLYPH_SCALE = 1.1;
+
+const MARK_COLORS: Record<string, { light: string; dark: string }> = {
+  CAKE: { light: '#D1884F', dark: '#FEDC90' },
+};
 const MAX_PIXEL_RATIO = 2;
 
 export interface AsciiTokenMarkProps {
@@ -61,7 +65,9 @@ export const AsciiTokenMark: React.FC<AsciiTokenMarkProps> = ({
     ctx.font = `bold ${fontSize}px monospace`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillStyle = isLight ? shadow : highlight;
+    const markColor = MARK_COLORS[symbol];
+    const paletteColor = isLight ? shadow : highlight;
+    ctx.fillStyle = markColor ? markColor[isLight ? 'light' : 'dark'] : paletteColor;
 
     const draw = (elapsedMs: number) => {
       ctx.clearRect(0, 0, ASCII_MARK_SIZE, ASCII_MARK_SIZE);
