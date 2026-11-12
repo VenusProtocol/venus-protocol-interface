@@ -94,6 +94,36 @@
   }
 }
 
+@utility prime-badge-ring {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--theme-prime-ring);
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box xor,
+      linear-gradient(#000 0 0);
+    opacity: 0.72;
+    pointer-events: none;
+    transition: opacity 160ms ease-out;
+  }
+
+  &:is(:hover, :focus-visible)::after {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      transition: none;
+    }
+  }
+}
+
 @utility scrollbar-hidden {
   -ms-overflow-style: none;
   scrollbar-width: none;

@@ -18,7 +18,7 @@ export const PrimeApy: React.FC<PrimeApyProps> = ({ apyPercentage, className, ..
   return (
     <SenaryButton
       className={cn(
-        'border-prime hover:border-prime-hover h-6 rounded-full p-1 whitespace-nowrap font-semibold shrink-0',
+        'prime-badge-ring isolate h-auto shrink-0 rounded-full border-0 bg-transparent bg-none px-1 py-0.5 text-sm font-normal whitespace-nowrap shadow-none backdrop-blur-none before:hidden hover:bg-prime-hover active:bg-prime-active',
         className,
       )}
       {...otherProps}

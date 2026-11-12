@@ -80,8 +80,8 @@
   --theme-boost-fg: 13 128 120;
   --theme-merkl-border: #c99a3a;
   --theme-merkl-border-hover: #a97c22;
-  --theme-prime-border: #9b6850;
-  --theme-prime-border-hover: #7e523c;
+  --theme-prime-badge-hover: #ececec;
+  --theme-prime-badge-active: #e2e5ea;
 
   --color-surface-glass: rgb(251 252 254);
   --color-surface-raised: rgb(255 255 255 / 55%);
@@ -128,7 +128,12 @@
     #5e7594 75%,
     #405a7a
   );
-  --background-image-prime-text: linear-gradient(26deg, #72452e, #986447 50%, #72452e);
+  --background-image-prime-text: linear-gradient(
+    110deg,
+    #72452e,
+    color-mix(in srgb, #986447 60%, #72452e) 45%,
+    #72452e
+  );
   --background-image-merkl-text: linear-gradient(17deg, #8a5a0c 5%, #a8740f 36%, #8f6417 68%, #9c6d12 106%);
 
   --theme-shadow: 0 4px 15px 0 rgb(31 53 83 / 12%);
