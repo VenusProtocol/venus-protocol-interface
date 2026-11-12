@@ -134,7 +134,7 @@ export const MarketHistoryCard = <TPeriod extends ChartHistoryPeriod = ChartHist
           {!history.error && history.isLoading && <Spinner />}
 
           {!history.error && !history.isLoading && (
-            <p className="text-sm text-grey">{t('market.history.emptyState')}</p>
+            <p className="text-sm text-secondary">{t('market.history.emptyState')}</p>
           )}
         </div>
       )}

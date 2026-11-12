@@ -35,7 +35,7 @@ export const ProgressBar = ({
     // sharing the rail's stacking context, such as the token list dropdown of a market form
     <div
       className={cn(
-        'relative isolate h-2 w-full rounded-full overflow-hidden bg-lightGrey',
+        'relative isolate h-2 w-full rounded-full overflow-hidden bg-neutral',
         className,
       )}
     >
@@ -49,7 +49,10 @@ export const ProgressBar = ({
         return (
           <div
             key={index}
-            className={cn('absolute inset-y-0 left-0 rounded-full bg-green', progressBar.className)}
+            className={cn(
+              'absolute inset-y-0 left-0 rounded-full bg-success',
+              progressBar.className,
+            )}
             style={{ width: `${valuePercentage}%` }}
           />
         );
@@ -62,7 +65,7 @@ export const ProgressBar = ({
           <span
             key={index}
             className={cn(
-              'absolute top-1/2 h-2 w-1 -translate-x-px -translate-y-1/2 rounded-sm bg-red',
+              'absolute top-1/2 h-2 w-1 -translate-x-px -translate-y-1/2 rounded-sm bg-danger',
               mark.className,
             )}
             style={{ left: `${valuePercentage}%` }}

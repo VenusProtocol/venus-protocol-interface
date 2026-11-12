@@ -19,7 +19,7 @@ export const InstallationSteps: React.FC = () => {
                 href={REPO_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="text-blue hover:underline"
+                className="text-brand hover:underline"
               >
                 official repository
               </a>

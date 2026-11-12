@@ -62,19 +62,19 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
       renderCell: ({ userAddress }) => (
         <div className="flex items-center gap-x-3">
           <span className="inline-flex rounded-md bg-(image:--theme-prime-ring) p-px shadow-[0_2px_4px_0_rgb(31_53_83/6%)]">
-            <span className="flex h-[30px] w-32 items-center gap-x-1.5 rounded-[5px] bg-background px-2.5">
+            <span className="flex h-[30px] w-32 items-center gap-x-1.5 rounded-[5px] bg-surface-2 px-2.5">
               <img src={primeLogoSrc} alt="" className="h-4 shrink-0" />
 
               <Username
                 address={userAddress}
                 showProvider={false}
-                className="text-b1r text-white"
+                className="text-b1r text-primary"
               />
             </span>
           </span>
 
           {accountAddress && areAddressesEqual(userAddress, accountAddress) && (
-            <span className="size-2 shrink-0 rounded-full bg-blue" />
+            <span className="size-2 shrink-0 rounded-full bg-brand" />
           )}
         </div>
       ),
@@ -86,7 +86,7 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
       align: 'right',
       sortable: true,
       renderCell: ({ totalCurrentCycleUsdMantissa }) => (
-        <span className="text-b1r text-white">
+        <span className="text-b1r text-primary">
           {formatCentsToReadableValue({
             value: convertUsdMantissaToCents(totalCurrentCycleUsdMantissa).toNumber(),
           })}
@@ -107,7 +107,7 @@ export const RewardTable: React.FC<RewardTableProps> = ({ className }) => {
         );
 
         return (
-          <span className="text-b1r text-white">
+          <span className="text-b1r text-primary">
             {formatCentsToReadableValue({
               value: reward
                 ? convertUsdMantissaToCents(reward.currentCycleUsdMantissa).toNumber()

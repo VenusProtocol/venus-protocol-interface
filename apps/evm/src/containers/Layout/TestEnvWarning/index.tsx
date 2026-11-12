@@ -17,14 +17,14 @@ export const TestEnvWarning: React.FC<TestEnvWarningProps> = ({ className }) => 
   }
 
   return (
-    <div className={cn('px-4 py-2 bg-red text-white font-semibold text-center', className)}>
+    <div className={cn('px-4 py-2 bg-danger text-on-color font-semibold text-center', className)}>
       {
         <Trans
           i18nKey="layout.testEnvWarning"
           components={{
             Link: (
               <Link
-                className="text-white underline"
+                className="text-primary underline"
                 target="_self"
                 href={`https://${MAIN_PRODUCTION_HOST}`}
               />

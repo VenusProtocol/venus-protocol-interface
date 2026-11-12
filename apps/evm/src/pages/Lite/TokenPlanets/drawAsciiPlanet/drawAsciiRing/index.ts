@@ -5,6 +5,8 @@ const RING_RADIUS_X = 170;
 const RING_RADIUS_Y = 43;
 const RING_TILT_COS = 0.94;
 const RING_TILT_SIN = 0.34;
+const RING_ALPHA = 0.7;
+const LIGHT_RING_ALPHA = 0.55;
 
 export interface DrawAsciiRingInput {
   ctx: CanvasRenderingContext2D;
@@ -13,6 +15,7 @@ export interface DrawAsciiRingInput {
   interaction: number;
   scrambleElapsedMs: number;
   isFront: boolean;
+  isLight: boolean;
 }
 
 export const drawAsciiRing = ({
@@ -22,6 +25,7 @@ export const drawAsciiRing = ({
   interaction,
   scrambleElapsedMs,
   isFront,
+  isLight,
 }: DrawAsciiRingInput) => {
   for (let index = 0; index < RING_GLYPH_COUNT; index++) {
     const angle = (index / RING_GLYPH_COUNT) * Math.PI * 2 + phase * 0.35;
@@ -32,7 +36,7 @@ export const drawAsciiRing = ({
       continue;
     }
 
-    ctx.globalAlpha = 0.7 + interaction * 0.15;
+    ctx.globalAlpha = (isLight ? LIGHT_RING_ALPHA : RING_ALPHA) + interaction * 0.15;
     ctx.fillText(
       getScrambledGlyph({
         glyph: index % 5 === 0 ? '+' : '.',

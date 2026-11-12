@@ -29,19 +29,19 @@ export const Placeholder: React.FC<PlaceholderProps> = ({
   return (
     <Card className={cn('flex items-center justify-center py-10', className)}>
       <div className="text-center flex flex-col gap-y-3">
-        <div className="size-10 rounded-lg bg-lightGrey flex items-center justify-center mx-auto">
-          <Icon name={iconName} className="size-5 text-grey" />
+        <div className="size-10 rounded-lg bg-neutral flex items-center justify-center mx-auto">
+          <Icon name={iconName} className="size-5 text-secondary" />
         </div>
 
         <div className="flex flex-col gap-y-4">
           <div className="flex flex-col gap-y-2">
             <h2 className="text-b1s">{title}</h2>
 
-            {!!description && <p className="text-b1r text-light-grey">{description}</p>}
+            {!!description && <p className="text-b1r text-secondary">{description}</p>}
           </div>
 
           {!!accountAddress && !!to && !!buttonLabel && (
-            <ButtonWrapper className="text-white hover:no-underline" size="xs" asChild>
+            <ButtonWrapper className="text-on-color hover:no-underline" size="xs" asChild>
               <Link noStyle to={to}>
                 {buttonLabel}
               </Link>

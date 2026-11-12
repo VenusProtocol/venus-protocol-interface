@@ -29,7 +29,7 @@ export const PageStatHeader: React.FC<PageStatHeaderProps> = ({
       {cells.map(cell => (
         <div key={cell.label} className="shrink-0">
           <div className="mb-3 flex items-center gap-x-2">
-            <p className="text-sm text-light-grey">{cell.label}</p>
+            <p className="text-sm text-secondary">{cell.label}</p>
 
             {!!cell.tooltip && <InfoIcon tooltip={cell.tooltip} />}
           </div>

@@ -64,6 +64,7 @@ export const formatToLiquidityHubYieldGroup = ({
     type,
     nameTranslationKey: metadata.nameTranslationKey,
     iconSrc: metadata.iconSrc,
+    iconClassName: metadata.iconClassName,
     bgClassName: metadata.bgClassName,
     allocationTokens,
     allocationCents,

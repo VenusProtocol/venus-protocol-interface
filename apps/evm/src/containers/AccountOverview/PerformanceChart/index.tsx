@@ -73,14 +73,14 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({
             <>
               <Spinner className="h-auto" />
 
-              <p className="text-sm text-grey">
+              <p className="text-sm text-secondary">
                 {t('dashboard.overview.performanceChart.placeholderText')}
               </p>
             </>
           )}
 
           {!error && !isLoading && (
-            <p className="text-sm text-grey">
+            <p className="text-sm text-secondary">
               {t('dashboard.overview.performanceChart.emptyState')}
             </p>
           )}

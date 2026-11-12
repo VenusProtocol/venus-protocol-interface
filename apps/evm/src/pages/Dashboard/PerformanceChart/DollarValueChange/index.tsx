@@ -14,8 +14,8 @@ export const DollarValueChange: React.FC<DollarValueChangeProps> = ({ value }) =
     <span
       className={cn(
         'text-base sm:text-lg',
-        value !== undefined && value >= 0 && 'text-green',
-        value !== undefined && value < 0 && 'text-red',
+        value !== undefined && value >= 0 && 'text-success',
+        value !== undefined && value < 0 && 'text-danger',
       )}
     >
       {value !== undefined && value > 0 && '+'}

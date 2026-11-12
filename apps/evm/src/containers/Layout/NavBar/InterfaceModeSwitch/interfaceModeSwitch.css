@@ -4,11 +4,6 @@
   inherits: false;
 }
 
-.venus-mode-switch {
-  box-shadow: 0 2px 12px color-mix(in srgb, var(--color-blue) 18%, transparent);
-  border-color: var(--color-blue);
-}
-
 .venus-mode-switch__border {
   position: absolute;
   inset: 0;

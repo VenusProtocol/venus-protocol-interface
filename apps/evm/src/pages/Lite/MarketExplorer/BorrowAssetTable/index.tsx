@@ -62,7 +62,7 @@ export const BorrowAssetTable: React.FC<BorrowAssetTableProps> = ({
           type="button"
           onClick={() => onSelect(borrowAsset)}
           aria-label={t('lite.assetAriaLabel', { symbol: borrowAsset.token.symbol })}
-          className="cursor-pointer text-left hover:text-blue focus-visible:outline-2 focus-visible:outline-blue"
+          className="cursor-pointer text-left hover:text-brand focus-visible:outline-2 focus-visible:outline-brand"
         >
           <TokenIconWithSymbol
             token={borrowAsset.token}

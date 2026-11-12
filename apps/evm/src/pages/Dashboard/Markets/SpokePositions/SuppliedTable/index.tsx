@@ -32,6 +32,7 @@ export const SuppliedTable: React.FC<SuppliedTableProps> = ({ collaterals, onRow
         <div className="flex items-center gap-x-2">
           <TokenIconWithSymbol
             token={asset.vToken.underlyingToken}
+            size="xl"
             symbolClassName="font-normal group-hover:font-semibold"
           />
 
@@ -91,8 +92,8 @@ export const SuppliedTable: React.FC<SuppliedTableProps> = ({ collaterals, onRow
       rowKeyExtractor={asset => asset.vToken.address}
       rowOnClick={(_event, asset) => onRowClick(asset)}
       columnWidths={['24%', '32%', '20%', '24%']}
-      tableHeaderClassName="border-border-subtle"
-      tableRowClassName="h-15 hover:bg-surface-row-hover"
+      tableHeaderClassName="border-subtle"
+      tableRowClassName="h-15 hover:bg-table-row-hover"
       breakpoint="md"
       hideCardDelimiter
     />

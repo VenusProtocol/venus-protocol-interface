@@ -11,6 +11,8 @@
 
 @import './navigation.css';
 
+@custom-variant light (&:where([data-theme='light'], [data-theme='light'] *));
+
 :root {
   --font-proxima-nova: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
@@ -18,8 +20,8 @@
 @layer base {
   body {
     font-family: var(--font-proxima-nova), sans-serif;
-    background-color: var(--color-background);
-    color: var(--color-white);
+    background-color: rgb(var(--theme-bg-surface-2));
+    color: rgb(var(--theme-fg-primary));
   }
 
   * {
@@ -36,19 +38,19 @@
 
     /* Handle */
     &::-webkit-scrollbar-thumb {
-      background-color: rgb(var(--elevation-tint-rgb) / 16%);
+      background-color: rgb(var(--scrollbar-thumb-rgb) / var(--scrollbar-thumb-alpha));
       border-radius: var(--radius-lg);
     }
 
     /* Handle on hover */
     &::-webkit-scrollbar-thumb:hover {
-      background-color: rgb(var(--elevation-tint-rgb) / 26%);
+      background-color: rgb(var(--scrollbar-thumb-rgb) / var(--scrollbar-thumb-hover-alpha));
     }
   }
 
   @supports not selector(::-webkit-scrollbar) {
     * {
-      scrollbar-color: rgb(var(--elevation-tint-rgb) / 16%) transparent;
+      scrollbar-color: rgb(var(--scrollbar-thumb-rgb) / var(--scrollbar-thumb-alpha)) transparent;
     }
   }
 }
@@ -146,7 +148,7 @@
   margin-top: var(--spacing);
   font-size: var(--text-base);
   line-height: var(--text-base--line-height);
-  color: var(--color-light-grey);
+  color: rgb(var(--theme-fg-secondary));
   text-wrap: pretty;
 }
 

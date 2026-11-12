@@ -60,7 +60,7 @@ export const EarnAssetTable: React.FC<EarnAssetTableProps> = ({
           type="button"
           onClick={() => onSelect(earnAsset)}
           aria-label={t('lite.assetAriaLabel', { symbol: earnAsset.token.symbol })}
-          className="cursor-pointer hover:text-blue focus-visible:outline-2 focus-visible:outline-blue max-md:min-h-11"
+          className="cursor-pointer hover:text-brand focus-visible:outline-2 focus-visible:outline-brand max-md:min-h-11"
         >
           <TokenIconWithSymbol
             token={earnAsset.token}

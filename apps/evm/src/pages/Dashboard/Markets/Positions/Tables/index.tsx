@@ -45,8 +45,8 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
       breakpoint: 'sm',
       columns: ['asset', 'supplyApy', 'userSupplyBalance', 'collateral'],
       columnWidths: ['24%', '32%', '20%', '24%'],
-      tableRowClassName: 'h-15 hover:bg-surface-row-hover',
-      tableHeaderClassName: 'border-border-subtle',
+      tableRowClassName: 'h-15 hover:bg-table-row-hover',
+      tableHeaderClassName: 'border-subtle',
       initialOrder: {
         orderBy: 'userSupplyBalance',
         orderDirection: 'desc',
@@ -65,8 +65,8 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
       breakpoint: 'sm',
       columns: ['asset', 'borrowApy', 'userBorrowBalance', 'userBorrowLimitSharePercentage'],
       columnWidths: ['24%', '32%', '20%', '24%'],
-      tableRowClassName: 'h-15 hover:bg-surface-row-hover',
-      tableHeaderClassName: 'border-border-subtle',
+      tableRowClassName: 'h-15 hover:bg-table-row-hover',
+      tableHeaderClassName: 'border-subtle',
       initialOrder: {
         orderBy: 'userBorrowBalance',
         orderDirection: 'desc',

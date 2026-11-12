@@ -97,7 +97,7 @@ export function TableCards<R>({
 
               {renderRowFooter ? renderRowFooter(row, rowIndex) : undefined}
 
-              {!hideCardDelimiter && <Delimiter className="-mx-4 border-border-subtle" />}
+              {!hideCardDelimiter && <Delimiter className="-mx-4 border-subtle" />}
 
               {otherColumns.map(column => (
                 <LabeledInlineContent key={`${rowKey}-${column.key}`} label={column.label}>
@@ -111,7 +111,7 @@ export function TableCards<R>({
             <Card
               key={rowKey}
               className={cn(
-                'border-border-raised bg-surface-popup backdrop-blur-raised',
+                'border-raised bg-surface-popup backdrop-blur-raised',
                 !!(rowOnClick || getRowHref) && 'cursor-pointer hover:bg-row-hover',
                 cardClassName,
               )}
@@ -119,7 +119,7 @@ export function TableCards<R>({
               asChild
             >
               {getRowHref ? (
-                <Link className="text-white hover:no-underline" to={getRowHref(row)} noStyle>
+                <Link className="text-primary hover:no-underline" to={getRowHref(row)} noStyle>
                   {content}
                 </Link>
               ) : (

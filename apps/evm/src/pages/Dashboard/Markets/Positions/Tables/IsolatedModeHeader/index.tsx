@@ -34,7 +34,7 @@ export const IsolatedModeHeader: React.FC<IsolatedModeHeader> = ({
   return (
     <Link
       className={cn(
-        'flex items-center justify-center rounded-full border border-none bg-dark-blue-disabled h-8 px-2 text-white transition-colors duration-250 hover:no-underline hover:bg-dark-blue-active',
+        'flex items-center justify-center rounded-full border border-none bg-surface-4 h-8 px-2 text-primary transition-colors duration-250 hover:no-underline hover:bg-surface-4',
         className,
       )}
       to={to}

@@ -124,9 +124,9 @@ describe('SpokePositions', () => {
 
     const borrowApyCell = screen
       .getAllByText(en.account.spoke.summary.borrowApy)[0]
-      .closest('.text-green, .text-red');
+      .closest('.text-success, .text-danger');
 
-    expect(borrowApyCell).toHaveClass('text-green');
+    expect(borrowApyCell).toHaveClass('text-success');
   });
 
   it('hides the supplied and borrowed balances in hide mode', () => {

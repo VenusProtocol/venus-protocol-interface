@@ -131,14 +131,14 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
 
   const progressBarClassName = useMemo(() => {
     if (sanitizedFillPercentage <= safeBorrowLimitPercentage) {
-      return 'bg-green';
+      return 'bg-success';
     }
 
     if (sanitizedFillPercentage <= moderateBorrowLimitPercentage) {
-      return 'bg-yellow';
+      return 'bg-warning';
     }
 
-    return 'bg-red';
+    return 'bg-danger';
   }, [sanitizedFillPercentage]);
 
   return (
@@ -180,7 +180,7 @@ export const AccountHealthBar: React.FC<AccountHealthBarProps> = ({
         marks={[
           { value: 80 },
           ...(markPercentage !== undefined
-            ? [{ value: Math.min(markPercentage, 99), className: 'bg-white' }]
+            ? [{ value: Math.min(markPercentage, 99), className: 'bg-inverse' }]
             : []),
         ]}
         min={0}

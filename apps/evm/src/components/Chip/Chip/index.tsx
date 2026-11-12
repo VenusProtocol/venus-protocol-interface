@@ -7,11 +7,11 @@ export const Chip = ({ className, text, iconName, type = 'default' }: ChipProps)
   <div
     className={cn(
       'mr-2 inline-flex items-center rounded-lg py-1 text-sm font-normal',
-      type === 'default' && 'bg-lightGrey px-2 text-white',
-      type === 'active' && 'bg-green/10 px-3 text-green',
-      type === 'inactive' && 'bg-grey/10 px-3 text-grey',
-      type === 'blue' && 'bg-blue/10 px-3 text-blue',
-      type === 'error' && 'bg-red/10 px-3 text-red',
+      type === 'default' && 'bg-neutral px-2 text-primary',
+      type === 'active' && 'bg-success/10 px-3 text-success',
+      type === 'inactive' && 'bg-neutral-bold/10 px-3 text-secondary',
+      type === 'blue' && 'bg-brand/10 px-3 text-brand',
+      type === 'error' && 'bg-danger/10 px-3 text-danger',
       className,
     )}
   >

@@ -30,8 +30,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
   );
 
   const sharedContainerClassName = cn(
-    'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active lg:font-normal lg:text-sm lg:leading-5 lg:px-3 xl:px-4 lg:py-4 lg:rounded-lg lg:hover:text-white lg:hover:font-semibold lg:whitespace-nowrap group-has-[[data-rewards-button]]/navbar:lg:px-2 group-has-[[data-rewards-button]]/navbar:xl:px-4',
-    isActive && 'lg:font-semibold lg:text-white',
+    'block w-full text-left py-3 font-semibold text-secondary transition-colors hover:no-underline hover:text-secondary-hover active:text-primary lg:font-normal lg:text-sm lg:leading-5 lg:px-3 xl:px-4 lg:py-4 lg:rounded-lg lg:hover:text-primary lg:whitespace-nowrap group-has-[[data-rewards-button]]/navbar:lg:px-2 group-has-[[data-rewards-button]]/navbar:xl:px-4',
+    isActive && 'lg:font-semibold lg:text-primary',
   );
 
   // Toggle menu's open state
@@ -107,7 +107,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
             className={cn(
               sharedContainerClassName,
               'relative flex items-center justify-between cursor-pointer lg:gap-x-2',
-              isDropdownOpen && 'lg:font-semibold lg:text-white',
+              isDropdownOpen && 'lg:text-primary',
             )}
             type="button"
             data-nav-item

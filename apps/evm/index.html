@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      try {
+        var storedTheme = JSON.parse(localStorage.getItem('venus-theme') || 'null');
+        if (!storedTheme || !storedTheme.state || storedTheme.state.theme !== 'dark') {
+          document.documentElement.dataset.theme = 'light';
+        }
+      } catch (error) {}
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />

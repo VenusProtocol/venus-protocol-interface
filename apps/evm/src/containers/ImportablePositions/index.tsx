@@ -52,7 +52,7 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
   let xsDom = (
     <div className="space-y-4 md:hidden">
       <button
-        className="px-4 py-5 rounded-xl border border-lightGrey block w-full text-left cursor-pointer"
+        className="px-4 py-5 rounded-xl border border-muted block w-full text-left cursor-pointer"
         type="button"
         onClick={() => setIsAccordionOpen(c => !c)}
       >
@@ -61,7 +61,7 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
 
           <Icon
             name="arrowUp"
-            className={cn('w-6 h-6 text-white', !isAccordionOpen && 'rotate-180')}
+            className={cn('w-6 h-6 text-primary', !isAccordionOpen && 'rotate-180')}
           />
         </div>
 
@@ -84,7 +84,7 @@ const ImportablePositions: React.FC<ImportablePositionsProps> = ({ wrapInCard = 
     <div className="flex grow gap-x-4">
       <div
         className={cn(
-          'px-4 py-5 space-y-4 rounded-xl border border-lightGrey w-66 sticky',
+          'px-4 py-5 space-y-4 rounded-xl border border-muted w-66 sticky',
           wrapInCard ? 'top-4' : 'top-24',
         )}
       >

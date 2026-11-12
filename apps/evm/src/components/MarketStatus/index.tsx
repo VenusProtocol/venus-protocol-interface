@@ -18,12 +18,12 @@ export const MarketStatus: React.FC<MarketStatusProp> = ({
   return (
     <div
       className={cn(
-        'flex items-center w-full border border-lightGrey rounded-lg sm:border-0 sm:w-auto sm:gap-x-2',
+        'flex items-center w-full border border-muted rounded-lg sm:border-0 sm:w-auto sm:gap-x-2',
         className,
       )}
     >
       <Cell
-        className="border-r border-lightGrey sm:border-r-0"
+        className="border-r border-muted sm:border-r-0"
         isAvailable={canBeCollateral}
         label={t('markets.eMode.table.card.header.collateral')}
       />

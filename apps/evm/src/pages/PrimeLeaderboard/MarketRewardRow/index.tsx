@@ -37,13 +37,13 @@ export const MarketRewardRow: React.FC<MarketRewardRowProps> = ({
       }
     >
       <div className={isExpanded ? 'flex items-center sm:contents' : 'contents'}>
-        <TokenIconWithSymbol token={token} className="shrink-0 text-b1s text-white" />
+        <TokenIconWithSymbol token={token} className="shrink-0 text-b1s text-primary" />
 
         {actions && <div className="ml-auto sm:order-last sm:ml-0">{actions}</div>}
       </div>
 
       <div className={isExpanded ? 'flex items-center sm:contents' : 'contents'}>
-        <span className={cn('text-p3r text-white', isExpanded ? 'sm:ml-auto' : 'ml-auto')}>
+        <span className={cn('text-p3r text-primary', isExpanded ? 'sm:ml-auto' : 'ml-auto')}>
           {formatCentsToReadableValue({ value: rewardsCents })}
         </span>
 

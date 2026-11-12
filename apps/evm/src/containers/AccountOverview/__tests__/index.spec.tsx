@@ -427,7 +427,7 @@ describe('AccountOverview', () => {
       expect(queryByText(en.dashboard.overview.todaysChange)).toBeInTheDocument(),
     );
 
-    const arrow = container.querySelector('.text-green svg, .text-red svg');
+    const arrow = container.querySelector('.text-success svg, .text-danger svg');
     expect(arrow?.parentElement?.textContent).toBe('-');
   });
 

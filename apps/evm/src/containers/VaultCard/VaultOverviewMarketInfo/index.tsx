@@ -65,7 +65,7 @@ export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = (
 
   return (
     <div className="flex flex-col gap-5">
-      <p className="text-p2s text-white flex-1 pb-2">{t('vault.modals.overview.marketInfo')}</p>
+      <p className="text-p2s text-primary flex-1 pb-2">{t('vault.modals.overview.marketInfo')}</p>
 
       <div className="flex flex-col gap-3">
         <Row label={t('vault.modals.overview.vaultDeploymentDate')}>{formattedDeploymentDate}</Row>
@@ -108,9 +108,11 @@ export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = (
         )}
 
         <div className="space-y-3">
-          <p className="text-b1r text-grey">{t('vault.modals.overview.marketRiskDisclosures')}</p>
+          <p className="text-b1r text-secondary">
+            {t('vault.modals.overview.marketRiskDisclosures')}
+          </p>
 
-          <p className="text-b1r text-white">{riskDisclosure}</p>
+          <p className="text-b1r text-primary">{riskDisclosure}</p>
         </div>
       </div>
     </div>

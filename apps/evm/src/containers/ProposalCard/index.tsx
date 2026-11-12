@@ -43,12 +43,12 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
               {headerRightItem}
             </div>
 
-            <h4 className="mt-5 mb-6 line-clamp-2 text-lg text-white">{title}</h4>
+            <h4 className="mt-5 mb-6 line-clamp-2 text-lg text-primary">{title}</h4>
 
             {footer}
           </div>
 
-          <div className="flex min-w-0 basis-full flex-row items-center justify-center border-lightGrey border-t p-6 sm:basis-1/3 sm:flex-col sm:border-l sm:border-t-0 sm:py-6 sm:pl-6 sm:pr-0">
+          <div className="flex min-w-0 basis-full flex-row items-center justify-center border-muted border-t p-6 sm:basis-1/3 sm:flex-col sm:border-l sm:border-t-0 sm:py-6 sm:pl-6 sm:pr-0">
             {contentRightItem}
           </div>
         </div>

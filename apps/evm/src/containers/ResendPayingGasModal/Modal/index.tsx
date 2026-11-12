@@ -43,14 +43,14 @@ export function Modal<TMutateInput extends Record<string, unknown> | void>({
     <ModalComp isOpen handleClose={closeModal} {...otherProps}>
       <div className="flex flex-col">
         <div className="flex flex-col items-center justify-center mb-3">
-          <Icon name="gasSad" className="h-16 w-16 text-orange mb-6" />
+          <Icon name="gasSad" className="h-16 w-16 text-caution mb-6" />
 
           <h4 className="text-center font-semibold text-xl">
             {t('gaslessTransactions.errorModal.title')}
           </h4>
         </div>
 
-        <p className="text-center text-grey mb-8">
+        <p className="text-center text-secondary mb-8">
           {t('gaslessTransactions.errorModal.description')}
         </p>
 

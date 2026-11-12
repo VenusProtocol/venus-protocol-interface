@@ -548,7 +548,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
             tokenBalances={tokenBalances}
             description={
               !isSubmitting && !!formError?.message ? (
-                <p className="text-red">{formError.message}</p>
+                <p className="text-danger">{formError.message}</p>
               ) : undefined
             }
           />
@@ -586,7 +586,7 @@ const SupplyForm: React.FC<SupplyFormProps> = ({
             }
             description={
               isUserConnected && !isSubmitting && !!formError?.message ? (
-                <p className="text-red">{formError.message}</p>
+                <p className="text-danger">{formError.message}</p>
               ) : undefined
             }
           />

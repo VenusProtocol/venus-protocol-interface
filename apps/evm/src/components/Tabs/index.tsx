@@ -76,9 +76,9 @@ export const Tabs = ({
                 type="button"
                 key={tab.id}
                 className={cn(
-                  'hover:text-white cursor-pointer',
+                  'hover:text-primary cursor-pointer',
                   variant === 'secondary' && 'grow',
-                  activeTab.id === tab.id ? 'text-white' : 'text-grey',
+                  activeTab.id === tab.id ? 'text-primary' : 'text-secondary',
                   buttonClassName,
                 )}
               >
@@ -94,7 +94,7 @@ export const Tabs = ({
                 <div
                   className={cn(
                     'w-full h-[3px] rounded-t-[2px]',
-                    activeTab.id === tab.id ? 'bg-blue' : 'bg-transparent',
+                    activeTab.id === tab.id ? 'bg-brand' : 'bg-transparent',
                   )}
                 />
               </button>

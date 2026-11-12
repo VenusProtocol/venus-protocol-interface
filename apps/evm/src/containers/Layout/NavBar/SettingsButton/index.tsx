@@ -25,7 +25,7 @@ export const SettingsButton: React.FC<SettingsButtonProps> = ({ className }) => 
         aria-label={t('layout.settingsModal.title')}
         onClick={openSettingsModal}
       >
-        <Icon name="gearFull" className="text-light-grey" />
+        <Icon name="gearFull" className="text-inherit" />
       </NavButtonWrapper>
 
       <Modal

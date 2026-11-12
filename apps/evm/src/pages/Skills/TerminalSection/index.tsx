@@ -18,21 +18,19 @@ export const TerminalSection: React.FC = () => {
 
   return (
     <div className="mb-20">
-      <div className="mx-auto overflow-hidden rounded-2xl border border-blue bg-background font-mono shadow-2xl">
-        <div className="flex items-center border-b border-b-light-grey/20 px-5 py-[14px]">
+      <div className="mx-auto overflow-hidden rounded-2xl border border-brand bg-surface-2 font-mono shadow-2xl">
+        <div className="flex items-center border-b border-b-bold/20 px-5 py-[14px]">
           <div className="mr-5 flex gap-2">
             <TerminalControlDot variant="red" />
             <TerminalControlDot variant="yellow" />
             <TerminalControlDot variant="green" />
           </div>
 
-          <div className="text-sm font-medium text-light-grey">
-            {t('skillsPage.terminal.title')}
-          </div>
+          <div className="text-sm font-medium text-secondary">{t('skillsPage.terminal.title')}</div>
         </div>
 
         <div
-          className="h-[50vh] overflow-y-auto bg-background-active p-7 text-sm leading-[1.7] scrollbar-thin scrollbar-track-black scrollbar-thumb-light-grey md:h-[70vh]"
+          className="h-[50vh] overflow-y-auto bg-surface-1 p-7 text-sm leading-[1.7] scrollbar-thin scrollbar-track-black scrollbar-thumb-light-grey md:h-[70vh]"
           ref={terminalRef}
         >
           {terminalLines.map((line, index) => (

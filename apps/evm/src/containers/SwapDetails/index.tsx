@@ -108,7 +108,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
           <div className="flex items-center justify-center gap-x-1">
             <p
               className={cn(
-                userSlippageTolerancePercentage >= HIGH_SLIPPAGE_PERCENTAGE && 'text-red',
+                userSlippageTolerancePercentage >= HIGH_SLIPPAGE_PERCENTAGE && 'text-danger',
               )}
             >
               {readableUserSlippageTolerance}
@@ -131,7 +131,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
               'align-sub',
               priceImpactPercentage !== undefined &&
                 priceImpactPercentage >= HIGH_PRICE_IMPACT_THRESHOLD_PERCENTAGE &&
-                'text-red',
+                'text-danger',
             )}
           >
             {readablePriceImpact}
@@ -153,7 +153,7 @@ export const SwapDetails: React.FC<SwapDetailsProps> = ({
               handleSubmit(closeSlippageToleranceModal)(event);
             }}
           >
-            <p className="text-grey">{t('swapDetails.slippageToleranceModal.description')}</p>
+            <p className="text-secondary">{t('swapDetails.slippageToleranceModal.description')}</p>
 
             <div className="flex items-center justify-between gap-x-4">
               <ButtonGroup

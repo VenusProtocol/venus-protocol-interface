@@ -208,7 +208,7 @@ export const InterfaceOnboarding: React.FC = () => {
         aria-labelledby="interface-onboarding-title"
         aria-describedby="interface-onboarding-description"
         tabIndex={-1}
-        className="fixed z-99999 flex flex-col gap-y-5 rounded-2xl border border-border-raised bg-surface-popup p-5 shadow-popup backdrop-blur-popup backdrop-saturate-[1.2] outline-hidden sm:p-6"
+        className="fixed z-99999 flex flex-col gap-y-5 rounded-2xl border border-raised bg-modal p-5 shadow-popup backdrop-blur-popup backdrop-saturate-[1.2] outline-hidden sm:p-6"
         style={{
           top: position.top,
           right: position.right,
@@ -217,7 +217,7 @@ export const InterfaceOnboarding: React.FC = () => {
       >
         <span
           aria-hidden="true"
-          className="absolute -top-2 size-4 rotate-45 border-t border-l border-border-raised bg-surface-popup [clip-path:polygon(0_0,100%_0,0_100%)]"
+          className="absolute -top-2 size-4 rotate-45 border-t border-l border-raised bg-modal [clip-path:polygon(0_0,100%_0,0_100%)]"
           style={{ right: Math.max(position.arrowRight, ARROW_SIZE_PX) }}
         />
 
@@ -242,11 +242,11 @@ export const InterfaceOnboarding: React.FC = () => {
           <div className="relative flex items-center gap-x-3">
             <img src={venusLogoSrc} alt="" className="h-8" />
             <img src={venusWordmarkSrc} alt="Venus" className="h-5" />
-            <span className="text-p2r text-white">{content.modeName}</span>
+            <span className="text-p2r text-on-color">{content.modeName}</span>
           </div>
         </div>
 
-        <p id="interface-onboarding-description" className="text-p3r text-light-grey">
+        <p id="interface-onboarding-description" className="text-p3r text-secondary">
           {content.description}
         </p>
 

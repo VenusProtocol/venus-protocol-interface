@@ -158,7 +158,7 @@ describe('Apy', () => {
     );
 
     expect(container.firstElementChild).toHaveClass('opacity-50');
-    expect(container.querySelector('p')).toHaveClass('text-grey');
+    expect(container.querySelector('p')).toHaveClass('text-secondary');
   });
 
   it('renders an active Prime boost', () => {

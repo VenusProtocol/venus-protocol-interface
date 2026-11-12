@@ -204,7 +204,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                   : t('marketTable.pausedAssetsPlaceholder.title')}
               </h4>
 
-              <p className="text-sm text-grey">
+              <p className="text-sm text-secondary">
                 {t('marketTable.pausedAssetsPlaceholder.description')}
               </p>
             </Card>

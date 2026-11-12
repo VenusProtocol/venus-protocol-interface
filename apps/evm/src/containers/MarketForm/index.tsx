@@ -98,7 +98,7 @@ export const MarketForm: React.FC<MarketFormProps> = ({
         <div className="flex items-center gap-x-1">
           <img src={rocketIconSrc} className="size-4" alt={t('marketForm.boostTabAltText')} />
 
-          <span className="text-[#65EEE0]">{t('marketForm.boostTabTitle')}</span>
+          <span className="text-boost">{t('marketForm.boostTabTitle')}</span>
         </div>
       ),
       content: (

@@ -41,12 +41,12 @@ export const LabeledInlineContent = ({
         )}
 
         <div className={cn(description && '-mt-[2px]')}>
-          <div className={cn('text-b1r', invertTextColors ? 'text-white' : 'text-grey')}>
+          <div className={cn('text-b1r', invertTextColors ? 'text-primary' : 'text-secondary')}>
             {label}
           </div>
 
           {!!description && (
-            <div className={cn('text-b2r', invertTextColors ? 'text-white' : 'text-grey')}>
+            <div className={cn('text-b2r', invertTextColors ? 'text-primary' : 'text-secondary')}>
               {description}
             </div>
           )}
@@ -56,7 +56,7 @@ export const LabeledInlineContent = ({
       {!!tooltip && <InfoIcon className="ml-2 inline-flex items-center" tooltip={tooltip} />}
     </div>
 
-    <div className={cn('flex text-sm', invertTextColors ? 'text-grey' : 'text-white')}>
+    <div className={cn('flex text-sm', invertTextColors ? 'text-secondary' : 'text-primary')}>
       {children}
     </div>
   </div>

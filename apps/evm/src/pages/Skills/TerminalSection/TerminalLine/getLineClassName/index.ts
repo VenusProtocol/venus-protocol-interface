@@ -4,27 +4,27 @@ import type { SequenceItem } from '../../../types';
 
 export const getLineClassName = (item: SequenceItem) => {
   if (item.type === 'user') {
-    return cn('mt-[14px] mb-2 flex items-center italic text-orange');
+    return cn('mt-[14px] mb-2 flex items-center italic text-caution');
   }
 
   if (item.type === 'output') {
     return cn(
       'my-[6px] pl-1',
-      item.color === 'gray' && 'text-light-grey',
-      item.color === 'green' && 'text-green',
-      item.color === 'cyan' && 'text-blue',
-      item.color === 'yellow' && 'text-yellow',
-      (!item.color || item.color === 'white') && 'text-white',
+      item.color === 'gray' && 'text-secondary',
+      item.color === 'green' && 'text-success',
+      item.color === 'cyan' && 'text-brand',
+      item.color === 'yellow' && 'text-warning',
+      (!item.color || item.color === 'white') && 'text-primary',
     );
   }
 
   if (item.type === 'header') {
-    return cn('mt-3 mb-[6px] font-semibold text-blue');
+    return cn('mt-3 mb-[6px] font-semibold text-brand');
   }
 
   if (item.type === 'success') {
-    return cn('my-[6px] font-semibold text-green');
+    return cn('my-[6px] font-semibold text-success');
   }
 
-  return cn('my-[6px] pl-1 text-white');
+  return cn('my-[6px] pl-1 text-primary');
 };

@@ -250,7 +250,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
               <div
                 className={cn(
                   'flex items-center',
-                  dailyChangeCents > 0 ? 'text-green' : 'text-red',
+                  dailyChangeCents > 0 ? 'text-success' : 'text-danger',
                 )}
               >
                 <Icon
@@ -286,8 +286,8 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
       tooltip: t('dashboard.overview.summary.cellGroup.netApyTooltip'),
       className:
         typeof userNetApyPercentage === 'number' && userNetApyPercentage < 0
-          ? 'text-red'
-          : 'text-green',
+          ? 'text-danger'
+          : 'text-success',
     },
     {
       label: t('dashboard.overview.summary.cellGroup.dailyEarnings'),
@@ -366,7 +366,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
               </p>
             ) : (
               <div className="flex items-center gap-x-2">
-                <p className="text-sm text-grey">{t('dashboard.overview.netWorth.label')}</p>
+                <p className="text-sm text-secondary">{t('dashboard.overview.netWorth.label')}</p>
 
                 <InfoIcon
                   className="inline-flex"
@@ -461,7 +461,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
 
                   <Icon
                     name="chevronDown"
-                    className={cn('size-3 text-white', isAccordionOpen && 'rotate-180')}
+                    className={cn('size-3 text-primary', isAccordionOpen && 'rotate-180')}
                   />
                 </div>
               )}
@@ -490,7 +490,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
                 isLoading={isGetAccountPerformanceHistoryLoading}
               />
             ) : (
-              <div className="flex h-43 items-center justify-center text-sm text-grey">
+              <div className="flex h-43 items-center justify-center text-sm text-secondary">
                 {accountAddress
                   ? t('dashboard.performanceChart.balancesHidden')
                   : t('dashboard.performanceChart.connectWallet')}

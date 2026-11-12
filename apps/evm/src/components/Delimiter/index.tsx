@@ -7,7 +7,7 @@ interface DelimiterProps {
 
 export const Delimiter = ({ vertical, className }: DelimiterProps) =>
   vertical ? (
-    <div className={cn('w-px min-h-full self-stretch bg-lightGrey', className)} />
+    <div className={cn('w-px min-h-full self-stretch bg-neutral', className)} />
   ) : (
-    <hr className={cn('border-border-subtle', className)} />
+    <hr className={cn('border-subtle', className)} />
   );

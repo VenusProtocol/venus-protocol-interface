@@ -6,7 +6,7 @@ const meta = {
   title: 'Components/BodyBackdrop',
   component: BodyBackdrop,
   args: {
-    className: 'absolute inset-auto h-40 w-72 rounded-lg bg-white/5',
+    className: 'absolute inset-auto h-40 w-72 rounded-lg bg-inverse/5',
   },
   parameters: {
     backgrounds: {

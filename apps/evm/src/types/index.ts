@@ -317,6 +317,7 @@ export interface LiquidityHubYieldGroup {
   type: LiquidityHubYieldGroupType;
   nameTranslationKey: string;
   iconSrc: string;
+  iconClassName?: string;
   bgClassName: string;
   allocationTokens: BigNumber;
   allocationCents: BigNumber;

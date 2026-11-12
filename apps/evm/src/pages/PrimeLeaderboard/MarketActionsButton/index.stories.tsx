@@ -32,7 +32,7 @@ export const AllSides = () => (
           poolComptrollerAddress={asset.vToken.address}
           side={side}
         />
-        <span className="text-xs text-light-grey">{side}</span>
+        <span className="text-xs text-secondary">{side}</span>
       </div>
     ))}
   </div>

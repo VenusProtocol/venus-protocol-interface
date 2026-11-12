@@ -18,7 +18,7 @@ export const PaginationButton: React.FC<PaginationButtonProps> = ({
   <Button
     variant="text"
     className={cn(
-      'mx-1 size-8 rounded bg-cards p-0 text-grey transition-colors duration-300 hover:text-white',
+      'mx-1 size-8 rounded bg-surface-4 p-0 text-secondary transition-colors duration-300 hover:text-primary',
       className,
     )}
     contentClassName="text-inherit"

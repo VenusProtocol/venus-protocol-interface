@@ -465,7 +465,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
             tokenBalances={tokenBalances}
             description={
               !isSubmitting && !!formError?.message ? (
-                <p className="text-red">{formError.message}</p>
+                <p className="text-danger">{formError.message}</p>
               ) : undefined
             }
           />
@@ -498,7 +498,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
             }
             description={
               isUserConnected && !isSubmitting && !!formError?.message ? (
-                <p className="text-red">{formError.message}</p>
+                <p className="text-danger">{formError.message}</p>
               ) : undefined
             }
           />

@@ -24,7 +24,7 @@ export const PositionHealthIndicator: React.FC<PositionHealthIndicatorProps> = (
         sizePx={20}
         strokeWidthPx={2}
         fillColor={color}
-        className="size-5 shrink-0 [&>circle:first-of-type]:stroke-light-grey/30"
+        className="size-5 shrink-0 [&>circle:first-of-type]:stroke-secondary/30"
       />
     </span>
   );

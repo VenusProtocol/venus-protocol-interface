@@ -18,8 +18,8 @@ export const TickMark: React.FC<TickMarkProps> = ({
   return (
     <Comp
       className={cn(
-        'size-3 shrink-0 outline-hidden rounded-full border border-light-grey-disabled absolute',
-        isActive ? 'bg-light-grey-active' : 'bg-dark-blue-hover',
+        'size-3 shrink-0 outline-hidden rounded-full border border-bold absolute',
+        isActive ? 'bg-on-color' : 'bg-neutral-hover',
         className,
       )}
       {...otherProps}

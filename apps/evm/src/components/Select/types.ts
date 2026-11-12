@@ -22,7 +22,7 @@ export interface SelectProps<TValue extends string | number = string | number>
   dropdownClassName?: string;
   buttonClassName?: string;
   size?: 'small' | 'medium' | 'large';
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'raised';
   menuTitle?: string;
   menuPosition?: 'left' | 'right';
   disabled?: boolean;

@@ -12,14 +12,14 @@ export const Checkpoint: React.FC<CheckpointProps> = ({ checkpoint }) => {
   const { t } = useTranslation();
 
   let iconName: IconName = 'checkInlineEmpty';
-  let iconColorClass = cn('text-grey');
+  let iconColorClass = cn('text-secondary');
 
   if (checkpoint.status === 'passed') {
     iconName = 'checkInline';
-    iconColorClass = cn('text-green');
+    iconColorClass = cn('text-success');
   } else if (checkpoint.status === 'ongoing') {
     iconName = 'checkInlineDotted';
-    iconColorClass = cn('text-blue');
+    iconColorClass = cn('text-brand');
   }
 
   return (
@@ -30,7 +30,7 @@ export const Checkpoint: React.FC<CheckpointProps> = ({ checkpoint }) => {
         <p
           className={cn(
             'text-b2r',
-            checkpoint.status === 'ongoing' ? 'text-white' : 'text-light-grey',
+            checkpoint.status === 'ongoing' ? 'text-primary' : 'text-secondary',
           )}
         >
           {checkpoint.title}
@@ -40,7 +40,7 @@ export const Checkpoint: React.FC<CheckpointProps> = ({ checkpoint }) => {
       <p
         className={cn(
           'text-b2r ml-7',
-          checkpoint.status === 'ongoing' ? 'text-white' : 'text-light-grey',
+          checkpoint.status === 'ongoing' ? 'text-primary' : 'text-secondary',
         )}
       >
         {checkpoint.timeRange || t('vault.timeline.tbd')}

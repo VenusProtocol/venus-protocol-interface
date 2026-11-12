@@ -7,7 +7,11 @@ interface DialogMessageProps {
 
 export const DialogMessage: React.FC<DialogMessageProps> = ({ variant, children }) => (
   <div
-    className={cn('my-3', variant === 'user' && 'text-orange', variant === 'agent' && 'text-green')}
+    className={cn(
+      'my-3',
+      variant === 'user' && 'text-caution',
+      variant === 'agent' && 'text-success',
+    )}
   >
     {children}
   </div>

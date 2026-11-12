@@ -148,11 +148,16 @@
   gap: 0;
   width: calc(var(--spacing) * 64);
   padding: calc(var(--spacing) * 2);
-  border: 1px solid var(--color-dark-blue-hover);
+  border: 1px solid rgb(var(--theme-border-default));
   border-radius: var(--radius-lg);
-  background: var(--color-background-active);
+  background: rgb(var(--theme-bg-surface-1));
   box-shadow: 0 12px 32px rgb(20 45 80 / 18%);
+  color: rgb(var(--theme-fg-primary));
   font-size: var(--text-sm);
+}
+
+:root[data-theme='light'] .lite-planet-detail {
+  border-color: rgb(var(--theme-border-strong));
 }
 
 .lite-planet-detail__title {
@@ -166,7 +171,7 @@
   display: flex;
   justify-content: space-between;
   padding: 0 calc(var(--spacing) * 2) var(--spacing);
-  color: var(--color-light-grey);
+  color: rgb(var(--theme-fg-secondary));
   font-size: var(--text-xs);
   line-height: 1.5;
 }

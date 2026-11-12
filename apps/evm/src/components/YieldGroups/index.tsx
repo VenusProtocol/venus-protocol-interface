@@ -1,3 +1,4 @@
+import { cn } from '@venusprotocol/ui';
 import { ImgGroupTooltip, type TableColumn } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { LiquidityHubYieldGroup } from 'types';
@@ -22,7 +23,7 @@ export const YieldGroups: React.FC<YieldGroupsProps> = ({ yieldGroups, className
           <div className="flex items-center gap-x-2">
             <img
               alt={name}
-              className="size-5"
+              className={cn('size-5', yieldGroup.iconClassName)}
               src={yieldGroup.iconSrc}
               key={`img-group-item-${yieldGroup.address}`}
             />
@@ -39,6 +40,7 @@ export const YieldGroups: React.FC<YieldGroupsProps> = ({ yieldGroups, className
       imgs={yieldGroups.map(yieldGroup => ({
         src: yieldGroup.iconSrc,
         alt: t(yieldGroup.nameTranslationKey),
+        className: yieldGroup.iconClassName,
       }))}
       data={yieldGroups}
       rowKeyExtractor={row => row.address}

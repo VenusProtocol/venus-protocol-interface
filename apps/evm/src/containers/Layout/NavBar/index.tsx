@@ -65,7 +65,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
   const menuItems = useMenuItems();
 
   return (
-    <nav className={cn('relative bg-background-active', className)} {...containerProps}>
+    <nav className={cn('relative bg-canvas', className)} {...containerProps}>
       <div className="group/navbar h-16 px-4 flex items-center justify-between gap-x-2">
         <div className="flex items-center gap-x-0">
           <Link
@@ -75,7 +75,12 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
           >
             <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="h-8" />
 
-            <img src={venusWordmarkSrc} alt="" aria-hidden="true" className="hidden sm:block" />
+            <img
+              src={venusWordmarkSrc}
+              alt=""
+              aria-hidden="true"
+              className="hidden sm:block light:brightness-0"
+            />
           </Link>
 
           <InterfaceModeLabel className={cn('ml-2 max-xs:hidden', isLite && 'sm:ml-2.5')} />
@@ -117,7 +122,9 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
             >
               <Icon
                 name={isMobileMenuOpen ? 'close' : 'burger'}
-                className={cn(isMobileMenuOpen ? 'text-light-grey size-5' : 'text-white w-4.5 h-3')}
+                className={cn(
+                  isMobileMenuOpen ? 'text-secondary size-5' : 'text-primary w-4.5 h-3',
+                )}
               />
             </NavButtonWrapper>
           )}
@@ -132,7 +139,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
       <div
         className={cn(
           !isLite && isMobileMenuOpen ? 'fixed' : 'hidden',
-          'top-16 bottom-0 left-0 right-0 z-40 p-5 bg-background-active bg-linear-to-b from-background/50 to-background/50 overflow-y-auto lg:hidden',
+          'top-16 bottom-0 left-0 right-0 z-40 p-5 bg-canvas bg-linear-to-b from-surface-2/50 to-surface-2/50 overflow-y-auto lg:hidden',
         )}
       >
         <div className="flex items-center justify-between mb-5">
@@ -149,7 +156,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
           <>
             {isMobileMenuOpen && (
               <div className="mb-6 md:hidden">
-                <p className="mb-2 text-sm text-light-grey">{t('layout.chainSelect.label')}</p>
+                <p className="mb-2 text-sm text-secondary">{t('layout.chainSelect.label')}</p>
 
                 <ChainSelect buttonClassName="h-12 px-3" />
               </div>

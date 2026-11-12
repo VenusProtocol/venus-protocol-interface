@@ -18,6 +18,7 @@ export const useColumns = () => {
       renderCell: ({ vToken }) => (
         <TokenIconWithSymbol
           token={vToken.underlyingToken}
+          size="xl"
           symbolClassName="font-normal group-hover:font-semibold"
         />
       ),
@@ -29,7 +30,10 @@ export const useColumns = () => {
       renderCell: ({ collateralFactor }) => (
         <Icon
           name={collateralFactor > 0 ? 'mark' : 'close'}
-          className={cn('w-5 h-5 ml-auto', collateralFactor > 0 ? 'text-green' : 'text-grey')}
+          className={cn(
+            'w-5 h-5 ml-auto',
+            collateralFactor > 0 ? 'text-success' : 'text-secondary',
+          )}
         />
       ),
       sortRows: (rowA, rowB, direction) =>
@@ -43,7 +47,7 @@ export const useColumns = () => {
       renderCell: ({ isBorrowable }) => (
         <Icon
           name={isBorrowable ? 'mark' : 'close'}
-          className={cn('w-5 h-5 ml-auto', isBorrowable ? 'text-green' : 'text-grey')}
+          className={cn('w-5 h-5 ml-auto', isBorrowable ? 'text-success' : 'text-secondary')}
         />
       ),
       sortRows: (rowA, rowB, direction) =>
