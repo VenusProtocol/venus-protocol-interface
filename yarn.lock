@@ -9515,7 +9515,7 @@ __metadata:
     "@venusprotocol/chains": "npm:*"
     "@venusprotocol/governance-contracts": "npm:2.15.0-slim"
     "@venusprotocol/isolated-pools": "npm:4.4.0-slim"
-    "@venusprotocol/liquidity-hub": "npm:2.0.0"
+    "@venusprotocol/liquidity-hub": "npm:2.1.0-dev.8"
     "@venusprotocol/oracle": "npm:2.16.0-slim"
     "@venusprotocol/protocol-reserve": "npm:3.5.0-slim"
     "@venusprotocol/stylelint-config": "npm:*"
@@ -9611,9 +9611,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@venusprotocol/liquidity-hub@npm:2.0.0":
-  version: 2.0.0
-  resolution: "@venusprotocol/liquidity-hub@npm:2.0.0"
+"@venusprotocol/liquidity-hub@npm:2.1.0-dev.8":
+  version: 2.1.0-dev.8
+  resolution: "@venusprotocol/liquidity-hub@npm:2.1.0-dev.8"
   dependencies:
     "@openzeppelin/contracts": "npm:^4.9.6"
     "@openzeppelin/contracts-upgradeable": "npm:^4.9.6"
@@ -9622,7 +9622,7 @@ __metadata:
   peerDependenciesMeta:
     "@venusprotocol/governance-contracts":
       optional: true
-  checksum: 10c0/2b150163ada32238a3cd5c6dff1334955d80fdcb37e61988eeac3086d76ddbb788bc9f47eb536093ad91c690962a91ebd75e092b0826d0cecff4d22a46752f59
+  checksum: 10c0/4814747df7045f6a9e471ba1ac83713ff1689eb45dab81752551faae4a1e0e5916dd696a0d2c5878191c5647ff70d1fd284957add6c7bce3b061a8f5ee207d94
   languageName: node
   linkType: hard
 
