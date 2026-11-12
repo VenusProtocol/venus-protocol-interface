@@ -301,9 +301,11 @@
         "calculatorLink": "Prime報酬を計算",
         "liquidityHubCorePoolBoost": "このブーストはCoreプールから支払われ、二重には支払われません。",
         "primeBorrowSimulation": "<PrimeLink>Primeプログラム</PrimeLink>により、ユーザーの借入平均{{borrowBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。",
+        "primeBorrowSimulationCapped": "<PrimeLink>Primeプログラム</PrimeLink>により、借入{{borrowBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます（このステーク量で計上される借入の上限）。",
         "primeDocLink": "詳細を見る",
         "primeMarket": "PrimeによりAPYがブーストされます。",
-        "primeSupplySimulation": "<PrimeLink>Primeプログラム</PrimeLink>により、ユーザーの供給平均{{supplyBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。"
+        "primeSupplySimulation": "<PrimeLink>Primeプログラム</PrimeLink>により、ユーザーの供給平均{{supplyBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます。",
+        "primeSupplySimulationCapped": "<PrimeLink>Primeプログラム</PrimeLink>により、供給{{supplyBalance}}とボールト預入{{xvsStaked}}に基づきAPYがブーストされます（このステーク量で計上される供給の上限）。"
       }
     }
   },
@@ -1543,7 +1545,8 @@
       "hours": "時間",
       "mins": "分",
       "sec": "秒",
-      "title": "サイクル終了"
+      "title": "サイクル終了",
+      "tooltip": "このカウントダウンはPrimeの対象資格のみを示します。終了時点で上位 {{limit}} 位以内のアカウントが次のサイクルでPrime報酬を受け取ります。Prime報酬は現在表示されているAPYに基づきます。"
     },
     "lastCycleSummary": {
       "primeScoreLabel": "Prime スコア",

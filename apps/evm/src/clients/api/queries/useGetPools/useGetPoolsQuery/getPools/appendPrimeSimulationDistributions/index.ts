@@ -5,7 +5,12 @@ import { NULL_ADDRESS } from 'constants/address';
 import { AVERAGE_USER_XVS_VAULT_STAKE_TOKENS } from 'constants/prime';
 import { primeAbi, primeV2LensAbi } from 'libs/contracts';
 import type { Asset, PrimeVersion, Token } from 'types';
-import { areAddressesEqual, convertAprBipsToApy, convertTokensToMantissa } from 'utilities';
+import {
+  areAddressesEqual,
+  convertAprBipsToApy,
+  convertMantissaToTokens,
+  convertTokensToMantissa,
+} from 'utilities';
 
 export interface ResolvePrimeSimulationDistributionsInput {
   publicClient: PublicClient;
@@ -59,22 +64,65 @@ export const appendPrimeSimulationDistributions = async ({
           token: xvs,
         });
 
-        const simulatedPrimeAprs = await publicClient.readContract({
-          abi: primeVersion === 1 ? primeAbi : primeV2LensAbi,
-          address: primeContractAddress,
-          functionName: 'estimateAPR',
-          args: [
-            primeVTokenAddress,
-            accountAddress || NULL_ADDRESS,
-            BigInt(averageBorrowBalanceMantissa.toFixed()),
-            BigInt(averageSupplyBalanceMantissa.toFixed()),
-            BigInt(averageXvsStakedMantissa.toFixed()),
-          ],
+        const estimateApr = ({
+          borrowMantissa,
+          supplyMantissa,
+        }: {
+          borrowMantissa: bigint;
+          supplyMantissa: bigint;
+        }) =>
+          publicClient.readContract({
+            abi: primeVersion === 1 ? primeAbi : primeV2LensAbi,
+            address: primeContractAddress,
+            functionName: 'estimateAPR',
+            args: [
+              primeVTokenAddress,
+              accountAddress || NULL_ADDRESS,
+              borrowMantissa,
+              supplyMantissa,
+              BigInt(averageXvsStakedMantissa.toFixed()),
+            ],
+          });
+
+        const averageBorrowMantissa = BigInt(averageBorrowBalanceMantissa.toFixed());
+        const averageSupplyMantissa = BigInt(averageSupplyBalanceMantissa.toFixed());
+
+        const averageSimulatedPrimeAprs = await estimateApr({
+          borrowMantissa: averageBorrowMantissa,
+          supplyMantissa: averageSupplyMantissa,
         });
 
+        const isBorrowCapped = averageSimulatedPrimeAprs.cappedBorrow < averageBorrowMantissa;
+        const isSupplyCapped = averageSimulatedPrimeAprs.cappedSupply < averageSupplyMantissa;
+
+        const referenceBorrowMantissa = isBorrowCapped
+          ? averageSimulatedPrimeAprs.cappedBorrow
+          : averageBorrowMantissa;
+        const referenceSupplyMantissa = isSupplyCapped
+          ? averageSimulatedPrimeAprs.cappedSupply
+          : averageSupplyMantissa;
+
+        const simulatedPrimeAprs =
+          isBorrowCapped || isSupplyCapped
+            ? await estimateApr({
+                borrowMantissa: referenceBorrowMantissa,
+                supplyMantissa: referenceSupplyMantissa,
+              })
+            : averageSimulatedPrimeAprs;
+
         const referenceValues = {
-          userSupplyBalanceTokens: averageSupplyBalanceTokens,
-          userBorrowBalanceTokens: averageBorrowBalanceTokens,
+          userSupplyBalanceTokens: isSupplyCapped
+            ? convertMantissaToTokens({
+                value: referenceSupplyMantissa,
+                token: asset.vToken.underlyingToken,
+              })
+            : averageSupplyBalanceTokens,
+          userBorrowBalanceTokens: isBorrowCapped
+            ? convertMantissaToTokens({
+                value: referenceBorrowMantissa,
+                token: asset.vToken.underlyingToken,
+              })
+            : averageBorrowBalanceTokens,
           userXvsStakedTokens: new BigNumber(AVERAGE_USER_XVS_VAULT_STAKE_TOKENS),
         };
 
@@ -88,7 +136,10 @@ export const appendPrimeSimulationDistributions = async ({
             token: asset.vToken.underlyingToken,
             apyPercentage: borrowSimulatedPrimeApy,
             isActive: true,
-            referenceValues,
+            referenceValues: {
+              ...referenceValues,
+              referenceType: isBorrowCapped ? 'cap' : 'average',
+            },
           });
         }
 
@@ -102,7 +153,10 @@ export const appendPrimeSimulationDistributions = async ({
             token: asset.vToken.underlyingToken,
             apyPercentage: supplySimulatedPrimeApy,
             isActive: true,
-            referenceValues,
+            referenceValues: {
+              ...referenceValues,
+              referenceType: isSupplyCapped ? 'cap' : 'average',
+            },
           });
         }
       };

@@ -1,7 +1,7 @@
 import fakeAddress from '__mocks__/models/address';
 import { poolData } from '__mocks__/models/pools';
 import { bnb } from '__mocks__/models/tokens';
-import { useGetDsaVTokens, useGetPool } from 'clients/api';
+import { useGetDsaVTokens, useGetLiquidityHubs, useGetPool } from 'clients/api';
 import { useChain } from 'hooks/useChain';
 import { renderHook } from 'testUtils/render';
 import type { Address } from 'viem';
@@ -10,6 +10,7 @@ import { useGetTradeAssets } from '..';
 
 vi.mock('clients/api', () => ({
   useGetDsaVTokens: vi.fn(),
+  useGetLiquidityHubs: vi.fn(),
   useGetPool: vi.fn(),
 }));
 
@@ -21,6 +22,11 @@ describe('useGetTradeAssets', () => {
   beforeEach(() => {
     (useChain as Mock).mockReturnValue({
       corePoolComptrollerContractAddress: fakeAddress,
+    });
+
+    (useGetLiquidityHubs as Mock).mockReturnValue({
+      isLoading: false,
+      data: { liquidityHubs: [] },
     });
   });
 
@@ -198,5 +204,97 @@ describe('useGetTradeAssets', () => {
     expect(result.current.data.borrowAssets).toEqual([unrestrictedAsset]);
     expect(result.current.data.supplyAssets).toEqual([unrestrictedAsset]);
     expect(result.current.data.dsaAssets).toEqual([unrestrictedAsset]);
+  });
+
+  describe('Liquidity Hub share tokens', () => {
+    const hubShareAsset = poolData[0].assets[1];
+    const pool = {
+      ...poolData[0],
+      assets: [poolData[0].assets[0], hubShareAsset, poolData[0].assets[2]].map(asset => ({
+        ...asset,
+        disabledTokenActions: [],
+      })),
+    };
+
+    beforeEach(() => {
+      (useGetPool as Mock).mockReturnValue({
+        isLoading: false,
+        data: { pool },
+      });
+
+      (useGetDsaVTokens as Mock).mockReturnValue({
+        isLoading: false,
+        data: {
+          dsaVTokenAddresses: pool.assets.map(asset => asset.vToken.address),
+        },
+      });
+    });
+
+    it('leaves them out of the long and short lists but keeps them as DSA', () => {
+      (useGetLiquidityHubs as Mock).mockReturnValue({
+        isLoading: false,
+        data: {
+          liquidityHubs: [{ vhToken: hubShareAsset.vToken.underlyingToken }],
+        },
+      });
+
+      const { result } = renderHook(() => useGetTradeAssets());
+
+      const pairAddresses = [pool.assets[0].vToken.address, pool.assets[2].vToken.address];
+
+      expect(result.current.data.supplyAssets.map(asset => asset.vToken.address)).toEqual(
+        pairAddresses,
+      );
+      expect(result.current.data.borrowAssets.map(asset => asset.vToken.address)).toEqual(
+        pairAddresses,
+      );
+      expect(result.current.data.dsaAssets.map(asset => asset.vToken.address)).toContain(
+        hubShareAsset.vToken.address,
+      );
+    });
+
+    it('waits for the Liquidity Hubs before returning the lists', () => {
+      (useGetLiquidityHubs as Mock).mockReturnValue({
+        isLoading: true,
+        isFetched: false,
+        data: undefined,
+      });
+
+      const { result } = renderHook(() => useGetTradeAssets());
+
+      expect(result.current.isLoading).toBe(true);
+      expect(result.current.data).toEqual({
+        borrowAssets: [],
+        supplyAssets: [],
+        dsaAssets: [],
+      });
+    });
+
+    it('stops waiting once the first Liquidity Hubs request has failed', () => {
+      (useGetLiquidityHubs as Mock).mockReturnValue({
+        isLoading: true,
+        isFetched: true,
+        data: undefined,
+      });
+
+      const { result } = renderHook(() => useGetTradeAssets());
+
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.data.supplyAssets).toHaveLength(pool.assets.length);
+      expect(result.current.data.borrowAssets).toHaveLength(pool.assets.length);
+    });
+
+    it('returns every asset when the Liquidity Hubs are unavailable', () => {
+      (useGetLiquidityHubs as Mock).mockReturnValue({
+        isLoading: false,
+        data: undefined,
+      });
+
+      const { result } = renderHook(() => useGetTradeAssets());
+
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.data.supplyAssets).toHaveLength(pool.assets.length);
+      expect(result.current.data.borrowAssets).toHaveLength(pool.assets.length);
+    });
   });
 });

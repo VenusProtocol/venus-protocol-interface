@@ -1,9 +1,9 @@
 import type { Address } from 'viem';
 
-import { useGetDsaVTokens, useGetPool } from 'clients/api';
+import { useGetDsaVTokens, useGetLiquidityHubs, useGetPool } from 'clients/api';
 import { useChain } from 'hooks/useChain';
 import type { Asset } from 'types';
-import { areAddressesEqual } from 'utilities';
+import { areAddressesEqual, areTokensEqual } from 'utilities';
 
 export const useGetTradeAssets = (input?: { accountAddress?: Address }) => {
   const { corePoolComptrollerContractAddress } = useChain();
@@ -19,11 +19,23 @@ export const useGetTradeAssets = (input?: { accountAddress?: Address }) => {
 
   const { data: getDsaVTokensData, isLoading: isGetDsaVTokensLoading } = useGetDsaVTokens();
 
+  const {
+    data: getLiquidityHubsData,
+    isLoading: isGetLiquidityHubsQueryLoading,
+    isFetched: isGetLiquidityHubsFetched,
+  } = useGetLiquidityHubs();
+
+  const isGetLiquidityHubsLoading = isGetLiquidityHubsQueryLoading && !isGetLiquidityHubsFetched;
+
   const corePool = getPoolData?.pool;
   const dsaVTokenAddresses = getDsaVTokensData?.dsaVTokenAddresses;
 
   const isDataReady =
-    !isGetPoolLoading && !isGetDsaVTokensLoading && !!corePool && !!dsaVTokenAddresses;
+    !isGetPoolLoading &&
+    !isGetDsaVTokensLoading &&
+    !isGetLiquidityHubsLoading &&
+    !!corePool &&
+    !!dsaVTokenAddresses;
 
   const assets = isDataReady
     ? corePool.assets.filter(asset => !asset.vToken.underlyingToken.isNative && !asset.isRestricted)
@@ -43,13 +55,22 @@ export const useGetTradeAssets = (input?: { accountAddress?: Address }) => {
       }, [])
     : [];
 
+  const liquidityHubs = getLiquidityHubsData?.liquidityHubs ?? [];
+
+  const pairAssets = assets.filter(
+    asset =>
+      !liquidityHubs.some(liquidityHub =>
+        areTokensEqual(liquidityHub.vhToken, asset.vToken.underlyingToken),
+      ),
+  );
+
   return {
     data: {
       dsaAssets,
-      supplyAssets: assets,
-      borrowAssets: assets,
+      supplyAssets: pairAssets,
+      borrowAssets: pairAssets,
     },
-    isLoading: isGetPoolLoading || isGetDsaVTokensLoading,
+    isLoading: isGetPoolLoading || isGetDsaVTokensLoading || isGetLiquidityHubsLoading,
     ...otherProps,
   };
 };

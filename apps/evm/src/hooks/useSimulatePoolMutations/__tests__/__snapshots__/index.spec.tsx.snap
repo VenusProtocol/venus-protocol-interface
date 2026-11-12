@@ -133,6 +133,7 @@ exports[`useSimulatePoolMutations > calls the right hooks and returns the right 
             "apyPercentage": "1.233105649796123742",
             "isActive": true,
             "referenceValues": {
+              "referenceType": "average",
               "userBorrowBalanceTokens": "1000",
               "userSupplyBalanceTokens": "1000",
               "userXvsStakedTokens": "1000",
@@ -202,6 +203,7 @@ exports[`useSimulatePoolMutations > calls the right hooks and returns the right 
             "apyPercentage": "0.953105649796123742",
             "isActive": true,
             "referenceValues": {
+              "referenceType": "average",
               "userBorrowBalanceTokens": "1000",
               "userSupplyBalanceTokens": "1000",
               "userXvsStakedTokens": "1000",
@@ -290,6 +292,7 @@ exports[`useSimulatePoolMutations > calls the right hooks and returns the right 
             "apyPercentage": "1.015310564979612374",
             "isActive": true,
             "referenceValues": {
+              "referenceType": "average",
               "userBorrowBalanceTokens": "1000",
               "userSupplyBalanceTokens": "1000",
               "userXvsStakedTokens": "1000",
@@ -346,6 +349,7 @@ exports[`useSimulatePoolMutations > calls the right hooks and returns the right 
             "apyPercentage": "1.753105649796123742",
             "isActive": true,
             "referenceValues": {
+              "referenceType": "average",
               "userBorrowBalanceTokens": "1000",
               "userSupplyBalanceTokens": "1000",
               "userXvsStakedTokens": "1000",
@@ -414,6 +418,7 @@ exports[`useSimulatePoolMutations > calls the right hooks and returns the right 
             "apyPercentage": "1.753105649796123742",
             "isActive": true,
             "referenceValues": {
+              "referenceType": "average",
               "userBorrowBalanceTokens": "1000",
               "userSupplyBalanceTokens": "1000",
               "userXvsStakedTokens": "1000",
@@ -490,6 +495,7 @@ exports[`useSimulatePoolMutations > calls the right hooks and returns the right 
             "apyPercentage": "1.753105649796123742",
             "isActive": true,
             "referenceValues": {
+              "referenceType": "average",
               "userBorrowBalanceTokens": "1000",
               "userSupplyBalanceTokens": "1000",
               "userXvsStakedTokens": "1000",

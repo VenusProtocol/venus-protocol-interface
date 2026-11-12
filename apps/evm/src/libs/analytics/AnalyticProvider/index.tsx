@@ -1,3 +1,7 @@
+// Bundle the PostHog extensions we use, so they don't have to be fetched from PostHog's CDN (see
+// disable_external_dependency_loading below)
+import 'posthog-js/dist/dead-clicks-autocapture';
+import 'posthog-js/dist/web-vitals';
 import { PostHogProvider } from 'posthog-js/react';
 
 import config from 'config';
@@ -32,6 +36,12 @@ export const AnalyticProvider: React.FC<AnalyticProviderProps> = ({ children }) 
           persistence: 'memory',
           name: APP_VERSION,
           before_send: appendHash,
+          // Never execute JavaScript served by PostHog (remote config script, site apps, surveys,
+          // toolbar, recorder). Anyone with admin access to the PostHog project, or control of its
+          // CDN, could otherwise run arbitrary code on the dApp and tamper with users' transactions
+          disable_external_dependency_loading: true,
+          disable_surveys: true,
+          opt_in_site_apps: false,
           bootstrap: {
             // Pass session and distinct IDs passed through search params to follow users across
             // Venus apps

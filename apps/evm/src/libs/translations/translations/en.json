@@ -301,9 +301,11 @@
         "calculatorLink": "Calculate your Prime rewards",
         "liquidityHubCorePoolBoost": "This boost comes from the Core pool and is not paid twice.",
         "primeBorrowSimulation": "APY boosted by <PrimeLink>Prime program</PrimeLink> based on the average user borrow of {{borrowBalance}} and vault supply of {{xvsStaked}}.",
+        "primeBorrowSimulationCapped": "APY boosted by <PrimeLink>Prime program</PrimeLink> based on a borrow of {{borrowBalance}} and vault supply of {{xvsStaked}} (max borrow counted for this stake).",
         "primeDocLink": "Learn more",
         "primeMarket": "APY boosted by Prime.",
-        "primeSupplySimulation": "APY boosted by <PrimeLink>Prime program</PrimeLink> based on the average user supply of {{supplyBalance}} and vault supply of {{xvsStaked}}."
+        "primeSupplySimulation": "APY boosted by <PrimeLink>Prime program</PrimeLink> based on the average user supply of {{supplyBalance}} and vault supply of {{xvsStaked}}.",
+        "primeSupplySimulationCapped": "APY boosted by <PrimeLink>Prime program</PrimeLink> based on a supply of {{supplyBalance}} and vault supply of {{xvsStaked}} (max supply counted for this stake)."
       }
     }
   },
@@ -1545,7 +1547,8 @@
       "hours": "Hours",
       "mins": "Mins",
       "sec": "Sec",
-      "title": "END OF CYCLE"
+      "title": "END OF CYCLE",
+      "tooltip": "This countdown is for Prime eligibility only: the top {{limit}} accounts when it ends receive Prime rewards in the next cycle. Prime rewards are based on the APY currently displayed."
     },
     "lastCycleSummary": {
       "primeScoreLabel": "Prime score",

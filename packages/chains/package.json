@@ -1,6 +1,6 @@
 {
   "name": "@venusprotocol/chains",
-  "version": "0.32.1",
+  "version": "0.33.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public",
@@ -55,7 +55,7 @@
     "tsx": "^4.20.5",
     "typescript": "^5.1.6",
     "viem": "^2.23.1",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.12"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.51.0"

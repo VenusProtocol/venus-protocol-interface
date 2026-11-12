@@ -145,6 +145,7 @@ export const assetData: Asset[] = [
           userBorrowBalanceTokens: new BigNumber('1000'),
           userSupplyBalanceTokens: new BigNumber('1000'),
           userXvsStakedTokens: new BigNumber('1000'),
+          referenceType: 'average',
         },
       },
       {
@@ -171,6 +172,7 @@ export const assetData: Asset[] = [
           userBorrowBalanceTokens: new BigNumber('1000'),
           userSupplyBalanceTokens: new BigNumber('1000'),
           userXvsStakedTokens: new BigNumber('1000'),
+          referenceType: 'average',
         },
       },
       {
@@ -243,6 +245,7 @@ export const assetData: Asset[] = [
           userBorrowBalanceTokens: new BigNumber('1000'),
           userSupplyBalanceTokens: new BigNumber('1000'),
           userXvsStakedTokens: new BigNumber('1000'),
+          referenceType: 'average',
         },
       },
     ],
@@ -263,6 +266,7 @@ export const assetData: Asset[] = [
           userBorrowBalanceTokens: new BigNumber('1000'),
           userSupplyBalanceTokens: new BigNumber('1000'),
           userXvsStakedTokens: new BigNumber('1000'),
+          referenceType: 'average',
         },
       },
     ],
@@ -337,6 +341,7 @@ export const assetData: Asset[] = [
           userBorrowBalanceTokens: new BigNumber('1000'),
           userSupplyBalanceTokens: new BigNumber('1000'),
           userXvsStakedTokens: new BigNumber('1000'),
+          referenceType: 'average',
         },
       },
       {
@@ -363,6 +368,7 @@ export const assetData: Asset[] = [
           userBorrowBalanceTokens: new BigNumber('1000'),
           userSupplyBalanceTokens: new BigNumber('1000'),
           userXvsStakedTokens: new BigNumber('1000'),
+          referenceType: 'average',
         },
       },
       {

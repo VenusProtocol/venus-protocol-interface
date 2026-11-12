@@ -11,6 +11,7 @@ const referenceValues = {
   userSupplyBalanceTokens: new BigNumber(10),
   userBorrowBalanceTokens: new BigNumber(0),
   userXvsStakedTokens: new BigNumber(1000),
+  referenceType: 'average' as const,
 };
 
 describe('SimulationText', () => {
@@ -57,4 +58,22 @@ describe('SimulationText', () => {
       expect(container.textContent).toContain('Prime program');
     },
   );
+
+  it.each([
+    ['supply' as const, en.apy.primeBadge.tooltip.primeSupplySimulationCapped],
+    ['borrow' as const, en.apy.primeBadge.tooltip.primeBorrowSimulationCapped],
+  ])('uses the capped copy when the %s reference is the cap', (type, copy) => {
+    const { container } = renderComponent(
+      <SimulationText
+        token={assetData[0].vToken.underlyingToken}
+        type={type}
+        referenceValues={{ ...referenceValues, referenceType: 'cap' }}
+      />,
+    );
+
+    const capSuffix = copy.slice(copy.lastIndexOf('('));
+
+    expect(container.textContent).toContain(capSuffix);
+    expect(container.textContent).not.toContain('average user');
+  });
 });

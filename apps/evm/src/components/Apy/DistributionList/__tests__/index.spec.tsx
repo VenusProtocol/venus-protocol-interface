@@ -41,6 +41,7 @@ const primeSimulationDistribution: PrimeSimulationDistribution = {
     userSupplyBalanceTokens: new BigNumber(0),
     userBorrowBalanceTokens: new BigNumber(0),
     userXvsStakedTokens: new BigNumber(0),
+    referenceType: 'average',
   },
 };
 

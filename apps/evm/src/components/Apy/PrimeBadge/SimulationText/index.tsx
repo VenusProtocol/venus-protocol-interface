@@ -49,14 +49,25 @@ export const SimulationText: React.FC<SimulationTextProps> = ({
 
     return (
       <>
-        <Trans
-          i18nKey="apy.primeBadge.tooltip.primeSupplySimulation"
-          values={{
-            supplyBalance: readableReferenceSupplyBalance,
-            xvsStaked: readableReferenceXvsStaked,
-          }}
-          components={components}
-        />
+        {referenceValues?.referenceType === 'cap' ? (
+          <Trans
+            i18nKey="apy.primeBadge.tooltip.primeSupplySimulationCapped"
+            values={{
+              supplyBalance: readableReferenceSupplyBalance,
+              xvsStaked: readableReferenceXvsStaked,
+            }}
+            components={components}
+          />
+        ) : (
+          <Trans
+            i18nKey="apy.primeBadge.tooltip.primeSupplySimulation"
+            values={{
+              supplyBalance: readableReferenceSupplyBalance,
+              xvsStaked: readableReferenceXvsStaked,
+            }}
+            components={components}
+          />
+        )}
 
         {isLiquidityHub && ` ${t('apy.primeBadge.tooltip.liquidityHubCorePoolBoost')}`}
       </>
@@ -69,7 +80,16 @@ export const SimulationText: React.FC<SimulationTextProps> = ({
     addSymbol: true,
   });
 
-  return (
+  return referenceValues?.referenceType === 'cap' ? (
+    <Trans
+      i18nKey="apy.primeBadge.tooltip.primeBorrowSimulationCapped"
+      values={{
+        borrowBalance: readableReferenceBorrowBalance,
+        xvsStaked: readableReferenceXvsStaked,
+      }}
+      components={components}
+    />
+  ) : (
     <Trans
       i18nKey="apy.primeBadge.tooltip.primeBorrowSimulation"
       values={{

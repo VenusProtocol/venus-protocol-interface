@@ -1,5 +1,68 @@
 # @venusprotocol/evm
 
+## 5.45.0
+
+### Minor Changes
+
+- 339e4d8: estimate the Prime badge APY at the position the XVS stake can score when the average market position is above it
+
+### Patch Changes
+
+- 93442d9: hide Liquidity Hub share tokens from the Trade long and short token lists, since they have no price history for the chart
+- 66063dd: chore: update dependencies to patched versions
+
+## 5.44.5
+
+### Patch Changes
+
+- 7e2807d: link each breadcrumb to the absolute path of its route
+
+## 5.44.4
+
+### Patch Changes
+
+- 6704553: fix: stop loading JavaScript from PostHog at runtime
+
+## 5.44.3
+
+### Patch Changes
+
+- b50d941: [VPD-2576] fix: round displayed percentages to 6 decimals with ROUND_HALF_UP before truncating them
+
+## 5.44.2
+
+### Patch Changes
+
+- c3b1744: ignore a repeated click on a button within a double-click, so Approve buttons open a single wallet prompt too
+- Updated dependencies [c3b1744]
+  - @venusprotocol/ui@0.11.1
+
+## 5.44.1
+
+### Patch Changes
+
+- 09a3666: request the start of day net worth on its own so it can be cached
+
+## 5.44.0
+
+### Minor Changes
+
+- 49c9364: add a tooltip explaining that the Prime END OF CYCLE countdown is for eligibility
+
+## 5.43.3
+
+### Patch Changes
+
+- 4bbc603: correct the NFT decimals and the PT-clisBNB-25JUN2026 symbol and icon on BSC
+- Updated dependencies [4bbc603]
+  - @venusprotocol/chains@0.32.2
+
+## 5.43.2
+
+### Patch Changes
+
+- 420907b: clear the Liquidity Hub form when another Hub is opened
+
 ## 5.43.1
 
 ### Patch Changes

@@ -174,6 +174,51 @@ describe('getAccountPerformanceHistory', () => {
     expect(response.startOfDayNetWorthCents).toBeUndefined();
   });
 
+  it('requests the start of day point on its own, so the response can be cached', async () => {
+    (restService as Mock).mockResolvedValue({ data: { performanceDataPoints: [] } });
+
+    await getAccountPerformanceHistory(fakeInput);
+
+    const netWorthTimestamps = (restService as Mock).mock.calls
+      .filter(([{ endpoint }]) => endpoint.endsWith('/net-worth'))
+      .map(([{ params }]) => params.timestampsMs);
+
+    expect(netWorthTimestamps).toEqual([
+      JSON.stringify([startOfDay(FAKE_NOW).getTime()]),
+      JSON.stringify(['now']),
+    ]);
+  });
+
+  it('reads the start of day and current points from their own requests', async () => {
+    const startOfDayMs = startOfDay(FAKE_NOW).getTime();
+    const nowMs = FAKE_NOW.getTime();
+
+    (restService as Mock).mockImplementation(
+      ({ endpoint, params }: { endpoint: string; params: { timestampsMs?: string } }) => {
+        if (endpoint.endsWith('/performance')) {
+          return { data: { performanceDataPoints: [] } };
+        }
+
+        const isStartOfDayRequest = params.timestampsMs === JSON.stringify([startOfDayMs]);
+
+        return {
+          data: {
+            performanceDataPoints: [
+              isStartOfDayRequest
+                ? { blockNumber: 6, blockTimestampMs: startOfDayMs, netWorthCents: '8500' }
+                : { blockNumber: 10, blockTimestampMs: nowMs, netWorthCents: '21000' },
+            ] satisfies ApiAccountPerformanceHistoryDataPoint[],
+          },
+        };
+      },
+    );
+
+    const response = await getAccountPerformanceHistory(fakeInput);
+
+    expect(response.startOfDayNetWorthCents).toBe(8500);
+    expect(response.performanceHistory.map(dataPoint => dataPoint.netWorthCents)).toEqual([21000]);
+  });
+
   it('throws on error in payload', async () => {
     (restService as Mock).mockResolvedValue({ data: { error: 'Some error' } });
 
