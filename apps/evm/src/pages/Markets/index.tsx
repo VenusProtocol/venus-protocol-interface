@@ -2,16 +2,18 @@ import { useParams } from 'react-router';
 import type { Address } from 'viem';
 
 import { useGetPool } from 'clients/api';
-import { Page, Spinner, Wrapper } from 'components';
+import { ErrorState, Page, Spinner, Wrapper } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
 import { Redirect } from 'containers/Redirect';
 import { useGetMarketsPagePath } from 'hooks/useGetMarketsPagePath';
+import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { Header } from './Header';
 import { MarketsAdBanner } from './MarketsAdBanner';
 import { Tabs } from './Tabs';
 
 export const Markets: React.FC = () => {
+  const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const { marketsPagePath } = useGetMarketsPagePath();
 
@@ -19,14 +21,19 @@ export const Markets: React.FC = () => {
     poolComptrollerAddress: Address;
   }>();
 
-  const { data: getPoolData, isLoading: isGetPoolDataLoading } = useGetPool({
+  const {
+    data: getPoolData,
+    isLoading: isGetPoolDataLoading,
+    isLoadingError: hasGetPoolDataLoadingError,
+    refetch: refetchPoolData,
+  } = useGetPool({
     accountAddress,
     poolComptrollerAddress,
   });
   const pool = getPoolData?.pool;
 
   // Redirect to home page if pool Comptroller address is incorrect
-  if (!isGetPoolDataLoading && !pool) {
+  if (!isGetPoolDataLoading && !hasGetPoolDataLoadingError && !pool) {
     return <Redirect to={marketsPagePath} />;
   }
 
@@ -35,7 +42,16 @@ export const Markets: React.FC = () => {
       <MarketsAdBanner />
 
       <Wrapper className="pt-5 sm:pt-10">
-        {pool ? (
+        {hasGetPoolDataLoadingError ? (
+          <ErrorState
+            className="my-20"
+            message={t('market.errorState.failedToFetchMessage')}
+            button={{
+              label: t('market.errorState.refetchButtonLabel'),
+              onClick: refetchPoolData,
+            }}
+          />
+        ) : pool ? (
           <div className="space-y-6 sm:space-y-12">
             <Header pool={pool} />
 
