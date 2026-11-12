@@ -82,7 +82,7 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = forwardRef<
           topRightAdornment || typeof tokenPriceCents === 'number' ? (
             <div className="flex items-center gap-x-2">
               {tokenPriceCents && readableValueDollars ? (
-                <p className="text-light-grey text-b1r">
+                <p className="text-secondary text-b1r">
                   {t('tokenTextField.valueDollars', {
                     value: readableValueDollars,
                   })}
@@ -97,7 +97,12 @@ export const TokenTextField: React.FC<TokenTextFieldProps> = forwardRef<
         }
         rightAdornment={
           rightMaxButton ? (
-            <TertiaryButton size="sm" className="px-2" disabled={disabled} {...rightMaxButton}>
+            <TertiaryButton
+              size="sm"
+              className="h-9 px-3 py-2 disabled:opacity-50"
+              disabled={disabled}
+              {...rightMaxButton}
+            >
               {rightMaxButton.label}
             </TertiaryButton>
           ) : undefined

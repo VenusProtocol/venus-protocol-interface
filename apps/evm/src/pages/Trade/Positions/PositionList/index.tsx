@@ -52,7 +52,7 @@ export const PositionList: React.FC<PositionListProps> = ({ positions }) => {
     return (
       <button
         onClick={handleClick}
-        className="-ml-2 text-b2s px-2 py-1 rounded-lg border border-blue text-light-grey transition-colors cursor-pointer whitespace-nowrap hover:bg-dark-blue-hover"
+        className="-ml-2 text-b2s px-2 py-1 rounded-lg border border-brand text-secondary transition-colors cursor-pointer whitespace-nowrap hover:bg-neutral-hover"
         type="button"
       >
         {t('trade.positions.closeButtonLabel')}

@@ -104,10 +104,10 @@ export const LiquidityHubCard: React.FC<LiquidityHubCardProps> = ({
   const previewCardBaseProps = {
     className,
     header: hasUserSupplyBalance ? (
-      <div className="min-w-0 text-b1r text-light-grey">
+      <div className="min-w-0 text-b1r text-secondary">
         <span>{t('dashboard.previewCard.currentlySupplied')}</span>
 
-        <div className="flex items-center text-p2s gap-2 text-light-grey-active min-w-0">
+        <div className="flex items-center text-p2s gap-2 text-primary min-w-0">
           <TokenIcon token={underlyingToken} displayChain={false} size="lg" className="shrink-0" />
 
           <span className="truncate min-w-0">

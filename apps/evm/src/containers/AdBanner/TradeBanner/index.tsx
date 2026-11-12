@@ -13,14 +13,16 @@ export const TradeBanner: React.FC = () => {
     <div className="relative rounded-lg h-26.25 px-4 pt-2 pb-3 flex flex-col gap-y-3 bg-linear-to-r from-[#01193A] to-[#0D3CB1] sm:h-18 sm:flex-row sm:items-center sm:justify-between sm:py-3 sm:pl-39">
       <div className="flex flex-col gap-y-3 sm:flex-row sm:justify-between sm:gap-x-4 sm:items-center sm:grow">
         <div className="flex flex-col gap-y-0.5">
-          <p className="font-semibold text-sm lg:text-base">{t('tradeBanner.title')}</p>
+          <p className="font-semibold text-sm text-on-color lg:text-base">
+            {t('tradeBanner.title')}
+          </p>
 
-          <p className="text-xs text-grey lg:text-sm">
+          <p className="text-xs text-on-color-secondary lg:text-sm">
             {
               <Trans
                 i18nKey="tradeBanner.description"
                 components={{
-                  White: <span className="text-white" />,
+                  White: <span className="text-on-color" />,
                 }}
               />
             }

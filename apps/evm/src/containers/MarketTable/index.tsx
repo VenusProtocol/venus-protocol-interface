@@ -148,7 +148,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     <>
       <Table
         controls={controls}
-        getRowHref={getRowHref}
+        getRowHref={otherTableProps.rowOnClick ? undefined : getRowHref}
         columns={columns}
         data={filteredAssets}
         className={cn(title && 'pt-4 sm:pt-4', className)}
@@ -204,7 +204,7 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                   : t('marketTable.pausedAssetsPlaceholder.title')}
               </h4>
 
-              <p className="text-sm text-grey">
+              <p className="text-sm text-secondary">
                 {t('marketTable.pausedAssetsPlaceholder.description')}
               </p>
             </Card>

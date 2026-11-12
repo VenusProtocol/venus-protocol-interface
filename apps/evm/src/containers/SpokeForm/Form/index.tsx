@@ -141,12 +141,12 @@ export const Form: React.FC<FormProps> = ({
       Number(formValues.amountTokens) > 0,
     description:
       isUserConnected && !isSubmitting && !!formError?.message ? (
-        <p className="text-red">{formError.message}</p>
+        <p className="text-danger">{formError.message}</p>
       ) : undefined,
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-3">
       {asset?.isProtectionModeEnabled && (
         <ProtectionModeIndicator
           variant="label"

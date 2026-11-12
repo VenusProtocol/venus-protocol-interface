@@ -28,7 +28,10 @@ export const useColumns = () => {
       selectOptionLabel: t('spokeMarket.supportedCollateral.columns.collateral'),
       renderCell: asset => (
         <div className="flex items-center gap-x-2">
-          <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
+          <TokenIconWithSymbol
+            token={asset.vToken.underlyingToken}
+            symbolClassName="font-normal group-hover:font-semibold"
+          />
 
           {asset.isProtectionModeEnabled && (
             <ProtectionModeIndicator
@@ -40,7 +43,7 @@ export const useColumns = () => {
 
           {asset.isInactive && (
             <InfoIcon
-              iconClassName="text-orange"
+              iconClassName="text-caution"
               iconName="attention"
               tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
             />
@@ -58,7 +61,7 @@ export const useColumns = () => {
       renderCell: asset =>
         asset.userSupplyBalanceTokens.isGreaterThan(0) ? (
           <LayeredValues
-            className={cn(asset.isInactive && 'text-grey')}
+            className={cn(asset.isInactive && 'text-secondary')}
             topValue={formatTokensToReadableValue({
               value: asset.userSupplyBalanceTokens,
               token: asset.vToken.underlyingToken,
@@ -76,7 +79,7 @@ export const useColumns = () => {
       selectOptionLabel: t('spokeMarket.supportedCollateral.columns.maxLtv'),
       align: 'right',
       renderCell: asset => (
-        <span className={cn(asset.isInactive && 'text-grey')}>
+        <span className={cn(asset.isInactive && 'text-secondary')}>
           {formatPercentageToReadableValue(asset.collateralFactor * 100)}
         </span>
       ),
@@ -99,7 +102,7 @@ export const useColumns = () => {
       selectOptionLabel: t('spokeMarket.supportedCollateral.columnTooltips.liquidationThreshold'),
       align: 'right',
       renderCell: asset => (
-        <span className={cn(asset.isInactive && 'text-grey')}>
+        <span className={cn(asset.isInactive && 'text-secondary')}>
           {formatPercentageToReadableValue(asset.liquidationThresholdPercentage)}
         </span>
       ),
@@ -110,7 +113,7 @@ export const useColumns = () => {
       selectOptionLabel: t('spokeMarket.supportedCollateral.columns.penalty'),
       align: 'right',
       renderCell: asset => (
-        <span className={cn(asset.isInactive && 'text-grey')}>
+        <span className={cn(asset.isInactive && 'text-secondary')}>
           {formatPercentageToReadableValue(asset.liquidationPenaltyPercentage)}
         </span>
       ),
@@ -128,7 +131,7 @@ export const useColumns = () => {
         ),
       renderCell: asset => (
         <div className="space-y-1">
-          <p className={cn('text-b1r', asset.isInactive && 'text-grey')}>
+          <p className={cn('text-b1r', asset.isInactive && 'text-secondary')}>
             {t('spokeMarket.supportedCollateral.capacity', {
               supplied: formatTokensToReadableValue({
                 value: asset.supplyBalanceTokens,

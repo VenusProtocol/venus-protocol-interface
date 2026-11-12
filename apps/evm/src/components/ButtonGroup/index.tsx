@@ -4,8 +4,9 @@ export interface ButtonGroupProps {
   buttonLabels: React.ReactNode[];
   activeButtonIndex: number;
   onButtonClick: (newIndex: number) => void;
-  variant?: 'primary' | 'secondary';
   fullWidth?: boolean;
+  disabled?: boolean;
+  ariaLabel?: string;
   className?: string;
   buttonClassName?: string;
   buttonSize?: ButtonProps['size'];
@@ -16,7 +17,8 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
   activeButtonIndex = 0,
   onButtonClick,
   fullWidth = false,
-  variant = 'primary',
+  disabled = false,
+  ariaLabel,
   className,
   buttonClassName,
   buttonSize,
@@ -25,35 +27,54 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
     e.preventDefault();
     e.stopPropagation();
 
-    onButtonClick(index);
+    if (!disabled) {
+      onButtonClick(index);
+    }
   };
 
   return (
     <div
+      role="group"
+      aria-label={ariaLabel}
       className={cn(
-        'flex items-center whitespace-nowrap',
-        fullWidth ? 'w-full' : 'max-sm:w-full',
-        variant === 'primary'
-          ? 'bg-dark-blue-disabled border border-dark-blue-hover rounded-lg'
-          : 'gap-x-3',
+        'flex items-center whitespace-nowrap rounded-lg border border-default bg-surface-4 p-[3px] shadow-segment-track',
+        fullWidth ? 'w-full' : 'w-fit',
         className,
       )}
     >
-      {buttonLabels.map((label, index) => (
-        <SecondaryButton
-          key={`button-group-button-${label}`}
-          onClick={e => handleButtonClick(e, index)}
-          className={cn(
-            'flex-1 border-transparent hover:border-transparent hover:text-white active:bg-blue active:border-blue',
-            !fullWidth && 'max-sm:flex-auto',
-            buttonClassName,
-          )}
-          active={index === activeButtonIndex}
-          size={buttonSize}
-        >
-          {label}
-        </SecondaryButton>
-      ))}
+      {buttonLabels.map((label, index) => {
+        const isActive = index === activeButtonIndex;
+
+        return (
+          <SecondaryButton
+            key={`button-group-button-${index}`}
+            onClick={e => handleButtonClick(e, index)}
+            className={cn(
+              'min-w-0 rounded-lg px-3 text-sm duration-160 before:hidden backdrop-blur-none! backdrop-saturate-100 focus-visible:-outline-offset-2',
+              fullWidth && 'h-[45px] flex-1 py-0',
+              !fullWidth &&
+                (buttonSize === 'sm' ? 'h-7 flex-none py-0' : 'h-[33px] flex-none py-1.5'),
+              isActive
+                ? 'border-segment-active bg-action font-semibold text-on-color shadow-segment-active active:shadow-segment-active!'
+                : 'border-transparent bg-none bg-transparent font-normal text-secondary shadow-none! hover:font-normal hover:text-secondary active:shadow-none!',
+              isActive && !disabled && 'hover:bg-action-hover',
+              !isActive && !disabled && 'hover:bg-surface-segment-hover',
+              disabled && 'cursor-not-allowed aria-disabled:opacity-45',
+              disabled && !isActive && 'aria-disabled:bg-transparent',
+              disabled &&
+                isActive &&
+                'aria-disabled:border-segment-active aria-disabled:bg-action! aria-disabled:text-on-color',
+              buttonClassName,
+            )}
+            active={isActive}
+            aria-pressed={isActive}
+            aria-disabled={disabled || undefined}
+            size={buttonSize}
+          >
+            {label}
+          </SecondaryButton>
+        );
+      })}
     </div>
   );
 };

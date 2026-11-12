@@ -6,6 +6,9 @@ import { TableHeader } from '../TableHeader';
 import { TableRow } from '../TableRow';
 import type { TableColumn } from '../types';
 
+const STICKY_CELL_CLASSES =
+  'sticky top-0 z-10 bg-table-header shadow-[inset_0_-1px_0_var(--color-border-subtle)]';
+
 interface HeadProps<R> {
   columns: TableColumn<R>[];
   orderBy: TableColumn<R> | undefined;
@@ -13,6 +16,8 @@ interface HeadProps<R> {
   onRequestOrder: (column: TableColumn<R>) => void;
   controls: boolean;
   rowControlColumn: boolean;
+  isCompact: boolean;
+  isSticky: boolean;
   className?: string;
 }
 
@@ -24,9 +29,11 @@ function Head<R>({
   className,
   controls,
   rowControlColumn,
+  isCompact,
+  isSticky,
 }: HeadProps<R>) {
   return (
-    <TableHeader className={cn('h-14', className)}>
+    <TableHeader className={cn(isCompact ? 'h-10' : 'h-14', className)}>
       <TableRow>
         {columns.map(column => {
           const active = orderBy?.key === column.key;
@@ -47,26 +54,27 @@ function Head<R>({
               align={column.align}
               colSpan={column.colSpan}
               aria-sort={ariaSortDirection}
+              className={cn(isCompact && 'px-3 md:px-6', isSticky && STICKY_CELL_CLASSES)}
             >
               {(() => {
                 const content = (
                   <>
-                    <span className="whitespace-nowrap text-grey">{column.label}</span>
+                    <span className="whitespace-nowrap text-secondary">{column.label}</span>
 
                     {controls && orderable && (
                       <div className="-mt-0.5 ml-2">
                         <Icon
                           name="sort"
                           className={cn(
-                            'block size-2 fill-white text-white',
-                            active && orderDirection === 'asc' && 'fill-green text-green',
+                            'block size-2 fill-primary text-primary',
+                            active && orderDirection === 'asc' && 'fill-success text-success',
                           )}
                         />
                         <Icon
                           name="sort"
                           className={cn(
-                            'block size-2 rotate-180 fill-white text-white',
-                            active && orderDirection === 'desc' && 'fill-green text-green',
+                            'block size-2 rotate-180 fill-primary text-primary',
+                            active && orderDirection === 'desc' && 'fill-success text-success',
                           )}
                         />
                       </div>
@@ -81,8 +89,9 @@ function Head<R>({
                 );
 
                 const contentClassName = cn(
-                  'inline-flex items-center border-0 bg-transparent p-0 align-middle text-b1r text-grey normal-case',
+                  'inline-flex items-center border-0 bg-transparent p-0 align-middle text-b1r text-secondary normal-case',
                   orderable ? 'cursor-pointer' : 'cursor-auto',
+                  isCompact && 'max-md:min-h-11 max-md:text-base',
                   column.align === 'center' && 'justify-center',
                   column.align === 'right' && 'justify-end',
                 );
@@ -103,7 +112,9 @@ function Head<R>({
           );
         })}
 
-        {rowControlColumn && <TableHeadCell className="w-8" />}
+        {rowControlColumn && (
+          <TableHeadCell className={cn('w-8', isSticky && STICKY_CELL_CLASSES)} />
+        )}
       </TableRow>
     </TableHeader>
   );

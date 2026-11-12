@@ -22,7 +22,7 @@ export const Cell: React.FC<CellProps> = ({
   <div className={cn('flex flex-col gap-y-1 whitespace-nowrap', className)} {...otherProps}>
     {!!label && (
       <div className="flex items-center">
-        <span className={cn('text-grey', variant === 'primary' ? 'text-b1r' : 'text-p3r')}>
+        <span className={cn('text-secondary', variant === 'primary' ? 'text-b1r' : 'text-p3r')}>
           {label}
         </span>
 

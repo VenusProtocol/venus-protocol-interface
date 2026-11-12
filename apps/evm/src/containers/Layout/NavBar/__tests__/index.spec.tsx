@@ -21,6 +21,7 @@ import type { ChainId } from 'types';
 
 import { useStore } from 'containers/Layout/store';
 import TEST_IDS from 'containers/Layout/testIds';
+import { useStore as useInterfaceModeStore } from 'hooks/useInterfaceMode/store';
 import { NavBar } from '..';
 
 const defaultChainId = walletConfig.chains[0]?.id as ChainId;
@@ -139,6 +140,7 @@ describe('NavBar', () => {
       isScrollToTopVisible: false,
       openModal: undefined,
     });
+    useInterfaceModeStore.setState({ mode: 'pro' });
     document.body.className = '';
 
     const pageContainer = document.createElement('div');
@@ -147,6 +149,7 @@ describe('NavBar', () => {
   });
 
   afterEach(() => {
+    useInterfaceModeStore.setState({ mode: 'lite' });
     document.getElementById(PAGE_CONTAINER_ID)?.remove();
     document.body.className = '';
     useStore.setState({
@@ -161,33 +164,13 @@ describe('NavBar', () => {
     const { container } = renderNavBar();
 
     expect(screen.getByTestId('nav-bar')).toHaveClass('custom-nav');
-    expect(screen.getAllByAltText('Venus logo')).toHaveLength(2);
-    expect(screen.getAllByText('Dashboard')).toHaveLength(2);
+    expect(screen.getAllByAltText('Venus logo')).toHaveLength(1);
+    expect(screen.queryByText('Dashboard')).toBeNull();
     expect(screen.getAllByText('Borrow').length).toBeGreaterThan(1);
     expect(screen.queryByText('Markets')).toBeNull();
     expect(screen.getAllByText('Earn').length).toBeGreaterThan(1);
     expect(screen.getByRole('button', { name: 'Connect wallet' })).toBeInTheDocument();
     expect(container.querySelector('button.hidden.lg\\:flex')).not.toBeNull();
-  });
-
-  it('renders the dashboard link on the right, ahead of the reward claim button', () => {
-    renderNavBar();
-
-    const menu = screen.getByTestId(TEST_IDS.navBarMenu);
-    const actions = screen.getByTestId(TEST_IDS.navBarActions);
-
-    // The dashboard has moved out of the left menu and into the right hand group
-    expect(menu.textContent).not.toContain('Dashboard');
-    expect(actions.textContent).toContain('Dashboard');
-
-    // Everything the right hand group renders after the dashboard - the reward claim button, the
-    // chain select and the connect button - comes later in the DOM, so the dashboard sits to its left
-    const dashboardLink = screen.getAllByText('Dashboard').find(el => actions.contains(el));
-    expect(actions.firstElementChild?.contains(dashboardLink as HTMLElement)).toBe(true);
-
-    // It is still reachable from the mobile menu
-    const mobileMenu = screen.getByText('Menu').closest('div')?.parentElement as HTMLDivElement;
-    expect(mobileMenu.textContent).toContain('Dashboard');
   });
 
   it('hides the desktop settings button when the user is connected', () => {
@@ -246,5 +229,15 @@ describe('NavBar', () => {
 
     expect(useStore.getState().openModal).toBe('mobileMenu');
     expect(mobileMenu).toHaveClass('fixed');
+  });
+
+  it('hides the Pro navigation in Lite mode and offers the switch', () => {
+    useInterfaceModeStore.setState({ mode: 'lite' });
+    renderNavBar();
+
+    expect(screen.queryByTestId(TEST_IDS.navBarMenu)).not.toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.navBarActions).textContent).not.toContain('Dashboard');
+    expect(screen.getByText('Lite')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Switch to Pro' })).toBeInTheDocument();
   });
 });

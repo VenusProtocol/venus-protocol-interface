@@ -18,7 +18,7 @@ export interface TableColumn<R> {
   colSpan?: number;
 }
 
-export interface TableProps<R> extends Omit<CardProps, 'title'> {
+export interface TableProps<R> extends Omit<CardProps, 'title' | 'variant'> {
   data: R[];
   rowKeyExtractor: (row: R) => string;
   columns: TableColumn<R>[];
@@ -56,7 +56,8 @@ export interface TableProps<R> extends Omit<CardProps, 'title'> {
   placeholder?: React.ReactNode;
   selectVariant?: SelectProps['variant'];
   cellHeight?: CSSProperties['height'];
-  size?: 'sm' | 'md';
+  size?: 'sm' | 'md' | 'compact';
+  stickyHeader?: boolean;
   controls?: boolean;
 }
 

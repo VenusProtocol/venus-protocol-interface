@@ -162,7 +162,7 @@ export const Header: React.FC<HeaderProps> = ({
                       variant={isEModeGroupEnabled && isButtonEnabled ? 'secondary' : 'primary'}
                       className={cn(
                         !!disabledTooltip &&
-                          'pl-3 pr-4 bg-lightGrey border-lightGrey hover:bg-lightGrey hover:border-lightGrey active:bg-lightGrey active:border-lightGrey',
+                          'pl-3 pr-4 bg-neutral border-muted text-primary hover:bg-neutral hover:border-muted active:bg-neutral active:border-muted',
                       )}
                     >
                       {!!disabledTooltip && <InfoIcon className="mr-2" tooltip={disabledTooltip} />}

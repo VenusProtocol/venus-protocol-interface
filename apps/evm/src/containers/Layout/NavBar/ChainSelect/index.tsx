@@ -18,7 +18,7 @@ export interface ChainSelectProps
   buttonClassName?: string;
 }
 
-export const ChainSelect: React.FC<ChainSelectProps> = props => {
+export const ChainSelect: React.FC<ChainSelectProps> = ({ buttonClassName, ...props }) => {
   const { t } = useTranslation();
   const { chainId } = useChainId();
   const { switchChain } = useSwitchChain();
@@ -69,6 +69,8 @@ export const ChainSelect: React.FC<ChainSelectProps> = props => {
         menuPosition="right"
         menuTitle={t('layout.chainSelect.label')}
         triggerOnHover
+        variant="raised"
+        buttonClassName={cn('hover:no-underline', buttonClassName)}
         {...props}
       />
 

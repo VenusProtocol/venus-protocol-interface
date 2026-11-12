@@ -136,7 +136,9 @@ export const Transactions: React.FC = () => {
   });
   const { liquidityHubs } = getLiquidityHubsData;
 
-  const { data: getSpokePoolsData, isLoading: areSpokePoolsLoading } = useGetSpokePools();
+  const { data: getSpokePoolsData, isLoading: areSpokePoolsLoading } = useGetSpokePools({
+    accountAddress,
+  });
 
   const { data: historicalTxsData, isLoading: areHistoricalTxsLoading } =
     useGetAccountTransactionHistory(
@@ -222,7 +224,12 @@ export const Transactions: React.FC = () => {
 
     for (const tokenOption of tokenOptions) {
       otherOptions.push({
-        label: <TokenIconWithSymbol token={tokenOption} />,
+        label: (
+          <TokenIconWithSymbol
+            token={tokenOption}
+            symbolClassName="whitespace-normal! [overflow-wrap:anywhere]"
+          />
+        ),
         value: tokenOption.address,
       });
     }
@@ -254,39 +261,55 @@ export const Transactions: React.FC = () => {
     setSearchParams,
   ]);
 
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
+
+  const isHistoryEmpty =
+    !areHistoricalTxsLoading &&
+    !historicalTxsData?.count &&
+    selectedTxType === ALL_OPTION_VALUE &&
+    selectedContractAddress === ALL_OPTION_VALUE;
 
   return (
-    <div ref={containerRef} className="grid grid-cols-1 gap-4">
-      {accountAddress && (
-        <div className="flex flex-row gap-3 md:gap-4">
-          <Select
-            className="flex-1 md:flex-none"
-            size="small"
-            variant="tertiary"
-            placeLabelToLeft
-            options={txTypeSelectOptions}
-            optionClassName="px-3 h-10 scrollbar-track-cards"
-            dropdownClassName="overflow-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
-            buttonClassName="min-w-1/2 sm:min-w-45"
-            value={selectedTxType}
-            onChange={newValue => setTxType(newValue.toString())}
-          />
+    <section
+      ref={containerRef}
+      aria-label={t('account.tabs.transactions')}
+      className="flex flex-col gap-6"
+    >
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-4">
+        <h2 className="text-p1s">{t('account.tabs.transactions')}</h2>
 
-          <Select
-            className="flex-1 md:flex-none"
-            size="small"
-            variant="tertiary"
-            placeLabelToLeft
-            options={sourceSelectOptions}
-            optionClassName="px-3 h-10 scrollbar-track-cards"
-            dropdownClassName="overflow-y-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey sm:min-w-68"
-            buttonClassName="m-w-1/2 sm:min-w-45"
-            value={selectedContractAddress}
-            onChange={newValue => setSelectedContractAddress(newValue.toString())}
-          />
-        </div>
-      )}
+        {accountAddress && !isHistoryEmpty && (
+          <div className="flex gap-3 lg:gap-4">
+            <Select
+              className="min-w-0 flex-1 sm:w-60 sm:flex-none lg:w-70"
+              size="medium"
+              variant="raised"
+              placeLabelToLeft
+              options={txTypeSelectOptions}
+              optionClassName="h-auto min-h-12 px-3 scrollbar-track-cards"
+              wrapLabels
+              dropdownClassName="overflow-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey"
+              buttonClassName="h-auto min-h-12 min-w-0 px-3 py-3"
+              value={selectedTxType}
+              onChange={newValue => setTxType(newValue.toString())}
+            />
+
+            <Select
+              className="min-w-0 flex-1 sm:w-60 sm:flex-none lg:w-70"
+              size="medium"
+              variant="raised"
+              placeLabelToLeft
+              options={sourceSelectOptions}
+              optionClassName="h-auto min-h-12 px-3 scrollbar-track-cards"
+              wrapLabels
+              dropdownClassName="overflow-y-auto max-h-70 scrollbar-thin scrollbar-track-cards scrollbar-thumb-grey sm:min-w-68"
+              buttonClassName="h-auto min-h-12 min-w-0 px-3 py-3"
+              value={selectedContractAddress}
+              onChange={newValue => setSelectedContractAddress(newValue.toString())}
+            />
+          </div>
+        )}
+      </div>
 
       <TransactionsList
         transactions={historicalTxsData?.transactions || []}
@@ -300,8 +323,9 @@ export const Transactions: React.FC = () => {
           itemsPerPageCount={ITEMS_PER_PAGE_COUNT}
           onChange={newValue => setPage(newValue.toString())}
           scrollToRef={containerRef}
+          showSinglePage
         />
       )}
-    </div>
+    </section>
   );
 };

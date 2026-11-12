@@ -53,8 +53,12 @@
     },
     "pools": {
       "placeholder": {
-        "title": "ยังไม่มีตำแหน่งในตลาด"
+        "buttonLabel": "สำรวจตลาด",
+        "title": "ยังไม่มีสถานะ"
       }
+    },
+    "positions": {
+      "label": "สถานะ"
     },
     "settings": {
       "gaslessTransactions": {
@@ -71,7 +75,7 @@
         },
         "title": "กู้แล้ว"
       },
-      "corePoolPill": "พูลหลัก",
+      "corePoolPill": "Venus Core",
       "summary": {
         "borrowApy": "APY การกู้",
         "dailyBorrowInterest": "ดอกเบี้ยการยืมรายวัน",
@@ -105,8 +109,7 @@
       "title": "สรุป"
     },
     "tabs": {
-      "hubs": "ศูนย์",
-      "markets": "ตลาด",
+      "hubs": "ศูนย์สภาพคล่อง",
       "settings": "การตั้งค่า",
       "transactions": "ธุรกรรม",
       "vaults": "คลัง"
@@ -192,6 +195,7 @@
     "label": "รายได้รายวัน"
   },
   "accountModal": {
+    "dashboardButtonLabel": "ดูแดชบอร์ด",
     "disconnectButtonLabel": "ตัดการเชื่อมต่อ"
   },
   "accountPoolDailyEarnings": {
@@ -296,12 +300,12 @@
       "tooltip": {
         "calculatorLink": "คำนวณรางวัล Prime ของคุณ",
         "liquidityHubCorePoolBoost": "การบูสต์นี้มาจาก Core pool และไม่จ่ายซ้ำสองครั้ง",
-        "primeBorrowSimulation": "APY ถูกบูสต์ด้วย Prime โดยอิงจากการยืมค่าเฉลี่ยของผู้ใช้ {{borrowBalance}} และการฝากในวอลต์ {{xvsStaked}}.",
-        "primeBorrowSimulationCapped": "APY ถูกบูสต์ด้วย Prime โดยอิงจากการยืม {{borrowBalance}} และการฝากในวอลต์ {{xvsStaked}} (ยอดยืมสูงสุดที่นับสำหรับการสเตกนี้).",
+        "primeBorrowSimulation": "APY ถูกบูสต์ด้วย <PrimeLink>โปรแกรม Prime</PrimeLink> โดยอิงจากการยืมค่าเฉลี่ยของผู้ใช้ {{borrowBalance}} และการฝากในวอลต์ {{xvsStaked}}.",
+        "primeBorrowSimulationCapped": "APY ถูกบูสต์ด้วย <PrimeLink>โปรแกรม Prime</PrimeLink> โดยอิงจากการยืม {{borrowBalance}} และการฝากในวอลต์ {{xvsStaked}} (ยอดยืมสูงสุดที่นับสำหรับการสเตกนี้).",
         "primeDocLink": "เรียนรู้เพิ่มเติม",
         "primeMarket": "APY ถูกบูสต์ด้วย Prime.",
-        "primeSupplySimulation": "APY ถูกบูสต์ด้วย Prime โดยอิงจากยอดฝากค่าเฉลี่ยของผู้ใช้ {{supplyBalance}} และการฝากในวอลต์ {{xvsStaked}}.",
-        "primeSupplySimulationCapped": "APY ถูกบูสต์ด้วย Prime โดยอิงจากยอดฝาก {{supplyBalance}} และการฝากในวอลต์ {{xvsStaked}} (ยอดฝากสูงสุดที่นับสำหรับการสเตกนี้)."
+        "primeSupplySimulation": "APY ถูกบูสต์ด้วย <PrimeLink>โปรแกรม Prime</PrimeLink> โดยอิงจากยอดฝากค่าเฉลี่ยของผู้ใช้ {{supplyBalance}} และการฝากในวอลต์ {{xvsStaked}}.",
+        "primeSupplySimulationCapped": "APY ถูกบูสต์ด้วย <PrimeLink>โปรแกรม Prime</PrimeLink> โดยอิงจากยอดฝาก {{supplyBalance}} และการฝากในวอลต์ {{xvsStaked}} (ยอดฝากสูงสุดที่นับสำหรับการสเตกนี้)."
       }
     }
   },
@@ -521,22 +525,6 @@
     }
   },
   "dashboard": {
-    "guide": {
-      "completed": "เสร็จสิ้น",
-      "step1": {
-        "description": "รับผลตอบแทนโดยการฝากสินทรัพย์หรือย้ายตำแหน่งที่มีอยู่ไปยังโปรโตคอล Venus",
-        "title": "ฝาก / ย้าย"
-      },
-      "step2": {
-        "description": "ยืมสินทรัพย์เพื่อเพิ่มพลังให้กลยุทธ์ DeFi ของคุณ หรือเลเวอเรจสภาพคล่องได้ในคลิกเดียว",
-        "title": "ยืม / เลเวอเรจ"
-      },
-      "step3": {
-        "description": "ฝาก XVS เข้าไปในวอลต์และรับผลตอบแทนที่ขับเคลื่อนด้วยรายได้ของโปรโตคอล",
-        "title": "ฝาก XVS"
-      },
-      "uncompleted": "ยังไม่เสร็จ"
-    },
     "hubs": {
       "apy": "APY",
       "dailyEarnings": "รายได้รายวัน",
@@ -569,8 +557,7 @@
           "dailyEarnings": "รายได้รายวัน",
           "mintedVai": "VAI ที่มินต์แล้ว",
           "netApy": "APY สุทธิ",
-          "netApyTooltip": "เปอร์เซ็นต์ของยอดฝากรวมของคุณที่ได้รับเป็นดอกเบี้ยรายปี",
-          "netApyWithVaultStakeTooltip": "เปอร์เซ็นต์ของยอดฝากรวมและการฝากในวอลต์ของคุณที่ได้รับเป็นดอกเบี้ยรายปี",
+          "netApyTooltip": "ผลตอบแทนสุทธิต่อปีของคุณจาก Core, Spoke, Liquidity Hub, XVS / VAI Vault, Vault อัตราคงที่ และ Trade คิดเป็นเปอร์เซ็นต์ของยอดฝากรวมในผลิตภัณฑ์เหล่านี้",
           "totalBorrow": "ยอดยืมรวม",
           "totalSupply": "ยอดฝากรวม",
           "totalVaultStake": "ยอดฝากในวอลต์รวม"
@@ -580,10 +567,12 @@
       "todaysChange": "การเปลี่ยนแปลงวันนี้"
     },
     "performanceChart": {
+      "balancesHidden": "ซ่อนยอดคงเหลือแล้ว",
+      "connectWallet": "เชื่อมต่อวอลเล็ตเพื่อดูผลการดำเนินงาน",
       "dataPoint": {
         "date": "{{ date, textual }}"
       },
-      "xAxisValue": "{{ date, numeric }}"
+      "xAxisValue": "{{ date, dayMonth }}"
     },
     "previewCard": {
       "apr": "APR",
@@ -789,80 +778,6 @@
     "0": "0%",
     "100": "100%"
   },
-  "landing": {
-    "benefits": {
-      "text1": "เข้าถึงตลาดเงินที่ไม่สามารถเปลี่ยนแปลงได้โดยตรงบนเชน",
-      "text2": "สินทรัพย์ทั้งหมดของ Venus Protocol อยู่ภายใต้มาตรฐาน BEP-20 และ ERC-20",
-      "text3": "สร้างบนเชนที่รองรับ EVM เพื่อธุรกรรมที่รวดเร็ว ปลอดภัย และต้นทุนต่ำ",
-      "title1": "กระจายอำนาจ",
-      "title2": "BEP-20/ERC-20",
-      "title3": "ออมนิเชน"
-    },
-    "governance": {
-      "backgroundGradientAlt": "ภาพประกอบพื้นหลัง",
-      "buttonLabel": "ฟอรัมการกำกับดูแล",
-      "description": "Venus เป็นโปรโตคอลกระจายอำนาจที่ขับเคลื่อนโดยชุมชน มอบฟังก์ชันระดับแนวหน้าสำหรับตลาดเงินคริปโต",
-      "proposalCountLegend": "ข้อเสนอปรับปรุง Venus ที่ดำเนินการแล้วและยังเพิ่มขึ้นเรื่อยๆ",
-      "title": "ตลาดเงินที่ถูกกำกับดูแล<br />โดยชุมชน"
-    },
-    "hero": {
-      "1Year": "1ปี",
-      "30Day": "30ด",
-      "6Month": "6ด",
-      "assets": "สินทรัพย์",
-      "borrow": "ยืม",
-      "earned": "ได้รับ",
-      "earnedAmount": "ได้รับ {{amount}}",
-      "earnNow": "รับผลตอบแทนตอนนี้",
-      "from": "จาก {{percentage}}",
-      "highestApy": "APY สูงสุด",
-      "monthNo": "เดือน {{number}}",
-      "startNow": "เริ่มตอนนี้",
-      "subtitle": "การฝากและยืมที่เรียบง่ายแต่ทรงพลัง สำหรับทุกกลยุทธ์ผลตอบแทน DeFi",
-      "supply": "ฝาก",
-      "supplyTips": "คำนวณจากเงินฝากเริ่มต้น 10,000 ดอลลาร์ โดยผลตอบแทน/ดอกเบี้ยทบต้นต่อบล็อก <Link>เรียนรู้เพิ่มเติม</Link>",
-      "title": "ตลาดเงินสากล<br /><hl>Money Markets</hl>",
-      "totalApy": "APY รวม",
-      "upToPercentage": "สูงสุด {{percentage}}",
-      "venusTvl": "TVL ของ Venus",
-      "yearlyEarnings": "รายได้ต่อปี",
-      "yearlyInterests": "ดอกเบี้ยต่อปี"
-    },
-    "markets": {
-      "button": {
-        "label": "สำรวจเพิ่มเติม"
-      },
-      "title": "ตลาดยอดนิยมบน Venus"
-    },
-    "protection": {
-      "bugBountyAlt": "ภาพประกอบ Bug Bounty",
-      "challengeText": "ค้นหาและรายงานช่องโหว่ในโค้ดของเราเพื่อมีสิทธิ์รับรางวัล อ่านเกี่ยวกับโปรแกรมบั๊กบาวน์ตีเพื่อเรียนรู้เพิ่มเติม",
-      "challengeTitle": "ท้าทายโค้ดของเราและรับรางวัล",
-      "protectionAlt": "ภาพประกอบการปกป้อง",
-      "protectionText": "การตรวจสอบความปลอดภัย การเฝ้าระวังตลอด 24/7 และกองทุนความเสี่ยงที่แข็งแกร่งช่วยให้โปรโตคอลปลอดภัยในกรณีเหตุการณ์ตลาดผิดปกติ",
-      "protectionTitle": "ให้ความสำคัญกับการปกป้อง"
-    },
-    "safety": {
-      "audit_one": "การตรวจสอบ",
-      "audit_other": "การตรวจสอบ",
-      "otherAuditors": "+14 การตรวจสอบโดย <br />Fairyproof, Hacken และ HashEx",
-      "scoreAlt": "ภาพประกอบคะแนน",
-      "securityScore": "คะแนนความปลอดภัย",
-      "text": "ทำธุรกรรมอย่างมั่นใจ โดยรู้ว่า Venus ให้ความสำคัญกับความปลอดภัยของสินทรัพย์ของคุณเป็นอันดับแรก",
-      "title": "ความปลอดภัยมาก่อน",
-      "venusScored": "Venus ได้คะแนนความปลอดภัย <Link>อันดับ 3</Link> บน BNB Chain ตามการประเมินของ Certik (มิถุนายน 2021)"
-    },
-    "venusPrime": {
-      "illustrationAlt": "ภาพประกอบ Venus Prime",
-      "imageAlt": "ภาพประกอบ Venus Prime",
-      "learnMore": "เรียนรู้เพิ่มเติม",
-      "text": "ผู้ใช้ขั้นสูงของ Venus Protocol สามารถมินต์โทเคน Venus Prime เพื่อรับอัตราที่เหนือกว่าสำหรับบางตลาดในพูล Venus core",
-      "title": "<hl>Venus Prime</hl> <br />เพิ่มผลตอบแทนของคุณ"
-    },
-    "wallets": {
-      "title": "ได้รับความไว้วางใจจากผู้ใช้จำนวนมาก"
-    }
-  },
   "layout": {
     "chainSelect": {
       "label": "เลือกเชน"
@@ -885,13 +800,28 @@
       "supply": "ฝาก",
       "utilizationRate": "อัตราการใช้งาน"
     },
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "สลับไปที่ {{mode}}"
+    },
+    "interfaceOnboarding": {
+      "closeButtonLabel": "ปิดคำแนะนำ",
+      "lite": {
+        "description": "ฝากและยืมได้ง่ายขึ้น สำรวจสินทรัพย์และเปรียบเทียบอัตราดอกเบี้ยในมุมมองเดียวที่เรียบง่าย",
+        "title": "พบกับ Venus Lite",
+        "tryButtonLabel": "ลองใช้ Lite เลย"
+      },
+      "pro": {
+        "description": "กำลังมองหาอินเทอร์เฟซแบบเต็มอยู่ใช่ไหม? ทุกตลาด สถานะ และเครื่องมือขั้นสูงยังอยู่ใน Pro เพียงคลิกเดียว",
+        "title": "Venus Pro อยู่ที่นี่",
+        "tryButtonLabel": "ลองใช้ Pro เลย"
+      }
+    },
     "menu": {
       "beta": "beta",
       "borrow": {
         "label": "ยืม"
-      },
-      "dashboard": {
-        "label": "แดชบอร์ด"
       },
       "earn": {
         "label": "รับผลตอบแทน"
@@ -940,6 +870,11 @@
         },
         "language": {
           "label": "ภาษา (เบต้า)"
+        },
+        "theme": {
+          "dark": "มืด",
+          "label": "ธีม",
+          "light": "สว่าง"
         }
       },
       "vaults": {
@@ -1106,7 +1041,7 @@
     "withdrawTabTitle": "ถอน"
   },
   "liquidityHubs": {
-    "description": "ระบบจะจัดเส้นทางไปยังแหล่งผลตอบแทนของ Venus Protocol ภายใต้นโยบายที่คัดสรรโดยฝ่ายกำกับดูแล ผลตอบแทนจะสะสมโดยอัตโนมัติ",
+    "description": "ฝากครั้งเดียว ระบบจัดสรรไปยังแหล่งผลตอบแทนของ Venus โดยอัตโนมัติ",
     "header": "ศูนย์สภาพคล่อง",
     "stats": {
       "hubs": "ศูนย์",
@@ -1128,6 +1063,79 @@
       "search": {
         "placeholder": "ค้นหาสินทรัพย์"
       }
+    }
+  },
+  "lite": {
+    "assetAriaLabel": "เปรียบเทียบตลาดของ {{symbol}}",
+    "breadcrumb": {
+      "backToAssets": "กลับไปที่สินทรัพย์ {{mode}}",
+      "backToMarkets": "กลับไปที่ตลาดของ {{symbol}}"
+    },
+    "collateralSelect": {
+      "ariaLabel": "เลือกหลักประกัน",
+      "asset": "สินทรัพย์",
+      "liquidationThreshold": "LT",
+      "liquidationThresholdTooltip": "หากยอดที่คุณยืมถึงเปอร์เซ็นต์นี้ของมูลค่าหลักประกัน สถานะของคุณอาจถูกชำระบัญชี",
+      "maxLtv": "LTV สูงสุด",
+      "maxLtvTooltip": "จำนวนสูงสุดที่คุณสามารถยืมได้โดยใช้หลักประกันนี้ คิดเป็นเปอร์เซ็นต์ของมูลค่า",
+      "optionLabel": "{{symbol}} (ตลาด {{marketSymbol}})",
+      "title": "เลือกหลักประกัน"
+    },
+    "columns": {
+      "apy": "APY",
+      "asset": "สินทรัพย์",
+      "collateral": "หลักประกัน",
+      "liquidity": "สภาพคล่อง",
+      "loan": "สินทรัพย์ที่ยืม",
+      "market": "ตลาด",
+      "pool": "พูล",
+      "totalBorrow": "ยอดยืมรวม",
+      "totalSupply": "ยอดฝากรวม"
+    },
+    "description": "การฝากและกู้ยืมที่เรียบง่ายแต่ทรงพลัง สำหรับทุกกลยุทธ์ผลตอบแทน DeFi",
+    "filters": {
+      "allCategories": "ทุกหมวดหมู่",
+      "category": "หมวดหมู่",
+      "categoryCount_other": "{{count}} หมวดหมู่",
+      "reset": "รีเซ็ต",
+      "searchAsset": "ค้นหาสินทรัพย์",
+      "searchAssetAriaLabel": "ค้นหาสินทรัพย์",
+      "searchCollateral": "ค้นหาหลักประกัน",
+      "searchCollateralAriaLabel": "ค้นหาหลักประกัน"
+    },
+    "formTitle": "{{symbol}} / {{marketName}}",
+    "markets": {
+      "corePool": "Venus Core",
+      "liquidityHub": "ศูนย์สภาพคล่อง",
+      "xvsVault": "ห้องนิรภัย XVS"
+    },
+    "modes": {
+      "borrow": "ยืม",
+      "earn": "รับผลตอบแทน",
+      "label": "โหมดตลาด"
+    },
+    "placeholders": {
+      "clearSearch": "ล้างการค้นหา",
+      "noAssets": "ไม่พบสินทรัพย์",
+      "noBorrowableAssets": "ไม่พบสินทรัพย์ที่ยืมได้",
+      "noMarkets": "ไม่มีตลาดที่ตรงกับตัวกรองเหล่านี้",
+      "noResults": "ไม่พบผลลัพธ์สำหรับ \"{{query}}\"",
+      "refresh": "กรุณารีเฟรชแล้วลองใหม่อีกครั้ง",
+      "tryAnotherCollateral": "ลองใช้หลักประกันอื่น หรือล้างการค้นหา",
+      "tryAnotherSymbol": "ลองค้นหาด้วยสัญลักษณ์อื่น หรือล้างการค้นหา",
+      "unavailable": "ไม่สามารถโหลดข้อมูลตลาดได้"
+    },
+    "planets": {
+      "earnNow": "รับผลตอบแทนเลย",
+      "label": "สำรวจ APY สำหรับการรับผลตอบแทน",
+      "market": "ตลาด",
+      "openAriaLabel": "ดู APY การฝากของ {{symbol}}",
+      "supplyApy": "APY การฝาก"
+    },
+    "title": "ตลาดเงินสากล",
+    "totals": {
+      "availableLiquidity": "สภาพคล่องที่ใช้ได้",
+      "totalSupply": "ยอดฝากรวม"
     }
   },
   "markdownEditor": {
@@ -1564,7 +1572,8 @@
     },
     "rankCutoffNote": "อันดับ <Rank/> ปัจจุบันถือครองคะแนน Prime <Score/> โดยมีการสเตก <Staked/>",
     "rankFooter": {
-      "learnMore": "เรียนรู้เพิ่มเติมจาก <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
+      "connectPrompt": "เชื่อมต่อกระเป๋าเงินเพื่อดูอันดับของคุณ",
+      "learnMore": "<LeaderboardLink>ดู Prime Leaderboard</LeaderboardLink>"
     },
     "rankTable": {
       "columns": {

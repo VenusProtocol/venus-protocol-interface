@@ -1,11 +1,13 @@
 import { cn } from '@venusprotocol/ui';
 
 import venusLogoSrc from 'assets/img/venusLogo.svg';
-import venusLogoWithTextSrc from 'assets/img/venusLogoWithText.svg';
+import venusWordmarkSrc from 'assets/img/venusWordmark.svg';
 import { Delimiter, Icon } from 'components';
 import { PAGE_CONTAINER_ID } from 'constants/layout';
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
+import { useInterfaceMode } from 'hooks/useInterfaceMode';
+import { useProHomePath } from 'hooks/useProHomePath';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { useEffect } from 'react';
@@ -14,21 +16,24 @@ import TEST_IDS from '../testIds';
 import { ChainSelect } from './ChainSelect';
 import { ClaimRewardsButton } from './ClaimRewardsButton';
 import { ConnectButton } from './ConnectButton';
+import { InterfaceModeLabel } from './InterfaceModeLabel';
+import { InterfaceModeSwitch } from './InterfaceModeSwitch';
 import { MenuItem } from './MenuItem';
 import { NavButtonWrapper } from './NavButtonWrapper';
 import { Settings } from './Settings';
 import { SettingsButton } from './SettingsButton';
-import { useDashboardMenuItem, useMenuItems } from './useMenuItems';
+import { useMenuItems } from './useMenuItems';
 
-export type NavBarProps = React.HTMLAttributes<HTMLDivElement>;
+export type NavBarProps = React.HTMLAttributes<HTMLElement>;
 
 export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) => {
   const { t } = useTranslation();
-  const { accountAddress } = useAccountAddress();
+  const { isLite } = useInterfaceMode();
+  const proHomePath = useProHomePath();
   const openModal = useStore(state => state.openModal);
-  const isMobileMenuOpen = openModal === 'mobileMenu';
-
+  const { accountAddress } = useAccountAddress();
   const isUserConnected = !!accountAddress;
+  const isMobileMenuOpen = openModal === 'mobileMenu';
 
   const closeMobileMenu = () => {
     useStore.setState({ openModal: undefined });
@@ -58,72 +63,83 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
   }, [isMobileMenuOpen]);
 
   const menuItems = useMenuItems();
-  const dashboardMenuItem = useDashboardMenuItem();
 
   return (
-    <nav className="relative">
-      <div
-        className={cn(
-          'group/navbar bg-background-active h-20 pr-5 flex items-center justify-between',
-          className,
-        )}
-        {...containerProps}
-      >
-        <div className="flex items-center xl:gap-x-1">
+    <nav className={cn('relative bg-canvas', className)} {...containerProps}>
+      <div className="group/navbar h-16 px-4 flex items-center justify-between gap-x-2">
+        <div className="flex items-center gap-x-0">
           <Link
-            className="flex h-full flex-none items-center justify-center px-5 py-6"
-            to={routes.landing.path}
+            className="flex h-full flex-none items-center gap-x-2.5 py-4"
+            to={isLite ? routes.landing.path : proHomePath}
             onClick={closeMobileMenu}
           >
-            <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="h-8 sm:hidden" />
+            <img src={venusLogoSrc} alt={t('layout.menu.venusLogoAlt')} className="h-8" />
 
             <img
-              src={venusLogoWithTextSrc}
-              alt={t('layout.menu.venusLogoAlt')}
-              className="h-8 hidden sm:block"
+              src={venusWordmarkSrc}
+              alt=""
+              aria-hidden="true"
+              className="hidden sm:block light:brightness-0"
             />
           </Link>
 
+          <InterfaceModeLabel className={cn('ml-2 max-xs:hidden', isLite && 'sm:ml-2.5')} />
+
           {/* LG and up menu */}
-          <div className="hidden items-center lg:flex xl:gap-x-3" data-testid={TEST_IDS.navBarMenu}>
-            {menuItems.map(item => (
-              <MenuItem key={item.label} item={item} onClick={closeMobileMenu} />
-            ))}
-          </div>
+          {!isLite && (
+            <div
+              className="ml-4 hidden items-center lg:flex xl:gap-x-3"
+              data-testid={TEST_IDS.navBarMenu}
+            >
+              {menuItems.map(item => (
+                <MenuItem key={item.label} item={item} onClick={closeMobileMenu} />
+              ))}
+            </div>
+          )}
         </div>
 
-        <div className="flex items-center gap-x-3 h-9 sm:h-12" data-testid={TEST_IDS.navBarActions}>
-          {/* Sits to the left of the reward claim button, and only from the breakpoint the desktop
-              menu appears at: below that, the dashboard is reachable from the mobile menu */}
-          <div className="hidden items-center lg:flex">
-            <MenuItem item={dashboardMenuItem} onClick={closeMobileMenu} />
-          </div>
+        <div
+          className={cn(
+            'flex items-center h-10 sm:h-12',
+            isLite ? 'gap-x-2' : 'gap-x-1 sm:gap-x-2',
+          )}
+          data-testid={TEST_IDS.navBarActions}
+        >
+          <ClaimRewardsButton className="h-full max-sm:px-2" data-rewards-button="true" />
 
-          <ClaimRewardsButton className="h-full hidden sm:flex" data-rewards-button="true" />
-
-          <ChainSelect buttonClassName="h-10 px-3 py-0 bg-dark-blue border-dark-blue-disabled/50 hover:bg-dark-blue-hover hover:border-dark-blue-disabled/50 hover:no-underline active:bg-dark-blue-hover sm:h-12" />
+          {!isLite && (
+            <ChainSelect className="hidden md:block" buttonClassName="h-10 px-3 py-0 sm:h-12" />
+          )}
 
           <ConnectButton />
 
-          <NavButtonWrapper
-            className="size-10 px-0 sm:size-12 lg:hidden"
-            onClick={toggleMobileMenu}
-          >
-            <Icon
-              name={isMobileMenuOpen ? 'closeRounded' : 'burger'}
-              className={cn(isMobileMenuOpen ? 'text-light-grey size-3' : 'text-white')}
-            />
-          </NavButtonWrapper>
+          <InterfaceModeSwitch onSwitch={closeMobileMenu} />
 
-          {!isUserConnected && <SettingsButton className="h-full px-0 hidden lg:flex" />}
+          {!isLite && (
+            <NavButtonWrapper
+              className="size-10 px-0 sm:size-12 lg:hidden"
+              onClick={toggleMobileMenu}
+            >
+              <Icon
+                name={isMobileMenuOpen ? 'close' : 'burger'}
+                className={cn(
+                  isMobileMenuOpen ? 'text-secondary size-5' : 'text-primary w-4.5 h-3',
+                )}
+              />
+            </NavButtonWrapper>
+          )}
+
+          {!isUserConnected && (
+            <SettingsButton className={cn('h-full px-0 lg:flex', !isLite && 'hidden')} />
+          )}
         </div>
       </div>
 
       {/* Mobile/tablet menu */}
       <div
         className={cn(
-          isMobileMenuOpen ? 'fixed' : 'hidden',
-          'top-20 bottom-0 left-0 right-0 z-40 p-5 bg-[#000000] overflow-y-auto lg:hidden',
+          !isLite && isMobileMenuOpen ? 'fixed' : 'hidden',
+          'top-16 bottom-0 left-0 right-0 z-40 p-5 bg-canvas bg-linear-to-b from-surface-2/50 to-surface-2/50 overflow-y-auto lg:hidden',
         )}
       >
         <div className="flex items-center justify-between mb-5">
@@ -131,14 +147,26 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
         </div>
 
         <div className="mb-2">
-          {[dashboardMenuItem, ...menuItems].map(item => (
+          {menuItems.map(item => (
             <MenuItem key={item.label} item={item} onClick={closeMobileMenu} />
           ))}
         </div>
 
-        <Delimiter className="mb-6" />
+        {!isUserConnected && (
+          <>
+            {isMobileMenuOpen && (
+              <div className="mb-6 md:hidden">
+                <p className="mb-2 text-sm text-secondary">{t('layout.chainSelect.label')}</p>
 
-        <Settings />
+                <ChainSelect buttonClassName="h-12 px-3" />
+              </div>
+            )}
+
+            <Delimiter className="mb-6" />
+
+            <Settings />
+          </>
+        )}
       </div>
     </nav>
   );

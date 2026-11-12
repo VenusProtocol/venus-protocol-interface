@@ -1,6 +1,8 @@
 import { routes } from 'constants/routing';
 import { Link } from 'containers/Link';
+import { useInterfaceMode } from 'hooks/useInterfaceMode';
 import { useTranslation } from 'libs/translations';
+import { useAccountAddress } from 'libs/wallet';
 
 import { Spinner } from 'components';
 import { EligibilityStatus } from '../EligibilityStatus';
@@ -14,55 +16,67 @@ export interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ hideLeaderboardLink }) => {
   const { t, Trans } = useTranslation();
 
+  const { accountAddress } = useAccountAddress();
+  const { isLite } = useInterfaceMode();
   const rankData = useGetPrimeRank();
   const { hasStakedXvs, isCandidate, gapXvsTokens, isLoading } = rankData;
 
-  const { rankLabel, primeScoreLabel } = getRankLabels(rankData);
+  const { rankLabel, primeScoreLabel } = accountAddress
+    ? getRankLabels(rankData)
+    : { rankLabel: '#—', primeScoreLabel: '—' };
+
+  const leaderboardLink = !hideLeaderboardLink && (
+    <span className="text-primary">
+      {' '}
+      <Trans
+        i18nKey="primeLeaderboard.rankFooter.learnMore"
+        components={{
+          LeaderboardLink: (
+            <Link className="text-brand underline" to={routes.primeLeaderboard.path} />
+          ),
+        }}
+      />
+    </span>
+  );
 
   return (
-    <div className="flex flex-col gap-1 rounded-lg border border-dark-blue-hover p-3">
-      {isLoading ? (
+    <div className="flex flex-col gap-1 rounded-lg border border-default p-3">
+      {accountAddress && isLoading ? (
         <Spinner />
       ) : (
         <>
           <div className="flex items-start justify-between">
             <div className="flex flex-col">
-              <span className="text-b1r text-light-grey">
+              <span className="text-b1r text-secondary">
                 {t('primeLeaderboard.rankCard.rankLabel')}
               </span>
 
-              <span className="text-p1s text-white">{rankLabel}</span>
+              <span className="text-p1s text-primary">{rankLabel}</span>
             </div>
 
             <div className="flex flex-col items-end">
-              <span className="text-b1r text-light-grey">
+              <span className="text-b1r text-secondary">
                 {t('primeLeaderboard.rankCard.primeScoreLabel')}
               </span>
 
-              <span className="text-p1s text-white">{primeScoreLabel}</span>
+              <span className="text-p1s text-primary">{primeScoreLabel}</span>
             </div>
           </div>
 
-          <EligibilityStatus
-            hasStakedXvs={hasStakedXvs}
-            isCandidate={isCandidate}
-            gapXvsTokens={gapXvsTokens}
-            linkSlot={
-              !hideLeaderboardLink && (
-                <span className="text-white">
-                  {' '}
-                  <Trans
-                    i18nKey="primeLeaderboard.rankFooter.learnMore"
-                    components={{
-                      LeaderboardLink: (
-                        <Link className="text-blue underline" to={routes.primeLeaderboard.path} />
-                      ),
-                    }}
-                  />
-                </span>
-              )
-            }
-          />
+          {accountAddress ? (
+            <EligibilityStatus
+              hasStakedXvs={hasStakedXvs}
+              isCandidate={isCandidate}
+              gapXvsTokens={gapXvsTokens}
+              hideStakeGap={isLite}
+              linkSlot={leaderboardLink}
+            />
+          ) : (
+            <p className="text-b1r text-secondary">
+              {t('primeLeaderboard.rankFooter.connectPrompt')}
+              {leaderboardLink}
+            </p>
+          )}
         </>
       )}
     </div>

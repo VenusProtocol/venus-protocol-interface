@@ -78,7 +78,7 @@ export const WithHeaderAndNoControls = () => (
     className="max-w-225"
     header={
       <div>
-        <p className="text-b1r text-grey">Header content</p>
+        <p className="text-b1r text-secondary">Header content</p>
         <Delimiter className="mt-4" />
       </div>
     }
@@ -104,7 +104,7 @@ export const EmptyPlaceholder = () => (
     breakpoint="md"
     className="max-w-225"
     placeholder={
-      <div className="rounded-lg border border-dark-blue-hover p-6 text-center text-grey">
+      <div className="rounded-lg border border-default p-6 text-center text-secondary">
         No markets found
       </div>
     }
@@ -123,7 +123,7 @@ export const CardsWithCustomColumns = () => (
       orderDirection: 'asc',
     }}
     breakpoint="xl"
-    cardClassName="border-lightGrey"
+    cardClassName="border-muted"
     selectVariant="secondary"
     className="max-w-225"
   />
@@ -139,13 +139,13 @@ export const RowFooterAndLinks = () => (
     hideCardDelimiter
     getRowHref={row => `/market/${row.token.address}`}
     renderRowFooter={(row, rowIndex) => (
-      <div className="bg-cards px-4 py-3 text-b2r text-grey">
+      <div className="bg-surface-4 px-4 py-3 text-b2r text-secondary">
         Footer #{rowIndex + 1}: {row.token.symbol} details
       </div>
     )}
     renderRowControl={() => (
       <button
-        className="rounded-lg border border-blue px-2 py-1 text-b2s text-light-grey hover:bg-dark-blue-hover"
+        className="rounded-lg border border-brand px-2 py-1 text-b2s text-secondary hover:bg-neutral-hover"
         type="button"
       >
         Action
@@ -160,7 +160,7 @@ export const ClickableRows = () => {
 
   return (
     <div className="space-y-4">
-      <p className="text-b1r text-grey">Last action: {lastAction}</p>
+      <p className="text-b1r text-secondary">Last action: {lastAction}</p>
 
       <Table
         data={data.slice(0, 3)}

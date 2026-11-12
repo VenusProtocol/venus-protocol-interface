@@ -228,3 +228,15 @@
     stop-color: var(--nav-stop-mid);
   }
 }
+
+@utility prime-ring {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: var(--background-image-prime-ring);
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+}

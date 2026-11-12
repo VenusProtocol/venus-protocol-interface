@@ -60,7 +60,7 @@ export const Banner: React.FC<BannerProps> = ({
           </div>
 
           <ButtonWrapper size={isSmOrUp ? 'md' : 'xs'} className="px-5 md:px-6" asChild>
-            <Link {...linkProps} className="hover:no-underline active:no-underline text-white">
+            <Link {...linkProps} className="hover:no-underline active:no-underline text-on-color">
               {learnMoreLabel ?? t('adBanner.startNow')}
             </Link>
           </ButtonWrapper>

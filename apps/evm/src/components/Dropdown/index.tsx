@@ -33,7 +33,7 @@ export const Dropdown = ({
       <div className={cn(placeLabelToLeft && 'inline-flex items-center', className)}>
         {!!label && (
           <div className={cn(placeLabelToLeft ? 'mr-3 shrink-0' : 'mb-1')}>
-            <p className={cn('text-grey text-sm font-semibold')}>{label}</p>
+            <p className={cn('text-secondary text-sm font-semibold')}>{label}</p>
           </div>
         )}
 
@@ -60,7 +60,7 @@ export const Dropdown = ({
               >
                 <div
                   className={cn(
-                    'border-lightGrey bg-cards overflow-visible border shadow',
+                    'border-raised bg-menu shadow-menu overflow-visible border backdrop-blur-raised backdrop-saturate-[1.2]',
                     variant === 'quaternary' ? 'rounded-xl' : 'rounded-lg',
                     menuClassName,
                   )}
@@ -68,7 +68,7 @@ export const Dropdown = ({
                   {!!menuTitle && (
                     <div
                       className={cn(
-                        'text-grey w-full py-3 text-xs',
+                        'text-secondary w-full py-3 text-xs',
                         variant === 'primary' ? 'px-3 sm:px-4' : 'px-3',
                       )}
                     >
@@ -91,6 +91,8 @@ export const Dropdown = ({
         backdropClassName="z-100000"
         rootClassName="z-100001"
         noHorizontalPadding
+        className="overflow-hidden"
+        contentClassName="min-h-0 overflow-y-auto overscroll-contain"
         onBlur={onBlur}
         title={menuTitle}
         portalContainer={modalPortalContainer}

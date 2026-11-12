@@ -78,7 +78,7 @@ export const SelectDsaTokenTextField: React.FC<SelectDsaTokenTextFieldProps> = (
         topRightAdornment={
           <Button
             variant="senary"
-            className="text-light-grey bg-transparent hover:text-white"
+            className="text-secondary bg-transparent hover:text-primary"
             onClick={openLeverageFactorModal}
             disabled={!accountAddress}
           >

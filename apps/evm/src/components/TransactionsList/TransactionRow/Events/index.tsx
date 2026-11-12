@@ -1,3 +1,4 @@
+import { cn } from '@venusprotocol/ui';
 import { useTranslation } from 'libs/translations';
 import type { Tx } from 'types';
 import { Event, type EventProps } from './Event';
@@ -26,7 +27,7 @@ export const Events: React.FC<EventsProps> = ({ transaction }) => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 w-full sm:grid-cols-3">
+    <div className={cn('grid gap-4 w-full', events.length > 1 && 'grid-cols-2 sm:grid-cols-3')}>
       {events.map(event => (
         <Event key={`${event.title}-${event.description}-${event.token?.address}`} {...event} />
       ))}

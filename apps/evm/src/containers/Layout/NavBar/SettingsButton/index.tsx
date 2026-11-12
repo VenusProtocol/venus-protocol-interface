@@ -21,10 +21,11 @@ export const SettingsButton: React.FC<SettingsButtonProps> = ({ className }) => 
   return (
     <>
       <NavButtonWrapper
-        className={cn('size-9 sm:size-12 lg:hidden', className)}
+        className={cn('size-10 sm:size-12 lg:hidden', className)}
+        aria-label={t('layout.settingsModal.title')}
         onClick={openSettingsModal}
       >
-        <Icon name="gearFull" className="text-light-grey" />
+        <Icon name="gearFull" className="text-inherit" />
       </NavButtonWrapper>
 
       <Modal

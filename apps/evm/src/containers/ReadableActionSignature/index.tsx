@@ -38,12 +38,12 @@ export const ReadableActionSignature: React.FC<ReadableActionSignatureProps> = (
         })}
         target="_blank"
         rel="noreferrer"
-        className="text-green hover:text-green/50 transition-colors"
+        className="text-success hover:text-success/50 transition-colors"
       >
         {contractName}
       </a>
 
-      <span className="text-grey">{formatSignature(action)}</span>
+      <span className="text-secondary">{formatSignature(action)}</span>
     </div>
   );
 };

@@ -25,12 +25,12 @@ export const Notice: React.FC<NoticeProps> = ({ className }) => {
 
   return (
     <NoticeInfo
-      className={cn('text-grey bg-transparent', className)}
+      className={cn('text-secondary bg-transparent', className)}
       description={
         <Trans
           i18nKey="importPositionsModal.limitNotice"
           components={{
-            Number: <span className="text-white" />,
+            Number: <span className="text-primary" />,
           }}
           values={{
             min: minValueDollars,

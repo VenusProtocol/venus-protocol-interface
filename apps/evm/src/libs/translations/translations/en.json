@@ -53,8 +53,12 @@
     },
     "pools": {
       "placeholder": {
-        "title": "No market positions yet"
+        "buttonLabel": "Explore markets",
+        "title": "No positions yet"
       }
+    },
+    "positions": {
+      "label": "Positions"
     },
     "settings": {
       "gaslessTransactions": {
@@ -71,7 +75,7 @@
         },
         "title": "Borrowed"
       },
-      "corePoolPill": "Core Pool",
+      "corePoolPill": "Venus Core",
       "summary": {
         "borrowApy": "Borrow APY",
         "dailyBorrowInterest": "Daily borrowing interests",
@@ -105,8 +109,7 @@
       "title": "Summary"
     },
     "tabs": {
-      "hubs": "Hubs",
-      "markets": "Markets",
+      "hubs": "Liquidity Hub",
       "settings": "Settings",
       "transactions": "Transactions",
       "vaults": "Vaults"
@@ -192,6 +195,7 @@
     "label": "Daily earnings"
   },
   "accountModal": {
+    "dashboardButtonLabel": "View Dashboard",
     "disconnectButtonLabel": "Disconnect"
   },
   "accountPoolDailyEarnings": {
@@ -296,12 +300,12 @@
       "tooltip": {
         "calculatorLink": "Calculate your Prime rewards",
         "liquidityHubCorePoolBoost": "This boost comes from the Core pool and is not paid twice.",
-        "primeBorrowSimulation": "APY boosted by Prime based on the average user borrow of {{borrowBalance}} and vault supply of {{xvsStaked}}.",
-        "primeBorrowSimulationCapped": "APY boosted by Prime based on a borrow of {{borrowBalance}} and vault supply of {{xvsStaked}} (max borrow counted for this stake).",
+        "primeBorrowSimulation": "APY boosted by <PrimeLink>Prime program</PrimeLink> based on the average user borrow of {{borrowBalance}} and vault supply of {{xvsStaked}}.",
+        "primeBorrowSimulationCapped": "APY boosted by <PrimeLink>Prime program</PrimeLink> based on a borrow of {{borrowBalance}} and vault supply of {{xvsStaked}} (max borrow counted for this stake).",
         "primeDocLink": "Learn more",
         "primeMarket": "APY boosted by Prime.",
-        "primeSupplySimulation": "APY boosted by Prime based on the average user supply of {{supplyBalance}} and vault supply of {{xvsStaked}}.",
-        "primeSupplySimulationCapped": "APY boosted by Prime based on a supply of {{supplyBalance}} and vault supply of {{xvsStaked}} (max supply counted for this stake)."
+        "primeSupplySimulation": "APY boosted by <PrimeLink>Prime program</PrimeLink> based on the average user supply of {{supplyBalance}} and vault supply of {{xvsStaked}}.",
+        "primeSupplySimulationCapped": "APY boosted by <PrimeLink>Prime program</PrimeLink> based on a supply of {{supplyBalance}} and vault supply of {{xvsStaked}} (max supply counted for this stake)."
       }
     }
   },
@@ -522,22 +526,6 @@
     }
   },
   "dashboard": {
-    "guide": {
-      "completed": "Completed",
-      "step1": {
-        "description": "Earn yield by supplying any asset or moving your existing positions from another protocol to Venus.",
-        "title": "Supply / Migrate"
-      },
-      "step2": {
-        "description": "Borrow any asset to power your DeFi strategies, and boost it in one simple click.",
-        "title": "Borrow / Leverage"
-      },
-      "step3": {
-        "description": "Supply XVS to our vault and earn yield powered by Venus' revenue.",
-        "title": "Supply XVS"
-      },
-      "uncompleted": "Uncompleted"
-    },
     "hubs": {
       "apy": "APY",
       "dailyEarnings": "Daily earnings",
@@ -570,8 +558,7 @@
           "dailyEarnings": "Daily earnings",
           "mintedVai": "Minted VAI",
           "netApy": "Net APY",
-          "netApyTooltip": "Percentage of your total supply balance received as yearly interests",
-          "netApyWithVaultStakeTooltip": "Percentage of your total supply and vault supply received as yearly interests",
+          "netApyTooltip": "Your yearly net yield across Core, Spoke, Liquidity Hub, XVS / VAI vaults, fixed-rate vaults and Trade, as a percentage of your total supply in these products",
           "totalBorrow": "Total borrow",
           "totalSupply": "Total supply",
           "totalVaultStake": "Total vault supply"
@@ -581,10 +568,12 @@
       "todaysChange": "Today's change"
     },
     "performanceChart": {
+      "balancesHidden": "Balances hidden",
+      "connectWallet": "Connect wallet to view performance",
       "dataPoint": {
         "date": "{{ date, textual }}"
       },
-      "xAxisValue": "{{ date, numeric }}"
+      "xAxisValue": "{{ date, dayMonth }}"
     },
     "previewCard": {
       "apr": "APR",
@@ -790,80 +779,6 @@
     "0": "0%",
     "100": "100%"
   },
-  "landing": {
-    "benefits": {
-      "text1": "Access an immutable money market directly on-chain.",
-      "text2": "All Venus Protocol assets are bound by the BEP-20 and ERC-20 standards.",
-      "text3": "Built on EVM-compatible chains for fast, secure, and low cost transactions.",
-      "title1": "Decentralized",
-      "title2": "BEP-20/ERC-20",
-      "title3": "Omnichain"
-    },
-    "governance": {
-      "backgroundGradientAlt": "Background illustration",
-      "buttonLabel": "Governance forum",
-      "description": "Venus is a community-driven decentralized protocol delivering best-in-class functionality for crypto money markets.",
-      "proposalCountLegend": "Venus Improvement Proposals Executed and counting",
-      "title": "Money Markets governed <br/> by community"
-    },
-    "hero": {
-      "1Year": "1Y",
-      "30Day": "30D",
-      "6Month": "6M",
-      "assets": "Assets",
-      "borrow": "Borrow",
-      "earned": "Earned",
-      "earnedAmount": "Earned {{amount}}",
-      "earnNow": "Earn now",
-      "from": "From {{percentage}}",
-      "highestApy": "Highest APY",
-      "monthNo": "Month {{number}}",
-      "startNow": "Start now",
-      "subtitle": "Simple yet powerful lending and borrowing for any DeFi yield strategy.",
-      "supply": "Supply",
-      "supplyTips": "Based on a $10,000 initial deposit, with earnings/interest compounded per block. <Link>Learn more</Link>",
-      "title": "Universal <br /><hl>Money Markets</hl>",
-      "totalApy": "Total APY",
-      "upToPercentage": "Up to {{percentage}}",
-      "venusTvl": "Venus TVL",
-      "yearlyEarnings": "Yearly earnings",
-      "yearlyInterests": "Yearly interests"
-    },
-    "markets": {
-      "button": {
-        "label": "Explore more"
-      },
-      "title": "Top markets on Venus"
-    },
-    "protection": {
-      "bugBountyAlt": "Bug Bounty Illustration",
-      "challengeText": "Find and report vulnerabilities in our code to be eligible for rewards. Read about our bug bounty program to learn more.",
-      "challengeTitle": "Challenge our code and be rewarded",
-      "protectionAlt": "Protection Illustration",
-      "protectionText": "Security audits, 24/7 monitoring, and a robust risk fund keeps the protocol safe in the case of outlier market events.",
-      "protectionTitle": "Protection prioritized"
-    },
-    "safety": {
-      "audit_one": "Audit",
-      "audit_other": "Audits",
-      "otherAuditors": "+14 audits with Fairyproof, Hacken and HashEx",
-      "scoreAlt": "Score Illustration",
-      "securityScore": "Security Score",
-      "text": "Transact with confidence, knowing Venus places nothing before the security of your assets",
-      "title": "Safety before all",
-      "venusScored": "Venus scored <Link>3rd highest</Link> for security on BNB Chain as assessed by Certik (June, 2021)"
-    },
-    "venusPrime": {
-      "illustrationAlt": "Venus Prime illustration",
-      "imageAlt": "Venus Prime Illustration",
-      "learnMore": "Learn more",
-      "text": "Power users of Venus Protocol may mint a Venus Prime Token to enjoy superior rates for select markets in the Venus core pool.",
-      "title": "<hl>Venus Prime</hl> <br />amplifies your returns"
-    },
-    "wallets": {
-      "title": "Trusted by many"
-    }
-  },
   "layout": {
     "chainSelect": {
       "label": "Select chain"
@@ -886,13 +801,28 @@
       "supply": "Supply",
       "utilizationRate": "Utilization rate"
     },
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "Switch to {{mode}}"
+    },
+    "interfaceOnboarding": {
+      "closeButtonLabel": "Close introduction",
+      "lite": {
+        "description": "Supply and borrow, with less to navigate. Explore assets and compare rates in one simple view.",
+        "title": "Meet Venus Lite.",
+        "tryButtonLabel": "Try Lite now"
+      },
+      "pro": {
+        "description": "Looking for the full interface? Every market, position and advanced control is still in Pro, one click away.",
+        "title": "Venus Pro is here.",
+        "tryButtonLabel": "Try Pro now"
+      }
+    },
     "menu": {
       "beta": "beta",
       "borrow": {
         "label": "Borrow"
-      },
-      "dashboard": {
-        "label": "Dashboard"
       },
       "earn": {
         "label": "Earn"
@@ -941,6 +871,11 @@
         },
         "language": {
           "label": "Language (beta)"
+        },
+        "theme": {
+          "dark": "Dark",
+          "label": "Theme",
+          "light": "Light"
         }
       },
       "vaults": {
@@ -1107,7 +1042,7 @@
     "withdrawTabTitle": "Withdraw"
   },
   "liquidityHubs": {
-    "description": "Routed across Venus protocol yield sources under a governance-curated policy. Yield accrues automatically.",
+    "description": "One supply, auto-routed across Venus yield sources.",
     "header": "Liquidity Hub",
     "stats": {
       "hubs": "Hubs",
@@ -1129,6 +1064,80 @@
       "search": {
         "placeholder": "Search asset"
       }
+    }
+  },
+  "lite": {
+    "assetAriaLabel": "Compare {{symbol}} markets",
+    "breadcrumb": {
+      "backToAssets": "Back to {{mode}} assets",
+      "backToMarkets": "Back to {{symbol}} markets"
+    },
+    "collateralSelect": {
+      "ariaLabel": "Choose collateral",
+      "asset": "Asset",
+      "liquidationThreshold": "LT",
+      "liquidationThresholdTooltip": "If your borrowed amount reaches this percentage of your collateral value, your position can be liquidated.",
+      "maxLtv": "Max LTV",
+      "maxLtvTooltip": "The maximum you can borrow against this collateral, as a percentage of its value.",
+      "optionLabel": "{{symbol}} ({{marketSymbol}} market)",
+      "title": "Select collateral"
+    },
+    "columns": {
+      "apy": "APY",
+      "asset": "Asset",
+      "collateral": "Collateral",
+      "liquidity": "Liquidity",
+      "loan": "Loan",
+      "market": "Market",
+      "pool": "Pool",
+      "totalBorrow": "Total Borrow",
+      "totalSupply": "Total Supply"
+    },
+    "description": "Simple yet powerful lending and borrowing for any DeFi yield strategy.",
+    "filters": {
+      "allCategories": "All categories",
+      "category": "Category",
+      "categoryCount_one": "{{count}} category",
+      "categoryCount_other": "{{count}} categories",
+      "reset": "Reset",
+      "searchAsset": "Search asset",
+      "searchAssetAriaLabel": "Search assets",
+      "searchCollateral": "Search collateral",
+      "searchCollateralAriaLabel": "Search collaterals"
+    },
+    "formTitle": "{{symbol}} / {{marketName}}",
+    "markets": {
+      "corePool": "Venus Core",
+      "liquidityHub": "Liquidity Hub",
+      "xvsVault": "XVS Vault"
+    },
+    "modes": {
+      "borrow": "Borrow",
+      "earn": "Earn",
+      "label": "Market mode"
+    },
+    "placeholders": {
+      "clearSearch": "Clear search",
+      "noAssets": "No assets found",
+      "noBorrowableAssets": "No borrowable assets found",
+      "noMarkets": "No markets match these filters",
+      "noResults": "No results for \"{{query}}\"",
+      "refresh": "Please refresh to try again.",
+      "tryAnotherCollateral": "Try another collateral or clear your search.",
+      "tryAnotherSymbol": "Try another symbol or clear your search.",
+      "unavailable": "Market data is unavailable"
+    },
+    "planets": {
+      "earnNow": "Earn now",
+      "label": "Explore Earn APYs",
+      "market": "Market",
+      "openAriaLabel": "View {{symbol}} supply APY",
+      "supplyApy": "Supply APY"
+    },
+    "title": "Universal Money Markets",
+    "totals": {
+      "availableLiquidity": "Available Liquidity",
+      "totalSupply": "Total Supply"
     }
   },
   "markdownEditor": {
@@ -1553,7 +1562,7 @@
     "rankCard": {
       "connectPrompt": "Connect wallet to check your Prime eligibility.",
       "eligible": "You are currently eligible for Prime during the next cycle.",
-      "notEligible": "You are currently not eligible for Prime during the next cycle.",
+      "notEligible": "You are currently NOT eligible for Prime during the next cycle.",
       "primeScoreLabel": "Prime score",
       "rankLabel": "Your rank",
       "rulesButton": "Rules",
@@ -1565,7 +1574,8 @@
     },
     "rankCutoffNote": "Rank <Rank/> currently holds a <Score/> Prime score with <Staked/> staked.",
     "rankFooter": {
-      "learnMore": "Learn more about the <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
+      "connectPrompt": "Connect wallet to see your rank.",
+      "learnMore": "<LeaderboardLink>View Prime Leaderboard</LeaderboardLink>"
     },
     "rankTable": {
       "columns": {

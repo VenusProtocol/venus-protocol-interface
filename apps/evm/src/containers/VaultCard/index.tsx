@@ -103,20 +103,21 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
   return (
     <>
       <Card
+        variant="glass"
         className={cn(
-          'w-full flex flex-col p-0 overflow-hidden duration-250 cursor-pointer hover:border-blue',
+          'group/vault w-full flex flex-col p-0 overflow-hidden cursor-pointer transition-[border-color,box-shadow] duration-150 hover:border-brand/70 hover:shadow-glow',
           className,
         )}
         onClick={openModal}
       >
-        <div className={cn('bg-dark-blue p-3 sm:p-6 flex flex-col gap-4 sm:gap-6 flex-1')}>
+        <div className={cn('p-3 pb-4 sm:p-6 sm:pb-4 flex flex-col gap-4 flex-1')}>
           <div className={cn('flex items-center justify-between')}>
             <div className={cn('flex items-center gap-x-3')}>
               <VaultName vault={vault} className="min-h-10" />
 
               {accountAddress && (
                 <CopyAddressButton
-                  className="shrink-0 text-light-grey"
+                  className="shrink-0 text-secondary"
                   address={vault.stakedToken?.address}
                 />
               )}
@@ -125,7 +126,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
             <StatusLabel status={vault.status} />
           </div>
 
-          <div className={cn('flex flex-col gap-y-4')}>
+          <div className={cn('flex flex-col gap-y-3')}>
             <LabeledInlineContent tooltip={aprTooltip} label={aprLabel}>
               <LayeredValues
                 className="text-end"
@@ -149,7 +150,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
                     value: liquidityCents,
                   })}
                   topValueClassName="text-b1r"
-                  bottomValueClassName="text-light-grey"
+                  bottomValueClassName="text-secondary"
                 />
               </LabeledInlineContent>
             )}
@@ -168,7 +169,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
                     value: dailyEmissionCents,
                   })}
                   topValueClassName="text-b1r"
-                  bottomValueClassName="text-light-grey"
+                  bottomValueClassName="text-secondary"
                 />
               </LabeledInlineContent>
             )}
@@ -191,7 +192,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
                   })}
                   token={vault.stakedToken}
                   progressBarClassName={
-                    vault.status === VaultStatus.Refund ? 'bg-yellow' : undefined
+                    vault.status === VaultStatus.Refund ? 'bg-warning' : undefined
                   }
                 />
               ) : (
@@ -207,7 +208,7 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
                     value: vault.stakeBalanceCents,
                   })}
                   topValueClassName="text-b1r"
-                  bottomValueClassName="text-light-grey"
+                  bottomValueClassName="text-secondary"
                 />
               )}
             </LabeledInlineContent>
@@ -286,10 +287,10 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
         </div>
 
         {!!accountAddress && readableUserStakedTokens && (
-          <div className={cn('bg-cards px-4 sm:px-6 py-4 flex items-center justify-between')}>
-            <span className="text-b1s">{t('vault.card.youDeposited')}</span>
+          <div className="flex items-center justify-between border-t border-subtle bg-surface-row-hover px-4 py-3 text-b1r group-hover/vault:font-semibold sm:px-6">
+            <span>{t('vault.card.youDeposited')}</span>
 
-            <div className={cn('flex items-center gap-x-3 text-b1s')}>
+            <div className="flex items-center gap-x-3">
               <span>{readableUserStakedTokens}</span>
             </div>
           </div>

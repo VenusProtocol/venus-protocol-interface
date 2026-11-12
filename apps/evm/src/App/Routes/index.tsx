@@ -9,10 +9,10 @@ import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { DISCORD_SERVER_URL } from 'constants/production';
 import { Redirect } from 'containers/Redirect';
 import { safeLazyLoad } from 'utilities';
+import { HomeRoute } from './HomeRoute';
 import { MarketRedirect } from './MarketRedirect';
 import PageSuspense from './PageSuspense';
 
-const Landing = safeLazyLoad(() => import('pages/Landing'));
 const Markets = safeLazyLoad(() => import('pages/Markets'));
 const Market = safeLazyLoad(() => import('pages/Market'));
 const Dashboard = safeLazyLoad(() => import('pages/Dashboard'));
@@ -71,14 +71,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route
-          index
-          element={
-            <PageSuspense>
-              <Landing />
-            </PageSuspense>
-          }
-        />
+        <Route index element={<HomeRoute />} />
 
         <Route
           path={Subdirectory.DASHBOARD}

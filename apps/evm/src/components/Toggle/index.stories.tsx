@@ -23,20 +23,6 @@ export const Checked: Story = {
   },
 };
 
-export const WithIsDark: Story = {
-  args: {
-    isDark: true,
-    value: false,
-  },
-};
-
-export const WithIsDarkChecked: Story = {
-  args: {
-    isDark: true,
-    value: true,
-  },
-};
-
 export const Disabled: Story = {
   args: {
     disabled: true,

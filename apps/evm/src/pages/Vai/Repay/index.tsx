@@ -166,7 +166,7 @@ export const Repay: React.FC = () => {
   }
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-3">
         <RhfTokenTextField<FormValues>
           control={control}

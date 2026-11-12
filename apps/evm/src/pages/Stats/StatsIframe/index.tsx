@@ -15,7 +15,7 @@ export const StatsIframe: React.FC = () => {
   return (
     <div className="relative">
       <div
-        className="overflow-hidden border-t border-dark-blue-hover"
+        className="overflow-hidden border-t border-default"
         style={{ height: 'calc(100vh - 200px)', backgroundColor: 'rgb(31 31 41)' }}
       >
         {isLoading && <Spinner className="absolute inset-0 m-auto" />}
@@ -31,8 +31,8 @@ export const StatsIframe: React.FC = () => {
         />
       </div>
 
-      <div className="absolute bottom-24 md:bottom-8 left-1/2 -translate-x-1/2 rounded-full border border-dark-blue-hover bg-background px-5 py-3">
-        <span className="text-b2s text-white">
+      <div className="absolute bottom-24 md:bottom-8 left-1/2 -translate-x-1/2 rounded-full border border-default bg-surface-2 px-5 py-3">
+        <span className="text-b2s text-primary">
           <Trans
             i18nKey="statsPage.poweredBy"
             values={{ provider: 'allez.xyz' }}

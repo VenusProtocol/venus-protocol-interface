@@ -24,7 +24,7 @@ export interface SummaryRowProps {
   className?: string;
 }
 
-const cellClassName = cn('bg-transparent px-0 max-xl:py-0 lg:border-r-dark-blue');
+const cellClassName = cn('bg-transparent px-0 max-xl:py-0 lg:border-r-faint');
 
 export const SummaryRow: React.FC<SummaryRowProps> = ({ spokePool, className }) => {
   const { t } = useTranslation();
@@ -73,7 +73,7 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({ spokePool, className }) 
         </HidableUserBalance>
       ),
       className: cn(
-        weightedBorrowApyPercentage.isLessThan(0) ? 'text-red' : 'text-green',
+        weightedBorrowApyPercentage.isLessThan(0) ? 'text-danger' : 'text-success',
         cellClassName,
       ),
     },

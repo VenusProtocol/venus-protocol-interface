@@ -169,7 +169,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
   ];
 
   return (
-    <div className="flex flex-col gap-y-6 lg:p-4 lg:rounded-lg lg:border lg:border-dark-blue-hover">
+    <div className="flex flex-col gap-y-6 lg:p-4 lg:rounded-lg lg:border lg:border-default">
       <div className="flex flex-col gap-3 sm:flex-row">
         <TokenSelect
           type="long"
@@ -188,7 +188,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
         />
       </div>
 
-      <div className="flex min-w-0 flex-col gap-6 md:flex-row md:justify-between lg:flex-col 2xl:flex-row">
+      <div className="flex min-w-0 flex-col gap-6">
         <div className="flex items-center gap-x-2">
           <TokenPair
             shortToken={shortToken}
@@ -206,8 +206,8 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
                 className={cn(
                   'text-b1s',
                   changePercentage === undefined || changePercentage >= 0
-                    ? 'text-green'
-                    : 'text-red',
+                    ? 'text-success'
+                    : 'text-danger',
                 )}
               >
                 {readableChangePercentage}
@@ -217,7 +217,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
 
           <button
             type="button"
-            className="cursor-pointer text-light-grey hover:text-blue"
+            className="cursor-pointer text-secondary hover:text-brand"
             onClick={switchSelectedTokens}
             data-testid="pair-info-switch-tokens-button"
           >
@@ -226,7 +226,7 @@ export const PairInfo: React.FC<PairInfoProps> = ({ changePercentage, priceCents
         </div>
 
         <div className="overflow-hidden">
-          <CellGroup cells={cells} />
+          <CellGroup cells={cells} className="sm:grid sm:grid-cols-4" />
         </div>
       </div>
     </div>

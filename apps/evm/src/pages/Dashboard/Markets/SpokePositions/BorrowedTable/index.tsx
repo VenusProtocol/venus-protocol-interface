@@ -44,7 +44,11 @@ export const BorrowedTable: React.FC<BorrowedTableProps> = ({
       selectOptionLabel: t('account.spoke.borrowed.columns.asset'),
       renderCell: asset => (
         <div className="flex items-center gap-x-2">
-          <TokenIconWithSymbol token={asset.vToken.underlyingToken} />
+          <TokenIconWithSymbol
+            token={asset.vToken.underlyingToken}
+            size="xl"
+            symbolClassName="font-normal group-hover:font-semibold"
+          />
 
           {asset.isProtectionModeEnabled && (
             <ProtectionModeIndicator
@@ -128,7 +132,9 @@ export const BorrowedTable: React.FC<BorrowedTableProps> = ({
       columns={columns}
       rowKeyExtractor={asset => asset.vToken.address}
       rowOnClick={(_event, asset) => onRowClick(asset)}
-      tableLayout="auto"
+      columnWidths={['24%', '32%', '20%', '24%']}
+      tableHeaderClassName="border-subtle"
+      tableRowClassName="h-15 hover:bg-table-row-hover"
       breakpoint="md"
       hideCardDelimiter
     />

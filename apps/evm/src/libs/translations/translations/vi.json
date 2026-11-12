@@ -53,8 +53,12 @@
     },
     "pools": {
       "placeholder": {
-        "title": "Chưa có vị thế thị trường"
+        "buttonLabel": "Khám phá thị trường",
+        "title": "Chưa có vị thế nào"
       }
+    },
+    "positions": {
+      "label": "Vị thế"
     },
     "settings": {
       "gaslessTransactions": {
@@ -71,7 +75,7 @@
         },
         "title": "Đã vay"
       },
-      "corePoolPill": "Nhóm Core",
+      "corePoolPill": "Venus Core",
       "summary": {
         "borrowApy": "APY vay",
         "dailyBorrowInterest": "Lãi vay hằng ngày",
@@ -105,8 +109,7 @@
       "title": "Tóm tắt"
     },
     "tabs": {
-      "hubs": "Trung tâm",
-      "markets": "Thị trường",
+      "hubs": "Trung tâm thanh khoản",
       "settings": "Cài đặt",
       "transactions": "Giao dịch",
       "vaults": "Kho"
@@ -192,6 +195,7 @@
     "label": "Thu nhập hằng ngày"
   },
   "accountModal": {
+    "dashboardButtonLabel": "Xem bảng điều khiển",
     "disconnectButtonLabel": "Ngắt kết nối"
   },
   "accountPoolDailyEarnings": {
@@ -296,12 +300,12 @@
       "tooltip": {
         "calculatorLink": "Tính phần thưởng Prime của bạn",
         "liquidityHubCorePoolBoost": "Khoản boost này đến từ Core pool và không được trả hai lần.",
-        "primeBorrowSimulation": "APY được boost bởi Prime dựa trên mức vay trung bình của người dùng {{borrowBalance}} và khoản gửi trong vault {{xvsStaked}}.",
-        "primeBorrowSimulationCapped": "APY được boost bởi Prime dựa trên khoản vay {{borrowBalance}} và khoản gửi trong vault {{xvsStaked}} (mức vay tối đa được tính cho lượng stake này).",
+        "primeBorrowSimulation": "APY được boost bởi <PrimeLink>chương trình Prime</PrimeLink> dựa trên mức vay trung bình của người dùng {{borrowBalance}} và khoản gửi trong vault {{xvsStaked}}.",
+        "primeBorrowSimulationCapped": "APY được boost bởi <PrimeLink>chương trình Prime</PrimeLink> dựa trên khoản vay {{borrowBalance}} và khoản gửi trong vault {{xvsStaked}} (mức vay tối đa được tính cho lượng stake này).",
         "primeDocLink": "Tìm hiểu thêm",
         "primeMarket": "APY được boost bởi Prime.",
-        "primeSupplySimulation": "APY được boost bởi Prime dựa trên mức cung cấp trung bình của người dùng {{supplyBalance}} và khoản gửi trong vault {{xvsStaked}}.",
-        "primeSupplySimulationCapped": "APY được boost bởi Prime dựa trên khoản cung cấp {{supplyBalance}} và khoản gửi trong vault {{xvsStaked}} (mức cung cấp tối đa được tính cho lượng stake này)."
+        "primeSupplySimulation": "APY được boost bởi <PrimeLink>chương trình Prime</PrimeLink> dựa trên mức cung cấp trung bình của người dùng {{supplyBalance}} và khoản gửi trong vault {{xvsStaked}}.",
+        "primeSupplySimulationCapped": "APY được boost bởi <PrimeLink>chương trình Prime</PrimeLink> dựa trên khoản cung cấp {{supplyBalance}} và khoản gửi trong vault {{xvsStaked}} (mức cung cấp tối đa được tính cho lượng stake này)."
       }
     }
   },
@@ -521,22 +525,6 @@
     }
   },
   "dashboard": {
-    "guide": {
-      "completed": "Hoàn thành",
-      "step1": {
-        "description": "Kiếm lợi suất bằng cách cung cấp tài sản hoặc chuyển các vị thế hiện có của bạn sang giao thức Venus.",
-        "title": "Cung cấp / Di chuyển"
-      },
-      "step2": {
-        "description": "Vay tài sản để tăng cường chiến lược DeFi của bạn hoặc đòn bẩy thanh khoản chỉ với một cú nhấp.",
-        "title": "Vay / Đòn bẩy"
-      },
-      "step3": {
-        "description": "Cung cấp XVS vào vault và nhận lợi suất được tạo từ doanh thu của giao thức.",
-        "title": "Cung cấp XVS"
-      },
-      "uncompleted": "Chưa hoàn thành"
-    },
     "hubs": {
       "apy": "APY",
       "dailyEarnings": "Thu nhập hàng ngày",
@@ -569,8 +557,7 @@
           "dailyEarnings": "Thu nhập hàng ngày",
           "mintedVai": "VAI đã mint",
           "netApy": "APY ròng",
-          "netApyTooltip": "Tỷ lệ phần trăm trên tổng số dư cung của bạn nhận được dưới dạng lãi suất hằng năm",
-          "netApyWithVaultStakeTooltip": "Tỷ lệ phần trăm trên tổng số dư cung và lượng cung cấp trong vault của bạn nhận được dưới dạng lãi suất hằng năm",
+          "netApyTooltip": "Lợi suất ròng hằng năm của bạn trên Core, Spoke, Liquidity Hub, XVS / VAI Vault, vault lãi suất cố định và Trade, tính theo phần trăm tổng số tiền bạn đã gửi vào các sản phẩm này",
           "totalBorrow": "Tổng số vay",
           "totalSupply": "Tổng số cung",
           "totalVaultStake": "Tổng cung cấp trong vault"
@@ -580,10 +567,12 @@
       "todaysChange": "Biến động hôm nay"
     },
     "performanceChart": {
+      "balancesHidden": "Số dư đã được ẩn",
+      "connectWallet": "Kết nối ví để xem hiệu suất",
       "dataPoint": {
         "date": "{{ date, textual }}"
       },
-      "xAxisValue": "{{ date, numeric }}"
+      "xAxisValue": "{{ date, dayMonth }}"
     },
     "previewCard": {
       "apr": "APR",
@@ -789,80 +778,6 @@
     "0": "0%",
     "100": "100%"
   },
-  "landing": {
-    "benefits": {
-      "text1": "Truy cập trực tiếp thị trường tiền tệ bất biến trên chuỗi.",
-      "text2": "Tất cả tài sản của Venus Protocol tuân theo tiêu chuẩn BEP-20 và ERC-20.",
-      "text3": "Xây dựng trên các chuỗi tương thích EVM để giao dịch nhanh, an toàn và chi phí thấp.",
-      "title1": "Phi tập trung",
-      "title2": "BEP-20/ERC-20",
-      "title3": "Đa chuỗi"
-    },
-    "governance": {
-      "backgroundGradientAlt": "Minh họa nền",
-      "buttonLabel": "Diễn đàn quản trị",
-      "description": "Venus là một giao thức phi tập trung do cộng đồng dẫn dắt, cung cấp chức năng hàng đầu cho thị trường tiền mã hóa.",
-      "proposalCountLegend": "Các đề xuất cải tiến Venus đã được thực thi và vẫn đang tiếp tục",
-      "title": "Thị trường tiền tệ được quản trị<br />bởi cộng đồng"
-    },
-    "hero": {
-      "1Year": "1N",
-      "30Day": "30N",
-      "6Month": "6T",
-      "assets": "Tài sản",
-      "borrow": "Vay",
-      "earned": "Đã kiếm",
-      "earnedAmount": "Đã kiếm {{amount}}",
-      "earnNow": "Kiếm lợi nhuận ngay",
-      "from": "Từ {{percentage}}",
-      "highestApy": "APY cao nhất",
-      "monthNo": "Tháng {{number}}",
-      "startNow": "Bắt đầu ngay",
-      "subtitle": "Cho vay và vay đơn giản nhưng mạnh mẽ cho mọi chiến lược lợi suất DeFi.",
-      "supply": "Cung",
-      "supplyTips": "Dựa trên khoản gửi ban đầu 10.000 USD, lợi nhuận/lãi được cộng dồn theo từng block. <Link>Tìm hiểu thêm</Link>",
-      "title": "Thị trường tiền tệ<br /><hl>phổ quát</hl>",
-      "totalApy": "APY tổng",
-      "upToPercentage": "Lên đến {{percentage}}",
-      "venusTvl": "TVL của Venus",
-      "yearlyEarnings": "Thu nhập hằng năm",
-      "yearlyInterests": "Lãi hằng năm"
-    },
-    "markets": {
-      "button": {
-        "label": "Khám phá thêm"
-      },
-      "title": "Top thị trường trên Venus"
-    },
-    "protection": {
-      "bugBountyAlt": "Minh họa Bug Bounty",
-      "challengeText": "Tìm và báo cáo lỗ hổng trong mã của chúng tôi để đủ điều kiện nhận thưởng. Hãy đọc về chương trình bug bounty để biết thêm.",
-      "challengeTitle": "Thách thức mã nguồn và nhận thưởng",
-      "protectionAlt": "Minh họa bảo vệ",
-      "protectionText": "Kiểm toán bảo mật, giám sát 24/7 và quỹ rủi ro vững chắc giúp giao thức an toàn trong các sự kiện thị trường bất thường.",
-      "protectionTitle": "Ưu tiên bảo vệ"
-    },
-    "safety": {
-      "audit_one": "Kiểm toán",
-      "audit_other": "Các cuộc kiểm toán",
-      "otherAuditors": "+14 cuộc kiểm toán với <br />Fairyproof, Hacken và HashEx",
-      "scoreAlt": "Minh họa điểm số",
-      "securityScore": "Điểm bảo mật",
-      "text": "Giao dịch tự tin, biết rằng Venus luôn đặt sự an toàn của tài sản bạn lên hàng đầu",
-      "title": "An toàn trên hết",
-      "venusScored": "Venus được Certik đánh giá đứng <Link>thứ 3</Link> về bảo mật trên BNB Chain (Tháng 6, 2021)"
-    },
-    "venusPrime": {
-      "illustrationAlt": "Minh họa Venus Prime",
-      "imageAlt": "Minh họa Venus Prime",
-      "learnMore": "Tìm hiểu thêm",
-      "text": "Người dùng chuyên sâu của Venus Protocol có thể đúc Venus Prime Token để hưởng mức ưu đãi cho một số thị trường trong pool Venus core.",
-      "title": "<hl>Venus Prime</hl> <br />tăng cường lợi nhuận của bạn"
-    },
-    "wallets": {
-      "title": "Được nhiều người tin dùng"
-    }
-  },
   "layout": {
     "chainSelect": {
       "label": "Chọn chain"
@@ -885,13 +800,28 @@
       "supply": "Cung cấp",
       "utilizationRate": "Tỷ lệ sử dụng"
     },
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "Chuyển sang {{mode}}"
+    },
+    "interfaceOnboarding": {
+      "closeButtonLabel": "Đóng phần giới thiệu",
+      "lite": {
+        "description": "Cung cấp và vay với ít thao tác hơn. Khám phá tài sản và so sánh lãi suất trong một giao diện đơn giản.",
+        "title": "Làm quen với Venus Lite.",
+        "tryButtonLabel": "Dùng thử Lite ngay"
+      },
+      "pro": {
+        "description": "Bạn cần giao diện đầy đủ? Mọi thị trường, vị thế và công cụ nâng cao vẫn có trong Pro, chỉ cách một cú nhấp.",
+        "title": "Venus Pro vẫn ở đây.",
+        "tryButtonLabel": "Dùng thử Pro ngay"
+      }
+    },
     "menu": {
       "beta": "beta",
       "borrow": {
         "label": "Vay"
-      },
-      "dashboard": {
-        "label": "Bảng điều khiển"
       },
       "earn": {
         "label": "Kiếm lợi nhuận"
@@ -940,6 +870,11 @@
         },
         "language": {
           "label": "Ngôn ngữ (beta)"
+        },
+        "theme": {
+          "dark": "Tối",
+          "label": "Giao diện",
+          "light": "Sáng"
         }
       },
       "vaults": {
@@ -1106,7 +1041,7 @@
     "withdrawTabTitle": "Rút"
   },
   "liquidityHubs": {
-    "description": "Được định tuyến qua các nguồn lợi suất của Venus Protocol theo chính sách do quản trị lựa chọn. Lợi suất tự động tích lũy.",
+    "description": "Một lần cung cấp, tự động định tuyến qua các nguồn lợi suất của Venus.",
     "header": "Trung tâm thanh khoản",
     "stats": {
       "hubs": "Trung tâm",
@@ -1128,6 +1063,79 @@
       "search": {
         "placeholder": "Tìm kiếm tài sản"
       }
+    }
+  },
+  "lite": {
+    "assetAriaLabel": "So sánh các thị trường {{symbol}}",
+    "breadcrumb": {
+      "backToAssets": "Quay lại tài sản {{mode}}",
+      "backToMarkets": "Quay lại thị trường {{symbol}}"
+    },
+    "collateralSelect": {
+      "ariaLabel": "Chọn tài sản thế chấp",
+      "asset": "Tài sản",
+      "liquidationThreshold": "LT",
+      "liquidationThresholdTooltip": "Nếu số tiền bạn vay đạt tỷ lệ phần trăm này so với giá trị tài sản thế chấp, vị thế của bạn có thể bị thanh lý.",
+      "maxLtv": "LTV tối đa",
+      "maxLtvTooltip": "Số tiền tối đa bạn có thể vay dựa trên tài sản thế chấp này, tính theo phần trăm giá trị của nó.",
+      "optionLabel": "{{symbol}} (thị trường {{marketSymbol}})",
+      "title": "Chọn tài sản thế chấp"
+    },
+    "columns": {
+      "apy": "APY",
+      "asset": "Tài sản",
+      "collateral": "Tài sản thế chấp",
+      "liquidity": "Thanh khoản",
+      "loan": "Khoản vay",
+      "market": "Thị trường",
+      "pool": "Nhóm",
+      "totalBorrow": "Tổng vay",
+      "totalSupply": "Tổng cung cấp"
+    },
+    "description": "Cho vay và đi vay đơn giản nhưng mạnh mẽ cho mọi chiến lược lợi nhuận DeFi.",
+    "filters": {
+      "allCategories": "Mọi danh mục",
+      "category": "Danh mục",
+      "categoryCount_other": "{{count}} danh mục",
+      "reset": "Đặt lại",
+      "searchAsset": "Tìm tài sản",
+      "searchAssetAriaLabel": "Tìm tài sản",
+      "searchCollateral": "Tìm tài sản thế chấp",
+      "searchCollateralAriaLabel": "Tìm tài sản thế chấp"
+    },
+    "formTitle": "{{symbol}} / {{marketName}}",
+    "markets": {
+      "corePool": "Venus Core",
+      "liquidityHub": "Trung tâm thanh khoản",
+      "xvsVault": "Kho XVS"
+    },
+    "modes": {
+      "borrow": "Vay",
+      "earn": "Kiếm lợi nhuận",
+      "label": "Chế độ thị trường"
+    },
+    "placeholders": {
+      "clearSearch": "Xóa tìm kiếm",
+      "noAssets": "Không tìm thấy tài sản",
+      "noBorrowableAssets": "Không có tài sản nào có thể vay",
+      "noMarkets": "Không có thị trường nào khớp với bộ lọc này",
+      "noResults": "Không có kết quả cho \"{{query}}\"",
+      "refresh": "Vui lòng làm mới và thử lại.",
+      "tryAnotherCollateral": "Hãy thử tài sản thế chấp khác hoặc xóa tìm kiếm.",
+      "tryAnotherSymbol": "Hãy thử ký hiệu khác hoặc xóa tìm kiếm.",
+      "unavailable": "Không tải được dữ liệu thị trường"
+    },
+    "planets": {
+      "earnNow": "Kiếm lợi nhuận ngay",
+      "label": "Khám phá APY kiếm lợi nhuận",
+      "market": "Thị trường",
+      "openAriaLabel": "Xem APY cung cấp của {{symbol}}",
+      "supplyApy": "APY cung cấp"
+    },
+    "title": "Thị trường tiền tệ toàn cầu",
+    "totals": {
+      "availableLiquidity": "Thanh khoản khả dụng",
+      "totalSupply": "Tổng cung cấp"
     }
   },
   "markdownEditor": {
@@ -1552,7 +1560,7 @@
     "rankCard": {
       "connectPrompt": "Kết nối ví để kiểm tra điều kiện Prime của bạn.",
       "eligible": "Bạn hiện đủ điều kiện nhận Prime trong chu kỳ tiếp theo",
-      "notEligible": "Bạn hiện không đủ điều kiện nhận Prime trong chu kỳ tiếp theo.",
+      "notEligible": "Bạn hiện KHÔNG đủ điều kiện nhận Prime trong chu kỳ tiếp theo.",
       "primeScoreLabel": "Điểm Prime",
       "rankLabel": "Hạng của bạn",
       "rulesButton": "Quy tắc",
@@ -1564,7 +1572,8 @@
     },
     "rankCutoffNote": "Hạng <Rank/> hiện đang nắm giữ <Score/> điểm Prime với <Staked/> đã stake.",
     "rankFooter": {
-      "learnMore": "Tìm hiểu thêm từ <LeaderboardLink>Prime Leaderboard</LeaderboardLink>"
+      "connectPrompt": "Kết nối ví để xem thứ hạng của bạn.",
+      "learnMore": "<LeaderboardLink>Xem Prime Leaderboard</LeaderboardLink>"
     },
     "rankTable": {
       "columns": {

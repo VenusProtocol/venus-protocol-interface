@@ -40,16 +40,16 @@ export function ImgGroupTooltip<R>({
           getRowClassName={getRowClassName}
           variant="secondary"
           tableLayout={tableLayout}
-          className="border-0 p-0"
+          className="border-0 bg-transparent p-0"
           tableRowClassName="h-12"
-          tableHeaderClassName="sticky top-0 z-10 h-12 bg-dark-blue"
-          tableContainerClassName="max-h-49 rounded-md"
+          tableHeaderClassName="h-10"
+          tableContainerClassName="max-h-80 rounded-md"
         />
       }
       className={cn('inline-flex', className)}
       contentClassName={cn('p-1.5', contentClassName)}
     >
-      <ImgGroup imgs={imgs} removeDuplicates={removeDuplicates} limit={5} />
+      <ImgGroup imgs={imgs} removeDuplicates={removeDuplicates} limit={4} />
     </Tooltip>
   );
 }

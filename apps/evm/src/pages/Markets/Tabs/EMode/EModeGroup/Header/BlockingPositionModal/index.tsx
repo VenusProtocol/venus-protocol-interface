@@ -23,14 +23,14 @@ export const BlockingPositionModal: React.FC<BlockingPositionModalProps> = ({
       title={t('markets.tabs.eMode.group.cannotEnable.modal.title')}
     >
       <>
-        <p className="text-grey text-sm mb-3">
+        <p className="text-secondary text-sm mb-3">
           <Trans
             i18nKey="markets.tabs.eMode.group.cannotEnable.modal.description"
             values={{
               eModeGroupName,
             }}
             components={{
-              WhiteText: <span className="text-offWhite" />,
+              WhiteText: <span className="text-primary" />,
             }}
           />
         </p>

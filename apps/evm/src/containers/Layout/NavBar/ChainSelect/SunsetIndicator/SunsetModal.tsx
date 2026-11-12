@@ -9,7 +9,7 @@ export const SunsetModal: React.FC = () => {
 
   return (
     <Modal isOpen={isOpen} handleClose={close} title={t('layout.sunsetModal.title')}>
-      <p className="text-grey text-p2r">{t('layout.sunsetModal.description')}</p>
+      <p className="text-secondary text-p2r">{t('layout.sunsetModal.description')}</p>
     </Modal>
   );
 };

@@ -20,7 +20,7 @@ export const AvailableBalance: React.FC<AvailableBalanceProps> = ({
   return (
     <LabeledInlineContent label={label || t('availableBalance.label')}>
       <button
-        className={cn('transition-colors', !isDisabled && 'cursor-pointer hover:text-blue')}
+        className={cn('transition-colors', !isDisabled && 'cursor-pointer hover:text-brand')}
         type="button"
         disabled={isDisabled}
         onClick={onClick}

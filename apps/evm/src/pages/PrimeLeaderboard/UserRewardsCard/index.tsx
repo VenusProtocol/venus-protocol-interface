@@ -61,7 +61,7 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
   });
 
   const cardClassName = cn(
-    'flex flex-col gap-y-3 rounded-lg bg-background-active p-4 min-h-[182px] lg:h-58',
+    'flex flex-col gap-y-3 rounded-lg p-4 min-h-[182px] relative isolate border border-glass bg-surface-glass shadow-glass before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-glass',
     className,
   );
 
@@ -76,7 +76,7 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
   return (
     <div className={cn(cardClassName, 'justify-between')}>
       <div className={cn(content && 'flex flex-col gap-1')}>
-        <p className="text-b1r text-light-grey">
+        <p className="text-b1r text-secondary">
           {title ?? t('primeLeaderboard.userRewards.title')}
         </p>
 
@@ -90,7 +90,7 @@ export const UserRewardsCard: React.FC<UserRewardsCardProps> = ({
               />
             </span>
 
-            <p className="text-h5 text-white">
+            <p className="text-h5 text-primary">
               {formatCentsToReadableValue({ value: totalRewardsCents })}
             </p>
           </div>

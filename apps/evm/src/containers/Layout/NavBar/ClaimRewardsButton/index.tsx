@@ -9,7 +9,6 @@ import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import { formatCentsToReadableValue } from 'utilities';
 
-import { useBreakpointUp } from 'hooks/responsive';
 import TEST_IDS from '../../testIds';
 import { NavButtonWrapper } from '../NavButtonWrapper';
 import { ClaimRewardsContent } from './ClaimRewardsContent';
@@ -73,7 +72,6 @@ export const ClaimRewardsButton: React.FC<ClaimRewardsButtonProps> = ({ ...other
     );
 
   const { t } = useTranslation();
-  const isMdOrUp = useBreakpointUp('md');
 
   const allRewardGroups = [...internalRewardsGroups, ...externalRewardsGroups];
 
@@ -120,12 +118,7 @@ export const ClaimRewardsButton: React.FC<ClaimRewardsButtonProps> = ({ ...other
         </div>
       </NavButtonWrapper>
 
-      <Modal
-        isOpen={isModalOpen}
-        handleClose={handleCloseModal}
-        title={titleDom}
-        noHorizontalPadding={!isMdOrUp}
-      >
+      <Modal isOpen={isModalOpen} handleClose={handleCloseModal} title={titleDom}>
         <ClaimRewardsContent
           isClaimingRewards={isClaimingRewards}
           internalRewardsGroups={internalRewardsGroups}

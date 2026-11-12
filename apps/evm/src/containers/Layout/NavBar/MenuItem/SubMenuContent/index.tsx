@@ -12,12 +12,12 @@ export const SubMenuContent: React.FC<SubMenuContentProps> = ({ variant = 'prima
     className={cn(
       'rounded-lg',
       variant === 'primary' && 'min-w-83',
-      variant === 'secondary' && 'p-3 border border-white/12 lg:border-0 lg:w-75',
+      variant === 'secondary' && 'p-3 border border-inverse/12 lg:border-0 lg:w-75',
     )}
   >
     <div
       className={cn(
-        variant === 'secondary' ? 'grid gap-6 sm:grid-cols-2 lg:grid-cols-1' : 'space-y-3',
+        variant === 'secondary' ? 'grid gap-6 sm:grid-cols-2 lg:grid-cols-1 lg:gap-3' : 'space-y-3',
       )}
     >
       {items.map(subItem => (

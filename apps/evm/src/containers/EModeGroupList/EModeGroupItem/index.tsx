@@ -38,7 +38,7 @@ export const EModeGroupItem: React.FC<EModeGroupItemProps> = ({
     return {
       ...column,
       renderCell: (...params: Parameters<TableColumn<EModeAssetSettings>['renderCell']>) => (
-        <span className="text-grey opacity-50">{column.renderCell(...params)}</span>
+        <span className="text-secondary opacity-50">{column.renderCell(...params)}</span>
       ),
     };
   });

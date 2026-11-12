@@ -33,7 +33,11 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
       selectOptionLabel: t('spokePools.table.columns.loanAsset'),
       renderCell: asset => (
         <div className="flex items-center gap-x-2">
-          <TokenIconWithSymbol token={asset.vToken.underlyingToken} size="xl" />
+          <TokenIconWithSymbol
+            token={asset.vToken.underlyingToken}
+            size="xl"
+            symbolClassName="font-normal group-hover:font-semibold"
+          />
 
           {asset.isProtectionModeEnabled && (
             <ProtectionModeIndicator
@@ -45,7 +49,7 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
 
           {asset.isInactive && (
             <InfoIcon
-              iconClassName="text-orange"
+              iconClassName="text-caution"
               iconName="attention"
               tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
             />
@@ -63,7 +67,7 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
       renderCell: asset =>
         asset.userBorrowBalanceTokens.isGreaterThan(0) ? (
           <LayeredValues
-            className={cn(asset.isInactive && 'text-grey')}
+            className={cn(asset.isInactive && 'text-secondary')}
             topValue={formatTokensToReadableValue({
               value: asset.userBorrowBalanceTokens,
               token: asset.vToken.underlyingToken,
@@ -96,7 +100,7 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
         compareBigNumbers(rowA.borrowApyPercentage, rowB.borrowApyPercentage, direction),
       renderCell: asset => (
         <Apy
-          className={cn(asset.isInactive && 'text-grey')}
+          className={cn('font-semibold', asset.isInactive && 'text-secondary')}
           type="borrow"
           token={asset.vToken.underlyingToken}
           baseApyPercentage={asset.borrowApyPercentage}
@@ -114,7 +118,7 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
         compareBigNumbers(rowA.liquidityCents, rowB.liquidityCents, direction),
       renderCell: asset => (
         <LayeredValues
-          className={cn(asset.isInactive && 'text-grey')}
+          className={cn(asset.isInactive && 'text-secondary')}
           topValue={formatTokensToReadableValue({
             value: asset.cashTokens,
             token: asset.vToken.underlyingToken,
@@ -154,7 +158,7 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
         compareBigNumbers(rowA.borrowBalanceCents, rowB.borrowBalanceCents, direction),
       renderCell: asset => (
         <LayeredValues
-          className={cn(asset.isInactive && 'text-grey')}
+          className={cn(asset.isInactive && 'text-secondary')}
           topValue={formatTokensToReadableValue({
             value: asset.borrowBalanceTokens,
             token: asset.vToken.underlyingToken,

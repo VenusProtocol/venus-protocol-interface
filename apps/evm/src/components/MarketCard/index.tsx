@@ -27,7 +27,8 @@ export const MarketCard: React.FC<MarketCardProps> = ({
   ...otherProps
 }) => (
   <Card
-    className={cn('@container/marketCard space-y-5 p-6 md:space-y-8', className)}
+    variant="glass"
+    className={cn('@container/marketCard space-y-5 p-4 sm:p-6 md:space-y-8', className)}
     {...otherProps}
   >
     <div className="space-y-5 md:space-y-6">
@@ -54,9 +55,9 @@ export const MarketCard: React.FC<MarketCardProps> = ({
             <div className="flex items-center" key={`card-${title}-legend-${legend.label}`}>
               <div
                 className={cn('mr-1 h-2 w-2 shrink-0 rounded-full', {
-                  'bg-red': legend.color === 'red',
-                  'bg-blue': legend.color === 'blue',
-                  'bg-green': legend.color === 'green',
+                  'bg-danger': legend.color === 'red',
+                  'bg-brand': legend.color === 'blue',
+                  'bg-success': legend.color === 'green',
                 })}
               />
 

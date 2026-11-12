@@ -18,8 +18,8 @@ export const SupportedCollateral: React.FC<SupportedCollateralProps> = ({
 
   return (
     <Table
-      // +8px on the cells' 16px matches MarketCard's 24px
-      className="px-2 py-6"
+      className="py-6"
+      size="compact"
       title={t('spokeMarket.supportedCollateral.title')}
       data={collaterals}
       columns={columns}

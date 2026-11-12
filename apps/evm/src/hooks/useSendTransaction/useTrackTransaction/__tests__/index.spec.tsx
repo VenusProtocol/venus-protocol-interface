@@ -2,6 +2,8 @@ import type { Mock } from 'vitest';
 
 import fakeContractTransaction from '__mocks__/models/contractTransaction';
 import { transactionReceipt as fakeTransactionReceipt } from '__mocks__/models/transactionReceipt';
+import { queryClient } from 'clients/api/queryClient';
+import FunctionKey from 'constants/functionKey';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import {
   checkForComptrollerTransactionError,
@@ -38,6 +40,7 @@ const fakeError = new Error('Fake error');
 describe('useTrackTransaction', () => {
   beforeEach(() => {
     (displayNotification as Mock).mockImplementation(({ id }: { id: string | number }) => id);
+    vi.spyOn(queryClient, 'invalidateQueries');
   });
 
   it('handles errors from waitForTransaction', async () => {
@@ -216,6 +219,11 @@ describe('useTrackTransaction', () => {
     // Check callback was executed
     expect(onRevertedMock).toHaveBeenCalledTimes(1);
     expect(onRevertedMock).toHaveBeenCalledWith({ transactionHash: fakeContractTransaction.hash });
+
+    // Check transaction history was not refreshed
+    expect(queryClient.invalidateQueries).not.toHaveBeenCalledWith({
+      queryKey: [FunctionKey.GET_ACCOUNT_TRANSACTION_HISTORY],
+    });
   });
 
   it('handles a transaction that succeeded', async () => {
@@ -271,6 +279,11 @@ describe('useTrackTransaction', () => {
     expect(onConfirmedMock).toHaveBeenCalledWith({
       transactionHash: fakeContractTransaction.hash,
       transactionReceipt: fakeTransactionReceipt,
+    });
+
+    // Check transaction history was refreshed
+    expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
+      queryKey: [FunctionKey.GET_ACCOUNT_TRANSACTION_HISTORY],
     });
   });
 });
