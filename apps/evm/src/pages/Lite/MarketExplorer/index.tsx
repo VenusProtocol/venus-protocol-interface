@@ -91,6 +91,22 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
     setSelectedCollaterals([]);
   };
 
+  const clearFilters =
+    searchValue || selectedCategories.length > 0
+      ? () => {
+          setSearchValue('');
+          setSelectedCategories([]);
+        }
+      : undefined;
+
+  const clearCollateralFilters =
+    collateralSearchValue || selectedCollaterals.length > 0
+      ? () => {
+          setCollateralSearchValue('');
+          setSelectedCollaterals([]);
+        }
+      : undefined;
+
   const changeMode = (newMode: MarketMode) => {
     setMode(newMode);
     setSearchValue('');
@@ -217,6 +233,8 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
           isReady={isEarnReady}
           onSelect={earnAsset => selectAsset(earnAsset.token.symbol)}
           header={header}
+          searchValue={searchValue}
+          onClearFilters={clearFilters}
         />
       )}
 
@@ -235,6 +253,8 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
           isReady={isBorrowReady}
           onSelect={borrowAsset => selectAsset(borrowAsset.token.symbol)}
           header={header}
+          searchValue={searchValue}
+          onClearFilters={clearFilters}
         />
       )}
 
@@ -246,6 +266,8 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
           onSelectCollateral={setSelectedCollateral}
           onSelectCoreCollateral={setSelectedCoreCollateral}
           header={header}
+          searchValue={collateralSearchValue}
+          onClearFilters={clearCollateralFilters}
         />
       )}
 

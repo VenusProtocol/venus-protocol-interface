@@ -1115,10 +1115,15 @@
       "label": "Piyasa modu"
     },
     "placeholders": {
-      "noAssets": "Varlık bulunamadı. Başka bir sembol deneyin.",
-      "noBorrowableAssets": "Borç alınabilecek varlık bulunamadı.",
-      "noMarkets": "Bu filtrelerle eşleşen piyasa yok.",
-      "unavailable": "Piyasa verileri alınamıyor. Lütfen sayfayı yenileyip tekrar deneyin."
+      "clearSearch": "Aramayı temizle",
+      "noAssets": "Varlık bulunamadı",
+      "noBorrowableAssets": "Borç alınabilecek varlık bulunamadı",
+      "noMarkets": "Bu filtrelerle eşleşen piyasa yok",
+      "noResults": "\"{{query}}\" için sonuç yok",
+      "refresh": "Lütfen sayfayı yenileyip tekrar deneyin.",
+      "tryAnotherCollateral": "Başka bir teminat deneyin veya aramayı temizleyin.",
+      "tryAnotherSymbol": "Başka bir sembol deneyin veya aramayı temizleyin.",
+      "unavailable": "Piyasa verileri alınamıyor"
     },
     "planets": {
       "earnNow": "Hemen kazan",

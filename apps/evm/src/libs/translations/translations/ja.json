@@ -1113,10 +1113,15 @@
       "label": "マーケットモード"
     },
     "placeholders": {
-      "noAssets": "該当する資産がありません。別のシンボルをお試しください。",
-      "noBorrowableAssets": "借入可能な資産がありません。",
-      "noMarkets": "条件に一致するマーケットがありません。",
-      "unavailable": "マーケットデータを取得できません。ページを再読み込みしてください。"
+      "clearSearch": "検索をクリア",
+      "noAssets": "該当する資産がありません",
+      "noBorrowableAssets": "借入可能な資産がありません",
+      "noMarkets": "条件に一致するマーケットがありません",
+      "noResults": "「{{query}}」に一致する結果はありません",
+      "refresh": "ページを再読み込みしてください。",
+      "tryAnotherCollateral": "別の担保を試すか、検索をクリアしてください。",
+      "tryAnotherSymbol": "別のシンボルを試すか、検索をクリアしてください。",
+      "unavailable": "マーケットデータを取得できません"
     },
     "planets": {
       "earnNow": "今すぐ獲得",

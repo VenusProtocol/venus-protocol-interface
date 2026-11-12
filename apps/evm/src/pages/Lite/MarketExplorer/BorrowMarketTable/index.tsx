@@ -4,6 +4,7 @@ import type { Asset, SpokeAsset } from 'types';
 import { BorrowMarketApy } from '../../BorrowMarketApy';
 import type { LiteBorrowAsset, LiteBorrowMarket } from '../../types';
 import { useMarketName } from '../../useMarketName';
+import { EmptyState } from '../EmptyState';
 import { useMarketColumns } from '../useMarketColumns';
 
 export interface BorrowMarketTableProps {
@@ -13,6 +14,8 @@ export interface BorrowMarketTableProps {
   onSelectCollateral: (input: { market: LiteBorrowMarket; asset: SpokeAsset }) => void;
   onSelectCoreCollateral: (input: { market: LiteBorrowMarket; asset: Asset }) => void;
   header: React.ReactNode;
+  searchValue: string;
+  onClearFilters?: () => void;
 }
 
 export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
@@ -22,6 +25,8 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
   onSelectCollateral,
   onSelectCoreCollateral,
   header,
+  searchValue,
+  onClearFilters,
 }) => {
   const { t } = useTranslation();
   const { buildAmountColumn, buildApyColumn, getTableProps, isMobile } = useMarketColumns();
@@ -107,7 +112,18 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
       rowOnClick={(_event, market) => onSelect(market)}
       initialOrder={{ orderBy: columns[1], orderDirection: 'asc' }}
       header={header}
-      placeholder={t('lite.placeholders.noMarkets')}
+      placeholder={
+        <EmptyState
+          showIcon
+          title={
+            searchValue.trim()
+              ? t('lite.placeholders.noResults', { query: searchValue.trim() })
+              : t('lite.placeholders.noMarkets')
+          }
+          hint={onClearFilters && t('lite.placeholders.tryAnotherCollateral')}
+          onClear={onClearFilters}
+        />
+      }
     />
   );
 };
