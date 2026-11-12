@@ -27,7 +27,7 @@ export const UserButton: React.FC<UserButtonProps> = ({
     <button
       type="button"
       className={cn(
-        'group relative h-9 text-b1s text-primary rounded-lg border bg-sheen shadow-sheen backdrop-blur-raised backdrop-saturate-[1.3] sm:h-12',
+        'group relative h-10 text-b1s text-primary rounded-lg border bg-sheen shadow-sheen backdrop-blur-raised backdrop-saturate-[1.3] sm:h-12',
         isPrime ? 'border-transparent' : 'border-sheen',
         disabled && (isPrime ? 'md:min-w-36.75' : 'md:min-w-36.25'),
         !disabled && 'cursor-pointer',
