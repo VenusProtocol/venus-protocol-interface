@@ -45,7 +45,7 @@ export const Notice = ({
         variant === 'warning' && 'bg-caution/5',
       )}
     >
-      <div className="flex grow overflow-hidden">
+      <div className="flex min-w-0 grow">
         <div className="h-[18px] mr-2 shrink-0 flex items-center md:h-[20px]">
           {variant === 'loading' ? (
             <Spinner variant="small" className="items-start" />
@@ -64,7 +64,7 @@ export const Notice = ({
           )}
         </div>
 
-        <div className="grow overflow-hidden wrap-break-word space-y-2">
+        <div className="min-w-0 grow wrap-break-word space-y-2">
           {title && <p className="text-sm font-semibold">{title}</p>}
 
           {!!description && (
