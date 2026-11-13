@@ -67,7 +67,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
   return (
     <nav className={cn('relative bg-canvas', className)} {...containerProps}>
       <div className="group/navbar h-16 px-4 flex items-center justify-between gap-x-2">
-        <div className="flex items-center gap-x-0">
+        <div className="flex shrink-0 items-center gap-x-0">
           <Link
             className="flex h-full flex-none items-center gap-x-2.5 py-4"
             to={isLite ? routes.landing.path : proHomePath}
@@ -99,13 +99,13 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
         </div>
 
         <div
-          className={cn(
-            'flex items-center h-10 sm:h-12',
-            isLite ? 'gap-x-2' : 'gap-x-1 sm:gap-x-2',
-          )}
+          className={cn('flex items-center h-9 sm:h-12', isLite ? 'gap-x-2' : 'gap-x-1 sm:gap-x-2')}
           data-testid={TEST_IDS.navBarActions}
         >
-          <ClaimRewardsButton className="h-full max-sm:px-2" data-rewards-button="true" />
+          <ClaimRewardsButton
+            className="h-full max-sm:px-2 max-sm:text-b1r"
+            data-rewards-button="true"
+          />
 
           {!isLite && (
             <ChainSelect className="hidden md:block" buttonClassName="h-10 px-3 py-0 sm:h-12" />
@@ -117,7 +117,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
 
           {!isLite && (
             <NavButtonWrapper
-              className="size-10 px-0 sm:size-12 lg:hidden"
+              className="size-9 px-0 sm:size-12 lg:hidden"
               onClick={toggleMobileMenu}
             >
               <Icon

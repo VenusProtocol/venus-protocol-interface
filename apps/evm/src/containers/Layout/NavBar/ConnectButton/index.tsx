@@ -41,6 +41,7 @@ export const ConnectButton: React.FC = () => {
     return (
       <div>
         <UserButton
+          className="h-9 sm:h-12"
           onClick={handleToggleAccountModal}
           address={accountAddress}
           isPrime={isAccountPrime}
@@ -60,7 +61,7 @@ export const ConnectButton: React.FC = () => {
   }
 
   return (
-    <Button onClick={handleConnectButtonClick} className="h-10 px-3 sm:h-12">
+    <Button onClick={handleConnectButtonClick} className="h-9 px-3 sm:h-12">
       {t('connectButton.connect')}
     </Button>
   );
