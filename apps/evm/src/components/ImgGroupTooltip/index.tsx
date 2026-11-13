@@ -40,6 +40,7 @@ export function ImgGroupTooltip<R>({
           getRowClassName={getRowClassName}
           variant="secondary"
           tableLayout={tableLayout}
+          stickyHeader
           className="border-0 bg-transparent p-0"
           tableRowClassName="h-12"
           tableHeaderClassName="h-10"
