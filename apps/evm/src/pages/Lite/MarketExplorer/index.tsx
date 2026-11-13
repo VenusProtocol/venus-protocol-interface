@@ -164,7 +164,9 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
     <Filters
       searchValue={collateralSearchValue}
       onSearchValueChange={setCollateralSearchValue}
-      searchPlaceholder={t('lite.filters.searchCollateral')}
+      searchPlaceholder={
+        isSmDown ? t('lite.columns.collateral') : t('lite.filters.searchCollateral')
+      }
       searchAriaLabel={t('lite.filters.searchCollateralAriaLabel')}
       options={collateralOptions}
       selectedValues={selectedCollaterals}
