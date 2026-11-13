@@ -132,7 +132,7 @@ const Skills: React.FC = () => {
                 href={REPO_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="text-brand hover:underline"
+                className="text-brand wrap-break-word hover:underline"
               >
                 {REPO_URL}
               </a>
