@@ -4,6 +4,7 @@ import { useIsConnectedAccountVip } from 'hooks/useIsConnectedAccountVip';
 import { useIsUserPrime } from 'hooks/useIsUserPrime';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress, useAuthModal } from 'libs/wallet';
+import { useEffect, useRef } from 'react';
 import { AccountModal } from './AccountModal';
 import { UserButton } from './UserButton';
 
@@ -23,6 +24,26 @@ export const ConnectButton: React.FC = () => {
   const handleToggleAccountModal = () => setOpenModal(isModalOpen ? undefined : 'accountModal');
   const handleCloseAccountModal = () => setOpenModal(undefined);
 
+  const accountRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      return;
+    }
+
+    const closeOnOtherNavBarPress = (event: PointerEvent) => {
+      const target = event.target as Element;
+
+      if (target.closest('nav') && !accountRef.current?.contains(target)) {
+        setOpenModal(undefined);
+      }
+    };
+
+    document.addEventListener('pointerdown', closeOnOtherNavBarPress);
+
+    return () => document.removeEventListener('pointerdown', closeOnOtherNavBarPress);
+  }, [isModalOpen, setOpenModal]);
+
   const handleConnectButtonClick = () => {
     openAuthModal({
       analyticVariant: 'header_connect_button',
@@ -39,7 +60,7 @@ export const ConnectButton: React.FC = () => {
 
   if (accountAddress) {
     return (
-      <div>
+      <div ref={accountRef}>
         <UserButton
           className="h-9 sm:h-12"
           onClick={handleToggleAccountModal}
