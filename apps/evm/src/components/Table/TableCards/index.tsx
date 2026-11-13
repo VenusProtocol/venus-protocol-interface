@@ -9,6 +9,7 @@ import type { TableCardProps } from '../types';
 
 export function TableCards<R>({
   cardClassName,
+  cardListClassName,
   data,
   isFetching,
   rowKeyExtractor,
@@ -82,7 +83,7 @@ export function TableCards<R>({
 
       {isFetching && <Spinner className="mb-5" />}
 
-      <div className="space-y-6">
+      <div className={cn('space-y-6', cardListClassName)}>
         {data.map((row, rowIndex) => {
           const rowKey = rowKeyExtractor(row);
           const content = (
