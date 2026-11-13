@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { useGetVTokenBalance, useWithdrawFromSpoke } from 'clients/api';
 import { AvailableBalance } from 'components';
 import { NULL_ADDRESS } from 'constants/address';
-import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
+import { type CollateralOption, CollateralSelect } from 'containers/CollateralSelect';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { AssetBalanceMutation, SpokeAsset, SpokePool, Token } from 'types';
+import type { AssetBalanceMutation, SpokeAsset, SpokePool } from 'types';
 import {
   areAddressesEqual,
   calculateCollateralWithdrawLimits,
@@ -70,12 +70,12 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
     },
   ];
 
-  const tokenBalances: OptionalTokenBalance[] = collaterals.map(asset => ({
+  const collateralOptions: CollateralOption[] = collaterals.map(asset => ({
+    asset,
     token: asset.vToken.underlyingToken,
-    balanceTokens: asset.userSupplyBalanceTokens,
   }));
 
-  const handleChangeSelectedToken = (token: Token) => {
+  const handleChangeCollateral = ({ token }: CollateralOption) => {
     setSelectedTokenAddress(token.address);
     setFormValues(initialFormValues);
   };
@@ -148,8 +148,15 @@ export const WithdrawForm: React.FC<WithdrawFormProps> = ({
       limitTokens={limitTokens}
       safeLimitTokens={safeLimitTokens}
       availableBalance={availableBalanceDom}
-      tokenBalances={tokenBalances}
-      onChangeSelectedToken={handleChangeSelectedToken}
+      collateralSelectorSlot={
+        collateralOptions.length > 1 ? (
+          <CollateralSelect
+            options={collateralOptions}
+            value={{ asset: selectedAsset, token: selectedAsset.vToken.underlyingToken }}
+            onChange={handleChangeCollateral}
+          />
+        ) : undefined
+      }
       validateForm={validateForm}
     />
   );

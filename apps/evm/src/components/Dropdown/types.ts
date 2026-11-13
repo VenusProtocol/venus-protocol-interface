@@ -24,4 +24,5 @@ export interface DropdownProps {
   menuClassName?: string;
   triggerOnHover?: boolean;
   modalPortalContainer?: Element | DocumentFragment | null;
+  renderMenuInPortal?: boolean;
 }

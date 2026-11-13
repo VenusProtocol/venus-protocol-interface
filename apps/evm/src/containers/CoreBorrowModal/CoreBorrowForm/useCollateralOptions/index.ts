@@ -1,14 +1,10 @@
 import { useGetLiquidityHubs } from 'clients/api';
+import type { CollateralOption } from 'containers/CollateralSelect';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAccountAddress } from 'libs/wallet';
-import type { Asset, Token } from 'types';
+import type { Asset } from 'types';
 import { areTokensEqual } from 'utilities';
-
-export interface CollateralOption {
-  asset: Asset;
-  token: Token;
-}
 
 export const useCollateralOptions = ({ collaterals }: { collaterals: Asset[] }) => {
   const { accountAddress } = useAccountAddress();

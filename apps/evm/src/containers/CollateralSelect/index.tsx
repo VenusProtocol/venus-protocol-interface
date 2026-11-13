@@ -5,8 +5,13 @@ import { useBreakpointUp } from 'hooks/responsive';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
+import type { Asset, Token } from 'types';
 import { areTokensEqual, formatPercentageToReadableValue } from 'utilities';
-import type { CollateralOption } from '../useCollateralOptions';
+
+export interface CollateralOption {
+  asset: Asset;
+  token: Token;
+}
 
 export interface CollateralSelectProps {
   options: CollateralOption[];
@@ -36,6 +41,7 @@ export const CollateralSelect: React.FC<CollateralSelectProps> = ({ options, val
       <Dropdown
         menuTitle={isMdOrUp ? undefined : t('lite.collateralSelect.title')}
         menuClassName="w-max min-w-80 overflow-hidden"
+        renderMenuInPortal
         optionsDom={({ setIsDropdownOpen }) => (
           <div className="min-w-full md:pt-3">
             {isMdOrUp && (

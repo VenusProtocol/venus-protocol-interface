@@ -3,12 +3,12 @@ import { useState } from 'react';
 
 import { useSupplyToSpoke } from 'clients/api';
 import { AvailableBalance, SpendingLimit } from 'components';
-import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
+import { type CollateralOption, CollateralSelect } from 'containers/CollateralSelect';
 import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import useTokenApproval from 'hooks/useTokenApproval';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import type { AssetBalanceMutation, SpokeAsset, SpokePool, Token } from 'types';
+import type { AssetBalanceMutation, SpokeAsset, SpokePool } from 'types';
 import {
   areAddressesEqual,
   clampToZero,
@@ -97,13 +97,12 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
     },
   ];
 
-  const tokenBalances: OptionalTokenBalance[] = collaterals.filter(isSuppliable).map(asset => ({
+  const collateralOptions: CollateralOption[] = collaterals.filter(isSuppliable).map(asset => ({
+    asset,
     token: asset.vToken.underlyingToken,
-    balanceTokens: asset.userWalletBalanceTokens,
-    isGated: asset.isGated,
   }));
 
-  const handleChangeSelectedToken = (token: Token) => {
+  const handleChangeCollateral = ({ token }: CollateralOption) => {
     setSelectedTokenAddress(token.address);
     setFormValues(initialFormValues);
   };
@@ -191,8 +190,15 @@ export const SupplyForm: React.FC<SupplyFormProps> = ({
       submitButtonLabel={t('spokeForm.supply.submitButtonLabel')}
       limitTokens={limitTokens}
       availableBalance={availableBalanceDom}
-      tokenBalances={tokenBalances}
-      onChangeSelectedToken={handleChangeSelectedToken}
+      collateralSelectorSlot={
+        collateralOptions.length > 1 ? (
+          <CollateralSelect
+            options={collateralOptions}
+            value={{ asset: selectedAsset, token: selectedAsset.vToken.underlyingToken }}
+            onChange={handleChangeCollateral}
+          />
+        ) : undefined
+      }
       validateForm={validateForm}
       approval={
         collateralGatewayAddress && {

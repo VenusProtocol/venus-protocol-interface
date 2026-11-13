@@ -1,6 +1,7 @@
 import { Tabs } from 'components';
 import AssetAccessor from 'containers/AssetAccessor';
 import DisabledActionNotice from 'containers/AssetAccessor/DisabledActionNotice';
+import { CollateralSelect } from 'containers/CollateralSelect';
 import BorrowForm from 'containers/MarketForm/BorrowForm';
 import RepayWithWalletBalanceForm from 'containers/MarketForm/Repay/RepayWithWalletBalanceForm';
 import SupplyForm from 'containers/MarketForm/SupplyForm';
@@ -11,7 +12,6 @@ import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import type { Asset } from 'types';
 import { areTokensEqual } from 'utilities';
-import { CollateralSelect } from './CollateralSelect';
 import { getInitialCollateral } from './getInitialCollateral';
 import { useCollateralOptions } from './useCollateralOptions';
 
