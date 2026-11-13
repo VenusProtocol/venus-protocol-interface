@@ -3,6 +3,7 @@ import cactusIconSrc from './cactus.svg';
 import ceffuIconSrc from './ceffu.svg';
 import hashGlobalIconSrc from './hashGlobal.svg';
 import matrixdockIconSrc from './matrixdock.svg';
+import noonCapitalIconSrc from './noonCapital.svg';
 import octagonIconSrc from './octagon.png';
 import pendleIconSrc from './pendle.svg';
 import solvIconSrc from './solv.svg';
@@ -18,6 +19,7 @@ export enum VenueName {
   SolvOctagon = 'Solv(Octagon)',
   Asseto = 'Asseto',
   HashGlobal = 'Hash Global',
+  NoonCapital = 'Noon Capital',
 }
 
 export interface VenueConfig {
@@ -36,6 +38,7 @@ const iconSrcByVenueName: Record<VenueName, string> = {
   [VenueName.SolvOctagon]: octagonIconSrc,
   [VenueName.Asseto]: assetoIconSrc,
   [VenueName.HashGlobal]: hashGlobalIconSrc,
+  [VenueName.NoonCapital]: noonCapitalIconSrc,
 };
 
 const urlByVenueName: Partial<Record<VenueName, string>> = {
@@ -47,6 +50,7 @@ const urlByVenueName: Partial<Record<VenueName, string>> = {
   [VenueName.Solv]: 'https://www.solv.finance',
   [VenueName.Asseto]: 'https://asseto.finance/',
   [VenueName.HashGlobal]: 'https://www.hashglobal.io/',
+  [VenueName.NoonCapital]: 'https://noon.capital/',
 };
 
 export const DEFAULT_VENUE_NAME = VenueName.Venus;

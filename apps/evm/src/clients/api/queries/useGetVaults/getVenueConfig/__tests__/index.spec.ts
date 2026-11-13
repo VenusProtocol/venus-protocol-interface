@@ -9,6 +9,14 @@ describe('getVenueConfig', () => {
     expect(venue.url).toBe('https://www.hashglobal.io/');
   });
 
+  it('returns the Noon Capital logo and website instead of the Venus fallback', () => {
+    const venue = getVenueConfig('Noon Capital');
+
+    expect(venue.name).toBe(VenueName.NoonCapital);
+    expect(venue.iconSrc).not.toBe(DEFAULT_VENUE.iconSrc);
+    expect(venue.url).toBe('https://noon.capital/');
+  });
+
   it('tells the two Solv venues apart by their full name', () => {
     const octagon = getVenueConfig('Solv(Octagon)');
     const ceffu = getVenueConfig('Solv(Ceffu custody)');
