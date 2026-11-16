@@ -1,5 +1,18 @@
 # @venusprotocol/evm
 
+## 5.46.0
+
+### Minor Changes
+
+- cf007b2: add the Lite mode home page and restyle the interface
+
+### Patch Changes
+
+- cf007b2: draw the Lite planets as character spheres
+- cf007b2: cut the idle cost of the Lite background
+- Updated dependencies [cf007b2]
+  - @venusprotocol/ui@0.12.0
+
 ## 5.45.4
 
 ### Patch Changes
