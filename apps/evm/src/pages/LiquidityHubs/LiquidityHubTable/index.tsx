@@ -63,6 +63,8 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
     return <TableRowControl className="-ml-6" onClick={handleRowControlClick} />;
   };
 
+  const query = searchValue.trim();
+
   const filteredData = data.filter(row => {
     // Handle user settings
     if (
@@ -74,10 +76,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
     }
 
     // Handle search
-    return (
-      !searchValue ||
-      row.vhToken.underlyingToken.symbol.toLowerCase().includes(searchValue.toLowerCase())
-    );
+    return !query || row.vhToken.underlyingToken.symbol.toLowerCase().includes(query.toLowerCase());
   });
 
   const columns: TableColumn<LiquidityHub>[] = [
@@ -203,7 +202,6 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
   const handleRowClick = (_e: React.MouseEvent<HTMLDivElement>, row: LiquidityHub) =>
     captureHubSelectedAnalyticEvent(row);
 
-  const query = searchValue.trim();
   let placeholder: React.ReactNode;
 
   if (!isFetching && query) {
