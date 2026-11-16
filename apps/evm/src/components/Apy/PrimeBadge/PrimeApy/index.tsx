@@ -18,16 +18,14 @@ export const PrimeApy: React.FC<PrimeApyProps> = ({ apyPercentage, className, ..
   return (
     <SenaryButton
       className={cn(
-        'hover:border-lightGrey h-6 rounded-full p-1 whitespace-nowrap font-semibold shrink-0',
+        'prime-badge-ring isolate h-auto shrink-0 rounded-full border-0 bg-transparent bg-none px-1 py-0.5 text-sm font-normal whitespace-nowrap shadow-none backdrop-blur-none before:hidden hover:bg-prime-hover active:bg-prime-active',
         className,
       )}
       {...otherProps}
     >
       <PrimeIcon className="mr-1" />
 
-      <span className="bg-[linear-gradient(26deg,#674031_-49.72%,#FFECE3_85.68%,#6D4637_221.08%,#FFECE3_383.56%)] bg-clip-text text-transparent">
-        {readableApy}
-      </span>
+      <span className="bg-prime-text bg-clip-text text-transparent">{readableApy}</span>
     </SenaryButton>
   );
 };

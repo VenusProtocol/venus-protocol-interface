@@ -43,7 +43,7 @@ export const Progress: React.FC<ProgressProps> = ({
     token,
   });
 
-  const progressBarColorClassName = percentage >= 80 ? 'bg-green' : 'bg-blue';
+  const progressBarColorClassName = percentage >= 80 ? 'bg-success' : 'bg-brand';
 
   return (
     <div className={cn('text-b1r', className)}>
@@ -52,7 +52,7 @@ export const Progress: React.FC<ProgressProps> = ({
       </div>
 
       <div className="flex items-center justify-end gap-x-3">
-        <div className="w-25 grow h-2 rounded-full overflow-hidden bg-dark-grey">
+        <div className="w-25 grow h-2 rounded-full overflow-hidden bg-neutral-subtle">
           <div
             className={cn('h-full rounded-full', progressBarColorClassName, progressBarClassName)}
             style={{ width: `${Math.min(percentage, 100)}%` }}

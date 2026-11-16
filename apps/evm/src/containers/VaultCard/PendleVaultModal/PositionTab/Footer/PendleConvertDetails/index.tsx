@@ -50,15 +50,15 @@ export const PendleConvertDetails: React.FC<ConvertDetailsProps> = ({
     : PLACEHOLDER_KEY;
 
   return (
-    <div className={cn('border border-lightGrey rounded-xl p-4 space-y-3', className)}>
+    <div className={cn('border border-muted rounded-xl p-4 space-y-3', className)}>
       <LabeledInlineContent
-        label={<div className="text-white">{t('vault.modals.convert')}</div>}
+        label={<div className="text-primary">{t('vault.modals.convert')}</div>}
         className="text-b1s"
       >
         <div className="flex items-center gap-x-1">
           <span>{fromToken.symbol}</span>
 
-          <Icon name="arrowShaft" className="text-white" />
+          <Icon name="arrowShaft" className="text-primary" />
 
           <span>{toToken.symbol}</span>
         </div>

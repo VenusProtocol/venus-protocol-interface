@@ -21,28 +21,41 @@ export const UserButton: React.FC<UserButtonProps> = ({
   ...otherProps
 }) => {
   const { t } = useTranslation();
+  const compactAddress = `${address.slice(0, 2)}...${address.slice(-2)}`;
 
   return (
     <button
       type="button"
       className={cn(
-        'group h-10 text-b1s rounded-lg p-px sm:h-12',
+        'group relative h-10 text-b1s text-primary rounded-lg border bg-sheen shadow-sheen backdrop-blur-raised backdrop-saturate-[1.3] sm:h-12',
+        isPrime ? 'border-transparent' : 'border-sheen',
+        disabled && (isPrime ? 'md:min-w-36.75' : 'md:min-w-36.25'),
         !disabled && 'cursor-pointer',
-        isPrime ? 'bg-[linear-gradient(135deg,#FFECE3,#6D4637,#674031)]' : 'bg-dark-blue-hover',
+        !disabled && (isPrime ? 'min-w-21.25 sm:min-w-36.75' : 'min-w-20.75 sm:min-w-36.25'),
         className,
       )}
       {...otherProps}
     >
+      {isPrime && (
+        <span
+          aria-hidden="true"
+          className={cn(
+            'prime-ring opacity-72 transition-opacity',
+            !disabled && 'group-hover:opacity-100 group-focus-visible:opacity-100',
+          )}
+        />
+      )}
+
       <div
         className={cn(
-          'relative px-3 flex items-center gap-x-3 bg-background-active h-full rounded-[7px] transition-colors',
-          !disabled && 'group-hover:bg-dark-blue-hover',
+          'relative px-3 flex items-center gap-x-2 h-full',
+          !disabled && 'max-sm:px-2 max-sm:gap-x-2',
         )}
       >
         {isPrime ? (
           <img className="h-4" src={primeLogoSrc} alt={t('primeButton.primeLogoAlt')} />
         ) : (
-          <Icon name="user" className="h-4 text-light-grey mb-1" />
+          <Icon name="user" className="h-4 text-secondary mb-1" />
         )}
 
         <Username
@@ -51,11 +64,26 @@ export const UserButton: React.FC<UserButtonProps> = ({
           showTooltip={false}
           address={address}
           shouldEllipseAddress
-        />
+        >
+          {disabled
+            ? undefined
+            : ({ innerContent }) => (
+                <>
+                  <span className="max-sm:hidden">{innerContent}</span>
+                  <span className="sm:hidden">{compactAddress}</span>
+                </>
+              )}
+        </Username>
 
-        {isVip && <img src={vipLogoSrc} alt={t('connectButton.vipLogoAlt')} className="size-4.5" />}
+        {isVip && (
+          <img
+            src={vipLogoSrc}
+            alt={t('connectButton.vipLogoAlt')}
+            className={cn('size-4.5', !disabled && 'max-sm:hidden')}
+          />
+        )}
 
-        {!isVip && !disabled && <Icon name="expand" className="text-light-grey" />}
+        {!isVip && !disabled && <Icon name="expand" className="text-secondary max-sm:hidden" />}
       </div>
     </button>
   );

@@ -13,11 +13,9 @@ export const DropdownToggleButton = ({
   children,
 }: DropdownToggleButtonProps) => (
   <Button
+    variant="secondary"
     onClick={handleToggleDropdown}
-    className={cn(
-      'p-0 border-transparent hover:border-transparent h-8 w-8 bg-background/40 hover:bg-background',
-      className,
-    )}
+    className={cn('size-8 p-0', className)}
   >
     {children}
   </Button>

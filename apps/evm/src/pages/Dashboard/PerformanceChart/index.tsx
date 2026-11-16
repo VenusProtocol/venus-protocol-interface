@@ -100,7 +100,10 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
 
           {dailyChangeCents !== undefined && dailyChangeCents !== 0 && (
             <div
-              className={cn('flex items-center', dailyChangeCents > 0 ? 'text-green' : 'text-red')}
+              className={cn(
+                'flex items-center',
+                dailyChangeCents > 0 ? 'text-success' : 'text-danger',
+              )}
             >
               <Icon
                 name="arrowUpFull2"
@@ -132,7 +135,9 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
               </p>
             ) : (
               <div className="flex gap-x-1 items-center">
-                <p className="text-sm text-grey">{t('account.performanceChart.netWorth.label')}</p>
+                <p className="text-sm text-secondary">
+                  {t('account.performanceChart.netWorth.label')}
+                </p>
 
                 <InfoIcon
                   className="inline-flex"
@@ -170,7 +175,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
             {...cell}
             key={cell.label}
             className={cn(
-              'border-r border-r-lightGrey px-5 first-of-type:pl-0 last-of-type:pr-0 last-of-type:border-r-0',
+              'border-r border-r-muted px-5 first-of-type:pl-0 last-of-type:pr-0 last-of-type:border-r-0',
               cell.className,
             )}
           />
@@ -213,7 +218,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ className, n
                 <>
                   <Spinner className="h-auto" />
 
-                  <p className="text-sm text-grey">
+                  <p className="text-sm text-secondary">
                     {t('account.performanceChart.placeholderText')}
                   </p>
                 </>

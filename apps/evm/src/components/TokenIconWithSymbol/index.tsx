@@ -5,6 +5,7 @@ import { TokenIcon, type TokenIconProps } from '../TokenIcon';
 
 export interface TokenIconWithSymbolProps extends TokenIconProps {
   tokenIconClassName?: string;
+  symbolClassName?: string;
 }
 
 export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({
@@ -12,6 +13,7 @@ export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({
   className,
   displayChain = false,
   size = 'md',
+  symbolClassName,
   ...otherProps
 }) => {
   const chain = chains[token.chainId];
@@ -34,13 +36,14 @@ export const TokenIconWithSymbol: React.FC<TokenIconWithSymbolProps> = ({
             'truncate font-semibold',
             displayChain && size === 'md' && 'text-b1r',
             displayChain && size === 'lg' && 'text-p1s',
+            symbolClassName,
           )}
         >
           {token.symbol}
         </p>
 
         {displayChain && (
-          <p className={cn('truncate text-light-grey', size === 'md' ? 'text-b2r' : 'text-b1r')}>
+          <p className={cn('truncate text-secondary', size === 'md' ? 'text-b2r' : 'text-b1r')}>
             {chain.name}
           </p>
         )}

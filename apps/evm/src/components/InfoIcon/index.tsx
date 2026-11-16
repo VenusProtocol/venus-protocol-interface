@@ -16,7 +16,13 @@ export const InfoIcon = ({
   iconName = 'info',
   iconClassName,
 }: InfoIconProps) => (
-  <Tooltip className={cn('inline-flex align-sub', className)} content={tooltip}>
+  <Tooltip
+    className={cn(
+      'inline-flex align-sub [&_svg]:transition-colors [&_svg]:duration-150 [&:is(:hover,:focus-visible,[data-state$=open])_svg]:text-brand',
+      className,
+    )}
+    content={tooltip}
+  >
     <Icon className={iconClassName} name={iconName} />
   </Tooltip>
 );

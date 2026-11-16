@@ -248,7 +248,7 @@ const TermsOfUse: React.FC = () => (
       Risks arising from interactions with other protocols, bridges, or cross-chain mechanisms.
     </p>
 
-    <p className="font-semibold text-white m-0">
+    <p className="font-semibold text-primary m-0">
       The Platform is provided "AS IS" and "AS AVAILABLE," without any express or implied warranties
       of merchantability, fitness for a particular purpose, or non-infringement.
     </p>

@@ -34,13 +34,13 @@ export const EModeHeader: React.FC<EModeHeaderProps> = ({
   return (
     <Link
       className={cn(
-        'flex items-center justify-center rounded-full border border-lightGrey bg-cards h-8 px-2 text-white transition-colors duration-250 hover:no-underline hover:bg-lightGrey',
+        'flex items-center justify-center rounded-full border border-muted bg-surface-4 h-8 px-2 text-primary transition-colors duration-250 hover:no-underline hover:bg-neutral',
         className,
       )}
       to={to}
     >
       <div className="flex items-center gap-x-1">
-        <div className={cn('w-5 h-5 rounded-full flex items-center justify-center bg-lightGrey')}>
+        <div className={cn('w-5 h-5 rounded-full flex items-center justify-center bg-neutral')}>
           <img
             src={lightningIllustrationSrc}
             className="h-3"

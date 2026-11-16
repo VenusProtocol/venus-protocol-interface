@@ -162,10 +162,10 @@ export const VaultCard: React.FC<VaultCardProps> = ({ vault, className, to }) =>
   const previewCardBaseProps = {
     className,
     header: showHoldingsCard ? (
-      <div className="min-w-0 text-b1r text-light-grey">
+      <div className="min-w-0 text-b1r text-secondary">
         <span>{t('dashboard.previewCard.currentlySupplied')}</span>
 
-        <div className="flex items-center text-p2s gap-2 text-light-grey-active min-w-0">
+        <div className="flex items-center text-p2s gap-2 text-primary min-w-0">
           <TokenIcon token={displayToken} displayChain={false} size="lg" className="shrink-0" />
 
           <span className="truncate min-w-0">

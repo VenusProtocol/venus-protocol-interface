@@ -137,6 +137,33 @@ describe('RepayWithWalletBalanceForm - Feature flag enabled: integratedSwap', ()
     );
   });
 
+  it('shows the token selector by default', () => {
+    const { queryByTestId } = renderComponent(
+      <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    expect(queryByTestId(REPAY_FORM_TEST_IDS.selectTokenTextField)).not.toBeNull();
+  });
+
+  it('hides the token selector when integrated swap is disabled', () => {
+    const { queryByTestId } = renderComponent(
+      <RepayWithWalletBalanceForm
+        asset={fakeAsset}
+        pool={fakePool}
+        disableIntegratedSwap
+        onSubmitSuccess={noop}
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    expect(queryByTestId(REPAY_FORM_TEST_IDS.selectTokenTextField)).toBeNull();
+  });
+
   it('displays correct wallet balance', async () => {
     const { getByText, container } = renderComponent(
       <RepayWithWalletBalanceForm asset={fakeAsset} pool={fakePool} onSubmitSuccess={noop} />,

@@ -41,7 +41,7 @@ export const ApprovalSteps: React.FC<ApprovalStepsProps> = ({
       {showApprovalSteps ? (
         <>
           <div className="mb-1 flex items-center">
-            <p className="text-sm font-semibold text-white">{firstStepLabel}</p>
+            <p className="text-sm font-semibold text-primary">{firstStepLabel}</p>
 
             {firstStepTooltip && <InfoIcon className="ml-2 flex" tooltip={firstStepTooltip} />}
           </div>
@@ -55,7 +55,7 @@ export const ApprovalSteps: React.FC<ApprovalStepsProps> = ({
           </PrimaryButton>
 
           <div className="mb-1 flex items-center">
-            <p className="text-sm font-semibold text-white">{secondStepLabel}</p>
+            <p className="text-sm font-semibold text-primary">{secondStepLabel}</p>
           </div>
 
           <PrimaryButton className="w-full" disabled>

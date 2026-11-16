@@ -37,7 +37,7 @@ export const LeftOnly: Story = {
 
 export const MultiProgressBars: Story = {
   args: {
-    progressBars: [{ value: 75, className: 'bg-red' }, { value: 35 }],
-    marks: [{ value: 25 }, { value: 90, className: 'bg-white' }],
+    progressBars: [{ value: 75, className: 'bg-danger' }, { value: 35 }],
+    marks: [{ value: 25 }, { value: 90, className: 'bg-inverse' }],
   },
 };

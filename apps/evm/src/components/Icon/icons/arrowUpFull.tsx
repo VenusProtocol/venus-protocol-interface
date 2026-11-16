@@ -11,14 +11,14 @@ const SvgArrowUpFull = (props: SVGProps<SVGSVGElement>) => (
   >
     <path
       d="M6 2L6 13"
-      stroke="white"
+      className="stroke-primary"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M11 6L6 1L1 6"
-      stroke="white"
+      className="stroke-primary"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"

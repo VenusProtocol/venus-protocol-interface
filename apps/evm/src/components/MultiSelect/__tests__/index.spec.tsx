@@ -29,8 +29,7 @@ describe('MultiSelect', () => {
     fireEvent.click(screen.getByRole('button', { name: 'All options' }));
 
     // An open dropdown renders its options in both the desktop menu and the mobile modal;
-    // the desktop menu comes first, and is the element the accent border is passed to
-    const menu = screen.getAllByText('Last option')[0].closest('.border-blue');
+    const menu = screen.getAllByText('Last option')[0].closest('.venus-multiselect-menu');
 
     expect(menu).toHaveClass('overflow-hidden');
     expect(menu).not.toHaveClass('overflow-visible');

@@ -22,10 +22,12 @@ export const ActionsAccordion: React.FC<ActionsAccordionProps> = ({
         <div className="flex items-center">
           <Icon name="document" className="mr-2 w-5 h-5" />
 
-          <p className="text-white font-semibold">{t('voteProposalUi.command.operations.title')}</p>
+          <p className="text-primary font-semibold">
+            {t('voteProposalUi.command.operations.title')}
+          </p>
         </div>
 
-        <div className="mt-1 break-all text-grey md:pl-7">
+        <div className="mt-1 break-all text-secondary md:pl-7">
           {proposalActions.map(action => (
             <ReadableActionSignature
               key={`readable-action-signature-${action.signature}-${action.target}-${action.value}-${action.callData}`}

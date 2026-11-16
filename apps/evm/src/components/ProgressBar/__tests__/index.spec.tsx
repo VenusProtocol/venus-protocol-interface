@@ -20,8 +20,8 @@ describe('ProgressBar', () => {
     const rail = container.firstElementChild;
     const fill = rail?.querySelector('div');
 
-    expect(rail).toHaveClass('custom-class', 'bg-lightGrey', 'isolate');
-    expect(fill).toHaveClass('bg-green');
+    expect(rail).toHaveClass('custom-class', 'bg-neutral', 'isolate');
+    expect(fill).toHaveClass('bg-success');
     expect(fill).toHaveStyle({ width: '50%' });
   });
 
@@ -29,8 +29,8 @@ describe('ProgressBar', () => {
     const { container } = render(
       <ProgressBar
         progressBars={[
-          { value: 75, className: 'bg-yellow' },
-          { value: 25, className: 'bg-blue' },
+          { value: 75, className: 'bg-warning' },
+          { value: 25, className: 'bg-brand' },
         ]}
         min={0}
         max={100}
@@ -40,9 +40,9 @@ describe('ProgressBar', () => {
     const fills = container.firstElementChild?.querySelectorAll('div');
 
     expect(fills).toHaveLength(2);
-    expect(fills?.[0]).toHaveClass('bg-yellow');
+    expect(fills?.[0]).toHaveClass('bg-warning');
     expect(fills?.[0]).toHaveStyle({ width: '75%' });
-    expect(fills?.[1]).toHaveClass('bg-blue');
+    expect(fills?.[1]).toHaveClass('bg-brand');
     expect(fills?.[1]).toHaveStyle({ width: '25%' });
   });
 
@@ -57,8 +57,8 @@ describe('ProgressBar', () => {
   it('renders positioned marks without changing the fill color', () => {
     const { container } = render(
       <ProgressBar
-        progressBars={[{ value: 90, className: 'bg-yellow' }]}
-        marks={[{ value: 75 }, { value: 25, className: 'bg-white' }]}
+        progressBars={[{ value: 90, className: 'bg-warning' }]}
+        marks={[{ value: 75 }, { value: 25, className: 'bg-inverse' }]}
         min={0}
         max={100}
       />,
@@ -67,10 +67,10 @@ describe('ProgressBar', () => {
     const fill = container.firstElementChild?.querySelector('div');
     const marks = container.querySelectorAll('span');
 
-    expect(fill).toHaveClass('bg-yellow');
-    expect(marks[0]).toHaveClass('bg-red');
+    expect(fill).toHaveClass('bg-warning');
+    expect(marks[0]).toHaveClass('bg-danger');
     expect(marks[0]).toHaveStyle({ left: '75%' });
-    expect(marks[1]).toHaveClass('bg-white');
+    expect(marks[1]).toHaveClass('bg-inverse');
     expect(marks[1]).toHaveStyle({ left: '25%' });
   });
 

@@ -11,11 +11,11 @@ export const IsolatedAssetIndicator: React.FC<IsolatedAssetIndicatorProps> = ({ 
   const { t } = useTranslation();
 
   return (
-    <span className={cn('inline-flex items-center gap-x-1 text-yellow', className)}>
+    <span className={cn('inline-flex items-center gap-x-1 text-warning', className)}>
       <span className="text-b2s">{t('marketTable.assetColumn.isolated')}</span>
 
       <InfoIcon
-        iconClassName="text-yellow"
+        iconClassName="text-warning"
         tooltip={t('marketTable.assetColumn.isolatedTooltip')}
       />
     </span>

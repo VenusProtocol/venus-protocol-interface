@@ -46,12 +46,8 @@ export const BlockingPosition: React.FC<BlockingPositionProps> = ({
       </div>
 
       <div className="flex items-center">
-        <ButtonWrapper
-          size="xs"
-          className="ml-auto w-auto text-offWhite hover:no-underline"
-          asChild
-        >
-          <Link to={to} target="_blank">
+        <ButtonWrapper size="xs" className="ml-auto w-auto" asChild>
+          <Link noStyle to={to} target="_blank">
             {t('markets.tabs.eMode.group.cannotEnable.modal.repayButtonLabel')}
           </Link>
         </ButtonWrapper>

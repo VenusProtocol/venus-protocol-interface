@@ -13,7 +13,7 @@ export const ValidProgressBar = () => (
 
 export const ProgressBarWithCustomProgressColor = () => (
   <ProgressBar
-    progressBars={[{ value: 50, className: 'bg-yellow' }]}
+    progressBars={[{ value: 50, className: 'bg-warning' }]}
     marks={[{ value: 75 }]}
     min={0}
     max={100}
@@ -23,8 +23,8 @@ export const ProgressBarWithCustomProgressColor = () => (
 export const MultipleProgressBars = () => (
   <ProgressBar
     progressBars={[
-      { value: 80, className: 'bg-yellow' },
-      { value: 50, className: 'bg-green' },
+      { value: 80, className: 'bg-warning' },
+      { value: 50, className: 'bg-success' },
     ]}
     min={0}
     max={100}

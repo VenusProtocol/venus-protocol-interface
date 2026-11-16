@@ -226,7 +226,7 @@ export const RequestWithdrawalForm: React.FC<RequestWithdrawalFormProps> = ({
       {!!accountAddress && (
         <TextButton
           onClick={displayWithdrawalRequestList}
-          className={cn('py-3 w-full', userHasUnlockedDeposits && 'text-yellow')}
+          className={cn('py-3 w-full', userHasUnlockedDeposits && 'text-warning')}
         >
           <div className="flex items-center gap-x-1">
             {t(

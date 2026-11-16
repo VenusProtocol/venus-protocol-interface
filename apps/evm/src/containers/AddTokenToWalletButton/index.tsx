@@ -25,7 +25,7 @@ export const AddTokenToWalletButton: React.FC<AddTokenToWalletButtonProps> = ({
     <TertiaryButton
       className={cn(
         'p-1 h-8 w-8',
-        'border-transparent hover:border-transparent active:border-transparent bg-background hover:bg-background active:bg-background text-grey hover:text-white active:text-blue',
+        'border-transparent hover:border-transparent active:border-transparent bg-surface-2 hover:bg-surface-2 active:bg-surface-2 text-secondary hover:text-primary active:text-brand',
         className,
       )}
       onClick={() => (isUserConnected ? addTokenToWallet(token) : copyToClipboard(token.address))}

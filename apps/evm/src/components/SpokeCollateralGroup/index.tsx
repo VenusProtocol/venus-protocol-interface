@@ -6,30 +6,32 @@ import { ProtectionModeIndicator } from 'components/ProtectionModeIndicator';
 import type { TableColumn } from 'components/Table';
 import { TokenIconWithSymbol } from 'components/TokenIconWithSymbol';
 import { useTranslation } from 'libs/translations';
-import type { SpokeAsset } from 'types';
+import type { Asset } from 'types';
 import { formatPercentageToReadableValue } from 'utilities';
 
-export interface SpokeCollateralGroupProps {
-  collaterals: SpokeAsset[];
-  onRowClick?: (collateral: SpokeAsset) => void;
+type Collateral = Asset & { isInactive?: boolean };
+
+export interface SpokeCollateralGroupProps<TCollateral extends Collateral> {
+  collaterals: TCollateral[];
+  onRowClick?: (collateral: TCollateral) => void;
   className?: string;
 }
 
-export const SpokeCollateralGroup: React.FC<SpokeCollateralGroupProps> = ({
+export const SpokeCollateralGroup = <TCollateral extends Collateral>({
   collaterals,
   onRowClick,
   className,
-}) => {
+}: SpokeCollateralGroupProps<TCollateral>) => {
   const { t } = useTranslation();
 
-  const columns: TableColumn<SpokeAsset>[] = [
+  const columns: TableColumn<TCollateral>[] = [
     {
       key: 'asset',
       label: t('spokeCollateralGroup.asset'),
       selectOptionLabel: t('spokeCollateralGroup.asset'),
       renderCell: collateral => (
         <div className="flex items-center gap-x-2">
-          <TokenIconWithSymbol token={collateral.vToken.underlyingToken} />
+          <TokenIconWithSymbol token={collateral.vToken.underlyingToken} size="xl" />
 
           {collateral.isProtectionModeEnabled && (
             <ProtectionModeIndicator
@@ -41,7 +43,7 @@ export const SpokeCollateralGroup: React.FC<SpokeCollateralGroupProps> = ({
 
           {collateral.isInactive && (
             <InfoIcon
-              iconClassName="text-orange"
+              iconClassName="text-caution"
               iconName="attention"
               tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
             />
@@ -55,7 +57,7 @@ export const SpokeCollateralGroup: React.FC<SpokeCollateralGroupProps> = ({
       selectOptionLabel: t('spokeCollateralGroup.maxLtv'),
       align: 'right',
       renderCell: collateral => (
-        <span className={cn(collateral.isInactive && 'text-grey')}>
+        <span className={cn(collateral.isInactive && 'text-secondary')}>
           {formatPercentageToReadableValue(collateral.collateralFactor * 100)}
         </span>
       ),

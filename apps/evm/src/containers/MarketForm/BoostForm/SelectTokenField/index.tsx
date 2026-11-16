@@ -22,12 +22,12 @@ export const SelectTokenField: React.FC<SelectTokenFieldProps> = ({
   ...otherProps
 }) => (
   <div className={className} data-testid={testId} {...otherProps}>
-    <p className="text-sm text-grey mb-2">{label}</p>
+    <p className="text-sm text-secondary mb-2">{label}</p>
 
     <TertiaryButton
       className={cn(
-        'px-4 h-14 w-full rounded-xl disabled:bg-transparent disabled:border-lightGrey',
-        isActive && 'border-blue',
+        'px-4 h-14 w-full rounded-xl disabled:bg-transparent disabled:border-muted',
+        isActive && 'border-brand',
       )}
       contentClassName="w-full justify-between disabled:bg-transparent"
       onClick={onButtonClick}
@@ -45,7 +45,11 @@ export const SelectTokenField: React.FC<SelectTokenFieldProps> = ({
 
       <Icon
         name="arrowUp"
-        className={cn('w-5 h-5', !isActive && 'rotate-180', disabled ? 'text-grey' : 'text-white')}
+        className={cn(
+          'w-5 h-5',
+          !isActive && 'rotate-180',
+          disabled ? 'text-secondary' : 'text-primary',
+        )}
       />
     </TertiaryButton>
   </div>

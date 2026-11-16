@@ -9,12 +9,12 @@ import {
   useGetLiquidityHubs,
   useGetPool,
   useGetSpokePools,
-  useGetTokenUsdPrice,
   useGetVaults,
 } from 'clients/api';
 import {
   AccordionAnimatedContent,
   ButtonGroup,
+  Cell,
   CellGroup,
   type CellProps,
   Delimiter,
@@ -24,16 +24,12 @@ import {
 import { NULL_ADDRESS } from 'constants/address';
 import { HidableUserBalance } from 'containers/HidableUserBalance';
 import { useChain } from 'hooks/useChain';
+import { useGetTradePositions } from 'hooks/useGetTradePositions';
 import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
-import { useGetToken } from 'libs/tokens';
 import { useTranslation } from 'libs/translations';
 import { useStore } from 'store';
-import {
-  convertDollarsToCents,
-  formatCentsToReadableValue,
-  formatPercentageToReadableValue,
-} from 'utilities';
+import { formatCentsToReadableValue, formatPercentageToReadableValue } from 'utilities';
 import type { Address } from 'viem';
 import { DollarValueChange } from './DollarValueChange';
 import { GridCellGroup } from './GridCellGroup';
@@ -43,11 +39,13 @@ import { useExtractData } from './useExtractData';
 
 export interface AccountOverviewProps extends React.HTMLAttributes<HTMLDivElement> {
   showGraph?: boolean;
+  splitLayout?: boolean;
   accountAddress?: Address;
 }
 
 export const AccountOverview: React.FC<AccountOverviewProps> = ({
   showGraph = true,
+  splitLayout = false,
   accountAddress,
   ...otherProps
 }) => {
@@ -160,23 +158,18 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
 
   const areBalancesLoading = isGetPoolLoading || isGetVaultsLoading || isGetLiquidityHubsLoading;
 
-  const xvs = useGetToken({
-    symbol: 'XVS',
-  });
-  const { data: getXvsUsdPriceData } = useGetTokenUsdPrice({
-    token: xvs,
-  });
-  const xvsPriceCents =
-    getXvsUsdPriceData && convertDollarsToCents(getXvsUsdPriceData.tokenPriceUsd);
+  const isTradeFeatureEnabled = useIsFeatureEnabled({ name: 'trade' });
+  const { data: getTradePositionsData, isLoading: isGetTradePositionsLoading } =
+    useGetTradePositions({
+      accountAddress: isTradeFeatureEnabled ? accountAddress : undefined,
+    });
+  const tradePositions = isTradeFeatureEnabled ? getTradePositionsData.positions : [];
 
-  const vai = useGetToken({
-    symbol: 'VAI',
-  });
-  const { data: getVaiUsdPriceData } = useGetTokenUsdPrice({
-    token: vai,
-  });
-  const vaiPriceCents =
-    getVaiUsdPriceData && convertDollarsToCents(getVaiUsdPriceData.tokenPriceUsd);
+  const isYieldDataAvailable =
+    isAccountDataAvailable &&
+    !isGetLiquidityHubsLoading &&
+    !isGetLiquidityHubsLoadingError &&
+    (!isTradeFeatureEnabled || !isGetTradePositionsLoading);
 
   const {
     data: getAccountPerformanceHistoryData,
@@ -199,8 +192,8 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
       pool,
       vaults,
       spokePools,
-      xvsPriceCents,
-      vaiPriceCents,
+      liquidityHubs: getLiquidityHubsData.liquidityHubs,
+      tradePositions,
     },
   );
 
@@ -249,7 +242,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     {
       label: t('dashboard.overview.todaysChange'),
       value: (
-        <div className="space-x-2 flex items-start">
+        <div className="space-x-2 flex items-center">
           <HidableUserBalance>
             <DollarValueChange value={dailyChangeCents} />
 
@@ -257,7 +250,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
               <div
                 className={cn(
                   'flex items-center',
-                  dailyChangeCents > 0 ? 'text-green' : 'text-red',
+                  dailyChangeCents > 0 ? 'text-success' : 'text-danger',
                 )}
               >
                 <Icon
@@ -265,7 +258,7 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
                   className={cn('w-4 h-4 text-inherit', dailyChangeCents < 0 && 'rotate-180')}
                 />
 
-                <span>{readableDailyChangePercentage}</span>
+                <span className="text-p3r">{readableDailyChangePercentage}</span>
               </div>
             )}
           </HidableUserBalance>
@@ -288,20 +281,18 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     {
       label: t('dashboard.overview.summary.cellGroup.netApy'),
       value: formatPercentageToReadableValue(
-        isAccountDataAvailable ? userNetApyPercentage : undefined,
+        isYieldDataAvailable ? userNetApyPercentage : undefined,
       ),
-      tooltip: vaults
-        ? t('dashboard.overview.summary.cellGroup.netApyWithVaultStakeTooltip')
-        : t('dashboard.overview.summary.cellGroup.netApyTooltip'),
+      tooltip: t('dashboard.overview.summary.cellGroup.netApyTooltip'),
       className:
         typeof userNetApyPercentage === 'number' && userNetApyPercentage < 0
-          ? 'text-red'
-          : 'text-green',
+          ? 'text-danger'
+          : 'text-success',
     },
     {
       label: t('dashboard.overview.summary.cellGroup.dailyEarnings'),
       value: formatCentsToReadableValue({
-        value: isAccountDataAvailable ? userDailyEarningsCents : undefined,
+        value: isYieldDataAvailable ? userDailyEarningsCents : undefined,
       }),
     },
     {
@@ -325,12 +316,30 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
     });
   }
 
-  if (pool?.vai?.userBorrowBalanceCents) {
-    summaryCells.push({
-      label: t('dashboard.overview.summary.cellGroup.mintedVai'),
-      value: formatCentsToReadableValue({ value: pool?.vai?.userBorrowBalanceCents }),
-    });
+  const mintedVaiCents = pool?.vai?.userBorrowBalanceCents;
+  const hasMintedVai = !!mintedVaiCents?.gt(0);
+
+  const mintedVaiCell: CellProps = {
+    label: t('dashboard.overview.summary.cellGroup.mintedVai'),
+    value: formatCentsToReadableValue({ value: mintedVaiCents }),
+  };
+
+  if (hasMintedVai) {
+    summaryCells.push(mintedVaiCell);
   }
+
+  const overviewCells: CellProps[] = [
+    ...graphCells,
+    ...[...summaryCells.slice(0, 2), ...(hasMintedVai ? [mintedVaiCell] : [])].map(cell => ({
+      ...cell,
+      value: <HidableUserBalance>{cell.value}</HidableUserBalance>,
+    })),
+  ];
+
+  const isPerformanceHistoryEmpty =
+    !!getAccountPerformanceHistoryData &&
+    !getAccountPerformanceHistoryError &&
+    accountPerformanceHistory.length === 0;
 
   const readableNetWorth = formatCentsToReadableValue({
     value: selectedDataPoint ? Number(selectedDataPoint.netWorthCents) : netWorthCents,
@@ -341,78 +350,157 @@ export const AccountOverview: React.FC<AccountOverviewProps> = ({
 
   return (
     <div {...otherProps}>
-      <div className="mb-3 space-y-3">
-        {selectedDataPoint ? (
-          <p className="text-sm">
-            {t('dashboard.performanceChart.dataPoint.date', {
-              date: new Date(selectedDataPoint.blockTimestampMs),
-            })}
-          </p>
-        ) : (
-          <div className="flex items-center gap-x-2">
-            <p className="text-sm text-grey">{t('dashboard.overview.netWorth.label')}</p>
-
-            <InfoIcon
-              className="inline-flex"
-              tooltip={
-                isVaiFeatureEnabled
-                  ? t('dashboard.overview.netWorth.tooltipWithVai')
-                  : t('dashboard.overview.netWorth.tooltip')
-              }
-            />
-          </div>
+      <div
+        className={cn(
+          splitLayout && 'grid grid-cols-1 gap-6 lg:items-center',
+          splitLayout && !isPerformanceHistoryEmpty && 'lg:grid-cols-2',
         )}
+      >
+        <div className="min-w-0">
+          <div className="mb-3 space-y-3">
+            {selectedDataPoint ? (
+              <p className="text-sm">
+                {t('dashboard.performanceChart.dataPoint.date', {
+                  date: new Date(selectedDataPoint.blockTimestampMs),
+                })}
+              </p>
+            ) : (
+              <div className="flex items-center gap-x-2">
+                <p className="text-sm text-secondary">{t('dashboard.overview.netWorth.label')}</p>
 
-        <div className="flex items-center gap-x-3">
-          <p className="text-3xl">
-            <HidableUserBalance>{readableNetWorth}</HidableUserBalance>
-          </p>
+                <InfoIcon
+                  className="inline-flex"
+                  tooltip={
+                    isVaiFeatureEnabled
+                      ? t('dashboard.overview.netWorth.tooltipWithVai')
+                      : t('dashboard.overview.netWorth.tooltip')
+                  }
+                />
+              </div>
+            )}
 
-          {accountAddress && (
-            <button type="button" onClick={toggleShowUserBalances} className="cursor-pointer p-1">
-              <Icon
-                name={userChainSettings.doNotShowUserBalances ? 'closedEye' : 'eye'}
-                className="size-5"
-              />
+            <div className="flex items-center gap-x-3">
+              <p className="text-3xl">
+                <HidableUserBalance>{readableNetWorth}</HidableUserBalance>
+              </p>
+
+              {accountAddress && (
+                <button
+                  type="button"
+                  onClick={toggleShowUserBalances}
+                  className="cursor-pointer p-1"
+                >
+                  <Icon
+                    name={userChainSettings.doNotShowUserBalances ? 'closedEye' : 'eye'}
+                    className="size-5"
+                  />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {splitLayout ? (
+            <div
+              className={cn(
+                'grid grid-cols-2 gap-x-5 gap-y-3 sm:gap-x-10 sm:gap-y-6',
+                isPerformanceHistoryEmpty &&
+                  !hasMintedVai &&
+                  'sm:grid-cols-[repeat(4,max-content)]',
+                isPerformanceHistoryEmpty && hasMintedVai && 'sm:grid-cols-[repeat(5,max-content)]',
+                !isPerformanceHistoryEmpty &&
+                  !hasMintedVai &&
+                  'lg:grid-cols-[repeat(2,max-content)]',
+                !isPerformanceHistoryEmpty &&
+                  hasMintedVai &&
+                  'lg:grid-cols-[repeat(3,max-content)]',
+              )}
+            >
+              {overviewCells.map((cell, index) => (
+                <Cell
+                  {...cell}
+                  key={cell.label}
+                  className={cn(
+                    'relative min-w-0 before:absolute before:top-1/2 before:-left-2.5 before:h-10 before:w-px before:-translate-y-1/2 before:bg-border-subtle sm:before:-left-5',
+                    index % 2 === 0 && 'before:hidden',
+                    isPerformanceHistoryEmpty && index >= 2 && 'sm:before:block',
+                    !isPerformanceHistoryEmpty && hasMintedVai && index === 2 && 'lg:col-start-1',
+                    !isPerformanceHistoryEmpty && hasMintedVai && index === 4 && 'lg:before:block',
+                    cell.className,
+                  )}
+                />
+              ))}
+            </div>
+          ) : (
+            <button
+              className={cn(
+                'flex items-center w-full min-h-15 text-left justify-between gap-x-3',
+                shouldShowAccountBreakdown && 'cursor-pointer',
+              )}
+              type="button"
+              disabled={!accountAddress}
+              onClick={toggleAccordion}
+            >
+              <CellGroup cells={graphCells} focusable={false} className="flex-wrap gap-y-3" />
+
+              {shouldShowAccountBreakdown && (
+                <div
+                  className="flex items-center gap-x-3"
+                  data-testid={testIds.performanceChartPreview}
+                >
+                  {!isAccordionOpen && (
+                    <PerformanceChart
+                      accountPerformanceHistory={accountPerformanceHistory}
+                      className="hidden md:block w-49 h-15"
+                      displayAxes={false}
+                      displayToolTip={false}
+                      areaChartMargin={{
+                        top: 0,
+                      }}
+                    />
+                  )}
+
+                  <Icon
+                    name="chevronDown"
+                    className={cn('size-3 text-primary', isAccordionOpen && 'rotate-180')}
+                  />
+                </div>
+              )}
             </button>
           )}
         </div>
-      </div>
 
-      <button
-        className={cn(
-          'flex items-center w-full h-15 text-left justify-between gap-x-3',
-          shouldShowAccountBreakdown && 'cursor-pointer',
-        )}
-        type="button"
-        disabled={!accountAddress}
-        onClick={toggleAccordion}
-      >
-        <CellGroup cells={graphCells} focusable={false} />
-
-        {shouldShowAccountBreakdown && (
-          <div className="flex items-center gap-x-3" data-testid={testIds.performanceChartPreview}>
-            {!isAccordionOpen && (
-              <PerformanceChart
-                accountPerformanceHistory={accountPerformanceHistory}
-                className="hidden md:block w-49 h-15"
-                displayAxes={false}
-                displayToolTip={false}
-                areaChartMargin={{
-                  top: 0,
-                }}
-              />
-            )}
-
-            <Icon
-              name="chevronDown"
-              className={cn('size-3 text-white', isAccordionOpen && 'rotate-180')}
+        {splitLayout && showGraph && !isPerformanceHistoryEmpty && (
+          <div className="min-w-0 space-y-3">
+            <ButtonGroup
+              buttonLabels={periodOptions.map(p => p.label)}
+              className="ml-auto"
+              buttonSize="sm"
+              activeButtonIndex={periodOptions.findIndex(p => p.value === selectedPeriod)}
+              onButtonClick={index => setSelectedPeriod(periodOptions[index].value)}
             />
+
+            {shouldShowAccountBreakdown ? (
+              <PerformanceChart
+                displayAxes
+                variant="line"
+                onSelectedDataPointChange={setSelectedDataPoint}
+                accountPerformanceHistory={accountPerformanceHistory}
+                onRefetch={refetchAccountPerformanceHistoryData}
+                error={getAccountPerformanceHistoryError ?? undefined}
+                isLoading={isGetAccountPerformanceHistoryLoading}
+              />
+            ) : (
+              <div className="flex h-43 items-center justify-center text-sm text-secondary">
+                {accountAddress
+                  ? t('dashboard.performanceChart.balancesHidden')
+                  : t('dashboard.performanceChart.connectWallet')}
+              </div>
+            )}
           </div>
         )}
-      </button>
+      </div>
 
-      {shouldShowAccountBreakdown && (
+      {shouldShowAccountBreakdown && !splitLayout && (
         <AccordionAnimatedContent isOpen={isAccordionOpen} className="pt-6">
           <div className="space-y-6 mb-8">
             <div className="flex flex-col">

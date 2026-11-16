@@ -22,7 +22,7 @@ export const ExternalRewardGroup: React.FC<RewardGroupProps> = ({ group }) => {
           onClick={e => e.stopPropagation()}
         >
           {t('claimReward.modal.claimOn', { appName: group.appName })}
-          <Icon className="text-blue" name="arrowRight" />
+          <Icon className="text-brand" name="arrowRight" />
         </Link>
       }
       group={group}

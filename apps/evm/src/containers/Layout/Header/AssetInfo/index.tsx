@@ -104,7 +104,7 @@ export const AssetInfo = () => {
                   Link: (
                     <button
                       type="button"
-                      className="text-blue underline cursor-pointer"
+                      className="text-brand underline cursor-pointer"
                       onClick={scrollToLtvOptions}
                     />
                   ),

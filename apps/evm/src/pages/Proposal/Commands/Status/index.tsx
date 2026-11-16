@@ -18,14 +18,14 @@ export const Status: React.FC<StatusProps> = ({
   subDescription,
   ...otherProps
 }) => {
-  let colorClass = 'text-white';
+  let colorClass = 'text-primary';
   let iconName: IconName = 'dots';
 
   if (type === 'success') {
-    colorClass = 'text-green';
+    colorClass = 'text-success';
     iconName = 'mark';
   } else if (type === 'error') {
-    colorClass = 'text-red';
+    colorClass = 'text-danger';
     iconName = 'close';
   }
 
@@ -50,7 +50,7 @@ export const Status: React.FC<StatusProps> = ({
 
       {(description || subDescription) && (
         <div className="mt-1 text-xs text-right">
-          {description && <p className="text-grey">{description}</p>}
+          {description && <p className="text-secondary">{description}</p>}
 
           {subDescription && <p>{subDescription}</p>}
         </div>

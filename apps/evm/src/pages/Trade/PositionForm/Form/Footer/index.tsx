@@ -98,7 +98,7 @@ export const Footer: React.FC<FooterProps> = ({
     rows.push({
       label: t('trade.operationForm.openForm.pnl'),
       original: (
-        <span className={pnlDsaTokens.isNegative() ? 'text-red' : 'text-green'}>
+        <span className={pnlDsaTokens.isNegative() ? 'text-danger' : 'text-success'}>
           {formatTokensToReadableValue({
             value: pnlDsaTokens,
             token: position.dsaAsset.vToken.underlyingToken,

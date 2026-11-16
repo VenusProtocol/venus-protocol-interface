@@ -52,6 +52,7 @@ export interface WithdrawFormUiProps {
   isApproveDelegateLoading: boolean;
   approveDelegateAction: () => Promise<unknown>;
   onSubmitSuccess?: () => void;
+  collateralSelectorSlot?: React.ReactElement;
 }
 
 export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
@@ -68,6 +69,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
   isDelegateApprovedLoading,
   isApproveDelegateLoading,
   approveDelegateAction,
+  collateralSelectorSlot,
 }) => {
   const { t } = useTranslation();
   const { nativeToken } = useChain();
@@ -228,6 +230,8 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
           data-testid={TEST_IDS.valueInput}
           name="amountTokens"
           token={asset.vToken.underlyingToken}
+          leftAdornment={collateralSelectorSlot}
+          displayTokenIcon={!collateralSelectorSlot}
           value={formValues.amountTokens}
           onChange={amountTokens => {
             captureAmountSetAnalyticEvent({
@@ -254,7 +258,7 @@ export const WithdrawFormUi: React.FC<WithdrawFormUiProps> = ({
           }
           description={
             isUserConnected && !isSubmitting && !!formError?.message ? (
-              <p className="text-red">{formError.message}</p>
+              <p className="text-danger">{formError.message}</p>
             ) : undefined
           }
         />
@@ -339,9 +343,15 @@ export interface WithdrawFormProps {
   asset: Asset;
   pool: Pool;
   onSubmitSuccess?: () => void;
+  collateralSelectorSlot?: React.ReactElement;
 }
 
-const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSuccess }) => {
+const WithdrawForm: React.FC<WithdrawFormProps> = ({
+  asset,
+  pool,
+  onSubmitSuccess,
+  collateralSelectorSlot,
+}) => {
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({ name: 'wrapUnwrapNativeToken' });
   const { accountAddress } = useAccountAddress();
 
@@ -440,6 +450,7 @@ const WithdrawForm: React.FC<WithdrawFormProps> = ({ asset, pool, onSubmitSucces
       isDelegateApprovedLoading={isDelegateApprovedLoading}
       isApproveDelegateLoading={isUpdateDelegateStatusLoading}
       approveDelegateAction={() => updatePoolDelegateStatus({ approvedStatus: true })}
+      collateralSelectorSlot={collateralSelectorSlot}
     />
   );
 };

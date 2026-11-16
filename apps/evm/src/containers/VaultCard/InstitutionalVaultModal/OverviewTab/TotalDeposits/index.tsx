@@ -17,7 +17,7 @@ export const TotalDeposits: React.FC<{ vault: InstitutionalVault }> = ({ vault }
 
   return (
     <div className="flex flex-col gap-4">
-      <p className="text-p2s text-white">{t('vault.modals.overview.totalDeposited')}</p>
+      <p className="text-p2s text-primary">{t('vault.modals.overview.totalDeposited')}</p>
 
       <CapProgressCircle
         title={t('vault.modals.overview.totalDeposited')}

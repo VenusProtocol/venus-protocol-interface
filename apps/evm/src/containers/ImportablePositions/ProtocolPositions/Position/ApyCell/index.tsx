@@ -4,8 +4,8 @@ export interface ApyProps {
 }
 
 export const ApyCell: React.FC<ApyProps> = ({ label, children }) => (
-  <div className="border border-lightGrey rounded-xl py-2 px-4 space-y-1 flex-1">
-    <p className="text-grey text-xs">{label}</p>
+  <div className="border border-muted rounded-xl py-2 px-4 space-y-1 flex-1">
+    <p className="text-secondary text-xs">{label}</p>
 
     <div className="text-sm">{children}</div>
   </div>

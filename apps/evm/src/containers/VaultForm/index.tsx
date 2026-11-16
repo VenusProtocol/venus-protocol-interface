@@ -263,7 +263,7 @@ export const VaultForm: React.FC<VaultFormProps> = ({
             onChange={event => setIsAcknowledgementChecked(event.target.checked)}
           />
 
-          <span className="text-b1r text-grey">{acknowledgement}</span>
+          <span className="text-b1r text-secondary">{acknowledgement}</span>
         </div>
       )}
 

@@ -15,7 +15,7 @@ export const useColumns = () => {
       selectOptionLabel: t('market.eModeInfo.table.columns.group'),
       renderCell: ({ eModeGroup, isEnabledByUser }) => (
         <div className="flex items-center gap-x-3 text-p3s">
-          <span className="truncate">{eModeGroup.name}</span>
+          <span className="whitespace-normal">{eModeGroup.name}</span>
 
           {isEnabledByUser && <EModeIcon isIsolated={eModeGroup.isIsolated} className="shrink-0" />}
         </div>
@@ -28,7 +28,10 @@ export const useColumns = () => {
       renderCell: ({ collateralFactor }) => (
         <Icon
           name={collateralFactor > 0 ? 'mark' : 'close'}
-          className={cn('w-5 h-5 ml-auto', collateralFactor > 0 ? 'text-green' : 'text-grey')}
+          className={cn(
+            'w-5 h-5 ml-auto',
+            collateralFactor > 0 ? 'text-success' : 'text-secondary',
+          )}
         />
       ),
       sortRows: (rowA, rowB, direction) =>
@@ -42,7 +45,7 @@ export const useColumns = () => {
       renderCell: ({ isBorrowable }) => (
         <Icon
           name={isBorrowable ? 'mark' : 'close'}
-          className={cn('w-5 h-5 ml-auto', isBorrowable ? 'text-green' : 'text-grey')}
+          className={cn('w-5 h-5 ml-auto', isBorrowable ? 'text-success' : 'text-secondary')}
         />
       ),
       sortRows: (rowA, rowB, direction) =>

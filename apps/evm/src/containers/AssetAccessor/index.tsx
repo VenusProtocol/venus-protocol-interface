@@ -46,7 +46,7 @@ const AssetAccessor: React.FC<AssetAccessorProps> = ({
       Link: (
         <EModeButton
           variant="text"
-          className="p-0 h-auto text-blue font-normal"
+          className="p-0 h-auto text-brand font-normal"
           poolComptrollerContractAddress={poolComptrollerAddress}
           analyticVariant="market_borrow_banner"
         />

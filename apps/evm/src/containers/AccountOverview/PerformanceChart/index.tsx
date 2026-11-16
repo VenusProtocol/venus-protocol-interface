@@ -28,7 +28,11 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({
   const { t } = useTranslation();
   const isSmOrUp = useBreakpointUp('sm');
 
-  const chartInterval = isSmOrUp ? 5 : 3;
+  let chartInterval = isSmOrUp ? 5 : 3;
+
+  if (areaChartProps.variant === 'line') {
+    chartInterval = 7;
+  }
 
   return (
     <div className={cn('h-43', className)}>
@@ -69,14 +73,14 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({
             <>
               <Spinner className="h-auto" />
 
-              <p className="text-sm text-grey">
+              <p className="text-sm text-secondary">
                 {t('dashboard.overview.performanceChart.placeholderText')}
               </p>
             </>
           )}
 
           {!error && !isLoading && (
-            <p className="text-sm text-grey">
+            <p className="text-sm text-secondary">
               {t('dashboard.overview.performanceChart.emptyState')}
             </p>
           )}

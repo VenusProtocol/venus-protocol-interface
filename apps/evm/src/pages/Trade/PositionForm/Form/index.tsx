@@ -314,7 +314,7 @@ export const Form: React.FC<FormProps> = ({
     hasError: canDisplayFormError && hasDsaAmountError,
     description:
       canDisplayFormError && hasDsaAmountError && formError ? (
-        <p className="text-red">{formError.message}</p>
+        <p className="text-danger">{formError.message}</p>
       ) : undefined,
     name: 'dsaAmountTokens',
     onChange: (newDsaAmountTokens: string) =>
@@ -353,7 +353,7 @@ export const Form: React.FC<FormProps> = ({
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
       {action === 'close' && !isLoading && formError && (
-        <p className="text-red text-b1r">{formError.message}</p>
+        <p className="text-danger text-b1r">{formError.message}</p>
       )}
 
       {action === 'open' && (
@@ -444,7 +444,7 @@ export const Form: React.FC<FormProps> = ({
               (formError.code === 'NO_SWAP_QUOTE_FOUND' ||
                 formError.code === 'HIGHER_THAN_SUPPLY_CAP' ||
                 formError.code === 'HIGHER_THAN_LIQUIDITY') ? (
-                <p className="text-red">{formError.message}</p>
+                <p className="text-danger">{formError.message}</p>
               ) : undefined
             }
             hasError={
@@ -479,7 +479,7 @@ export const Form: React.FC<FormProps> = ({
                 formError?.code === 'BORROW_CAP_ALREADY_REACHED' ||
                 formError?.code === 'SWAP_PRICE_IMPACT_TOO_HIGH' ||
                 formError?.code === 'TOO_RISKY') ? (
-                <p className="text-red">{formError.message}</p>
+                <p className="text-danger">{formError.message}</p>
               ) : undefined
             }
           />

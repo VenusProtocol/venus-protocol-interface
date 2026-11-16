@@ -1,153 +1,18 @@
-import { useGetLiquidityHubs, useGetPool, useGetSpokePools, useGetVaults } from 'clients/api';
-import { Page, SectionErrorBoundary, Spinner, Tabs } from 'components';
-import { AdBanner } from 'containers/AdBanner';
-import { useChain } from 'hooks/useChain';
-import { useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
-import type { Tab } from 'hooks/useTabs';
-import { PAGE_PARAM_DEFAULT_KEY } from 'hooks/useUrlPagination';
-import { useTranslation } from 'libs/translations';
-import { useAccountAddress, useChainId } from 'libs/wallet';
-import { useEffect, useRef } from 'react';
-import { useSearchParams } from 'react-router';
-import { AccountOverview } from '../../containers/AccountOverview';
-import { Guide } from './Guide';
-import { Hubs } from './Hubs';
-import { Markets } from './Markets';
-import { Settings } from './Settings';
-import { Transactions } from './Transactions';
-import { Vaults } from './Vaults';
+import { Spinner } from 'components';
+import { routes } from 'constants/routing';
+import { Redirect } from 'containers/Redirect';
+import { useAccountAddress } from 'libs/wallet';
+
+import { ConnectedDashboard } from './ConnectedDashboard';
 
 export const Dashboard: React.FC = () => {
-  const { t } = useTranslation();
-  const { corePoolComptrollerContractAddress } = useChain();
-  const { chainId } = useChainId();
-  const [, setSearchParams] = useSearchParams();
+  const { accountAddress, isAccountPending } = useAccountAddress();
 
-  const chainIdRef = useRef(chainId);
-  useEffect(() => {
-    if (chainId !== chainIdRef.current) {
-      chainIdRef.current = chainId;
-      setSearchParams(currentSearchParams => {
-        currentSearchParams.delete(PAGE_PARAM_DEFAULT_KEY);
-        return Object.fromEntries(currentSearchParams);
-      });
-    }
-  }, [chainId, setSearchParams]);
-
-  const isGaslessTransactionsFeatureEnabled = useIsFeatureEnabled({
-    name: 'gaslessTransactions',
-  });
-  const isHistoricalTransactionsFeatureEnabled = useIsFeatureEnabled({
-    name: 'transactionHistory',
-  });
-  const isLiquidityHubFeatureEnabled = useIsFeatureEnabled({
-    name: 'liquidityHub',
-  });
-
-  const { accountAddress } = useAccountAddress();
-  const { data: getPoolData, isLoading: isGetPoolLoading } = useGetPool({
-    poolComptrollerAddress: corePoolComptrollerContractAddress,
-    accountAddress,
-  });
-  const pool = getPoolData?.pool;
-
-  const { data: getVaultsData, isLoading: isGetVaultsLoading } = useGetVaults({
-    accountAddress,
-  });
-  const vaults = getVaultsData || [];
-
-  const {
-    data: getLiquidityHubsData = {
-      liquidityHubs: [],
-    },
-    isLoading: isGetLiquidityHubsLoading,
-  } = useGetLiquidityHubs(
-    {
-      accountAddress,
-    },
-    {
-      enabled: isLiquidityHubFeatureEnabled,
-    },
-  );
-  const { liquidityHubs } = getLiquidityHubsData;
-
-  const { isLoading: isGetSpokePoolsLoading, errorUpdateCount: getSpokePoolsErrorCount } =
-    useGetSpokePools({ accountAddress }, { enabled: !!accountAddress });
-
-  const tabs: Tab[] = [
-    {
-      title: t('account.tabs.markets'),
-      id: 'pools',
-      content: (
-        <SectionErrorBoundary className="my-10" key="pools">
-          {isGetPoolLoading || (isGetSpokePoolsLoading && getSpokePoolsErrorCount === 0) ? (
-            <Spinner />
-          ) : (
-            pool && <Markets pool={pool} />
-          )}
-        </SectionErrorBoundary>
-      ),
-    },
-    {
-      title: t('account.tabs.vaults'),
-      id: 'vaults',
-      content: (
-        <SectionErrorBoundary className="my-10" key="vaults">
-          {isGetVaultsLoading ? <Spinner /> : <Vaults vaults={vaults} />}
-        </SectionErrorBoundary>
-      ),
-    },
-  ];
-
-  if (isLiquidityHubFeatureEnabled) {
-    tabs.push({
-      title: t('account.tabs.hubs'),
-      id: 'hub',
-      content: (
-        <SectionErrorBoundary className="my-10" key="hub">
-          {isGetLiquidityHubsLoading ? <Spinner /> : <Hubs liquidityHubs={liquidityHubs} />}
-        </SectionErrorBoundary>
-      ),
-    });
+  if (accountAddress) {
+    return <ConnectedDashboard />;
   }
 
-  if (isHistoricalTransactionsFeatureEnabled) {
-    tabs.push({
-      title: t('account.tabs.transactions'),
-      id: 'transactions',
-      content: (
-        <SectionErrorBoundary className="my-10" key="transactions">
-          <Transactions />
-        </SectionErrorBoundary>
-      ),
-    });
-  }
-
-  if (isGaslessTransactionsFeatureEnabled) {
-    tabs.push({
-      title: t('account.tabs.settings'),
-      id: 'settings',
-      content: <Settings />,
-    });
-  }
-
-  return (
-    <Page>
-      <div className="mt-2 mb-12">
-        <AdBanner />
-      </div>
-
-      <div className="space-y-12 mb-12">
-        <SectionErrorBoundary>
-          <AccountOverview className="w-full" accountAddress={accountAddress} />
-        </SectionErrorBoundary>
-
-        <Guide />
-      </div>
-
-      <Tabs tabs={tabs} navType="searchParam" variant="tertiary" />
-    </Page>
-  );
+  return isAccountPending ? <Spinner /> : <Redirect to={routes.landing.path} />;
 };
 
 export default Dashboard;

@@ -18,7 +18,7 @@ export const CardList: React.FC<CardListProps> = ({
 }) => (
   <div className={cn('space-y-3', className)}>
     {sources.map((row, rowIndex) => (
-      <Card key={rowKeyExtractor(row)} className="bg-dark-blue p-3">
+      <Card key={rowKeyExtractor(row)} className="border-subtle bg-transparent p-3">
         <div className="space-y-3">
           {columns.map(column => (
             <LabeledInlineContent label={column.label} key={column.key}>

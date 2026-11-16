@@ -20,12 +20,12 @@ export const Row: React.FC<RowProps> = ({ address, url, children, ...otherProps 
             <Link href={url} target="_blank">
               <Icon
                 name="link"
-                className="text-light-grey hover:cursor-pointer hover:text-blue active:text-blue"
+                className="text-secondary hover:cursor-pointer hover:text-brand active:text-brand"
               />
             </Link>
           )}
 
-          {!!address && <CopyAddressButton address={address} className="text-light-grey" />}
+          {!!address && <CopyAddressButton address={address} className="text-secondary" />}
         </div>
       </LabeledInlineContent>
 

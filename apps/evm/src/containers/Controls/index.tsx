@@ -57,19 +57,19 @@ export const Controls: React.FC<ControlsProps> = ({
       <div
         className={cn(
           'flex flex-col gap-y-3 @2xl:items-center @2xl:flex-row @2xl:justify-between',
-          filters && '@2xl:flex-wrap @2xl:gap-x-6',
+          filters && '@2xl:flex-wrap @2xl:gap-x-3',
         )}
       >
         <div
           className={cn('flex flex-col gap-3 sm:flex-row @2xl:grow', !filters && '@2xl:max-w-142')}
         >
           <TextField
-            size="sm"
+            size="xs"
             value={searchValue}
             onChange={handleSearchInputChange}
             placeholder={searchInputPlaceholder}
             leftIconSrc="magnifier"
-            className="sm:grow @2xl:max-w-75"
+            className="sm:grow @2xl:max-w-60"
           />
 
           {filters}
@@ -83,7 +83,8 @@ export const Controls: React.FC<ControlsProps> = ({
               renderCount={count => t('controls.categoryFilter.nCategories', { count })}
               title={t('controls.categoryFilter.title')}
               resetLabel={t('controls.categoryFilter.reset')}
-              className="shrink-0 sm:w-52"
+              size="xs"
+              className="shrink-0 sm:w-60"
             />
           )}
         </div>

@@ -49,7 +49,7 @@ export const RowFooter: React.FC<RowFooterProps> = ({ row, underlyingToken, isOp
           initialOrder={initialOrder}
           variant="primary"
           tableLayout="fixed"
-          className="bg-dark-blue"
+          className="border-subtle bg-transparent shadow-none before:hidden"
         />
       </div>
     </AccordionAnimatedContent>

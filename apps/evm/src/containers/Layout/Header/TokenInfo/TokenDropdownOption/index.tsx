@@ -30,7 +30,7 @@ export const TokenDropdownOption = ({
   type,
 }: TokenDropdownOptionProps) => {
   const wrapperClassName = cn(
-    'flex items-center justify-start py-3 px-4 text-left text-sm font-semibold flex-row gap-2 grow min-w-[180px] cursor-pointer hover:bg-lightGrey active:bg-lightGrey',
+    'flex items-center justify-start py-3 px-4 text-left text-sm font-semibold flex-row gap-2 grow min-w-[180px] cursor-pointer hover:bg-neutral active:bg-neutral',
     className,
   );
   const contentsDom = (

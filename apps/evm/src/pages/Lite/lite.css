@@ -1,0 +1,114 @@
+.lite-hero-title {
+  display: inline-block;
+  background-image: var(--background-image-hero-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (forced-colors: active) {
+  .lite-hero-title {
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+.lite-panel {
+  position: relative;
+  z-index: 21;
+  flex: 1 1 auto;
+  border: 1px solid var(--color-border-glass);
+  border-radius: calc(var(--spacing) * 2);
+  background: var(--color-surface-glass);
+  box-shadow: var(--shadow-glass);
+}
+
+.lite-panel:has(.venus-multiselect-menu) {
+  z-index: 30;
+}
+
+.lite-panel .venus-multiselect-menu {
+  max-height: calc(var(--spacing) * 80);
+  overflow-y: auto;
+}
+
+.lite-panel .venus-multiselect-menu > div > div:first-child {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-image: var(--background-image-menu);
+  backdrop-filter: blur(var(--blur-raised));
+  -webkit-backdrop-filter: blur(var(--blur-raised));
+}
+
+.lite-table-scroll::-webkit-scrollbar-track {
+  margin-top: calc(var(--spacing) * 10);
+}
+
+.lite-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+}
+
+@media (min-width: 768px) {
+  .lite-panel {
+    max-height: calc(var(--spacing) * 122);
+    min-height: min(calc(var(--spacing) * 122), 100%);
+  }
+}
+
+@media (max-width: 767px) {
+  .lite-panel {
+    flex: 0 0 auto;
+  }
+}
+
+.lite-enter {
+  animation: lite-content-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.lite-enter--subtitle {
+  animation-delay: 0.08s;
+}
+
+.lite-enter--totals {
+  animation-delay: 0.14s;
+}
+
+.lite-enter--markets {
+  animation-name: lite-content-rise;
+  animation-delay: 0.22s;
+}
+
+@keyframes lite-content-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes lite-content-rise {
+  from {
+    transform: translateY(12px);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lite-enter {
+    animation: none;
+  }
+}

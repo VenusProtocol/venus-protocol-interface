@@ -25,13 +25,13 @@ export const ContractErrorNotice: React.FC<ContractErrorNoticeProps> = ({
 
   return (
     <div className="space-y-2">
-      <p className="text-xs text-white md:text-sm">{headline}</p>
+      <p className="text-xs text-primary md:text-sm">{headline}</p>
 
       {!hasFriendlyPhrase && (
-        <div className="rounded-lg border border-dark-grey-hover bg-background/50 px-3 py-2 font-mono text-xs break-all">
-          <span className="text-light-grey">{t('contractErrors.notice.errorLabel')}: </span>
-          <span className="text-white">{errorName}</span>
-          {signature && <span className="text-light-grey"> ({signature})</span>}
+        <div className="rounded-lg border border-strong bg-surface-2/50 px-3 py-2 font-mono text-xs break-all">
+          <span className="text-secondary">{t('contractErrors.notice.errorLabel')}: </span>
+          <span className="text-primary">{errorName}</span>
+          {signature && <span className="text-secondary"> ({signature})</span>}
         </div>
       )}
 
@@ -49,8 +49,8 @@ export const ContractErrorNotice: React.FC<ContractErrorNoticeProps> = ({
       {isRawVisible && (
         <pre
           className={cn(
-            'max-h-60 overflow-auto rounded-lg border border-dark-grey-hover bg-background/50 p-3',
-            'font-mono text-xs text-white whitespace-pre-wrap break-all',
+            'max-h-60 overflow-auto rounded-lg border border-strong bg-surface-2/50 p-3',
+            'font-mono text-xs text-primary whitespace-pre-wrap break-all',
           )}
         >
           {rawMessage}

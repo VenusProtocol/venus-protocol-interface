@@ -8,6 +8,7 @@ import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
 import { type Token, VaultVenue } from 'types';
 import { generateExplorerUrl, truncateAddress } from 'utilities';
+import { VenueIcon } from '../VenueIcon';
 import { Row } from './Row';
 
 export interface VaultOverviewMarketInfoProps {
@@ -16,6 +17,7 @@ export interface VaultOverviewMarketInfoProps {
   venue: string;
   venueName: string;
   venueIconSrc: string;
+  isVenueIconMonochrome: boolean;
   venueUrl?: string;
   copyAddress?: Address;
   collateralToken?: Token;
@@ -27,6 +29,7 @@ export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = (
   venue,
   venueName,
   venueIconSrc,
+  isVenueIconMonochrome,
   venueUrl,
   copyAddress,
   collateralToken,
@@ -65,7 +68,7 @@ export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = (
 
   return (
     <div className="flex flex-col gap-5">
-      <p className="text-p2s text-white flex-1 pb-2">{t('vault.modals.overview.marketInfo')}</p>
+      <p className="text-p2s text-primary flex-1 pb-2">{t('vault.modals.overview.marketInfo')}</p>
 
       <div className="flex flex-col gap-3">
         <Row label={t('vault.modals.overview.vaultDeploymentDate')}>{formattedDeploymentDate}</Row>
@@ -84,9 +87,10 @@ export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = (
             address={copyAddress}
           >
             <div className="flex items-center text-b1r">
-              <img
+              <VenueIcon
                 src={venueIconSrc}
-                className="mr-2 h-5 w-5"
+                isMonochrome={isVenueIconMonochrome}
+                className="mr-2"
                 alt={t('vault.modals.overview.vaultVenueIcon')}
               />
               {venueName}
@@ -108,9 +112,11 @@ export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = (
         )}
 
         <div className="space-y-3">
-          <p className="text-b1r text-grey">{t('vault.modals.overview.marketRiskDisclosures')}</p>
+          <p className="text-b1r text-secondary">
+            {t('vault.modals.overview.marketRiskDisclosures')}
+          </p>
 
-          <p className="text-b1r text-white">{riskDisclosure}</p>
+          <p className="text-b1r text-primary">{riskDisclosure}</p>
         </div>
       </div>
     </div>

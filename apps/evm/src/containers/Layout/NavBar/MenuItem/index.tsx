@@ -30,8 +30,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
   );
 
   const sharedContainerClassName = cn(
-    'block w-full text-left py-3 font-semibold text-light-grey transition-colors hover:no-underline hover:text-light-grey-hover active:text-light-grey-active lg:font-normal lg:px-4 lg:py-3 lg:rounded-lg lg:hover:text-white lg:hover:bg-dark-blue-active lg:whitespace-nowrap group-has-[[data-rewards-button]]/navbar:lg:px-2 group-has-[[data-rewards-button]]/navbar:xl:px-4',
-    isActive && 'lg:bg-dark-blue-active lg:text-white',
+    'block w-full text-left py-3 font-semibold text-secondary transition-colors hover:no-underline hover:text-secondary-hover active:text-primary lg:font-normal lg:text-sm lg:leading-5 lg:px-3 xl:px-4 lg:py-4 lg:rounded-lg lg:hover:text-primary lg:whitespace-nowrap group-has-[[data-rewards-button]]/navbar:lg:px-2 group-has-[[data-rewards-button]]/navbar:xl:px-4',
+    isActive && 'lg:font-semibold lg:text-primary',
   );
 
   // Toggle menu's open state
@@ -54,7 +54,11 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
           <div className="flex items-center gap-x-2">
             <span className="whitespace-nowrap">{item.label}</span>
 
-            {!!item.tagLabel && <Tag>{item.tagLabel}</Tag>}
+            {!!item.tagLabel && (
+              <Tag className="lg:max-xl:absolute lg:max-xl:-top-2 lg:max-xl:-right-3 lg:max-xl:z-1">
+                {item.tagLabel}
+              </Tag>
+            )}
           </div>
 
           <Icon
@@ -80,12 +84,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
       {/* XL and up dropdown */}
       <Dropdown
         className="hidden lg:block"
-        menuClassName={cn(
-          'mt-5',
-          item.variant === 'secondary'
-            ? 'border-white/12 bg-background-active shadow-[0_12px_32px_0_rgb(0_0_0/18%)]'
-            : 'shadow-none border-0 bg-background-active',
-        )}
+        menuClassName={cn('mt-2.5', item.variant !== 'secondary' && 'p-2')}
         triggerOnHover
         optionsDom={({ setIsDropdownOpen }) => {
           const items: SubMenuItemProps[] = item.items.map(i => ({
@@ -108,19 +107,26 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
             className={cn(
               sharedContainerClassName,
               'relative flex items-center justify-between cursor-pointer lg:gap-x-2',
-              isDropdownOpen && 'lg:text-white lg:bg-dark-blue-active',
+              isDropdownOpen && 'lg:text-primary',
             )}
             type="button"
             data-nav-item
             aria-expanded={isDropdownOpen}
           >
-            <span>{item.label}</span>
-
-            <Icon name="chevronDown" className={cn('size-3', isDropdownOpen && 'rotate-180')} />
+            <span
+              data-label={item.label}
+              className="inline-flex flex-col after:invisible after:h-0 after:overflow-hidden after:font-semibold after:content-[attr(data-label)]"
+            >
+              {item.label}
+            </span>
 
             {!!item.tagLabel && (
-              <Tag className="absolute z-1 -top-2 -right-3 xl:-right-1">{item.tagLabel}</Tag>
+              <Tag className="lg:max-xl:absolute lg:max-xl:-top-2 lg:max-xl:-right-3 lg:max-xl:z-1">
+                {item.tagLabel}
+              </Tag>
             )}
+
+            <Icon name="chevronDown" className={cn('size-3', isDropdownOpen && 'rotate-180')} />
           </button>
         )}
       </Dropdown>
@@ -136,7 +142,12 @@ export const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
       data-nav-item
       className={cn(sharedContainerClassName, 'group/menu-link flex items-center gap-x-2')}
     >
-      <span>{item.label}</span>
+      <span
+        data-label={item.label}
+        className="inline-flex flex-col after:invisible after:h-0 after:overflow-hidden after:font-semibold after:content-[attr(data-label)]"
+      >
+        {item.label}
+      </span>
 
       {!!item.href && (
         <Icon

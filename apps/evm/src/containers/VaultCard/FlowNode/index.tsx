@@ -7,9 +7,11 @@ export const FlowNode: React.FC<{
   <div
     className={cn(
       'flex items-center justify-center rounded-lg px-4 py-2.5',
-      variant === 'primary' ? 'bg-blue' : 'border border-dark-blue-hover bg-transparent',
+      variant === 'primary' ? 'bg-brand' : 'border border-default bg-transparent',
     )}
   >
-    <span className="text-b1r text-white">{children}</span>
+    <span className={cn('text-b1r', variant === 'primary' ? 'text-on-color' : 'text-primary')}>
+      {children}
+    </span>
   </div>
 );

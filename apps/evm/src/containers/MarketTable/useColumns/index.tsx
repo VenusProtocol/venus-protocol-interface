@@ -160,7 +160,7 @@ export const useColumns = ({
 
             {isPaused && (
               <InfoIcon
-                iconClassName="text-orange"
+                iconClassName="text-caution"
                 iconName="attention"
                 tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
               />
@@ -187,7 +187,7 @@ export const useColumns = ({
 
                   <div className="min-w-0">
                     <div className="flex items-center gap-x-1">
-                      <p className="truncate font-semibold">
+                      <p className="truncate font-normal group-hover:font-semibold">
                         {asset.vToken.underlyingToken.symbol}
                       </p>
 
@@ -204,6 +204,7 @@ export const useColumns = ({
                     displayChain={column === 'assetAndChain'}
                     size={column === 'assetAndChain' ? 'md' : 'xl'}
                     className="min-w-[5rem]"
+                    symbolClassName="font-normal group-hover:font-semibold"
                   />
 
                   {indicatorsDom}
@@ -221,7 +222,11 @@ export const useColumns = ({
         ) {
           return (
             <AssetApy
-              className={cn(isPaused && 'text-grey', align === 'right' && 'justify-end')}
+              className={cn(
+                'font-semibold',
+                isPaused && 'text-secondary',
+                align === 'right' && 'justify-end',
+              )}
               asset={asset}
               type={column === 'supplyApy' || column === 'labeledSupplyApy' ? 'supply' : 'borrow'}
             />
@@ -253,7 +258,7 @@ export const useColumns = ({
         if (column === 'liquidity') {
           return (
             <LayeredValues
-              className={cn(isPaused && 'text-grey')}
+              className={cn(isPaused && 'text-secondary')}
               topValue={formatTokensToReadableValue({
                 value: asset.cashTokens,
                 token: asset.vToken.underlyingToken,
@@ -269,7 +274,7 @@ export const useColumns = ({
         if (column === 'userWalletBalance') {
           return (
             <LayeredValues
-              className={cn(isPaused && 'text-grey')}
+              className={cn(isPaused && 'text-secondary')}
               topValue={formatTokensToReadableValue({
                 value: asset.userWalletBalanceTokens,
                 token: asset.vToken.underlyingToken,
@@ -286,7 +291,7 @@ export const useColumns = ({
           return (
             <HidableUserBalance>
               <LayeredValues
-                className={cn(isPaused && 'text-grey')}
+                className={cn(isPaused && 'text-secondary')}
                 topValue={formatTokensToReadableValue({
                   value: asset.userSupplyBalanceTokens,
                   token: asset.vToken.underlyingToken,
@@ -304,7 +309,7 @@ export const useColumns = ({
           return (
             <HidableUserBalance>
               <LayeredValues
-                className={cn(isPaused && 'text-grey')}
+                className={cn(isPaused && 'text-secondary')}
                 topValue={formatTokensToReadableValue({
                   value: asset.userBorrowBalanceTokens,
                   token: asset.vToken.underlyingToken,
@@ -321,7 +326,7 @@ export const useColumns = ({
         if (column === 'supplyBalance') {
           return (
             <LayeredValues
-              className={cn(isPaused && 'text-grey')}
+              className={cn(isPaused && 'text-secondary')}
               topValue={formatTokensToReadableValue({
                 value: asset.supplyBalanceTokens,
                 token: asset.vToken.underlyingToken,
@@ -337,7 +342,7 @@ export const useColumns = ({
         if (column === 'borrowBalance') {
           return (
             <LayeredValues
-              className={cn(isPaused && 'text-grey')}
+              className={cn(isPaused && 'text-secondary')}
               topValue={formatTokensToReadableValue({
                 value: asset.borrowBalanceTokens,
                 token: asset.vToken.underlyingToken,
@@ -354,7 +359,7 @@ export const useColumns = ({
           return (
             <HidableUserBalance>
               <div className="flex items-center justify-start sm:justify-end [&>:first-of-type]:mr-2">
-                <span className={cn(isPaused ? 'text-grey' : 'text-white')}>
+                <span className={cn(isPaused ? 'text-secondary' : 'text-primary')}>
                   {formatPercentageToReadableValue(asset.userBorrowLimitSharePercentage)}
                 </span>
 

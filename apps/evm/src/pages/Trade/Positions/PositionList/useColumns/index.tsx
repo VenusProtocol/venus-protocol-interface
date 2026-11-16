@@ -60,12 +60,12 @@ export const useColumns = ({
             size="sm"
           />
 
-          <div className="px-1 py-0.5 rounded-lg border border-light-grey text-light-grey text-b2s">
+          <div className="px-1 py-0.5 rounded-lg border border-bold text-secondary text-b2s">
             {row.leverageFactor}x
           </div>
 
           <button
-            className="w-6 h-6 rounded-sm flex items-center justify-center cursor-pointer transition-colors hover:bg-background-hover"
+            className="w-6 h-6 rounded-sm flex items-center justify-center cursor-pointer transition-colors hover:bg-hover"
             onClick={e => toggleAccordion(row, e)}
             type="button"
           >
@@ -129,7 +129,10 @@ export const useColumns = ({
       align: 'right',
       renderCell: ({ unrealizedPnlCents, unrealizedPnlPercentage }) => (
         <LayeredValues
-          className={cn('whitespace-nowrap', unrealizedPnlCents >= 0 ? 'text-green' : 'text-red')}
+          className={cn(
+            'whitespace-nowrap',
+            unrealizedPnlCents >= 0 ? 'text-success' : 'text-danger',
+          )}
           bottomValueClassName="text-inherit"
           topValueClassName="font-semibold"
           topValue={formatCentsToReadableValue({

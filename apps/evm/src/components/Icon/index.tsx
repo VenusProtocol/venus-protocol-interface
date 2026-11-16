@@ -21,7 +21,7 @@ export const Icon: React.FC<IconProps> = ({ name, className, ...otherProps }) =>
 
   return (
     <Component
-      className={cn('size-4 text-light-grey', className)}
+      className={cn('size-4 text-secondary', className)}
       id={idRef.current}
       {...otherProps}
     />

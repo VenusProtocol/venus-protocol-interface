@@ -17,7 +17,7 @@ const PrimeTokensLeft = ({ count }: PrimeTokensLeftProps) => {
           // t('primeStatusBanner.tokensLeft_many')
           i18nKey="primeStatusBanner.tokensLeft"
           components={{
-            WhiteText: <span className="text-white" />,
+            WhiteText: <span className="text-primary" />,
           }}
           values={{
             count,

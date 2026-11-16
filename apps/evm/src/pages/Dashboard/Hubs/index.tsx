@@ -65,9 +65,9 @@ export const Hubs: React.FC<HubsProps> = ({ liquidityHubs }) => {
         liquidityHub.userSupplyBalanceTokens?.isGreaterThan(0) === true
       }
       summaryCells={summaryCells}
-      placeholderIconName="hub"
       placeholderTitle={t('account.hubs.placeholder.title')}
       placeholderRoute={routes.liquidityHubs.path}
+      paginationParamKey="hubsPage"
       placeholderOnClick={() =>
         captureAnalyticEvent('hub_navigation', {
           variant: 'dashboard_cta',
@@ -76,6 +76,7 @@ export const Hubs: React.FC<HubsProps> = ({ liquidityHubs }) => {
       renderCard={(liquidityHub, isPreview) => (
         <LiquidityHubCard
           liquidityHub={liquidityHub}
+          className="gap-6 p-3"
           to={
             isPreview
               ? routes.liquidityHub.path.replace(':vhTokenAddress', liquidityHub.vhToken.address)

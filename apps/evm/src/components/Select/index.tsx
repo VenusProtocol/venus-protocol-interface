@@ -27,6 +27,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       menuTitle,
       menuPosition,
       triggerOnHover,
+      wrapLabels = false,
       ...otherProps
     }: SelectProps,
     ref: React.Ref<HTMLInputElement>,
@@ -53,26 +54,28 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       isDropdownOpen: boolean;
     }) => {
       switch (variant) {
+        case 'raised':
+          return cn('shadow-none', isDropdownOpen && 'text-primary');
         case 'secondary':
           return cn(
-            'border-lightGrey bg-lightGrey hover:border-blue hover:bg-lightGrey active:border-blue active:bg-lightGrey',
-            isDropdownOpen && 'border-blue hover:border-blue',
+            'border-muted bg-neutral hover:border-brand hover:bg-neutral active:border-brand active:bg-neutral',
+            isDropdownOpen && 'border-brand hover:border-brand',
           );
         case 'tertiary':
           return cn(
-            'border-transparent bg-cards hover:bg-cards hover:border-white active:bg-cards active:border-blue',
-            isDropdownOpen && 'border-blue hover:border-blue',
+            'border-transparent bg-surface-4 hover:bg-surface-4 hover:border-inverse active:bg-surface-4 active:border-brand',
+            isDropdownOpen && 'border-brand hover:border-brand',
           );
         case 'quaternary':
           return cn(
-            'border-transparent bg-lightGrey rounded-xl hover:bg-lightGrey hover:border-grey active:bg-lightGrey active:border-blue',
-            isDropdownOpen && 'border-blue bg-lightGrey hover:border-blue',
+            'border-transparent bg-neutral rounded-xl hover:bg-neutral hover:border-bold active:bg-neutral active:border-brand',
+            isDropdownOpen && 'border-brand bg-neutral hover:border-brand',
           );
         // primary
         default:
           return cn(
-            'rounded-lg border-dark-blue-hover bg-transparent hover:bg-transparent hover:border-light-grey active:bg-dark-blue',
-            isDropdownOpen && 'bg-dark-blue-active border-blue',
+            'rounded-lg border-select bg-input bg-linear-to-b from-surface-raised to-surface-raised shadow-none! backdrop-blur-none! backdrop-saturate-100 hover:border-select hover:bg-input active:bg-input',
+            isDropdownOpen && 'border-brand hover:border-brand',
           );
       }
     };
@@ -91,18 +94,25 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
                 onClick={() => handleChange(option.value)}
                 type="button"
                 className={cn(
-                  'hover:bg-lightGrey active:bg-lightGrey flex min-w-full items-center justify-between py-3 text-left text-sm font-semibold cursor-pointer',
+                  'hover:bg-surface-dropdown-item-hover active:bg-surface-dropdown-item-hover flex min-w-full items-center justify-between py-3 text-left text-sm font-semibold cursor-pointer',
+                  value === option.value &&
+                    'bg-surface-dropdown-item-selected hover:bg-surface-dropdown-item-selected',
                   optionClassName,
                 )}
               >
-                <span className={cn('grow whitespace-nowrap')}>
+                <span
+                  className={cn(
+                    'grow',
+                    wrapLabels ? 'whitespace-normal [overflow-wrap:anywhere]' : 'whitespace-nowrap',
+                  )}
+                >
                   {renderLabel({ label: option.label })}
                 </span>
 
                 <Icon
                   name="mark"
                   className={cn(
-                    'text-green ml-4 w-5 h-5 shrink-0 opacity-0',
+                    'text-success light:text-brand ml-4 w-5 h-5 shrink-0 opacity-0',
                     value === option.value && 'opacity-100',
                   )}
                 />
@@ -111,7 +121,7 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
           </div>
         );
       },
-      [onChange, options, optionClassName, dropdownClassName, value],
+      [onChange, options, optionClassName, dropdownClassName, value, wrapLabels],
     );
 
     return (
@@ -129,15 +139,17 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
       >
         {({ isDropdownOpen, handleToggleDropdown }) => (
           <Button
+            variant={variant === 'raised' ? 'secondary' : 'primary'}
             onClick={handleToggleDropdown}
             className={cn(
-              'relative w-full',
+              'relative w-full font-normal text-primary',
+              isDropdownOpen && 'font-semibold',
               getVariantClasses({ variant, isDropdownOpen }),
               buttonSizeClasses,
               buttonClassName,
             )}
             disabled={disabled}
-            contentClassName={cn('w-full justify-center text-sm font-semibold')}
+            contentClassName="w-full justify-center text-sm"
           >
             <input
               ref={ref}
@@ -154,7 +166,14 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
               {...otherProps}
             />
 
-            <span className="grow overflow-hidden text-ellipsis whitespace-nowrap text-left">
+            <span
+              className={cn(
+                'grow text-left',
+                wrapLabels
+                  ? 'whitespace-normal [overflow-wrap:anywhere]'
+                  : 'overflow-hidden text-ellipsis whitespace-nowrap',
+              )}
+            >
               {selectedOption &&
                 renderLabel({ label: selectedOption.label, isRenderedInButton: true })}
             </span>
@@ -162,7 +181,10 @@ export const Select = forwardRef<HTMLInputElement, SelectProps>(
             {!disabled && (
               <Icon
                 name="chevronDown"
-                className={cn('text-grey ml-2 size-3 flex-none', isDropdownOpen && 'rotate-180')}
+                className={cn(
+                  'text-secondary ml-2 size-3 flex-none',
+                  isDropdownOpen && 'rotate-180',
+                )}
               />
             )}
           </Button>

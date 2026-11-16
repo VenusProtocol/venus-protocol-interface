@@ -106,14 +106,14 @@ export const Position: React.FC<PropositionProps> = ({
   const importButtonClassName = cn('px-5 h-8 py-0 text-sm');
 
   return (
-    <div className="border border-lightGrey rounded-xl px-4 py-3 space-y-3">
+    <div className="border border-muted rounded-xl px-4 py-3 space-y-3">
       <div className="flex justify-between items-center gap-x-2">
         <div className="flex items-center gap-x-2">
           <TokenIcon token={asset.vToken.underlyingToken} />
 
           <div className="flex flex-col">
             <span className="font-bold">{readableUserSupplyBalance}</span>
-            <span className="text-sm text-grey">{readableSupplyBalanceDollars}</span>
+            <span className="text-sm text-secondary">{readableSupplyBalanceDollars}</span>
           </div>
         </div>
 
@@ -136,8 +136,8 @@ export const Position: React.FC<PropositionProps> = ({
             {readableCurrentApy}
           </ApyCell>
 
-          <div className="h-6 w-6 rounded-full bg-lightGrey absolute inset-0 m-auto flex items-center justify-center">
-            <Icon name="arrowShaft" className="text-white" />
+          <div className="h-6 w-6 rounded-full bg-neutral absolute inset-0 m-auto flex items-center justify-center">
+            <Icon name="arrowShaft" className="text-primary" />
           </div>
 
           <ApyCell label={t('importPositionsModal.position.newApy.label')}>
@@ -145,7 +145,7 @@ export const Position: React.FC<PropositionProps> = ({
           </ApyCell>
         </div>
 
-        <p className="text-grey text-right text-xs">
+        <p className="text-secondary text-right text-xs">
           <Trans
             i18nKey="importPositionsModal.position.missedYearlyGains"
             values={{ gains: readableMissedYearlyGains }}
@@ -153,7 +153,7 @@ export const Position: React.FC<PropositionProps> = ({
               // We need to wrap missed gains in a span tag to prevent bad escaping when the string
               // starts with a "<" character
               Gains: <span>{readableMissedYearlyGains}</span>,
-              Number: <span className="text-white text-sm lg:block lg:mt-1" />,
+              Number: <span className="text-primary text-sm lg:block lg:mt-1" />,
             }}
           />
         </p>

@@ -26,7 +26,7 @@ export const Events: React.FC<EventsProps> = ({ transaction }) => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 w-full sm:grid-cols-3">
+    <div className="grid w-full gap-4 sm:grid-cols-3">
       {events.map(event => (
         <Event key={`${event.title}-${event.description}-${event.token?.address}`} {...event} />
       ))}

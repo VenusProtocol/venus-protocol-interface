@@ -29,7 +29,7 @@ export interface SummaryProps {
   className?: string;
 }
 
-const cellClassName = cn('bg-transparent px-0 max-xl:py-0 lg:border-r-dark-blue');
+const cellClassName = cn('bg-transparent px-0 max-xl:py-0 lg:border-r-faint');
 
 export const Summary: React.FC<SummaryProps> = ({
   pool,
@@ -73,7 +73,9 @@ export const Summary: React.FC<SummaryProps> = ({
         ? t('account.summary.cellGroup.netApyWithVaultStakeTooltip')
         : t('account.summary.cellGroup.netApyTooltip'),
       className: cn(
-        typeof netApyPercentage === 'number' && netApyPercentage < 0 ? 'text-red' : 'text-green',
+        typeof netApyPercentage === 'number' && netApyPercentage < 0
+          ? 'text-danger'
+          : 'text-success',
         cellClassName,
       ),
     },

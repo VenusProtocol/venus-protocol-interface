@@ -79,7 +79,7 @@ export const AllocationDetails: React.FC<AllocationDetailsProps> = ({ liquidityH
       // Translation key: do not remove this comment
       // t('liquidityHub.allocationDetails.unallocated')
       nameTranslationKey: 'liquidityHub.allocationDetails.unallocated',
-      bgClassname: 'bg-lightGrey',
+      bgClassname: 'bg-neutral',
       allocationPercentage: unallocatedPercentage,
     });
   }
@@ -89,7 +89,7 @@ export const AllocationDetails: React.FC<AllocationDetailsProps> = ({ liquidityH
   );
 
   return (
-    <Card className="space-y-6 px-0 pt-6 pb-2">
+    <Card variant="glass" className="space-y-6 px-0 pt-6 pb-2">
       <div className="space-y-6 px-6">
         <h4 className="text-p2s">{t('liquidityHub.allocationDetails.title')}</h4>
 

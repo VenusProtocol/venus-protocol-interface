@@ -1,6 +1,8 @@
-import { Button, cn } from '@venusprotocol/ui';
+import { SecondaryButton, cn } from '@venusprotocol/ui';
 
-import { HealthFactorPill } from 'components';
+import { Select } from 'components';
+import { useTranslation } from 'libs/translations';
+import { PositionHealthIndicator } from '../../PositionHealthIndicator';
 
 export interface PoolPill {
   id: string;
@@ -20,23 +22,59 @@ export const PoolPills: React.FC<PoolPillsProps> = ({
   selectedPoolId,
   onChange,
   className,
-}) => (
-  <div className={cn('flex flex-wrap gap-2', className)}>
-    {pools.map(pool => (
-      <Button
-        key={`dashboard-pool-pill-${pool.id}`}
-        variant="quaternary"
-        size="sm"
-        rounded
-        active={pool.id === selectedPoolId}
-        onClick={() => onChange(pool.id)}
-      >
-        <span className="flex items-center gap-x-2">
-          {pool.name}
+}) => {
+  const { t } = useTranslation();
 
-          {pool.healthFactor !== undefined && <HealthFactorPill factor={pool.healthFactor} />}
-        </span>
-      </Button>
-    ))}
-  </div>
-);
+  const renderLabel = ({ pool, showHealth }: { pool: PoolPill; showHealth: boolean }) => (
+    <span className="inline-flex items-center gap-3">
+      {pool.name}
+
+      {showHealth && pool.healthFactor !== undefined && (
+        <PositionHealthIndicator factor={pool.healthFactor} />
+      )}
+    </span>
+  );
+
+  return (
+    <div className={className}>
+      <Select
+        className="sm:hidden"
+        value={selectedPoolId}
+        onChange={value => onChange(String(value))}
+        options={pools.map(pool => ({
+          value: pool.id,
+          label: ({ isRenderedInButton }) =>
+            renderLabel({ pool, showHealth: !isRenderedInButton && pool.id !== selectedPoolId }),
+        }))}
+        menuTitle={t('account.positions.label')}
+      />
+
+      <div
+        role="group"
+        aria-label={t('account.positions.label')}
+        className="hidden flex-wrap gap-3 sm:flex lg:justify-end"
+      >
+        {pools.map(pool => {
+          const isActive = pool.id === selectedPoolId;
+
+          return (
+            <SecondaryButton
+              key={`dashboard-pool-pill-${pool.id}`}
+              active={isActive}
+              aria-pressed={isActive}
+              onClick={() => onChange(pool.id)}
+              className={cn(
+                'h-auto min-h-12 rounded-lg p-3 text-sm',
+                isActive
+                  ? 'border-transparent font-normal text-on-color hover:border-transparent'
+                  : 'font-normal text-secondary hover:text-primary',
+              )}
+            >
+              {renderLabel({ pool, showHealth: !isActive })}
+            </SecondaryButton>
+          );
+        })}
+      </div>
+    </div>
+  );
+};

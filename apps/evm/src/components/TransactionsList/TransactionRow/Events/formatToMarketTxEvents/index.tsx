@@ -19,13 +19,13 @@ export const formatToMarketTxEvents = ({
         return isSpokeLoanMarket ? (
           <Trans
             i18nKey="account.transactions.txText.enterLoanMarket"
-            components={{ Styled: <span className="text-green" /> }}
+            components={{ Styled: <span className="text-success" /> }}
             values={{ vTokenSymbol: token.symbol }}
           />
         ) : (
           <Trans
             i18nKey="account.transactions.txText.enterMarket"
-            components={{ Styled: <span className="text-green" /> }}
+            components={{ Styled: <span className="text-success" /> }}
             values={{ vTokenSymbol: token.symbol }}
           />
         );
@@ -33,13 +33,13 @@ export const formatToMarketTxEvents = ({
         return isSpokeLoanMarket ? (
           <Trans
             i18nKey="account.transactions.txText.exitLoanMarket"
-            components={{ Styled: <span className="text-red" /> }}
+            components={{ Styled: <span className="text-danger" /> }}
             values={{ vTokenSymbol: token.symbol }}
           />
         ) : (
           <Trans
             i18nKey="account.transactions.txText.exitMarket"
-            components={{ Styled: <span className="text-red" /> }}
+            components={{ Styled: <span className="text-danger" /> }}
             values={{ vTokenSymbol: token.symbol }}
           />
         );

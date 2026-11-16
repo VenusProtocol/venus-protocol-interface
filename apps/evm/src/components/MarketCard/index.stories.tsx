@@ -16,7 +16,7 @@ const meta = {
       { label: 'Supply APY', color: 'green' },
       { label: 'Borrow APY', color: 'red' },
     ],
-    children: <div className="h-32 rounded-lg bg-dark-blue" />,
+    children: <div className="h-32 rounded-lg bg-surface-3" />,
   },
 } satisfies Meta<typeof MarketCard>;
 
@@ -28,6 +28,6 @@ export const Default: Story = {};
 
 export const WithRightContent: Story = {
   args: {
-    rightContent: <span className="text-grey text-sm">Updated 5 minutes ago</span>,
+    rightContent: <span className="text-secondary text-sm">Updated 5 minutes ago</span>,
   },
 };

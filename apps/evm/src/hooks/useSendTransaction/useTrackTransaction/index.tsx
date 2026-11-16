@@ -1,6 +1,8 @@
 import type { GetSupertransactionReceiptPayloadWithReceipts } from '@biconomy/abstractjs';
 
+import { queryClient } from 'clients/api/queryClient';
 import config from 'config';
+import FunctionKey from 'constants/functionKey';
 import { ChainExplorerLink } from 'containers/ChainExplorerLink';
 import {
   VError,
@@ -147,6 +149,10 @@ export const useTrackTransaction = (input?: UseTrackTransactionInput) => {
     }
 
     if (transactionSucceeded) {
+      queryClient.invalidateQueries({
+        queryKey: [FunctionKey.GET_ACCOUNT_TRANSACTION_HISTORY],
+      });
+
       // Execute callback
       await onConfirmed?.({ transactionHash, transactionReceipt });
       return;

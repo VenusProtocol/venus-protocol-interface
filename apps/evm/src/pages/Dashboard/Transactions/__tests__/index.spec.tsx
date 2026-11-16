@@ -105,6 +105,23 @@ describe('Transactions', () => {
     expect(container.textContent).toMatchSnapshot();
   });
 
+  it('keeps the filters when a filtered history is empty', async () => {
+    (useGetAccountTransactionHistory as Mock).mockImplementation(() => ({
+      data: {
+        count: 0,
+        transactions: [],
+      },
+      isLoading: false,
+    }));
+    const { getByText } = renderComponent(<Transactions />, {
+      accountAddress: fakeAccountAddress,
+      routerInitialEntries: ['/?txType=borrow'],
+    });
+
+    expect(getByText(en.account.transactions.placeholder.title)).toBeInTheDocument();
+    expect(getByText(en.account.transactions.selects.source.all)).toBeInTheDocument();
+  });
+
   it.each([
     ['borrow', ['borrow'], 'core'],
     ['spoke-borrow', ['borrow'], 'spoke'],

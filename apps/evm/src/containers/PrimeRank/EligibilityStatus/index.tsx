@@ -12,6 +12,7 @@ export interface EligibilityStatusProps {
   hasStakedXvs: boolean;
   isCandidate: boolean;
   gapXvsTokens: number;
+  hideStakeGap?: boolean;
   // Optional inline content appended to the end of the status message (e.g. a leaderboard link)
   linkSlot?: React.ReactNode;
   className?: string;
@@ -21,6 +22,7 @@ export const EligibilityStatus: React.FC<EligibilityStatusProps> = ({
   hasStakedXvs,
   isCandidate,
   gapXvsTokens,
+  hideStakeGap = false,
   linkSlot,
   className,
 }) => {
@@ -31,7 +33,7 @@ export const EligibilityStatus: React.FC<EligibilityStatusProps> = ({
 
   if (isEligible) {
     return (
-      <p className={cn('text-b1r text-green', className)}>
+      <p className={cn('text-b1r text-success', className)}>
         {t('primeLeaderboard.rankCard.eligible')}
         {linkSlot}
       </p>
@@ -39,7 +41,10 @@ export const EligibilityStatus: React.FC<EligibilityStatusProps> = ({
   }
 
   const isWithinReach =
-    hasStakedXvs && gapXvsTokens > 0 && gapXvsTokens <= TOP_500_GAP_THRESHOLD_XVS_TOKENS;
+    !hideStakeGap &&
+    hasStakedXvs &&
+    gapXvsTokens > 0 &&
+    gapXvsTokens <= TOP_500_GAP_THRESHOLD_XVS_TOKENS;
 
   let stakeMessage: React.ReactNode = t('primeLeaderboard.rankCard.stakePrompt');
 
@@ -48,10 +53,10 @@ export const EligibilityStatus: React.FC<EligibilityStatusProps> = ({
       <Trans
         i18nKey="primeLeaderboard.rankCard.stakeToReachTop"
         values={{ amount: new BigNumber(gapXvsTokens).toFormat(2), limit: rankLimit }}
-        components={{ Highlight: <span className="text-b1s text-white" /> }}
+        components={{ Highlight: <span className="text-b1s text-primary" /> }}
       />
     );
-  } else if (hasStakedXvs && gapXvsTokens > TOP_500_GAP_THRESHOLD_XVS_TOKENS) {
+  } else if (!hideStakeGap && hasStakedXvs && gapXvsTokens > TOP_500_GAP_THRESHOLD_XVS_TOKENS) {
     stakeMessage = t('primeLeaderboard.rankCard.stakeMore');
   } else if (hasStakedXvs) {
     stakeMessage = t('primeLeaderboard.rankCard.stakeMoreToCompete');
@@ -59,8 +64,8 @@ export const EligibilityStatus: React.FC<EligibilityStatusProps> = ({
 
   return (
     <div className={className}>
-      <p className="text-b1r text-yellow">{t('primeLeaderboard.rankCard.notEligible')}</p>
-      <p className="text-b1r text-white">
+      <p className="text-b1r text-warning">{t('primeLeaderboard.rankCard.notEligible')}</p>
+      <p className="text-b1r text-primary">
         {stakeMessage}
         {linkSlot}
       </p>

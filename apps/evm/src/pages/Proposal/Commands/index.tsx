@@ -7,7 +7,7 @@ import { BscCommand } from './BscCommand';
 import { NonBscCommand } from './NonBscCommand';
 import { Progress } from './Progress';
 
-const commandClasses = cn('border-b border-b-lightGrey pb-4 last:pb-0 last:border-b-0');
+const commandClasses = cn('border-b border-b-muted pb-4 last:pb-0 last:border-b-0');
 
 export interface CommandsProps extends CardProps {
   proposal: Proposal;

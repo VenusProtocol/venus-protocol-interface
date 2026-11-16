@@ -186,7 +186,7 @@ export const Borrow: React.FC = () => {
   }
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       {isUserMissingPrimeToken && (
         <NoticeWarning
           data-testid={TEST_IDS.primeOnlyWarning}
@@ -194,7 +194,7 @@ export const Borrow: React.FC = () => {
             <Trans
               i18nKey="vai.borrow.primeOnlyWarning"
               components={{
-                WhiteText: <span className="text-white" />,
+                WhiteText: <span className="text-primary" />,
                 Link: <Link href={VENUS_PRIME_DOC_URL} />,
               }}
             />
@@ -240,7 +240,7 @@ export const Borrow: React.FC = () => {
         {feeTokens?.isGreaterThan(0) && (
           <LabeledInlineContent
             iconSrc="fee"
-            iconClassName="text-lightGrey"
+            iconClassName="text-tertiary"
             label={t('vai.borrow.fee.label')}
           >
             {readableFee}

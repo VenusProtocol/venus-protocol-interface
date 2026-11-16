@@ -58,12 +58,10 @@ export const MerklBadge: React.FC<MerklBadgeProps> = ({
       }
       {...otherProps}
     >
-      <SenaryButton className="border-[#ffe4aa] hover:border-[#ffd370] h-6 rounded-full p-1 whitespace-nowrap font-semibold shrink-0">
+      <SenaryButton className="border-merkl hover:border-merkl-hover h-6 rounded-full p-1 whitespace-nowrap font-semibold shrink-0">
         <CampaignIcon className="mr-1" />
 
-        <span className="bg-[linear-gradient(17deg,#ffe4aa_5%,#ffd370_36%,#fae2b6_68%,#f2d081_106%)] bg-clip-text text-transparent">
-          {readableApy}
-        </span>
+        <span className="bg-merkl-text bg-clip-text text-transparent">{readableApy}</span>
       </SenaryButton>
     </Tooltip>
   );

@@ -90,3 +90,4 @@ export * from './getSimulatedLiquidityHubTokenDistributions';
 export * from './isPrimeDistribution';
 export * from './findLiquidityHubCoreAsset';
 export * from './convertVhTokensToUnderlying';
+export * from './getPageContentTop';

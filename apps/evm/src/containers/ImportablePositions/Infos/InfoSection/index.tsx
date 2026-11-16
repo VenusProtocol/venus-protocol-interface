@@ -25,7 +25,7 @@ export const InfoSection: React.FC<InfoSectionProps> = ({
     <div className="space-y-1 grow">
       <h3 className="font-bold">{title}</h3>
 
-      <p className="text-grey text-sm">{description}</p>
+      <p className="text-secondary text-sm">{description}</p>
     </div>
   </div>
 );

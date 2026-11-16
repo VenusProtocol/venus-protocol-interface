@@ -36,6 +36,7 @@ export const ChainSelect = forwardRef<React.ElementRef<typeof Select>, ChainSele
       ref={ref}
       variant="quaternary"
       size="large"
+      buttonClassName="light:bg-surface-raised light:shadow-raised light:hover:bg-surface-raised light:active:bg-surface-raised"
       {...props}
     />
   ),

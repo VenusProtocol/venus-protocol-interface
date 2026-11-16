@@ -83,7 +83,13 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
       key: 'asset',
       label: t('liquidityHubs.table.columns.asset'),
       selectOptionLabel: t('liquidityHubs.table.columns.asset'),
-      renderCell: ({ vhToken }) => <TokenIconWithSymbol token={vhToken.underlyingToken} />,
+      renderCell: ({ vhToken }) => (
+        <TokenIconWithSymbol
+          token={vhToken.underlyingToken}
+          size="xl"
+          symbolClassName="font-normal group-hover:font-semibold"
+        />
+      ),
     },
     {
       key: 'totalSupply',
@@ -151,6 +157,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
         vhMarketVTokenAddress,
       }) => (
         <Apy
+          className="font-semibold"
           type="supply"
           token={vhToken.underlyingToken}
           baseApyPercentage={supplyApyPercentage}
@@ -203,6 +210,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
         controls
         tableLayout="auto"
         breakpoint="md"
+        size="compact"
         hideCardDelimiter
         className={className}
         renderRowControl={renderRowControl}

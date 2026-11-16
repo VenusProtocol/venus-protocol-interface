@@ -18,17 +18,17 @@ export const StatusLabel: FC<StatusLabelProps> = ({ status, className, children,
   switch (status) {
     case VaultStatus.Claim:
     case VaultStatus.Locked:
-      variantClassName = cn('border-green bg-green/10');
+      variantClassName = cn('border-success bg-success/10');
       break;
     case VaultStatus.Refund:
-      variantClassName = cn('border-yellow bg-yellow/10');
+      variantClassName = cn('border-warning bg-warning/10');
       break;
     case VaultStatus.Deposit:
     case 'supply':
-      variantClassName = cn('border-blue bg-blue/10');
+      variantClassName = cn('border-brand bg-brand/10');
       break;
     default:
-      variantClassName = cn('border-dark-grey-hover bg-dark-grey');
+      variantClassName = cn('border-strong bg-neutral-subtle');
   }
 
   let label = '';
@@ -69,7 +69,7 @@ export const StatusLabel: FC<StatusLabelProps> = ({ status, className, children,
   return (
     <div
       className={cn(
-        'flex justify-center items-center border border-solid rounded-full py-1 px-3 text-light-grey-active text-b1r',
+        'flex justify-center items-center border border-solid rounded-full py-1 px-3 text-primary text-b1r',
         variantClassName,
         className,
       )}

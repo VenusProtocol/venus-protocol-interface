@@ -40,8 +40,8 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
           value={value}
           data-hasError={hasError}
           className={cn(
-            'hover border-lightGrey bg-background hover:border-grey focus:border-blue -mt-4 min-h-[12rem] w-full rounded-xl border p-4 font-semibold outline-hidden transition-colors',
-            hasError && 'border-red hover:border-red focus:border-red',
+            'hover border-muted bg-surface-2 hover:border-bold focus:border-brand -mt-4 min-h-[12rem] w-full rounded-xl border p-4 font-semibold outline-hidden transition-colors',
+            hasError && 'border-danger hover:border-danger focus:border-danger',
           )}
         />
       ),
@@ -54,7 +54,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
           {value ? (
             <MarkdownViewer className="wrap-break-word" content={value} />
           ) : (
-            <p className="text-grey">{t('markdownEditor.placeholder')}</p>
+            <p className="text-secondary">{t('markdownEditor.placeholder')}</p>
           )}
         </div>
       ),
@@ -64,7 +64,7 @@ export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
   return (
     <div className={cn(className)}>
       {!!label && (
-        <p className={cn('mb-1 text-sm font-semibold', hasError && 'text-red')}>{label}</p>
+        <p className={cn('mb-1 text-sm font-semibold', hasError && 'text-danger')}>{label}</p>
       )}
 
       <Tabs tabs={tabs} />

@@ -21,7 +21,7 @@ const cells: CellProps[] = [
   {
     label: 'Total borrow',
     value: '$1,000',
-    className: 'text-green',
+    className: 'text-success',
   },
   {
     label: 'Available Liquidity',

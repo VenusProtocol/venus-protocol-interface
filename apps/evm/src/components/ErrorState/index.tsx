@@ -22,7 +22,7 @@ export const ErrorState: React.FC<ErrorStateProps> = ({ message, button, classNa
           <div className="mb-2">{message || t('errorState.defaultMessage')}</div>
 
           {button && (
-            <Button variant="senary" className="hover:border-lightGrey" onClick={button.onClick}>
+            <Button variant="senary" className="hover:border-muted" onClick={button.onClick}>
               {button.label}
             </Button>
           )}

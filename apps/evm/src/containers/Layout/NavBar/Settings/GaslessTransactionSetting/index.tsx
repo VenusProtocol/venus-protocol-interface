@@ -30,7 +30,7 @@ export const GaslessTransactionSetting: React.FC<GaslessTransactionSettingProps>
     <div className="flex items-center gap-x-3 justify-between">
       <div className="flex flex-col gap-y-1">
         <div className="flex flex-col gap-y-3 lg:gap-y-0 lg:flex-row lg:gap-x-1 lg:items-center">
-          <Icon name="gasSlashed" className="text-green size-4" />
+          <Icon name="gasSlashed" className="text-success size-4" />
 
           <p className="text-sm">
             {t('layout.menu.settings.gasLessTransactions.label', {

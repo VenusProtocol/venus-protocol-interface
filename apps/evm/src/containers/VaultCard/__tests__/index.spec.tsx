@@ -191,7 +191,7 @@ describe('VaultCard', () => {
 
     expect(getByText(`${readableStakeBalance} / ${readableStakeLimit}`)).toBeInTheDocument();
     expect(getByText('50%')).toBeInTheDocument();
-    expect(getProgressFill(container)).toHaveClass('bg-blue');
+    expect(getProgressFill(container)).toHaveClass('bg-brand');
   });
 
   it('renders the minimum requested row when the institutional vault has not reached it yet', () => {
@@ -229,7 +229,7 @@ describe('VaultCard', () => {
     const { container, getByText } = renderComponent(<VaultCard vault={vault} />);
 
     expect(getByText('85%')).toBeInTheDocument();
-    expect(getProgressFill(container)).toHaveClass('bg-green');
+    expect(getProgressFill(container)).toHaveClass('bg-success');
   });
 
   it('renders a yellow progress bar override for refunding institutional vaults', () => {
@@ -240,7 +240,7 @@ describe('VaultCard', () => {
 
     const { container } = renderComponent(<VaultCard vault={vault} />);
 
-    expect(getProgressFill(container)).toHaveClass('bg-yellow');
+    expect(getProgressFill(container)).toHaveClass('bg-warning');
   });
 
   it('renders the paused warning for institutional paused vaults', () => {

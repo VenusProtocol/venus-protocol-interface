@@ -38,12 +38,12 @@ export const GaslessStatus: React.FC<GaslessStatusProps> = ({
   const contentDom = (
     <div
       className={cn(
-        'text-green [font-variant:all-small-caps] flex items-center gap-x-[2px]',
+        'text-success [font-variant:all-small-caps] flex items-center gap-x-[2px]',
         className,
       )}
       {...otherProps}
     >
-      <Icon name={displayLabel ? 'gas' : 'gasSlashed'} className="text-green" />
+      <Icon name={displayLabel ? 'gas' : 'gasSlashed'} className="text-success" />
 
       {displayLabel && <span className="font-semibold">{t('gaslessTransactions.chainLabel')}</span>}
     </div>

@@ -7,11 +7,9 @@ import {
   BalanceUpdates,
   Delimiter,
   ProtectionModeIndicator,
-  SelectTokenTextField,
   TokenTextField,
 } from 'components';
 import { AccountPoolHealth } from 'containers/AccountPoolHealth';
-import type { OptionalTokenBalance } from 'containers/TokenListWrapper';
 import { type TokenApproval, TxFormSubmitButton } from 'containers/TxFormSubmitButton';
 import { useSimulatePoolMutations } from 'hooks/useSimulatePoolMutations';
 import { useTranslation } from 'libs/translations';
@@ -43,8 +41,7 @@ export interface FormProps {
   apyBreakdownItems?: ApyBreakdownItem[];
   belowAmountInput?: React.ReactNode;
   showDailyBorrowInterest?: boolean;
-  tokenBalances?: OptionalTokenBalance[];
-  onChangeSelectedToken?: (token: Token) => void;
+  collateralSelectorSlot?: React.ReactElement;
 }
 
 export const Form: React.FC<FormProps> = ({
@@ -66,8 +63,7 @@ export const Form: React.FC<FormProps> = ({
   apyBreakdownItems = [],
   belowAmountInput,
   showDailyBorrowInterest,
-  tokenBalances,
-  onChangeSelectedToken,
+  collateralSelectorSlot,
 }) => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
@@ -141,12 +137,12 @@ export const Form: React.FC<FormProps> = ({
       Number(formValues.amountTokens) > 0,
     description:
       isUserConnected && !isSubmitting && !!formError?.message ? (
-        <p className="text-red">{formError.message}</p>
+        <p className="text-danger">{formError.message}</p>
       ) : undefined,
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-3">
       {asset?.isProtectionModeEnabled && (
         <ProtectionModeIndicator
           variant="label"
@@ -156,16 +152,12 @@ export const Form: React.FC<FormProps> = ({
         />
       )}
 
-      {tokenBalances && onChangeSelectedToken ? (
-        <SelectTokenTextField
-          {...amountInputProps}
-          tokenBalances={tokenBalances}
-          selectedToken={token}
-          onChangeSelectedToken={onChangeSelectedToken}
-        />
-      ) : (
-        <TokenTextField {...amountInputProps} token={token} />
-      )}
+      <TokenTextField
+        {...amountInputProps}
+        token={token}
+        leftAdornment={collateralSelectorSlot}
+        displayTokenIcon={!collateralSelectorSlot}
+      />
 
       {belowAmountInput}
 

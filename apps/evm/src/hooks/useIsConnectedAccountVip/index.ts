@@ -5,11 +5,11 @@ import { useAccountAddress } from 'libs/wallet';
 export const useIsConnectedAccountVip = () => {
   const { accountAddress } = useAccountAddress();
 
-  const { data: getPoolsData } = useGetPools({
+  const { data: getPoolsData, isLoading: isGetPoolsLoading } = useGetPools({
     accountAddress,
   });
 
-  const { data: getVaultsData } = useGetVaults({
+  const { data: getVaultsData, isLoading: isGetVaultsLoading } = useGetVaults({
     accountAddress,
   });
 
@@ -32,5 +32,6 @@ export const useIsConnectedAccountVip = () => {
 
   return {
     isConnectedAccountVip,
+    isLoading: !!accountAddress && (isGetPoolsLoading || isGetVaultsLoading),
   };
 };

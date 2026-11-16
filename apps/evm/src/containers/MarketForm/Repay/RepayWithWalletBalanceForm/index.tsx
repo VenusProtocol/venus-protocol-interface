@@ -46,12 +46,14 @@ export interface RepayWithWalletBalanceFormProps {
   asset: Asset;
   pool: Pool;
   onSubmitSuccess?: () => void;
+  disableIntegratedSwap?: boolean;
 }
 
 const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
   asset,
   pool,
   onSubmitSuccess,
+  disableIntegratedSwap = false,
 }) => {
   const isWrapUnwrapNativeTokenEnabled = useIsFeatureEnabled({
     name: 'wrapUnwrapNativeToken',
@@ -62,6 +64,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
 
   const isIntegratedSwapFeatureEnabled =
     isIntegratedSwapEnabled &&
+    !disableIntegratedSwap &&
     // Check swap and supply action is enabled for underlying token
     !asset.disabledTokenActions.includes('swapAndRepay');
 
@@ -462,7 +465,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
             tokenBalances={tokenBalances}
             description={
               !isSubmitting && !!formError?.message ? (
-                <p className="text-red">{formError.message}</p>
+                <p className="text-danger">{formError.message}</p>
               ) : undefined
             }
           />
@@ -495,7 +498,7 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
             }
             description={
               isUserConnected && !isSubmitting && !!formError?.message ? (
-                <p className="text-red">{formError.message}</p>
+                <p className="text-danger">{formError.message}</p>
               ) : undefined
             }
           />
@@ -507,7 +510,6 @@ const RepayWithWalletBalanceForm: React.FC<RepayWithWalletBalanceFormProps> = ({
               key={`select-button-${percentage}`}
               className="flex-1"
               size="xs"
-              rounded
               active={percentage === formValues.fixedRepayPercentage}
               disabled={!isUserConnected || asset.userBorrowBalanceTokens.isEqualTo(0)}
               onClick={() => {

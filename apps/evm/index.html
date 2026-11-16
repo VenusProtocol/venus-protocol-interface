@@ -1,8 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      try {
+        var storedTheme = JSON.parse(localStorage.getItem('venus-theme') || 'null');
+        if (!storedTheme || !storedTheme.state || storedTheme.state.theme !== 'dark') {
+          document.documentElement.dataset.theme = 'light';
+        }
+      } catch (error) {}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      try {
+        var isIos =
+          /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+          (navigator.userAgent.indexOf('Macintosh') !== -1 && navigator.maxTouchPoints > 1);
+        if (isIos) {
+          document
+            .querySelector('meta[name="viewport"]')
+            .setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1');
+        }
+      } catch (error) {}
+    </script>
     <meta name="theme-color" content="#3A78FF" />
     <meta
       name="description"

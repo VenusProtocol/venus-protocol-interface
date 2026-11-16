@@ -7,6 +7,7 @@ export interface AssetApyProps {
   showPrimeSimulation?: boolean;
   showPrimeIcon?: boolean;
   showCampaignRewards?: boolean;
+  showBadgeOnly?: boolean;
   className?: string;
 }
 
@@ -16,6 +17,7 @@ export const AssetApy: React.FC<AssetApyProps> = ({
   showPrimeSimulation,
   showPrimeIcon,
   showCampaignRewards,
+  showBadgeOnly,
   className,
 }) => {
   const isBorrow = type === 'borrow';
@@ -36,6 +38,7 @@ export const AssetApy: React.FC<AssetApyProps> = ({
       showPrimeSimulation={showPrimeSimulation}
       showPrimeIcon={showPrimeIcon}
       showCampaignRewards={showCampaignRewards}
+      showBadgeOnly={showBadgeOnly}
       vTokenAddress={asset.vToken.address}
       className={className}
     />

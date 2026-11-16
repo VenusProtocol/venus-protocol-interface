@@ -18,11 +18,15 @@ export const useColumns = () => {
       renderCell: ({ vToken, isPaused }) => {
         return (
           <div className="flex items-center gap-x-2">
-            <TokenIconWithSymbol token={vToken.underlyingToken} size="xl" />
+            <TokenIconWithSymbol
+              token={vToken.underlyingToken}
+              size="xl"
+              symbolClassName="font-normal group-hover:font-semibold"
+            />
 
             {isPaused && (
               <InfoIcon
-                iconClassName="text-orange"
+                iconClassName="text-caution"
                 iconName="attention"
                 tooltip={t('marketTable.assetColumn.pausedAssetTooltip')}
               />
@@ -38,7 +42,10 @@ export const useColumns = () => {
       renderCell: ({ collateralFactor }) => (
         <Icon
           name={collateralFactor > 0 ? 'mark' : 'close'}
-          className={cn('w-5 h-5 ml-auto', collateralFactor > 0 ? 'text-green' : 'text-grey')}
+          className={cn(
+            'w-5 h-5 ml-auto',
+            collateralFactor > 0 ? 'text-success' : 'text-secondary',
+          )}
         />
       ),
       sortRows: (rowA, rowB, direction) =>
@@ -52,7 +59,7 @@ export const useColumns = () => {
       renderCell: ({ isBorrowable }) => (
         <Icon
           name={isBorrowable ? 'mark' : 'close'}
-          className={cn('w-5 h-5 ml-auto', isBorrowable ? 'text-green' : 'text-grey')}
+          className={cn('w-5 h-5 ml-auto', isBorrowable ? 'text-success' : 'text-secondary')}
         />
       ),
       sortRows: (rowA, rowB, direction) =>

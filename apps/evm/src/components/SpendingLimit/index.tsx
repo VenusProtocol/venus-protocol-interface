@@ -65,10 +65,10 @@ export const SpendingLimit: React.FC<SpendingLimitProps> = ({
         <>
           <div>{readableWalletSpendingLimit}</div>
 
-          <TextButton onClick={handleRevoke} className="text-red ml-2 h-auto p-0">
+          <TextButton onClick={handleRevoke} className="text-danger ml-2 h-auto p-0">
             <Icon
               name="bin"
-              className="text-red h-5 w-5 transition-opacity hover:opacity-50 active:opacity-50"
+              className="text-danger h-5 w-5 transition-opacity hover:opacity-50 active:opacity-50"
             />
           </TextButton>
         </>

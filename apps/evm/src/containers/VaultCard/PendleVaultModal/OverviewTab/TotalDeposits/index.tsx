@@ -40,7 +40,7 @@ export const TotalDeposits: React.FC<{ vault: PendleVault }> = ({ vault }) => {
   return (
     <div>
       <div className="flex items-center justify-between gap-3">
-        <p className="text-p2s text-white pb-2">{t('vault.modals.overview.totalDeposited')}</p>
+        <p className="text-p2s text-primary pb-2">{t('vault.modals.overview.totalDeposited')}</p>
 
         <ButtonGroup
           buttonSize="xs"
@@ -52,8 +52,10 @@ export const TotalDeposits: React.FC<{ vault: PendleVault }> = ({ vault }) => {
       </div>
       <div className="mt-4">
         <div className="flex items-center gap-2 mb-2">
-          <span className="size-2 rounded-full bg-green" />
-          <span className="text-b1r text-grey">{t('vault.modals.overview.totalDeposited')}</span>
+          <span className="size-2 rounded-full bg-success" />
+          <span className="text-b1r text-secondary">
+            {t('vault.modals.overview.totalDeposited')}
+          </span>
         </div>
 
         {isLoading ? (

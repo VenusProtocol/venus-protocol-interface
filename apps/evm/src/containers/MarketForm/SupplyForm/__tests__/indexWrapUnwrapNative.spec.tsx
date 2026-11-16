@@ -64,6 +64,24 @@ describe('SupplyForm - Feature flag enabled: wrapUnwrapNativeToken', () => {
     expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeNull();
   });
 
+  it('supplies from the token passed as fromToken when a collateral selector is shown', async () => {
+    const { getByText, queryByTestId } = renderComponent(
+      <Supply
+        asset={fakeWethAsset}
+        pool={fakePool}
+        fromToken={eth}
+        collateralSelectorSlot={<span>Collateral selector</span>}
+      />,
+      {
+        chainId: ChainId.SEPOLIA,
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    expect(queryByTestId(TEST_IDS.selectTokenTextField)).toBeNull();
+    await waitFor(() => expect(getByText(`10 ${eth.symbol}`)).toBeInTheDocument());
+  });
+
   it('displays the token selector if the underlying token wraps the chain native token', async () => {
     const { queryByTestId } = renderComponent(<Supply asset={fakeWethAsset} pool={fakePool} />, {
       chainId: ChainId.SEPOLIA,

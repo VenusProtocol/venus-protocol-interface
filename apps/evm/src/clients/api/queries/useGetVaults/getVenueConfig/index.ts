@@ -25,6 +25,7 @@ export enum VenueName {
 export interface VenueConfig {
   name: string;
   iconSrc: string;
+  isIconMonochrome: boolean;
   url?: string;
 }
 
@@ -40,6 +41,13 @@ const iconSrcByVenueName: Record<VenueName, string> = {
   [VenueName.HashGlobal]: hashGlobalIconSrc,
   [VenueName.NoonCapital]: noonCapitalIconSrc,
 };
+
+const monochromeIconVenueNames: VenueName[] = [
+  VenueName.Matrixdock,
+  VenueName.Cactus,
+  VenueName.Solv,
+  VenueName.HashGlobal,
+];
 
 const urlByVenueName: Partial<Record<VenueName, string>> = {
   [VenueName.Venus]: 'https://venus.io',
@@ -58,6 +66,7 @@ export const DEFAULT_VENUE_NAME = VenueName.Venus;
 export const DEFAULT_VENUE: VenueConfig = {
   name: DEFAULT_VENUE_NAME,
   iconSrc: iconSrcByVenueName[DEFAULT_VENUE_NAME],
+  isIconMonochrome: monochromeIconVenueNames.includes(DEFAULT_VENUE_NAME),
   url: urlByVenueName[DEFAULT_VENUE_NAME],
 };
 
@@ -81,6 +90,7 @@ export const getVenueConfig = (venueName?: string): VenueConfig => {
   return {
     name: matchedVenueName,
     iconSrc: iconSrcByVenueName[matchedVenueName],
+    isIconMonochrome: monochromeIconVenueNames.includes(matchedVenueName),
     url: urlByVenueName[matchedVenueName],
   };
 };

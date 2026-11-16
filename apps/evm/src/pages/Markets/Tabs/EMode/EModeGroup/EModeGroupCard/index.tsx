@@ -42,7 +42,7 @@ export const EModeGroupCard: React.FC<EModeGroupCardProps> = ({
         eModeAssetSettings={settings}
         columns={columns}
         isEModeGroupActive={eModeGroup.isActive}
-        className="border-lightGrey not-last-of-type:border-b not-last-of-type:pb-4"
+        className="border-muted not-last-of-type:border-b not-last-of-type:pb-4"
         poolComptrollerAddress={pool.comptrollerAddress}
       />
     );

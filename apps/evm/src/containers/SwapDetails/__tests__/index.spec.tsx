@@ -82,7 +82,7 @@ describe('SwapDetails', () => {
 
     expect(input).toHaveValue(Number(invalidValue));
     expect(mockSetUserChainSettings).toHaveBeenCalledTimes(1);
-    await waitFor(() => expect(input.parentElement?.parentElement).toHaveClass('border-red'));
+    await waitFor(() => expect(input.parentElement?.parentElement).toHaveClass('border-danger'));
 
     fireEvent.change(input, {
       target: { value: `${MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE}.111` },
@@ -90,7 +90,7 @@ describe('SwapDetails', () => {
 
     expect(input).toHaveValue(Number(`${MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE}.111`));
     expect(mockSetUserChainSettings).toHaveBeenCalledTimes(1);
-    await waitFor(() => expect(input.parentElement?.parentElement).toHaveClass('border-red'));
+    await waitFor(() => expect(input.parentElement?.parentElement).toHaveClass('border-danger'));
 
     fireEvent.change(input, {
       target: { value: String(MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE) },
@@ -99,7 +99,9 @@ describe('SwapDetails', () => {
     expect(mockSetUserChainSettings).toHaveBeenCalledWith({
       slippageTolerancePercentage: String(MAXIMUM_SLIPPAGE_TOLERANCE_PERCENTAGE),
     });
-    await waitFor(() => expect(input.parentElement?.parentElement).not.toHaveClass('border-red'));
+    await waitFor(() =>
+      expect(input.parentElement?.parentElement).not.toHaveClass('border-danger'),
+    );
   });
 
   it('does not submit the form it is rendered in', async () => {

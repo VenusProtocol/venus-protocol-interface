@@ -48,7 +48,9 @@ export const Asset: React.FC<AssetProps> = ({
       <div className="grid grid-cols-2 gap-4">
         {dataListItems.map((item, index) => (
           <LabeledInlineContent key={item.label?.toString() ?? index} label={item.label}>
-            <span className={cn(!isEModeGroupActive && 'text-grey opacity-50')}>{item.value}</span>
+            <span className={cn(!isEModeGroupActive && 'text-secondary opacity-50')}>
+              {item.value}
+            </span>
           </LabeledInlineContent>
         ))}
       </div>

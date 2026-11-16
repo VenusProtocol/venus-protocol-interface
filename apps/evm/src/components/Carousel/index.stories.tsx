@@ -8,13 +8,13 @@ const meta = {
   args: {
     children: [
       <CarouselItem key="one">
-        <div className="rounded-lg bg-dark-blue p-6 text-center">Slide 1</div>
+        <div className="rounded-lg bg-surface-3 p-6 text-center">Slide 1</div>
       </CarouselItem>,
       <CarouselItem key="two">
-        <div className="rounded-lg bg-dark-blue p-6 text-center">Slide 2</div>
+        <div className="rounded-lg bg-surface-3 p-6 text-center">Slide 2</div>
       </CarouselItem>,
       <CarouselItem key="three">
-        <div className="rounded-lg bg-dark-blue p-6 text-center">Slide 3</div>
+        <div className="rounded-lg bg-surface-3 p-6 text-center">Slide 3</div>
       </CarouselItem>,
     ],
     className: 'max-w-md',

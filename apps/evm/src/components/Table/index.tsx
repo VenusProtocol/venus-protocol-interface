@@ -12,6 +12,7 @@ import { TableCell } from './TableCell';
 import { TableContainer } from './TableContainer';
 import { TableElement } from './TableElement';
 import { TableRow } from './TableRow';
+import { activateRowOnKeyDown } from './activateRowOnKeyDown';
 import { isInteractiveElement } from './isInteractiveElement';
 import type { Order, TableColumn, TableProps } from './types';
 
@@ -35,6 +36,7 @@ export function Table<R>({
   breakpoint,
   isFetching,
   size = 'md',
+  stickyHeader = false,
   header,
   placeholder,
   selectVariant,
@@ -89,15 +91,34 @@ export function Table<R>({
 
   return (
     <Card
+      variant={variant === 'primary' ? 'glass' : 'primary'}
       className={cn(
         'p-0',
-        breakpoint && 'border-0 bg-transparent',
-        breakpoint === 'xs' && 'xs:border xs:border-dark-blue-hover',
-        breakpoint === 'sm' && 'sm:border sm:border-dark-blue-hover',
-        breakpoint === 'md' && 'md:border md:border-dark-blue-hover',
-        breakpoint === 'lg' && 'lg:border lg:border-dark-blue-hover',
-        breakpoint === 'xl' && 'xl:border xl:border-dark-blue-hover',
-        breakpoint === '2xl' && '2xl:border 2xl:border-dark-blue-hover',
+        breakpoint && 'border-0 bg-transparent shadow-none before:hidden',
+        breakpoint === 'xs' && [
+          'xs:border',
+          variant === 'primary' && 'xs:bg-surface-glass xs:shadow-glass xs:before:block',
+        ],
+        breakpoint === 'sm' && [
+          'sm:border',
+          variant === 'primary' && 'sm:bg-surface-glass sm:shadow-glass sm:before:block',
+        ],
+        breakpoint === 'md' && [
+          'md:border',
+          variant === 'primary' && 'md:bg-surface-glass md:shadow-glass md:before:block',
+        ],
+        breakpoint === 'lg' && [
+          'lg:border',
+          variant === 'primary' && 'lg:bg-surface-glass lg:shadow-glass lg:before:block',
+        ],
+        breakpoint === 'xl' && [
+          'xl:border',
+          variant === 'primary' && 'xl:bg-surface-glass xl:shadow-glass xl:before:block',
+        ],
+        breakpoint === '2xl' && [
+          '2xl:border',
+          variant === 'primary' && '2xl:bg-surface-glass 2xl:shadow-glass 2xl:before:block',
+        ],
         className,
       )}
       {...otherProps}
@@ -113,6 +134,7 @@ export function Table<R>({
             breakpoint === 'lg' && 'lg:px-4',
             breakpoint === 'xl' && 'xl:px-4',
             breakpoint === '2xl' && '2xl:px-4',
+            size === 'compact' && 'md:px-6',
           )}
         >
           {title}
@@ -123,6 +145,7 @@ export function Table<R>({
         <div
           className={cn(
             'mb-4',
+            size === 'compact' && !breakpoint && 'mb-0 p-3',
             breakpoint === 'xs' && 'xs:mb-0 xs:p-4',
             breakpoint === 'sm' && 'sm:mb-0 sm:p-4',
             breakpoint === 'md' && 'md:mb-0 md:p-4',
@@ -160,11 +183,13 @@ export function Table<R>({
 
               <Head
                 className={cn(
-                  variant === 'primary' && 'border-b border-dark-blue-hover',
+                  variant === 'primary' && 'border-b border-subtle',
                   tableHeaderClassName,
                 )}
                 controls={controls}
                 columns={columns}
+                isCompact={size === 'compact'}
+                isSticky={stickyHeader}
                 orderBy={order?.orderBy}
                 orderDirection={order?.orderDirection}
                 onRequestOrder={onRequestOrder}
@@ -194,7 +219,8 @@ export function Table<R>({
                     <Fragment key={rowKey}>
                       <TableRow
                         className={cn(
-                          'h-18 text-white hover:bg-background-hover hover:no-underline',
+                          'group text-primary hover:no-underline',
+                          size === 'compact' ? 'h-15' : 'h-18 hover:bg-table-row-hover',
                           isRowClickable && 'cursor-pointer',
                           tableRowClassName,
                           getRowClassName?.(row),
@@ -216,8 +242,9 @@ export function Table<R>({
                               }
                             : undefined
                         }
+                        onKeyDown={isRowClickable ? activateRowOnKeyDown : undefined}
                         role={isRowLink ? 'link' : undefined}
-                        tabIndex={isRowLink ? 0 : undefined}
+                        tabIndex={isRowClickable ? 0 : undefined}
                       >
                         {columns.map(column => {
                           const cellContent = column.renderCell(row, rowIndex);
@@ -228,6 +255,8 @@ export function Table<R>({
                             <TableCell
                               className={cn(
                                 'overflow-hidden text-ellipsis',
+                                size === 'compact' &&
+                                  'bg-size-[100%_calc(100%-8px)] bg-center bg-no-repeat px-3 py-2 group-hover:bg-row-hover max-md:text-base md:px-6 md:py-0',
                                 variant === 'secondary' && column === columns[0] && 'rounded-l-lg',
                                 variant === 'secondary' &&
                                   !renderRowControl &&
@@ -248,6 +277,8 @@ export function Table<R>({
                           <TableCell
                             className={cn(
                               'align-middle',
+                              size === 'compact' &&
+                                'bg-size-[100%_calc(100%-8px)] bg-center bg-no-repeat group-hover:bg-row-hover',
                               variant === 'secondary' && 'rounded-r-lg',
                             )}
                           >

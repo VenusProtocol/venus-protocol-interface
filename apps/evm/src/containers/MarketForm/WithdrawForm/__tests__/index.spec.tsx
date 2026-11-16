@@ -431,4 +431,19 @@ describe('WithdrawForm', () => {
     await waitFor(() => expect(mockWithdraw).toHaveBeenCalledTimes(1));
     expect(mockWithdraw.mock.calls[0]).toMatchSnapshot();
   });
+
+  it('renders the collateral selector slot in the amount field', () => {
+    const { getByText } = renderComponent(
+      <Withdraw
+        asset={fakeAsset}
+        pool={fakePool}
+        collateralSelectorSlot={<span>Collateral selector</span>}
+      />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    expect(getByText('Collateral selector')).toBeInTheDocument();
+  });
 });

@@ -57,7 +57,7 @@ export const SubmitSection: React.FC<SubmitSectionProps> = ({
       type="submit"
       loading={isLoading}
       disabled={!isFormValid || isLoading}
-      className={cn('w-full', isRiskyOperation && 'border-red bg-red')}
+      className={cn('w-full', isRiskyOperation && 'border-danger bg-danger')}
     >
       {submitButtonLabel}
     </PrimaryButton>

@@ -18,14 +18,14 @@ export const Progress: React.FC<ProgressProps> = ({
 
   return (
     <div className={cn('flex items-center', className)} {...otherProps}>
-      <p className={cn('text-sm', isComplete ? 'text-green' : 'text-grey hidden sm:block')}>
+      <p className={cn('text-sm', isComplete ? 'text-success' : 'text-secondary hidden sm:block')}>
         {isComplete
           ? t('voteProposalUi.commands.allPayloadsExecuted')
           : t('voteProposalUi.commands.somePayloadsExecuted')}
       </p>
 
       {isComplete ? (
-        <Icon name="mark" className="ml-1 text-green w-5 h-5" />
+        <Icon name="mark" className="ml-1 text-success w-5 h-5" />
       ) : (
         <LabeledProgressCircle value={executedPayloadsCount} total={totalPayloadsCount} />
       )}

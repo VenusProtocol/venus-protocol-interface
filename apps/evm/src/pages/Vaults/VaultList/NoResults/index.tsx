@@ -10,8 +10,8 @@ export const NoResults: React.FC<NoResultsProps> = ({ onReset }) => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
-      <div className="bg-cards flex size-10 items-center justify-center rounded-lg">
-        <Icon name="vault" className="text-grey size-6" />
+      <div className="bg-surface-4 flex size-10 items-center justify-center rounded-lg">
+        <Icon name="vault" className="text-secondary size-6" />
       </div>
 
       <p className="text-p3s">{t('vault.filter.noResults')}</p>

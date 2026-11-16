@@ -35,12 +35,12 @@ export const UserRewardsSection: React.FC<UserRewardsSectionProps> = ({ classNam
             />
           </span>
         ) : (
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-dark-blue-hover">
-            <Icon name="person" className="text-light-grey" />
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-default">
+            <Icon name="person" className="text-secondary" />
           </span>
         )}
 
-        <p className={cn('flex-1 text-b1r', isUserPrime ? 'text-white' : 'text-yellow')}>
+        <p className={cn('flex-1 text-b1r', isUserPrime ? 'text-primary' : 'text-warning')}>
           {isUserPrime
             ? t('primeLeaderboard.userRewards.eligibleMessage')
             : t('primeLeaderboard.userRewards.notEligibleMessage')}

@@ -42,7 +42,7 @@ export const MarketActionsButton: React.FC<MarketActionsButtonProps> = ({
       className="group ml-2 flex shrink-0 cursor-pointer items-center"
       onClick={() => setIsModalOpen(true)}
     >
-      <Icon name={iconName} className="text-light-grey transition-colors group-hover:text-white" />
+      <Icon name={iconName} className="text-secondary transition-colors group-hover:text-primary" />
     </button>
   );
 

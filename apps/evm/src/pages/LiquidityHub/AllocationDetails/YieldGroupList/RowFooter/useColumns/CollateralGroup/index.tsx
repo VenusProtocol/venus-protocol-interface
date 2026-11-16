@@ -18,7 +18,7 @@ export const CollateralGroup: React.FC<CollateralGroupProps> = ({ collaterals, c
         'liquidityHub.allocationDetails.yieldGroup.collateralColumn.group.asset',
       ),
       key: 'asset',
-      renderCell: collateral => <TokenIconWithSymbol token={collateral.token} />,
+      renderCell: collateral => <TokenIconWithSymbol token={collateral.token} size="xl" />,
     },
     {
       label: t(

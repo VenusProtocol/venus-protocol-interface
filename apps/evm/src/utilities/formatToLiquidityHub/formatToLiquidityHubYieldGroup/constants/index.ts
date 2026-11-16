@@ -1,48 +1,50 @@
 import centrifugeIconSrc from 'assets/img/centrifugeIcon.svg';
 import spokeIconSrc from 'assets/img/spokeIcon.svg';
 import vaultsIconSrc from 'assets/img/vaultsIcon.svg';
-import venusCoreIconSrc from 'assets/img/venusCoreIcon.png';
+import venusCoreIconSrc from 'assets/img/venusCoreLogo.svg';
 import venusFluxIconSrc from 'assets/img/venusFluxIcon.png';
 import type { LiquidityHubYieldGroupType } from 'types';
 
 export const metadataByType: Record<
   LiquidityHubYieldGroupType,
-  { nameTranslationKey: string; iconSrc: string; bgClassName: string }
+  { nameTranslationKey: string; iconSrc: string; iconClassName?: string; bgClassName: string }
 > = {
   core: {
     // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
     // t('liquidityHub.allocationDetails.yieldGroup.names.core')
     nameTranslationKey: 'liquidityHub.allocationDetails.yieldGroup.names.core',
     iconSrc: venusCoreIconSrc,
-    bgClassName: 'bg-blue',
+    iconClassName:
+      'rounded-[2px] border-[0.5px] border-venus-core-tile bg-venus-core-tile object-contain p-[3px]',
+    bgClassName: 'bg-brand',
   },
   flux: {
     // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
     // t('liquidityHub.allocationDetails.yieldGroup.names.flux')
     nameTranslationKey: 'liquidityHub.allocationDetails.yieldGroup.names.flux',
     iconSrc: venusFluxIconSrc,
-    bgClassName: 'bg-yellow',
+    bgClassName: 'bg-warning',
   },
   frv: {
     // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
     // t('liquidityHub.allocationDetails.yieldGroup.names.frv')
     nameTranslationKey: 'liquidityHub.allocationDetails.yieldGroup.names.frv',
     iconSrc: vaultsIconSrc,
-    bgClassName: 'bg-orange',
+    bgClassName: 'bg-caution',
   },
   centrifuge: {
     // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
     // t('liquidityHub.allocationDetails.yieldGroup.names.centrifuge')
     nameTranslationKey: 'liquidityHub.allocationDetails.yieldGroup.names.centrifuge',
     iconSrc: centrifugeIconSrc,
-    bgClassName: 'bg-red',
+    bgClassName: 'bg-danger',
   },
   spoke: {
     // DO NOT REMOVE COMMENT: needed by i18next to extract translation key
     // t('liquidityHub.allocationDetails.yieldGroup.names.spoke')
     nameTranslationKey: 'liquidityHub.allocationDetails.yieldGroup.names.spoke',
     iconSrc: spokeIconSrc,
-    bgClassName: 'bg-green',
+    bgClassName: 'bg-success',
   },
 };
 

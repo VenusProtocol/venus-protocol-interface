@@ -24,10 +24,10 @@ const NotificationCenter: React.FC = () => {
             key={id}
             className={cn(
               'mb-2 last:mb-0 rounded-lg border backdrop-blur-lg overflow-hidden',
-              (variant === 'info' || variant === 'loading') && 'bg-blue/10 border-lightGrey',
-              variant === 'error' && 'bg-red/10 border-red',
-              variant === 'success' && 'bg-green/10 border-green',
-              variant === 'warning' && 'bg-orange/10 border-orange',
+              (variant === 'info' || variant === 'loading') && 'bg-brand/10 border-muted',
+              variant === 'error' && 'bg-danger/10 border-danger',
+              variant === 'success' && 'bg-success/10 border-success',
+              variant === 'warning' && 'bg-caution/10 border-caution',
             )}
             layout
             initial={{ x: '110%' }}

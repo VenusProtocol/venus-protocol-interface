@@ -46,4 +46,20 @@ describe('pages/PrimeLeaderboard/RankCard/EligibilityStatus', () => {
 
     expect(screen.getByText('Stake XVS to compete for Prime.')).toBeInTheDocument();
   });
+
+  it.each([5_432, 200_000])(
+    'shows the compete message without the stake gap when the gap is hidden (%s XVS)',
+    gapXvsTokens => {
+      renderComponent(
+        <EligibilityStatus
+          {...baseProps}
+          isCandidate={false}
+          gapXvsTokens={gapXvsTokens}
+          hideStakeGap
+        />,
+      );
+
+      expect(screen.getByText('Stake more XVS to compete for Prime.')).toBeInTheDocument();
+    },
+  );
 });

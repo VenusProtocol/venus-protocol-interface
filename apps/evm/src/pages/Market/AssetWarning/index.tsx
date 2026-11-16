@@ -64,6 +64,8 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
         isOpen={showAssets}
         handleClose={handleHideAssets}
         noHorizontalPadding={isSmOrUp}
+        className="overflow-hidden"
+        contentClassName="min-h-0 overflow-y-auto"
         title={t('assetWarning.modalTitle', {
           poolName: pool.name,
         })}
@@ -75,7 +77,7 @@ export const AssetWarning: React.FC<AssetWarningProps> = ({
           variant="secondary"
           selectVariant="quaternary"
           breakpoint="sm"
-          className="my-0 p-0 border-0 sm:p-0"
+          className="my-0 border-0 bg-transparent p-0 sm:p-0"
           poolName={pool.name}
           poolComptrollerContractAddress={pool.comptrollerAddress}
           assets={pool.assets}

@@ -1,8 +1,6 @@
 import { screen } from '@testing-library/react';
-import { useGetAsset } from 'clients/api';
 import { routes } from 'constants/routing';
 import { useGetCurrentRoutePath } from 'hooks/useGetCurrentRoutePath';
-import { useImageAccentColor } from 'hooks/useImageAccentColor';
 import { renderComponent } from 'testUtils/render';
 import type { Mock } from 'vitest';
 
@@ -10,7 +8,6 @@ import { Header } from '..';
 import { usePathNodes } from '../usePathNodes';
 
 vi.mock('hooks/useGetCurrentRoutePath');
-vi.mock('hooks/useImageAccentColor');
 vi.mock('../usePathNodes');
 vi.mock('../Breadcrumbs', () => ({
   Breadcrumbs: ({ pathNodes }: { pathNodes: Array<{ href: string }> }) => (
@@ -28,8 +25,6 @@ describe('Header', () => {
   beforeEach(() => {
     (useGetCurrentRoutePath as Mock).mockReturnValue(routes.dashboard.path);
     (usePathNodes as Mock).mockReturnValue([{ dom: 'Dashboard', href: '/dashboard' }]);
-    (useGetAsset as Mock).mockReturnValue({ data: undefined });
-    (useImageAccentColor as Mock).mockReturnValue({ color: undefined });
   });
 
   it('renders nothing when there is only one path node and the user is not on a market page', () => {
@@ -49,40 +44,16 @@ describe('Header', () => {
     expect(screen.getByTestId('breadcrumbs')).toHaveTextContent('/dashboard,/market');
   });
 
-  it('renders market info and applies the accent color on market pages', () => {
+  it('renders market info on market pages', () => {
     const vTokenAddress = '0x1111111111111111111111111111111111111111';
-    const gradientAccentColor = 'rgb(12, 34, 56)';
 
     (useGetCurrentRoutePath as Mock).mockReturnValue(routes.market.path);
-    (useGetAsset as Mock).mockReturnValue({
-      data: {
-        asset: {
-          vToken: {
-            underlyingToken: {
-              iconSrc: '/token.svg',
-            },
-          },
-        },
-      },
-    });
-    (useImageAccentColor as Mock).mockReturnValue({
-      color: gradientAccentColor,
-    });
 
     renderComponent(<Header />, {
       routePath: '/asset/:vTokenAddress',
       routerInitialEntries: [`/asset/${vTokenAddress}`],
     });
 
-    expect(useGetAsset).toHaveBeenCalledWith({
-      vTokenAddress,
-    });
-    expect(useImageAccentColor).toHaveBeenCalledWith({
-      imagePath: '/token.svg',
-    });
-    expect(screen.getByRole('banner')).toHaveStyle({
-      backgroundColor: gradientAccentColor,
-    });
     expect(screen.getByTestId('asset-info')).toBeVisible();
   });
 

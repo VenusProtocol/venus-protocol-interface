@@ -157,7 +157,6 @@ export const RepayForm: React.FC<RepayFormProps> = ({ spokePool, asset, onSubmit
           key={`spoke-repay-percentage-${percentage}`}
           className="flex-1"
           size="xs"
-          rounded
           disabled={isRepayDisabled}
           onClick={() => handlePercentageClick(percentage)}
         >

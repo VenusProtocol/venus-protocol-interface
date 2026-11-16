@@ -23,7 +23,7 @@ const Modal: React.FC = () => {
           <img src={backgroundSrc} alt={t('vipModal.backgroundAlt')} className="bg-cover" />
 
           <div className="absolute flex flex-col text-center">
-            <span className="text-h7">
+            <span className="text-h7 text-on-color">
               <Trans
                 i18nKey="vipModal.illustration.header"
                 components={{
@@ -37,7 +37,7 @@ const Modal: React.FC = () => {
           </div>
         </div>
 
-        <p className="text-p2s text-center text-light-grey">{t('vipModal.description')}</p>
+        <p className="text-p2s text-center text-secondary">{t('vipModal.description')}</p>
 
         <div className="flex flex-col gap-y-3">
           <VipTelegramGroupButton onClick={handleClose} />

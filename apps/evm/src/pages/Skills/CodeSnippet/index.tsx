@@ -8,7 +8,7 @@ interface CodeSnippetProps {
 export const CodeSnippet: React.FC<CodeSnippetProps> = ({ children, className }) => (
   <div
     className={cn(
-      'my-5 overflow-x-auto whitespace-pre rounded-lg border border-blue bg-background-active p-5 text-[0.95rem] text-green font-mono',
+      'my-5 overflow-x-auto whitespace-pre rounded-lg border border-brand bg-surface-1 p-5 text-[0.95rem] text-success font-mono',
       className,
     )}
   >

@@ -21,7 +21,7 @@ export const Mode: React.FC<ModeProps> = ({ title, tooltip, eModeAssetSettings, 
 
   return (
     <>
-      <Card className="pt-6 px-0 pb-2 space-y-6">
+      <Card variant="glass" className="pt-6 px-0 pb-2 space-y-6">
         <div className="text-p2s px-6 flex items-center gap-1">
           <span>{title}</span>
 
@@ -39,7 +39,7 @@ export const Mode: React.FC<ModeProps> = ({ title, tooltip, eModeAssetSettings, 
             renderRowAction={row => (
               <button
                 type="button"
-                className="cursor-pointer text-right text-blue duration-250 hover:text-blue-hover hover:underline active:text-blue-active"
+                className="cursor-pointer text-right text-brand duration-250 hover:text-brand-hover hover:underline active:text-brand-active"
                 onClick={() => setSelectedEModeGroup(row.eModeGroup)}
               >
                 {t('market.eModeInfo.link')}
@@ -48,7 +48,7 @@ export const Mode: React.FC<ModeProps> = ({ title, tooltip, eModeAssetSettings, 
           />
 
           {/* Table  view */}
-          <div className="hidden md:block lg:hidden 2xl:block max-h-104 overflow-y-auto [&_.MuiTableContainer-root]:overflow-visible! [&_thead]:sticky [&_thead]:top-0 [&_thead]:z-10 [&_thead_th]:bg-background">
+          <div className="hidden md:block lg:hidden 2xl:block max-h-90 overflow-y-auto [&_.MuiTableContainer-root]:overflow-visible! [&_thead]:sticky [&_thead]:top-0 [&_thead]:z-10 [&_thead_th]:bg-surface-2">
             <Table
               className="border-0"
               variant="secondary"
@@ -57,7 +57,7 @@ export const Mode: React.FC<ModeProps> = ({ title, tooltip, eModeAssetSettings, 
               rowKeyExtractor={row => row.eModeGroup.name}
               rowOnClick={(_e, row) => setSelectedEModeGroup(row.eModeGroup)}
               initialOrder={initialOrder}
-              size="sm"
+              size="compact"
             />
           </div>
         </div>

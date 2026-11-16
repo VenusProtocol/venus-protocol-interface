@@ -16,7 +16,7 @@ export const TerminalLine: React.FC<TerminalLineProps> = ({ line }) => {
   if (item.type === 'cursor') {
     return (
       <div className="my-[6px]">
-        <span className="ml-1 inline-block h-[18px] w-2 animate-pulse align-text-bottom bg-green" />
+        <span className="ml-1 inline-block h-[18px] w-2 animate-pulse align-text-bottom bg-success" />
       </div>
     );
   }
@@ -24,7 +24,7 @@ export const TerminalLine: React.FC<TerminalLineProps> = ({ line }) => {
   if (item.type === 'user') {
     return (
       <div className={getLineClassName(item)}>
-        <span className="mr-3 font-bold text-red">❯</span>
+        <span className="mr-3 font-bold text-danger">❯</span>
         {text}
       </div>
     );

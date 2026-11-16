@@ -8,8 +8,8 @@ import { Modal } from 'components/Modal';
 import { Select, type SelectOption } from 'components/Select';
 import { useTranslation } from 'libs/translations';
 import { ApiOhlcInterval } from 'types';
+import { applyChartStyles } from './applyChartStyles';
 import { convertIntervalToChartPeriod } from './convertIntervalToChartPeriod';
-import { rgb } from './rgb';
 
 export interface KLineChartProps {
   title: string;
@@ -42,7 +42,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
   const intervalOptions = Object.values(ApiOhlcInterval).map<SelectOption<ApiOhlcInterval>>(
     intervalOption => ({
       label: ({ isRenderedInButton }) => (
-        <span className={cn(isRenderedInButton && 'text-light-grey')}>{intervalOption}</span>
+        <span className={cn(isRenderedInButton && 'text-secondary')}>{intervalOption}</span>
       ),
       value: intervalOption,
     }),
@@ -88,81 +88,12 @@ export const KLineChart: React.FC<KLineChartProps> = ({
     }
 
     chartRef.current = chart;
+    applyChartStyles(chart);
 
-    const darkBlueHover = rgb('--color-dark-blue-hover-rgb');
-    const darkBlueActive = rgb('--color-dark-blue-active-rgb');
-    const grey = rgb('--color-grey-rgb');
-    const white = rgb('--color-white-rgb');
-    const green = rgb('--color-green-rgb');
-    const red = rgb('--color-red-rgb');
-
-    chart.setStyles({
-      grid: {
-        horizontal: { color: darkBlueHover, dashedValue: [3, 3] },
-        vertical: { color: darkBlueHover, dashedValue: [3, 3] },
-      },
-      candle: {
-        bar: {
-          upColor: green,
-          downColor: red,
-          upBorderColor: green,
-          downBorderColor: red,
-          upWickColor: green,
-          downWickColor: red,
-          noChangeColor: grey,
-          noChangeBorderColor: grey,
-          noChangeWickColor: grey,
-        },
-        tooltip: {
-          rect: {
-            color: darkBlueHover,
-            borderColor: darkBlueActive,
-          },
-          title: { color: white },
-          legend: {
-            color: grey,
-            template: [
-              { title: 'time', value: '{time}' },
-              { title: 'open', value: '{open}' },
-              { title: 'high', value: '{high}' },
-              { title: 'low', value: '{low}' },
-              { title: 'close', value: '{close}' },
-            ],
-          },
-        },
-      },
-      xAxis: {
-        axisLine: { color: darkBlueActive },
-        tickLine: { color: darkBlueActive },
-        tickText: { color: grey },
-      },
-      yAxis: {
-        axisLine: { color: darkBlueActive },
-        tickLine: { color: darkBlueActive },
-        tickText: { color: grey },
-      },
-      crosshair: {
-        horizontal: {
-          line: { color: grey },
-          text: {
-            color: white,
-            borderColor: darkBlueActive,
-            backgroundColor: darkBlueHover,
-          },
-        },
-        vertical: {
-          line: { color: grey },
-          text: {
-            color: white,
-            borderColor: darkBlueActive,
-            backgroundColor: darkBlueHover,
-          },
-        },
-      },
-      separator: {
-        color: darkBlueActive,
-        activeBackgroundColor: darkBlueHover,
-      },
+    const themeObserver = new MutationObserver(() => applyChartStyles(chart));
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
     });
 
     const resizeObserver = new ResizeObserver(() => {
@@ -173,6 +104,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
 
     return () => {
       chartRef.current = null;
+      themeObserver.disconnect();
       resizeObserver?.disconnect();
       dispose(chart);
     };
@@ -194,7 +126,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
   return (
     <>
       <div
-        className="bg-dark-blue w-full h-full min-h-0 flex flex-col"
+        className="bg-surface-3 w-full h-full min-h-0 flex flex-col"
         ref={fullScreenContainerRef}
       >
         <div className="relative z-10 flex items-center justify-between px-3 py-1">
@@ -204,7 +136,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
               value={interval}
               onChange={newInterval => onIntervalChange(newInterval as ApiOhlcInterval)}
               size="small"
-              buttonClassName="py-0 px-2 h-7 bg-dark-blue-active"
+              buttonClassName="py-0 px-2 h-7 bg-surface-4"
               modalPortalContainer={isFullScreenMode ? fullScreenContainerRef.current : undefined}
             />
 
@@ -213,7 +145,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
             <button
               type="button"
               onClick={showDisclaimerModal}
-              className="cursor-pointer transition-colors text-b1r text-light-grey hover:text-blue"
+              className="cursor-pointer transition-colors text-b1r text-secondary hover:text-brand"
             >
               {t('kLineChart.disclaimer.buttonLabel')}
             </button>
@@ -223,7 +155,7 @@ export const KLineChart: React.FC<KLineChartProps> = ({
             <button
               type="button"
               onClick={toggleFullScreenMode}
-              className="cursor-pointer text-light-grey hover:text-blue"
+              className="cursor-pointer text-secondary hover:text-brand"
             >
               <Icon name="fullScreen" className="size-6 transition-colors text-inherit" />
             </button>

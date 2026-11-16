@@ -18,8 +18,8 @@ export const Settings: React.FC = () => {
   return (
     <Card className="py-1 pl-1 sm:py-1 sm:pl-1">
       <div className="flex items-center gap-3">
-        <div className="rounded-lg bg-background items-center justify-center flex shrink-0 w-12 h-12 sm:w-14 sm:h-14">
-          <Icon name="gasSlashed" className="text-green w-8 h-8 sm:w-10 sm:h-10" />
+        <div className="rounded-lg bg-surface-2 items-center justify-center flex shrink-0 w-12 h-12 sm:w-14 sm:h-14">
+          <Icon name="gasSlashed" className="text-success w-8 h-8 sm:w-10 sm:h-10" />
         </div>
 
         <div className="flex grow items-center justify-between md:justify-normal gap-3">

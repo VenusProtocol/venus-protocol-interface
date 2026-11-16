@@ -119,7 +119,7 @@ const Trade: React.FC = () => {
 
             {!doNotShowBanner && <Banner className="lg:hidden" />}
 
-            <Card className="p-0 overflow-hidden bg-dark-blue h-80 shrink-0 lg:h-114 isolate">
+            <Card className="p-0 overflow-hidden bg-surface-3 h-80 shrink-0 lg:h-114 isolate">
               <KLineChart
                 dataLoader={dataLoader}
                 title={`${longToken.symbol}/${shortToken.symbol}`}
@@ -135,7 +135,7 @@ const Trade: React.FC = () => {
           <div className="min-w-0 flex flex-col gap-y-6 relative overflow-hidden lg:self-start">
             {!doNotShowBanner && <Banner className="hidden lg:flex" />}
 
-            <Card className="border-blue bg-dark-blue p-6 lg:min-h-100">
+            <Card className="border-brand bg-surface-3 p-6 lg:min-h-100">
               <OperationForm />
             </Card>
 

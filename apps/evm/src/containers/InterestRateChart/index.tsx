@@ -82,12 +82,12 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
 
       {interestRateChartData.apySimulations.length > 0 && (
         <div className="-mr-[10px]">
-          <div className={cn('w-full h-62', className)}>
+          <div className={cn('w-full h-62 [&_.recharts-surface]:overflow-visible', className)}>
             <ResponsiveContainer>
               <LineChart
                 data={interestRateChartData.apySimulations}
                 margin={{
-                  top: 20,
+                  top: 28,
                   right: 10,
                   left: -12,
                 }}

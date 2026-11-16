@@ -317,6 +317,7 @@ export interface LiquidityHubYieldGroup {
   type: LiquidityHubYieldGroupType;
   nameTranslationKey: string;
   iconSrc: string;
+  iconClassName?: string;
   bgClassName: string;
   allocationTokens: BigNumber;
   allocationCents: BigNumber;
@@ -649,6 +650,7 @@ interface BaseVault {
   venue: VaultVenue;
   venueName: string;
   venueIconSrc: string;
+  isVenueIconMonochrome: boolean;
   status: VaultStatus;
   key: string;
   stakedToken: Token;

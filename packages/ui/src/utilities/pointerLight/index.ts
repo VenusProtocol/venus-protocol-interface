@@ -1,0 +1,2 @@
+export const pointerLightClassNames =
+  'relative isolate before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:bg-[radial-gradient(circle_at_var(--pointer-x,50%)_var(--pointer-y,50%),rgb(var(--elevation-tint-rgb)/22%),transparent_70%)] before:opacity-0 before:transition-opacity before:duration-[260ms] before:ease-out hover:before:opacity-65 focus-within:before:opacity-65 motion-reduce:before:transition-none';

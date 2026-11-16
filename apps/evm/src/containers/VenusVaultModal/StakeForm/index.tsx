@@ -31,7 +31,7 @@ export const StakeForm: React.FC<StakeFormProps> = ({
   const { accountAddress } = useAccountAddress();
   const isPrimeLeaderboardEnabled = useIsFeatureEnabled({ name: 'primeLeaderboard' });
   const showPrimeRankFooter =
-    isPrimeLeaderboardEnabled && vault.category === VaultCategory.GOVERNANCE && !!accountAddress;
+    isPrimeLeaderboardEnabled && vault.category === VaultCategory.GOVERNANCE;
 
   const fromToken = vault.stakedToken;
 

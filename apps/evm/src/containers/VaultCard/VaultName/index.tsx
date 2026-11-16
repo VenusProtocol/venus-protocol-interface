@@ -49,7 +49,7 @@ export const VaultName: React.FC<VaultNameProps> = ({ vault, className }) => {
           <p className="truncate text-b1s">{title}</p>
         </div>
 
-        {!!description && <p className="truncate text-light-grey text-b2r">{description}</p>}
+        {!!description && <p className="truncate text-secondary text-b2r">{description}</p>}
       </div>
     </div>
   );

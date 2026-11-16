@@ -96,7 +96,7 @@ describe('pages/Dashboard/Summary', () => {
 
     const { rerender } = renderComponent(<Summary pools={[poolData[0]]} />);
 
-    expect(getCell(en.account.summary.cellGroup.netApy)).toHaveClass('text-green');
+    expect(getCell(en.account.summary.cellGroup.netApy)).toHaveClass('text-success');
     expect(
       screen.getByText(
         formatPercentageToReadableValue(
@@ -110,7 +110,7 @@ describe('pages/Dashboard/Summary', () => {
 
     rerender(<Summary pools={[negativePool]} />);
 
-    expect(getCell(en.account.summary.cellGroup.netApy)).toHaveClass('text-red');
+    expect(getCell(en.account.summary.cellGroup.netApy)).toHaveClass('text-danger');
   });
 
   it('changes the net APY tooltip when vaults are included', () => {

@@ -117,4 +117,29 @@ describe('useIsConnectedAccountVip', () => {
 
     expect(result.current.isConnectedAccountVip).toBe(false);
   });
+
+  it('reports loading while the connected account portfolio is being fetched', () => {
+    (useAccountAddress as Mock).mockReturnValue({
+      accountAddress: fakeAccountAddress,
+    });
+    (useGetPools as Mock).mockReturnValue({
+      data: undefined,
+      isLoading: true,
+    });
+
+    const { result } = renderHook(() => useIsConnectedAccountVip());
+
+    expect(result.current.isLoading).toBe(true);
+  });
+
+  it('does not report loading when no account is connected', () => {
+    (useGetPools as Mock).mockReturnValue({
+      data: undefined,
+      isLoading: true,
+    });
+
+    const { result } = renderHook(() => useIsConnectedAccountVip());
+
+    expect(result.current.isLoading).toBe(false);
+  });
 });

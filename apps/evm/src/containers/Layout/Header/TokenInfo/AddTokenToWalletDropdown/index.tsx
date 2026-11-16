@@ -63,7 +63,7 @@ export const AddTokenToWalletDropdown: React.FC<AddTokenToWalletDropdownProps> =
             className={cn(
               'justify-center h-5 w-5',
               isUserConnected && 'ml-0.5',
-              isDropdownOpen && 'text-blue',
+              isDropdownOpen && 'text-brand',
             )}
           />
         </DropdownToggleButton>

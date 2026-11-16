@@ -23,7 +23,7 @@ export const Timer: React.FC<TimerProps> = ({ days, hours, minutes, seconds }) =
 
   return (
     <div className="flex w-full flex-col items-center">
-      <div className="flex w-full items-center justify-between text-center text-b2s text-light-grey">
+      <div className="flex w-full items-center justify-between text-center text-b2s text-secondary">
         {segments.map(segment => (
           <p key={segment.label} className="w-9">
             {segment.label}
@@ -34,9 +34,9 @@ export const Timer: React.FC<TimerProps> = ({ days, hours, minutes, seconds }) =
       <div className="flex w-full items-center justify-between">
         {segments.map((segment, index) => (
           <Fragment key={segment.label}>
-            {index > 0 && <p className="text-p2s text-light-grey">:</p>}
+            {index > 0 && <p className="text-p2s text-secondary">:</p>}
 
-            <p className="w-9 text-center text-p1s text-white">{pad(segment.value)}</p>
+            <p className="w-9 text-center text-p1s text-primary">{pad(segment.value)}</p>
           </Fragment>
         ))}
       </div>

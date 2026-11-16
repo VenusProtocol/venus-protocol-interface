@@ -15,6 +15,17 @@ import { useGetFixedRatedVaults, useGetVaults } from 'clients/api';
 
 import VaultsPage from '..';
 
+vi.mock('hooks/useCardGridPagination', async () => {
+  const actual = await vi.importActual<typeof import('hooks/useCardGridPagination')>(
+    'hooks/useCardGridPagination',
+  );
+
+  return {
+    useCardGridPagination: (input: Parameters<typeof actual.useCardGridPagination>[0]) =>
+      actual.useCardGridPagination({ ...input, columnCount: input.items.length || 1 }),
+  };
+});
+
 describe('Vaults', () => {
   const fakeVaults = [institutionalVault, ...venusVaults];
   const titleSelector = 'p.truncate.text-b1s';

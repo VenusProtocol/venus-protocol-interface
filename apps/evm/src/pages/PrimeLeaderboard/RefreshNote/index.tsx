@@ -36,13 +36,13 @@ export const RefreshNote: React.FC = () => {
     !!xvs;
 
   const rankCutoff = canShowRankCutoff ? (
-    <p className="min-w-0 text-light-grey">
+    <p className="min-w-0 text-secondary">
       <Trans
         i18nKey="primeLeaderboard.rankCutoffNote"
         components={{
-          Rank: <span className="font-semibold text-white">{`#${rankLimit}`}</span>,
+          Rank: <span className="font-semibold text-primary">{`#${rankLimit}`}</span>,
           Score: (
-            <span className="font-semibold text-white">
+            <span className="font-semibold text-primary">
               {shortenValueWithSuffix({
                 value: convertMantissaToTokens({
                   value: new BigNumber(rankScoreMantissa),
@@ -53,7 +53,7 @@ export const RefreshNote: React.FC = () => {
             </span>
           ),
           Staked: (
-            <span className="font-semibold text-white">
+            <span className="font-semibold text-primary">
               {formatTokensToReadableValue({
                 value: convertMantissaToTokens({
                   value: new BigNumber(benchmarkStakeMantissa),
@@ -74,7 +74,7 @@ export const RefreshNote: React.FC = () => {
         <div className="flex flex-col gap-1 xl:flex-row xl:items-center xl:justify-between xl:gap-4">
           {rankCutoff}
 
-          <p className="shrink-0 text-light-grey">
+          <p className="shrink-0 text-secondary">
             {t('primeLeaderboard.tablesRefreshNote', { date: lastRefreshedAt })}
           </p>
         </div>

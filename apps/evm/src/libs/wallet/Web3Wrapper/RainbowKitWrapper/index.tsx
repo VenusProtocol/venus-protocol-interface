@@ -3,6 +3,7 @@ import {
   RainbowKitProvider,
   type Theme,
   darkTheme,
+  lightTheme,
   useConnectModal,
 } from '@rainbow-me/rainbowkit';
 import { theme } from '@venusprotocol/ui';
@@ -12,28 +13,44 @@ import { type PropsWithChildren, useEffect, useRef } from 'react';
 import { useAccount, useConfig } from 'wagmi';
 
 import '@rainbow-me/rainbowkit/styles.css';
+import { useTheme } from 'hooks/useTheme';
 import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet/hooks/useChainId';
 
 export interface RainwbowKitWrapperProps extends PropsWithChildren {}
 
-const rkTheme = merge(
+const rkThemeOverrides = {
+  fonts: {
+    body: '"ProximaNova", var(--font-fallback)',
+  },
+  colors: {
+    closeButtonBackground: 'transparent',
+    generalBorder: theme.colors['dark-blue-hover'],
+    selectedOptionBorder: theme.colors['dark-blue-hover'],
+    modalBorder: theme.colors.blue,
+    modalBackground: theme.colors['dark-blue'],
+  },
+} as Theme;
+
+const rkDarkTheme = merge(
   darkTheme({
     accentColor: theme.colors.blue,
     borderRadius: 'small',
   }),
+  rkThemeOverrides,
+);
+
+const rkLightTheme = merge(
+  lightTheme({
+    accentColor: theme.colors.blue,
+    borderRadius: 'small',
+  }),
+  rkThemeOverrides,
   {
-    fonts: {
-      body: '"ProximaNova", var(--font-fallback)',
-    },
     colors: {
-      closeButtonBackground: 'transparent',
-      generalBorder: theme.colors['dark-blue-hover'],
-      selectedOptionBorder: theme.colors['dark-blue-hover'],
-      modalBorder: theme.colors.blue,
-      modalBackground: theme.colors['dark-blue'],
+      modalTextSecondary: theme.colors['light-grey'],
     },
-  } as Theme,
+  },
 );
 
 const ConnectionRecovery: React.FC = () => {
@@ -65,6 +82,7 @@ export const RainwbowKitWrapper: React.FC<RainwbowKitWrapperProps> = ({ children
   // Binance connector always initialises its session on chains[0] (BSC), so
   // connecting while on another chain (e.g. Ethereum) would only work on BSC.
   const { chainId } = useChainId();
+  const { isLight } = useTheme();
 
   return (
     <RainbowKitProvider
@@ -72,8 +90,9 @@ export const RainwbowKitWrapper: React.FC<RainwbowKitWrapperProps> = ({ children
       locale={language.bcp47Tag as Locale}
       appInfo={{
         appName: 'Venus',
+        learnMoreUrl: 'https://ethereum.org/wallets/find-wallet/',
       }}
-      theme={rkTheme}
+      theme={isLight ? rkLightTheme : rkDarkTheme}
     >
       <ConnectionRecovery />
       {children}

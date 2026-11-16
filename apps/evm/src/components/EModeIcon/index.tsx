@@ -19,7 +19,7 @@ export const EModeIcon: React.FC<EModeIconProps> = ({ isIsolated = false, classN
         className,
       )}
     >
-      <Icon name="lightning2" className="text-cards w-[70%]" />
+      <Icon name="lightning2" className="text-on-bright w-[70%]" />
     </div>
   );
 };

@@ -25,9 +25,11 @@ export const LabeledProgressBar: React.FC<LabeledProgressBarProps> = ({
   <>
     <div className={cn('mb-3 flex items-center justify-between', className)}>
       <div className="mr-6 flex">
-        {greyLeftText && <span className="mr-1 text-sm text-grey">{greyLeftText}</span>}
+        {greyLeftText && <span className="mr-1 text-sm text-secondary">{greyLeftText}</span>}
 
-        {whiteLeftText && <span className="text-sm font-semibold text-white">{whiteLeftText}</span>}
+        {whiteLeftText && (
+          <span className="text-sm font-semibold text-primary">{whiteLeftText}</span>
+        )}
 
         {leftInfoTooltip && (
           <InfoIcon className="ml-1 inline-flex items-center" tooltip={leftInfoTooltip} />
@@ -35,10 +37,10 @@ export const LabeledProgressBar: React.FC<LabeledProgressBarProps> = ({
       </div>
 
       <div className="flex max-md:text-right">
-        {greyRightText && <span className="mr-1 text-sm text-grey">{greyRightText}</span>}
+        {greyRightText && <span className="mr-1 text-sm text-secondary">{greyRightText}</span>}
 
         {whiteRightText && (
-          <span className="text-sm font-semibold text-white">{whiteRightText}</span>
+          <span className="text-sm font-semibold text-primary">{whiteRightText}</span>
         )}
 
         {rightInfoTooltip && (

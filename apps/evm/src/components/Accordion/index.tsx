@@ -24,12 +24,12 @@ export const Accordion: React.FC<AccordionProps> = ({
         type="button"
         onClick={toggle}
       >
-        {!!title && <span className="text-grey">{title}</span>}
+        {!!title && <span className="text-secondary">{title}</span>}
 
         <div className="ml-auto justify-self-end flex items-center gap-x-1 text-sm">
           {!!rightLabel && <span>{rightLabel}</span>}
 
-          <Icon name="arrowUp" className={cn('text-grey w-5 h-5', !isOpen && 'rotate-180')} />
+          <Icon name="arrowUp" className={cn('text-secondary w-5 h-5', !isOpen && 'rotate-180')} />
         </div>
       </button>
 

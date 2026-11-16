@@ -10,7 +10,7 @@ type PaginationProps = {
   onChange: (newPageIndex: number) => void;
   itemsPerPageCount?: number;
   paramKey?: string;
-  scrollToRef?: RefObject<HTMLDivElement | null>;
+  scrollToRef?: RefObject<HTMLElement | null>;
 };
 
 export function usePagination({
