@@ -1,10 +1,9 @@
-import { Table, type TableColumn, TokenIconWithSymbol } from 'components';
+import { EmptyState, Table, type TableColumn, TokenIconWithSymbol } from 'components';
 import { useTranslation } from 'libs/translations';
 import { BorrowMarketApy } from '../../BorrowMarketApy';
 import { getLowestApyMarket } from '../../getLowestApyMarket';
 import { getLowestBorrowApyPercentage } from '../../getLowestBorrowApyPercentage';
 import type { LiteBorrowAsset } from '../../types';
-import { EmptyState } from '../EmptyState';
 import { useMarketColumns } from '../useMarketColumns';
 
 export interface BorrowAssetTableProps {

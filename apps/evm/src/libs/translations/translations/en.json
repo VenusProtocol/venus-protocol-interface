@@ -1057,6 +1057,12 @@
         "supplyApy": "Supply APY",
         "totalSupply": "Total supply"
       },
+      "placeholder": {
+        "clearSearch": "Clear search",
+        "exploreMoreAssets": "Explore more assets",
+        "noAssets": "No assets found",
+        "noResults": "No results for \"{{query}}\""
+      },
       "search": {
         "placeholder": "Search asset"
       }

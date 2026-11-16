@@ -1,10 +1,9 @@
-import { SpokeCollateralGroup, Table, type TableColumn } from 'components';
+import { EmptyState, SpokeCollateralGroup, Table, type TableColumn } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { Asset, SpokeAsset } from 'types';
 import { BorrowMarketApy } from '../../BorrowMarketApy';
 import type { LiteBorrowAsset, LiteBorrowMarket } from '../../types';
 import { useMarketName } from '../../useMarketName';
-import { EmptyState } from '../EmptyState';
 import { useMarketColumns } from '../useMarketColumns';
 
 export interface BorrowMarketTableProps {

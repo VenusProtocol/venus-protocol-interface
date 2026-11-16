@@ -1056,6 +1056,12 @@
         "supplyApy": "ซัพพลาย APY",
         "totalSupply": "ยอดฝากรวม"
       },
+      "placeholder": {
+        "clearSearch": "ล้างการค้นหา",
+        "exploreMoreAssets": "สำรวจสินทรัพย์เพิ่มเติม",
+        "noAssets": "ไม่พบสินทรัพย์",
+        "noResults": "ไม่พบผลลัพธ์สำหรับ \"{{query}}\""
+      },
       "search": {
         "placeholder": "ค้นหาสินทรัพย์"
       }

@@ -1,5 +1,6 @@
 import {
   Apy,
+  EmptyState,
   InfoIcon,
   LayeredValues,
   type Order,
@@ -31,12 +32,13 @@ export interface LiquidityHubTableProps
 export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
   className,
   data,
+  isFetching,
   ...otherProps
 }) => {
   const { t, Trans } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
 
-  const [userChainSettings] = useUserChainSettings();
+  const [userChainSettings, setUserChainSettings] = useUserChainSettings();
 
   const [searchValue, setSearchValue] = useState('');
   const [selectedLiquidityHub, setSelectedLiquidityHub] = useState<LiquidityHub>();
@@ -201,6 +203,31 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
   const handleRowClick = (_e: React.MouseEvent<HTMLDivElement>, row: LiquidityHub) =>
     captureHubSelectedAnalyticEvent(row);
 
+  const query = searchValue.trim();
+  let placeholder: React.ReactNode;
+
+  if (!isFetching && query) {
+    placeholder = (
+      <EmptyState
+        showIcon
+        title={t('liquidityHubs.table.placeholder.noResults', { query })}
+        onClear={() => setSearchValue('')}
+        clearLabel={t('liquidityHubs.table.placeholder.clearSearch')}
+      />
+    );
+  }
+
+  if (!isFetching && !query && userChainSettings.showUserLiquidityHubAssetsOnly) {
+    placeholder = (
+      <EmptyState
+        showIcon
+        title={t('liquidityHubs.table.placeholder.noAssets')}
+        onClear={() => setUserChainSettings({ showUserLiquidityHubAssetsOnly: false })}
+        clearLabel={t('liquidityHubs.table.placeholder.exploreMoreAssets')}
+      />
+    );
+  }
+
   return (
     <>
       <Table
@@ -217,6 +244,8 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
         initialOrder={initialOrder}
         getRowHref={getRowHref}
         rowOnClick={handleRowClick}
+        isFetching={isFetching}
+        placeholder={placeholder}
         header={
           <Controls
             searchValue={searchValue}

@@ -1056,6 +1056,12 @@
         "supplyApy": "供应 APY",
         "totalSupply": "总供应量"
       },
+      "placeholder": {
+        "clearSearch": "清除搜索",
+        "exploreMoreAssets": "浏览更多资产",
+        "noAssets": "未找到资产",
+        "noResults": "没有找到“{{query}}”的结果"
+      },
       "search": {
         "placeholder": "搜索资产"
       }

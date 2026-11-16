@@ -1,11 +1,12 @@
-import { Icon } from 'components';
 import { useTranslation } from 'libs/translations';
+import { Icon } from '../Icon';
 
 export interface EmptyStateProps {
   title: string;
   hint?: string;
   showIcon?: boolean;
   onClear?: () => void;
+  clearLabel?: string;
 }
 
 export const EmptyState: React.FC<EmptyStateProps> = ({
@@ -13,6 +14,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   hint,
   showIcon = false,
   onClear,
+  clearLabel,
 }) => {
   const { t } = useTranslation();
 
@@ -33,7 +35,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
           onClick={onClear}
           className="mt-3 h-11 w-full max-w-70 cursor-pointer rounded-full border border-current px-5 text-b1r transition-colors hover:bg-hover hover:font-semibold focus-visible:bg-hover focus-visible:font-semibold focus-visible:outline-2 focus-visible:outline-brand md:h-10 md:w-auto md:max-w-none"
         >
-          {t('lite.placeholders.clearSearch')}
+          {clearLabel ?? t('lite.placeholders.clearSearch')}
         </button>
       )}
     </div>

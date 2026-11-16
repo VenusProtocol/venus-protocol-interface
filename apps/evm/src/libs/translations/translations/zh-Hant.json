@@ -1056,6 +1056,12 @@
         "supplyApy": "供應 APY",
         "totalSupply": "總供應量"
       },
+      "placeholder": {
+        "clearSearch": "清除搜尋",
+        "exploreMoreAssets": "瀏覽更多資產",
+        "noAssets": "找不到資產",
+        "noResults": "找不到「{{query}}」的結果"
+      },
       "search": {
         "placeholder": "搜尋資產"
       }

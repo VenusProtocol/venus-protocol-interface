@@ -1056,6 +1056,12 @@
         "supplyApy": "供給 APY",
         "totalSupply": "総供給量"
       },
+      "placeholder": {
+        "clearSearch": "検索をクリア",
+        "exploreMoreAssets": "他の資産を見る",
+        "noAssets": "該当する資産がありません",
+        "noResults": "「{{query}}」に一致する結果はありません"
+      },
       "search": {
         "placeholder": "資産を検索"
       }

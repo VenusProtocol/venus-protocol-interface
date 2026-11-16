@@ -1,10 +1,9 @@
 import BigNumber from 'bignumber.js';
-import { Table, type TableColumn, TokenIconWithSymbol } from 'components';
+import { EmptyState, Table, type TableColumn, TokenIconWithSymbol } from 'components';
 import { useTranslation } from 'libs/translations';
 import { MarketApy } from '../../MarketApy';
 import { getHighestApyMarket } from '../../getHighestApyMarket';
 import type { LiteEarnAsset } from '../../types';
-import { EmptyState } from '../EmptyState';
 import { useMarketColumns } from '../useMarketColumns';
 
 export interface EarnAssetTableProps {

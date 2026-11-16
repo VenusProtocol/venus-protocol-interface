@@ -1057,6 +1057,12 @@
         "supplyApy": "Sağlama APY",
         "totalSupply": "Toplam arz"
       },
+      "placeholder": {
+        "clearSearch": "Aramayı temizle",
+        "exploreMoreAssets": "Daha fazla varlık keşfet",
+        "noAssets": "Varlık bulunamadı",
+        "noResults": "\"{{query}}\" için sonuç yok"
+      },
       "search": {
         "placeholder": "Varlık ara"
       }

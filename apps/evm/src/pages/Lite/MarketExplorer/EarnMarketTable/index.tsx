@@ -1,9 +1,8 @@
-import { Table, type TableColumn } from 'components';
+import { EmptyState, Table, type TableColumn } from 'components';
 import { useTranslation } from 'libs/translations';
 import { MarketApy } from '../../MarketApy';
 import type { LiteEarnAsset, LiteEarnMarket } from '../../types';
 import { useMarketName } from '../../useMarketName';
-import { EmptyState } from '../EmptyState';
 import { useMarketColumns } from '../useMarketColumns';
 
 export interface EarnMarketTableProps {
