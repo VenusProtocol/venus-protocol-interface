@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 5.45.4
+
+### Patch Changes
+
+- aff9934: show the Noon Capital logo and website on its vaults
+- Updated dependencies [aff9934]
+  - @venusprotocol/chains@0.33.1
+
 ## 5.45.3
 
 ### Patch Changes

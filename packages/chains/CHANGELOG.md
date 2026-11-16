@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.33.1
+
+### Patch Changes
+
+- aff9934: add the sUSN token and its icon
+
 ## 0.33.0
 
 ### Minor Changes
