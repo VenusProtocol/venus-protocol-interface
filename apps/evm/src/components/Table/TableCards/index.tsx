@@ -1,16 +1,18 @@
 import { Spinner, cn } from '@venusprotocol/ui';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
+import { useRef } from 'react';
 
 import { Card, LabeledInlineContent } from 'components';
 import { Delimiter } from '../../Delimiter';
 import { Select, type SelectOption, type SelectProps } from '../../Select';
 import { activateRowOnKeyDown } from '../activateRowOnKeyDown';
 import type { TableCardProps } from '../types';
+import { useVisibleCardsMaxHeight } from './useVisibleCardsMaxHeight';
 
 export function TableCards<R>({
   cardClassName,
-  cardListClassName,
+  maxVisibleCardCount,
   data,
   isFetching,
   rowKeyExtractor,
@@ -27,6 +29,12 @@ export function TableCards<R>({
   hideCardDelimiter,
 }: TableCardProps<R>) {
   const { t } = useTranslation();
+  const cardListRef = useRef<HTMLDivElement>(null);
+  const cardListMaxHeight = useVisibleCardsMaxHeight({
+    cardListRef,
+    cards: data,
+    maxVisibleCardCount,
+  });
 
   const [titleColumn, ...otherColumns] = columns;
 
@@ -84,7 +92,11 @@ export function TableCards<R>({
 
       {isFetching && <Spinner className="mb-5" />}
 
-      <div className={cn('space-y-6', cardListClassName)}>
+      <div
+        ref={cardListRef}
+        className={cn('space-y-6', !!maxVisibleCardCount && 'relative overflow-y-auto')}
+        style={{ maxHeight: cardListMaxHeight }}
+      >
         {data.map((row, rowIndex) => {
           const rowKey = rowKeyExtractor(row);
           const content = (
