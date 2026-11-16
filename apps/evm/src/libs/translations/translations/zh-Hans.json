@@ -1487,6 +1487,7 @@
         "label": "已借入 {{tokenSymbol}}"
       }
     },
+    "noPrimeMarkets": "该网络当前没有提供 Prime 奖励的市场。",
     "rewardDetails": {
       "fromBorrowedTokens": "来自借入 {{tokenSymbol}}",
       "fromSuppliedTokens": "来自存款 {{tokenSymbol}}",

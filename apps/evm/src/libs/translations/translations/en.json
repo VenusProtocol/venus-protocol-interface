@@ -1489,6 +1489,7 @@
         "label": "Borrowed {{tokenSymbol}}"
       }
     },
+    "noPrimeMarkets": "No market currently has Prime rewards on this network.",
     "rewardDetails": {
       "fromBorrowedTokens": "From borrowed {{tokenSymbol}}",
       "fromSuppliedTokens": "From supplied {{tokenSymbol}}",
