@@ -5,6 +5,7 @@ import { useTranslation } from 'libs/translations';
 import { Card, LabeledInlineContent } from 'components';
 import { Delimiter } from '../../Delimiter';
 import { Select, type SelectOption, type SelectProps } from '../../Select';
+import { activateRowOnKeyDown } from '../activateRowOnKeyDown';
 import type { TableCardProps } from '../types';
 
 export function TableCards<R>({
@@ -123,7 +124,13 @@ export function TableCards<R>({
                   {content}
                 </Link>
               ) : (
-                <div>{content}</div>
+                <div
+                  role={rowOnClick ? 'button' : undefined}
+                  tabIndex={rowOnClick ? 0 : undefined}
+                  onKeyDown={rowOnClick ? activateRowOnKeyDown : undefined}
+                >
+                  {content}
+                </div>
               )}
             </Card>
           );

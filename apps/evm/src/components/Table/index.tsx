@@ -12,6 +12,7 @@ import { TableCell } from './TableCell';
 import { TableContainer } from './TableContainer';
 import { TableElement } from './TableElement';
 import { TableRow } from './TableRow';
+import { activateRowOnKeyDown } from './activateRowOnKeyDown';
 import { isInteractiveElement } from './isInteractiveElement';
 import type { Order, TableColumn, TableProps } from './types';
 
@@ -241,8 +242,9 @@ export function Table<R>({
                               }
                             : undefined
                         }
+                        onKeyDown={isRowClickable ? activateRowOnKeyDown : undefined}
                         role={isRowLink ? 'link' : undefined}
-                        tabIndex={isRowLink ? 0 : undefined}
+                        tabIndex={isRowClickable ? 0 : undefined}
                       >
                         {columns.map(column => {
                           const cellContent = column.renderCell(row, rowIndex);

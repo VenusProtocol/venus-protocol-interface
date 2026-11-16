@@ -57,21 +57,28 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     const menuAnchor = menuWrapper?.parentElement;
     const trigger = menuAnchor?.parentElement;
 
-    if (spaceBelow < MENU_MIN_HEIGHT_PX && menuWrapper && menuAnchor && trigger) {
-      const triggerTop = trigger.getBoundingClientRect().top;
-      const spaceAbove = triggerTop - getPageContentTop() - MENU_GAP_PX * 2;
+    const fitBelow = () => {
+      node.style.maxHeight = `${Math.max(spaceBelow, MENU_MIN_HEIGHT_PX)}px`;
+    };
 
-      if (spaceAbove > spaceBelow) {
-        menuWrapper.style.top = 'auto';
-        menuWrapper.style.bottom = `${menuAnchor.getBoundingClientRect().top - triggerTop}px`;
-        menuWrapper.style.paddingTop = '0';
-        menuWrapper.style.paddingBottom = `${MENU_GAP_PX}px`;
-        node.style.maxHeight = `${spaceAbove}px`;
-        return;
-      }
+    if (spaceBelow >= MENU_MIN_HEIGHT_PX || !menuWrapper || !menuAnchor || !trigger) {
+      fitBelow();
+      return;
     }
 
-    node.style.maxHeight = `${Math.max(spaceBelow, MENU_MIN_HEIGHT_PX)}px`;
+    const triggerTop = trigger.getBoundingClientRect().top;
+    const spaceAbove = triggerTop - getPageContentTop() - MENU_GAP_PX * 2;
+
+    if (spaceAbove <= spaceBelow) {
+      fitBelow();
+      return;
+    }
+
+    menuWrapper.style.top = 'auto';
+    menuWrapper.style.bottom = `${menuAnchor.getBoundingClientRect().top - triggerTop}px`;
+    menuWrapper.style.paddingTop = '0';
+    menuWrapper.style.paddingBottom = `${MENU_GAP_PX}px`;
+    node.style.maxHeight = `${spaceAbove}px`;
   };
 
   let triggerLabel = placeholder;

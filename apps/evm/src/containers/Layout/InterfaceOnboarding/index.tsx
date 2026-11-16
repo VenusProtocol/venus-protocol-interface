@@ -174,7 +174,7 @@ export const InterfaceOnboarding: React.FC = () => {
   const shownVariant = entry.variant;
 
   if (!isVisible || !canShow || !shownVariant || !position) {
-    return null;
+    return undefined;
   }
 
   const handleTry = () => {
