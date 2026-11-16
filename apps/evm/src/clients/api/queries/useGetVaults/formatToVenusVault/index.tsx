@@ -5,7 +5,14 @@ const venusVenue = getVenueConfig(VenueName.Venus);
 
 export type VaultData = Omit<
   VenusVault,
-  'key' | 'category' | 'venue' | 'venueName' | 'venueIconSrc' | 'status' | 'vaultType'
+  | 'key'
+  | 'category'
+  | 'venue'
+  | 'venueName'
+  | 'venueIconSrc'
+  | 'isVenueIconMonochrome'
+  | 'status'
+  | 'vaultType'
 >;
 
 export const formatToVenusVault = (vault: VaultData): VenusVault => {
@@ -20,6 +27,7 @@ export const formatToVenusVault = (vault: VaultData): VenusVault => {
     venue: VaultVenue.Venus,
     venueName: venusVenue.name,
     venueIconSrc: venusVenue.iconSrc,
+    isVenueIconMonochrome: venusVenue.isIconMonochrome,
     status:
       vault.isPaused || vault.userHasPendingWithdrawalsFromBeforeUpgrade
         ? VaultStatus.Paused

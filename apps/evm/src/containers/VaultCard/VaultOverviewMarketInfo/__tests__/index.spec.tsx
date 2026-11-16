@@ -16,6 +16,7 @@ describe('containers/VaultCard/VaultOverviewMarketInfo', () => {
         venue={institutionalVault.venue}
         venueName={institutionalVault.venueName}
         venueIconSrc={institutionalVault.venueIconSrc}
+        isVenueIconMonochrome={institutionalVault.isVenueIconMonochrome}
         venueUrl={institutionalVault.venueUrl}
         copyAddress={institutionalVault.venueAddress}
         collateralToken={institutionalVault.collateralToken}
@@ -55,6 +56,7 @@ describe('containers/VaultCard/VaultOverviewMarketInfo', () => {
         venue={VaultVenue.Pendle}
         venueName="Pendle"
         venueIconSrc="pendle.svg"
+        isVenueIconMonochrome={false}
       />,
     );
 

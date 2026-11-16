@@ -138,6 +138,7 @@ export const formatToInstitutionalVault = ({
     venue: VaultVenue.Institution,
     venueName: venue.name,
     venueIconSrc: venue.iconSrc,
+    isVenueIconMonochrome: venue.isIconMonochrome,
     venueAddress: loanVaultDetail.institutionAddress,
     venueUrl: venue.url,
     status,

@@ -150,6 +150,7 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "dailyEmissionCents": 14400,
     "dailyEmissionMantissa": "144000000000000000000",
     "isPaused": false,
+    "isVenueIconMonochrome": false,
     "key": "venus-VAI-XVS-300000",
     "lockingPeriodMs": 300000,
     "rewardToken": {
@@ -182,6 +183,7 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "dailyEmissionCents": 14400,
     "dailyEmissionMantissa": "144000000000000000000",
     "isPaused": false,
+    "isVenueIconMonochrome": false,
     "key": "venus-XVS-XVS-300000",
     "lockingPeriodMs": 300000,
     "rewardToken": {
@@ -216,6 +218,7 @@ exports[`useGetVaults > fetches and returns vaults correctly 1`] = `
     "dailyEmissionCents": 5e-7,
     "dailyEmissionMantissa": "5000000000",
     "isPaused": false,
+    "isVenueIconMonochrome": false,
     "key": "venus-VAI-XVS-0",
     "rewardToken": {
       "address": "0xB9e0E753630434d7863528cc73CB7AC638a7c8ff",

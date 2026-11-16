@@ -8,6 +8,7 @@ import { useTranslation } from 'libs/translations';
 import { useChainId } from 'libs/wallet';
 import { type Token, VaultVenue } from 'types';
 import { generateExplorerUrl, truncateAddress } from 'utilities';
+import { VenueIcon } from '../VenueIcon';
 import { Row } from './Row';
 
 export interface VaultOverviewMarketInfoProps {
@@ -16,6 +17,7 @@ export interface VaultOverviewMarketInfoProps {
   venue: string;
   venueName: string;
   venueIconSrc: string;
+  isVenueIconMonochrome: boolean;
   venueUrl?: string;
   copyAddress?: Address;
   collateralToken?: Token;
@@ -27,6 +29,7 @@ export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = (
   venue,
   venueName,
   venueIconSrc,
+  isVenueIconMonochrome,
   venueUrl,
   copyAddress,
   collateralToken,
@@ -84,9 +87,10 @@ export const VaultOverviewMarketInfo: React.FC<VaultOverviewMarketInfoProps> = (
             address={copyAddress}
           >
             <div className="flex items-center text-b1r">
-              <img
+              <VenueIcon
                 src={venueIconSrc}
-                className="mr-2 h-5 w-5"
+                isMonochrome={isVenueIconMonochrome}
+                className="mr-2"
                 alt={t('vault.modals.overview.vaultVenueIcon')}
               />
               {venueName}

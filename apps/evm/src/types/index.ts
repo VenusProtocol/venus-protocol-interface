@@ -650,6 +650,7 @@ interface BaseVault {
   venue: VaultVenue;
   venueName: string;
   venueIconSrc: string;
+  isVenueIconMonochrome: boolean;
   status: VaultStatus;
   key: string;
   stakedToken: Token;

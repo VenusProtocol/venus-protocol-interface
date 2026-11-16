@@ -31,6 +31,7 @@ import { PendleVaultModal } from './PendleVaultModal';
 import { PrimeEligibilityInlineContent } from './PrimeEligibilityInlineContent';
 import { Progress } from './Progress';
 import { VaultName } from './VaultName';
+import { VenueIcon } from './VenueIcon';
 
 export interface VaultProps {
   vault: Vault;
@@ -262,9 +263,10 @@ export const VaultCard: React.FC<VaultProps> = ({ vault, className }) => {
             {!!vault.venueName && !!vault.venueIconSrc && (
               <LabeledInlineContent label={t('vault.card.venue')}>
                 <div className="flex items-center text-b1r">
-                  <img
+                  <VenueIcon
                     src={vault.venueIconSrc}
-                    className="mr-2 h-5 w-5"
+                    isMonochrome={vault.isVenueIconMonochrome}
+                    className="mr-2"
                     alt={t('vault.card.vaultVenueIcon')}
                   />
                   {vault.venueName}

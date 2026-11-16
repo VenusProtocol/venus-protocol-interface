@@ -49,6 +49,7 @@ export const vaults: VenusVault[] = [
     venue: VaultVenue.Venus,
     venueName: 'Venus',
     venueIconSrc: venusLogoSrc,
+    isVenueIconMonochrome: false,
     status: VaultStatus.Deposit,
     key: 'venus-VAI-XVS-300000',
   },
@@ -71,6 +72,7 @@ export const vaults: VenusVault[] = [
     venue: VaultVenue.Venus,
     venueName: 'Venus',
     venueIconSrc: venusLogoSrc,
+    isVenueIconMonochrome: false,
     status: VaultStatus.Deposit,
     key: 'venus-XVS-XVS-300000',
   },
@@ -238,6 +240,7 @@ export const pendleVault: PendleVault = {
   vaultType: VaultType.Pendle,
   venue: VaultVenue.Pendle,
   venueIconSrc: 'logoMobile',
+  isVenueIconMonochrome: false,
   venueName: 'Pendle',
   venueUrl: 'https://www.pendle.finance/',
 };
@@ -283,6 +286,7 @@ export const pendleBnbVault: PendleVault = {
   venue: VaultVenue.Pendle,
   venueAddress: fixedRatedPendleVaultProtocolData.pendleMarketAddress,
   venueIconSrc: 'pendle',
+  isVenueIconMonochrome: false,
   venueUrl: `https://app.pendle.finance/trade/pools/${fixedRatedPendleVaultProtocolData.pendleMarketAddress}/zap/in?chain=bnbchain`,
 };
 
@@ -292,6 +296,7 @@ export const institutionalVault: InstitutionalVault = {
   venue: VaultVenue.Institution,
   venueName: 'Matrixdock',
   venueIconSrc: matrixdockLogoSrc,
+  isVenueIconMonochrome: true,
   venueAddress: '0x1111111111111111111111111111111111111111',
   venueUrl: 'https://www.matrixdock.com/',
   status: VaultStatus.Pending,

@@ -93,6 +93,7 @@ export const formatToPendleVault = ({
     venue: VaultVenue.Pendle,
     venueName: pendleVenue.name,
     venueIconSrc: pendleVenue.iconSrc,
+    isVenueIconMonochrome: pendleVenue.isIconMonochrome,
     venueAddress: protocolData.pendleMarketAddress,
     venueUrl: protocolData.pendleMarketAddress
       ? `https://app.pendle.finance/trade/pools/${protocolData.pendleMarketAddress}/zap/in?chain=bnbchain`

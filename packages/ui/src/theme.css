@@ -146,6 +146,7 @@
   --border-color-input-hover: var(--color-border-input-hover);
   --border-color-mode-switch: var(--color-border-mode-switch);
   --border-color-venus-core-tile: var(--color-border-venus-core-tile);
+  --border-color-logo-tile: var(--color-border-logo-tile);
 
   --outline-color-brand: rgb(var(--theme-border-brand));
 
@@ -357,6 +358,7 @@
   --color-surface-input-disabled: rgb(var(--theme-bg-surface-4));
   --color-border-mode-switch: var(--color-blue);
   --color-border-venus-core-tile: transparent;
+  --color-border-logo-tile: rgb(var(--theme-fg-secondary));
 
   --background-image-row-hover: linear-gradient(
     rgb(var(--elevation-tint-rgb) / 5%),
@@ -388,6 +390,7 @@
   --background-image-mode-switch: linear-gradient(rgb(var(--theme-bg-input)) 0 100%);
   --background-image-prime-ring: linear-gradient(110deg, #9b6850, #f2d8c4 45%, #a77359);
   --background-image-venus-core-tile: linear-gradient(var(--color-white) 0 100%);
+  --background-image-logo-tile: linear-gradient(rgb(0 0 0 / 10%) 0 100%);
   --background-image-hero-text: linear-gradient(180deg, #d9edff 0%, #99c8ff 50%, #598eff 100%);
   --background-image-page-title: linear-gradient(
     180deg,

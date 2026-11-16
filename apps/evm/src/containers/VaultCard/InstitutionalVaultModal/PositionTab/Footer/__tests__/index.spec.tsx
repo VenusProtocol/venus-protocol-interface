@@ -29,6 +29,7 @@ const baseVault = {
   venueName: 'Matrixdock',
   venueUrl: 'https://fake-venue-url.com',
   venueIconSrc: 'matrixdock',
+  isVenueIconMonochrome: true,
   status: VaultStatus.Deposit,
   key: 'institutional-usdc',
   stakedToken: usdc,

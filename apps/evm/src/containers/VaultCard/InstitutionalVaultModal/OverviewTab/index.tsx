@@ -23,6 +23,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ vault }) => (
       venue={vault.venue}
       venueName={vault.venueName}
       venueIconSrc={vault.venueIconSrc}
+      isVenueIconMonochrome={vault.isVenueIconMonochrome}
       venueUrl={vault.venueUrl}
       copyAddress={vault.venueAddress}
       collateralToken={vault.collateralToken}
