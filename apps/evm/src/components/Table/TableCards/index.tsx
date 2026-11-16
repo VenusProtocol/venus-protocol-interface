@@ -30,7 +30,7 @@ export function TableCards<R>({
 }: TableCardProps<R>) {
   const { t } = useTranslation();
   const cardListRef = useRef<HTMLDivElement>(null);
-  const cardListMaxHeight = useVisibleCardsMaxHeight({
+  const cardlistmaxheight = useVisibleCardsMaxHeight({
     cardListRef,
     cards: data,
     maxVisibleCardCount,
@@ -95,7 +95,7 @@ export function TableCards<R>({
       <div
         ref={cardListRef}
         className={cn('space-y-6', !!maxVisibleCardCount && 'relative overflow-y-auto')}
-        style={{ maxHeight: cardListMaxHeight }}
+        style={{ maxHeight: cardlistmaxheight }}
       >
         {data.map((row, rowIndex) => {
           const rowKey = rowKeyExtractor(row);
