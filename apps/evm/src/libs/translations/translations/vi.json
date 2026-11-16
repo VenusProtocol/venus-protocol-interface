@@ -2045,6 +2045,10 @@
       "title": "Tài sản thế chấp được hỗ trợ"
     }
   },
+  "spokePoolInfo": {
+    "button": "Giới thiệu {{poolName}}",
+    "learnMore": "Tìm hiểu thêm"
+  },
   "spokePools": {
     "description": "Vay tài sản bằng tài sản thế chấp bạn đã cung cấp trong các thị trường chuyên biệt.",
     "filter": {
@@ -2089,6 +2093,18 @@
         "totalBorrow": "Tổng vay"
       }
     }
+  },
+  "spokeWhitelist": {
+    "asset": {
+      "description": "Chỉ các địa chỉ trong danh sách trắng mới có thể cung cấp tài sản thế chấp này.",
+      "userWhitelisted": "Bạn có trong danh sách trắng."
+    },
+    "label": "Danh sách trắng",
+    "pool": {
+      "description": "Chỉ các địa chỉ trong danh sách trắng mới có thể cung cấp và vay từ pool này.",
+      "userWhitelisted": "Bạn đủ điều kiện vay từ pool này."
+    },
+    "viewOnChain": "Xem danh sách trắng trên chain"
   },
   "statsPage": {
     "illustrationAlt": "Hình minh họa thống kê",

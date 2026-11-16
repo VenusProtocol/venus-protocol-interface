@@ -8,6 +8,7 @@ import type { Address, PublicClient } from 'viem';
 
 import { getTokenBalances } from '../getTokenBalances';
 import { formatToSpokePool } from './formatToSpokePool';
+import { getSpokeSupplyAllowlist } from './getSpokeSupplyAllowlist';
 import { getSpokeUserPositions } from './getSpokeUserPositions';
 import type { ApiSpokeToken, GetSpokePoolsResponse } from './types';
 
@@ -90,7 +91,7 @@ export const getSpokePools = async ({
     });
   };
 
-  const [userPositions, userTokenBalances] = accountAddress
+  const [userPositions, userTokenBalances, supplyAllowlistStatus] = accountAddress
     ? await Promise.all([
         fetchUserPositions(accountAddress).catch(error => {
           logError(error);
@@ -104,8 +105,14 @@ export const getSpokePools = async ({
 
             return undefined;
           }),
+        // Whitelist markers fall back to their default state when this fails
+        getSpokeSupplyAllowlist({ publicClient, apiPools, accountAddress }).catch(error => {
+          logError(error);
+
+          return undefined;
+        }),
       ])
-    : [[], []];
+    : [[], [], {}];
 
   const isUserDataUnavailable = !!accountAddress && (!userPositions || !userTokenBalances);
 
@@ -123,6 +130,7 @@ export const getSpokePools = async ({
       userPositions: userPositions ?? [],
       userTokenBalances: userTokenBalances ?? [],
       apiTokens: payload.tokens ?? [],
+      supplyAllowlistStatus: supplyAllowlistStatus ?? {},
     }),
   );
 

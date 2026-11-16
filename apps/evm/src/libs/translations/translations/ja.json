@@ -2045,6 +2045,10 @@
       "title": "対応担保"
     }
   },
+  "spokePoolInfo": {
+    "button": "{{poolName}}について",
+    "learnMore": "詳しく見る"
+  },
   "spokePools": {
     "description": "専用マーケットに預けた担保を使って資産を借り入れます。",
     "filter": {
@@ -2089,6 +2093,18 @@
         "totalBorrow": "総借入額"
       }
     }
+  },
+  "spokeWhitelist": {
+    "asset": {
+      "description": "このコラテラルは、ホワイトリストに登録されたアドレスのみ供給できます。",
+      "userWhitelisted": "ホワイトリストに登録されています。"
+    },
+    "label": "ホワイトリスト",
+    "pool": {
+      "description": "ホワイトリストに登録されたアドレスのみ、このプールから供給と借入ができます。",
+      "userWhitelisted": "このプールから借入する資格があります。"
+    },
+    "viewOnChain": "オンチェーンでホワイトリストを表示"
   },
   "statsPage": {
     "illustrationAlt": "統計イラスト",

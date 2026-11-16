@@ -1,20 +1,23 @@
 import { Table } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
+import type { Address } from 'viem';
 
 import { useColumns } from './useColumns';
 
 export interface SupportedCollateralProps {
   collaterals: SpokeAsset[];
   onRowClick: (collateral: SpokeAsset) => void;
+  comptrollerAddress: Address;
 }
 
 export const SupportedCollateral: React.FC<SupportedCollateralProps> = ({
   collaterals,
   onRowClick,
+  comptrollerAddress,
 }) => {
   const { t } = useTranslation();
-  const columns = useColumns();
+  const columns = useColumns({ comptrollerAddress });
 
   return (
     <Table

@@ -1,0 +1,79 @@
+import { Icon } from 'components/Icon';
+import { Modal } from 'components/Modal';
+import { Link } from 'containers/Link';
+import { useTranslation } from 'libs/translations';
+import type { LocalizedText, SpokePool } from 'types';
+
+export interface SpokePoolInfoModalProps {
+  spokePool: Pick<SpokePool, 'name' | 'description' | 'infoTags'>;
+  isOpen: boolean;
+  handleClose: () => void;
+}
+
+// Current locale if present, otherwise English (required by the API)
+const getLocalizedText = (text: LocalizedText | undefined, locale: string) =>
+  text?.[locale] ?? text?.en ?? '';
+
+export const SpokePoolInfoModal: React.FC<SpokePoolInfoModalProps> = ({
+  spokePool,
+  isOpen,
+  handleClose,
+}) => {
+  const { t, i18n } = useTranslation();
+  const locale = i18n.resolvedLanguage ?? 'en';
+
+  return (
+    <Modal
+      isOpen={isOpen}
+      handleClose={handleClose}
+      title={spokePool.name}
+      className="max-h-[85dvh] max-w-120"
+    >
+      <div className="flex flex-col gap-y-4">
+        {!!spokePool.description && (
+          <p className="text-b1r text-secondary">{spokePool.description}</p>
+        )}
+
+        {spokePool.infoTags.map((infoTag, index) => {
+          const title = getLocalizedText(infoTag.title, locale);
+          const content = getLocalizedText(infoTag.content, locale);
+          const urlLabel =
+            getLocalizedText(infoTag.urlLabel, locale) || t('spokePoolInfo.learnMore');
+          const urlHost = infoTag.url ? new URL(infoTag.url).hostname : undefined;
+
+          return (
+            <div
+              key={index}
+              className="flex flex-col gap-y-2 rounded-lg border border-card bg-card p-4"
+            >
+              {!!title && (
+                <div className="flex items-center gap-x-2">
+                  <Icon name="info" className="size-4 shrink-0 text-secondary" />
+                  <p className="text-p2s">{title}</p>
+                </div>
+              )}
+
+              <p className="whitespace-pre-line text-b2r text-secondary">{content}</p>
+
+              {!!infoTag.url && (
+                <div className="flex flex-col gap-y-1">
+                  <Link
+                    href={infoTag.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-x-1 self-start font-semibold"
+                  >
+                    <span>{urlLabel}</span>
+                    <Icon name="open" className="size-3 text-inherit" />
+                  </Link>
+
+                  <span className="text-b2r text-secondary">{urlHost}</span>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </Modal>
+  );
+};
