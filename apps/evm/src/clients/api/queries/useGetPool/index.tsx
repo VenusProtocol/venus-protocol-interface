@@ -11,6 +11,8 @@ export interface UseGetPoolInput {
 
 export interface UseGetPoolOutput {
   isLoading: boolean;
+  isLoadingError: boolean;
+  refetch: () => unknown;
   data?: {
     pool: Pool;
   };
@@ -20,7 +22,12 @@ export const useGetPool = (
   { poolComptrollerAddress, accountAddress }: UseGetPoolInput,
   options?: UseGetPoolsQueryOptions,
 ): UseGetPoolOutput => {
-  const { data: getPoolsData, isLoading } = useGetPools(
+  const {
+    data: getPoolsData,
+    isLoading,
+    isLoadingError,
+    refetch,
+  } = useGetPools(
     {
       accountAddress,
     },
@@ -33,6 +40,8 @@ export const useGetPool = (
 
   return {
     isLoading,
+    isLoadingError,
+    refetch,
     data: pool && {
       pool,
     },

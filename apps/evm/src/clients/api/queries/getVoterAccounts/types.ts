@@ -7,6 +7,6 @@ export interface GetVoterAccountsResponse {
     delegate: string | null;
     proposalsVoted: number;
     stakedVotesMantissa: string;
-    votesMantissa: string;
+    votesMantissa: string | null;
   }[];
 }

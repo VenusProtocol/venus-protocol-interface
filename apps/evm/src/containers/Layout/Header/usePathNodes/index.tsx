@@ -135,9 +135,6 @@ export const usePathNodes = () => {
         case Subdirectory.VAULTS:
           dom = t('breadcrumbs.vaults');
           break;
-        case Subdirectory.SWAP:
-          dom = t('breadcrumbs.swap');
-          break;
         case Subdirectory.VAI:
           dom = t('breadcrumbs.vai');
           break;

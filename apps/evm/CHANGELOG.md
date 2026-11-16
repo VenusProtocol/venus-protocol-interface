@@ -1,5 +1,33 @@
 # @venusprotocol/evm
 
+## 5.45.4
+
+### Patch Changes
+
+- aff9934: show the Noon Capital logo and website on its vaults
+- Updated dependencies [aff9934]
+  - @venusprotocol/chains@0.33.1
+
+## 5.45.3
+
+### Patch Changes
+
+- d3ebd4c: remove the deprecated Core swap page
+
+## 5.45.2
+
+### Patch Changes
+
+- 7281956: show placeholders in the Liquidity Hubs header while the Hubs load or when they fail to load, instead of $0 and 0 Hubs
+- f2738f0: show an error with a retry button on the Markets page when the pools fail to load, instead of redirecting to the same page and rendering nothing
+- d32a50e: treat a null vote count from the API as 0 votes on the voter leaderboard, instead of showing NaN
+
+## 5.45.1
+
+### Patch Changes
+
+- a610b74: feat: switch to the new Liquidity Hub Migrator
+
 ## 5.45.0
 
 ### Minor Changes

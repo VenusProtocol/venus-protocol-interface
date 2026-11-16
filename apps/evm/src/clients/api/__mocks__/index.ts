@@ -239,6 +239,8 @@ export const useGetPools = vi.fn(() => ({
 
 export const useGetPool = vi.fn(() => ({
   isLoading: false,
+  isLoadingError: false,
+  refetch: vi.fn(),
   data: {
     pool: poolData[0],
   },
@@ -1391,13 +1393,6 @@ export const useExecuteWithdrawalFromXvsVault = vi.fn(
       mutationFn: vi.fn(),
       ...options,
     }),
-);
-
-export const useSwapTokens = vi.fn((options?: MutationObserverOptions) =>
-  useMutation({
-    mutationFn: vi.fn(),
-    ...options,
-  }),
 );
 
 export const useSwapTokensAndRepay = vi.fn((options?: MutationObserverOptions) =>

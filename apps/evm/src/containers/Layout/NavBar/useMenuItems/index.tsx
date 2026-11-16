@@ -16,7 +16,6 @@ export const useMenuItems = () => {
   const { t } = useTranslation();
   const { accountAddress } = useAccountAddress();
   const { captureAnalyticEvent } = useAnalytics();
-  const swapRouteEnabled = useIsFeatureEnabled({ name: 'swapRoute' });
   const vaiRouteEnabled = useIsFeatureEnabled({ name: 'vaiRoute' });
   const bridgeRouteEnabled = useIsFeatureEnabled({ name: 'bridgeRoute' });
   const statsRouteEnabled = useIsFeatureEnabled({ name: 'statsRoute' });
@@ -131,14 +130,6 @@ export const useMenuItems = () => {
       iconName: 'bridge',
       label: t('layout.menu.others.bridge.label'),
       description: t('layout.menu.others.bridge.description'),
-    });
-  }
-
-  if (swapRouteEnabled) {
-    othersSubMenuItems.push({
-      to: routes.swap.path,
-      iconName: 'convert',
-      label: t('layout.menu.others.swap.label'),
     });
   }
 
