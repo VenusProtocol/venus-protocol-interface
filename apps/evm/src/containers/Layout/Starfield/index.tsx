@@ -1,6 +1,5 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useIsMdDown } from 'hooks/responsive';
-import { Meteors } from './Meteors';
 import { StarCanvas } from './StarCanvas';
 import { StillStars } from './StillStars';
 import './starfield.css';
@@ -21,8 +20,6 @@ export const Starfield: React.FC = () => {
           <StarCanvas />
         </div>
       )}
-
-      {!prefersReducedMotion && <Meteors />}
     </div>
   );
 };
