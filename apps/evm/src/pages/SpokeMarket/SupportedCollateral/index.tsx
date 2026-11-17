@@ -33,7 +33,7 @@ export const SupportedCollateral: React.FC<SupportedCollateralProps> = ({
       rowOnClick={(_event, asset) => onRowClick(asset)}
       initialOrder={initialOrder}
       maxVisibleCardCount={5}
-      tableContainerClassName="max-h-104 [&_thead]:sticky [&_thead]:top-0 [&_thead]:z-10 [&_thead_th]:bg-background"
+      tableContainerClassName="max-h-104 [&_thead]:sticky [&_thead]:top-0 [&_thead]:z-10 [&_thead_th]:bg-surface-2"
       tableLayout="auto"
       breakpoint="md"
       hideCardDelimiter
