@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.46.2
+
+### Patch Changes
+
+- 8c52227: keep the Lite planets smooth in Safari by caching the planet surface when gradient text is slow to draw
+
 ## 5.46.1
 
 ### Patch Changes
