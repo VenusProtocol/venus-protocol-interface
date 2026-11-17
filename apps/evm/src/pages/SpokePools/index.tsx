@@ -134,6 +134,8 @@ const SpokePools: React.FC = () => {
         renderCount={count => t('spokePools.filter.nLoanAssets', { count })}
         title={t('spokePools.filter.selectLoanAssets')}
         resetLabel={t('spokePools.filter.reset')}
+        searchPlaceholder={t('spokePools.filter.searchLoanAssets')}
+        noResultsLabel={t('multiSelect.noResults')}
         size="xs"
       />
 
@@ -146,6 +148,8 @@ const SpokePools: React.FC = () => {
         renderCount={count => t('spokePools.filter.nCollaterals', { count })}
         title={t('spokePools.filter.selectCollaterals')}
         resetLabel={t('spokePools.filter.reset')}
+        searchPlaceholder={t('spokePools.filter.searchCollaterals')}
+        noResultsLabel={t('multiSelect.noResults')}
         size="xs"
       />
 
@@ -158,6 +162,8 @@ const SpokePools: React.FC = () => {
         renderCount={count => t('spokePools.filter.nPools', { count })}
         title={t('spokePools.filter.selectPools')}
         resetLabel={t('spokePools.filter.reset')}
+        searchPlaceholder={t('spokePools.filter.searchPools')}
+        noResultsLabel={t('multiSelect.noResults')}
         size="xs"
       />
     </div>

@@ -515,6 +515,7 @@
       "nCategories_one": "{{count}} Category",
       "nCategories_other": "{{count}} Categories",
       "reset": "Reset",
+      "search": "Search category",
       "title": "Select Categories"
     },
     "pausedAssetsToggle": {
@@ -1102,6 +1103,7 @@
       "reset": "Reset",
       "searchAsset": "Search asset",
       "searchAssetAriaLabel": "Search assets",
+      "searchCategory": "Search category",
       "searchCollateral": "Search collateral",
       "searchCollateralAriaLabel": "Search collaterals"
     },
@@ -1453,6 +1455,9 @@
     "search": {
       "placeholder": "Search asset"
     }
+  },
+  "multiSelect": {
+    "noResults": "No results found"
   },
   "noResults": {
     "resetFilters": "Reset filters"
@@ -2067,7 +2072,10 @@
       "nPools_one": "{{count}} pool",
       "nPools_other": "{{count}} pools",
       "reset": "Reset",
+      "searchCollaterals": "Search collateral",
+      "searchLoanAssets": "Search loan asset",
       "searchPlaceholder": "Search asset",
+      "searchPools": "Search pool",
       "selectCollaterals": "Select collaterals",
       "selectLoanAssets": "Select loan",
       "selectPools": "Select pools"
@@ -2575,6 +2583,9 @@
       "refund": "Refund",
       "repaying": "Repaying",
       "reset": "Reset",
+      "searchCategories": "Search category",
+      "searchStates": "Search state",
+      "searchVenues": "Search venue",
       "selectCategories": "Select categories",
       "selectStates": "Select states",
       "selectVenues": "Select venues"

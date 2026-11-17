@@ -514,6 +514,7 @@
       "allCategories": "全部類別",
       "nCategories_other": "{{count}} 個類別",
       "reset": "重置",
+      "search": "搜尋類別",
       "title": "選擇類別"
     },
     "pausedAssetsToggle": {
@@ -1100,6 +1101,7 @@
       "reset": "重置",
       "searchAsset": "搜尋資產",
       "searchAssetAriaLabel": "搜尋資產",
+      "searchCategory": "搜尋類別",
       "searchCollateral": "搜尋抵押品",
       "searchCollateralAriaLabel": "搜尋抵押品"
     },
@@ -1451,6 +1453,9 @@
     "search": {
       "placeholder": "搜尋資產"
     }
+  },
+  "multiSelect": {
+    "noResults": "無符合結果"
   },
   "noResults": {
     "resetFilters": "重設篩選"
@@ -2065,7 +2070,10 @@
       "nPools_one": "{{count}} 個資金池",
       "nPools_other": "{{count}} 個資金池",
       "reset": "重設",
+      "searchCollaterals": "搜尋抵押品",
+      "searchLoanAssets": "搜尋借貸資產",
       "searchPlaceholder": "搜尋資產",
+      "searchPools": "搜尋資金池",
       "selectCollaterals": "選擇抵押品",
       "selectLoanAssets": "選擇借貸資產",
       "selectPools": "選擇資金池"
@@ -2567,6 +2575,9 @@
       "refund": "退款",
       "repaying": "還款中",
       "reset": "重置",
+      "searchCategories": "搜尋類別",
+      "searchStates": "搜尋狀態",
+      "searchVenues": "搜尋平台",
       "selectCategories": "選擇類別",
       "selectStates": "選擇狀態",
       "selectVenues": "選擇平台"
