@@ -1387,6 +1387,7 @@
             "threshold": "Eşik"
           },
           "mobileSelectLabel": "Sırala:",
+          "noResults": "Filtrelerinizle eşleşen grup yok",
           "searchPlaceholder": "Varlık veya grup ara"
         }
       },
@@ -1447,6 +1448,7 @@
       "borrowApy": "Pozitif borç APY faiz ödeyeceğiniz, negatif ise faiz kazanacağınız anlamına gelir",
       "supplyApy": "Pozitif tedarik APY faiz kazanacağınız, negatif ise faiz ödeyeceğiniz anlamına gelir"
     },
+    "noResults": "Filtrelerinizle eşleşen pazar yok",
     "pausedAssetsPlaceholder": {
       "description": "Görmek için \"Durdurulan Varlıklar\" anahtarını etkinleştirin.",
       "imgAlt": "Duraklatma ikonu",
@@ -1456,6 +1458,9 @@
     "search": {
       "placeholder": "Varlık ara"
     }
+  },
+  "noResults": {
+    "resetFilters": "Filtreleri sıfırla"
   },
   "pagination": {
     "currentPage": "Geçerli sayfa",
@@ -2067,7 +2072,6 @@
       "nPools_one": "{{count}} havuz",
       "nPools_other": "{{count}} havuz",
       "reset": "Sıfırla",
-      "resetFilters": "Filtreleri sıfırla",
       "searchPlaceholder": "Varlık ara",
       "selectCollaterals": "Teminat seç",
       "selectLoanAssets": "Borç varlığı seç",
@@ -2575,7 +2579,6 @@
       "refund": "İade",
       "repaying": "Geri ödeniyor",
       "reset": "Sıfırla",
-      "resetFilters": "Filtreleri sıfırla",
       "selectCategories": "Kategorileri seç",
       "selectStates": "Durumları seç",
       "selectVenues": "Platformları seç"
@@ -2780,6 +2783,7 @@
       "message": "Teklifler alınamadı"
     },
     "for": "Lehte",
+    "noResults": "Filtrelerinizle eşleşen teklif yok",
     "omnichain": {
       "switchToBnb": "BNB Chain'e geç",
       "votingOnlyEnabledOnBnb": "Oylama yalnızca BNB Chain üzerinde kullanılabilir"

@@ -1385,6 +1385,7 @@
             "threshold": "Ngưỡng"
           },
           "mobileSelectLabel": "Sắp xếp theo:",
+          "noResults": "Không có nhóm nào khớp bộ lọc của bạn",
           "searchPlaceholder": "Tìm tài sản hoặc nhóm"
         }
       },
@@ -1445,6 +1446,7 @@
       "borrowApy": "APY vay dương nghĩa là bạn sẽ trả lãi, âm nghĩa là bạn sẽ nhận lãi",
       "supplyApy": "APY cung cấp dương nghĩa là bạn sẽ nhận lãi, âm nghĩa là bạn sẽ trả lãi"
     },
+    "noResults": "Không có thị trường nào khớp bộ lọc của bạn",
     "pausedAssetsPlaceholder": {
       "description": "Vui lòng bật công tắc \"Tài sản tạm dừng\" để xem.",
       "imgAlt": "Biểu tượng tạm dừng",
@@ -1454,6 +1456,9 @@
     "search": {
       "placeholder": "Tìm tài sản"
     }
+  },
+  "noResults": {
+    "resetFilters": "Đặt lại bộ lọc"
   },
   "pagination": {
     "currentPage": "Trang hiện tại",
@@ -2065,7 +2070,6 @@
       "nPools_one": "{{count}} nhóm",
       "nPools_other": "{{count}} nhóm",
       "reset": "Đặt lại",
-      "resetFilters": "Đặt lại bộ lọc",
       "searchPlaceholder": "Tìm tài sản",
       "selectCollaterals": "Chọn tài sản thế chấp",
       "selectLoanAssets": "Chọn tài sản vay",
@@ -2568,7 +2572,6 @@
       "refund": "Hoàn tiền",
       "repaying": "Đang trả nợ",
       "reset": "Đặt lại",
-      "resetFilters": "Đặt lại bộ lọc",
       "selectCategories": "Chọn danh mục",
       "selectStates": "Chọn trạng thái",
       "selectVenues": "Chọn nền tảng"
@@ -2773,6 +2776,7 @@
       "message": "Không thể lấy đề xuất"
     },
     "for": "Ủng hộ",
+    "noResults": "Không có đề xuất nào khớp bộ lọc của bạn",
     "omnichain": {
       "switchToBnb": "Chuyển sang BNB Chain",
       "votingOnlyEnabledOnBnb": "Bỏ phiếu chỉ khả dụng trên BNB Chain"

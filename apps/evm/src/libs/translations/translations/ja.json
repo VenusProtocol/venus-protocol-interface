@@ -1385,6 +1385,7 @@
             "threshold": "しきい値"
           },
           "mobileSelectLabel": "並び替え:",
+          "noResults": "条件に一致するグループがありません",
           "searchPlaceholder": "資産またはグループを検索"
         }
       },
@@ -1445,6 +1446,7 @@
       "borrowApy": "正の借入APYは利息の支払い、負の借入APYは利息の受取を意味します",
       "supplyApy": "正の供給APYは利息の受取、負の供給APYは利息の支払いを意味します"
     },
+    "noResults": "条件に一致するマーケットがありません",
     "pausedAssetsPlaceholder": {
       "description": "表示するには「停止中の資産」トグルを有効にしてください。",
       "imgAlt": "一時停止アイコン",
@@ -1454,6 +1456,9 @@
     "search": {
       "placeholder": "資産を検索"
     }
+  },
+  "noResults": {
+    "resetFilters": "フィルターをリセット"
   },
   "pagination": {
     "currentPage": "現在のページ",
@@ -2065,7 +2070,6 @@
       "nPools_one": "{{count}} 件のプール",
       "nPools_other": "{{count}} 件のプール",
       "reset": "リセット",
-      "resetFilters": "フィルターをリセット",
       "searchPlaceholder": "資産を検索",
       "selectCollaterals": "担保を選択",
       "selectLoanAssets": "借入資産を選択",
@@ -2568,7 +2572,6 @@
       "refund": "返金",
       "repaying": "返済中",
       "reset": "リセット",
-      "resetFilters": "フィルターをリセット",
       "selectCategories": "カテゴリを選択",
       "selectStates": "状態を選択",
       "selectVenues": "プラットフォームを選択"
@@ -2773,6 +2776,7 @@
       "message": "提案の取得に失敗しました"
     },
     "for": "賛成",
+    "noResults": "条件に一致するプロポーザルがありません",
     "omnichain": {
       "switchToBnb": "BNB Chainに切り替える",
       "votingOnlyEnabledOnBnb": "投票はBNB Chainでのみ利用可能です"

@@ -2,13 +2,14 @@ import { cn } from '@venusprotocol/ui';
 import { useMemo, useState } from 'react';
 import type { Address } from 'viem';
 
-import { Card, Table, type TableProps, TableRowControl } from 'components';
+import { Card, NoResults, Table, type TableProps, TableRowControl } from 'components';
 import { routes } from 'constants/routing';
 import { Controls } from 'containers/Controls';
 import { MarketFormModal } from 'containers/MarketFormModal';
 import { SwitchChainNotice } from 'containers/SwitchChainNotice';
 import { useBreakpointUp } from 'hooks/responsive';
 import { useCollateral } from 'hooks/useCollateral';
+import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { handleError } from 'libs/errors';
 import { useTranslation } from 'libs/translations';
 import { useAccountChainId, useChainId } from 'libs/wallet';
@@ -83,11 +84,20 @@ export const MarketTable: React.FC<MarketTableProps> = ({
     onSearchValueChange,
     selectedCategories,
     onSelectedCategoriesChange,
+    showUserAssetsOnly,
   } = useControls({
     assets,
     applyUserSettings: controls,
     categoryFilter,
   });
+
+  const [, setUserChainSettings] = useUserChainSettings();
+
+  const handleResetFilters = () => {
+    onSearchValueChange('');
+    onSelectedCategoriesChange([]);
+    setUserChainSettings({ showUserAssetsOnly: false });
+  };
 
   const { chainId: currentChainId } = useChainId();
   const { chainId: accountChainId } = useAccountChainId();
@@ -183,9 +193,8 @@ export const MarketTable: React.FC<MarketTableProps> = ({
         placeholder={
           controls &&
           !isFetching &&
-          !searchValue &&
           filteredAssets.length === 0 &&
-          hiddenPausedAssetsExist && (
+          (!searchValue && hiddenPausedAssetsExist ? (
             <Card
               className={cn(
                 'flex flex-col items-center text-center py-16 border-0 sm:py-16',
@@ -208,7 +217,15 @@ export const MarketTable: React.FC<MarketTableProps> = ({
                 {t('marketTable.pausedAssetsPlaceholder.description')}
               </p>
             </Card>
-          )
+          ) : (
+            (!!searchValue || selectedCategories.length > 0 || showUserAssetsOnly) && (
+              <NoResults
+                iconName="market"
+                title={t('marketTable.noResults')}
+                onReset={handleResetFilters}
+              />
+            )
+          ))
         }
         breakpoint={breakpoint}
         isFetching={isFetching}

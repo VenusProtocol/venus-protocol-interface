@@ -1387,6 +1387,7 @@
             "threshold": "Threshold"
           },
           "mobileSelectLabel": "Sort by:",
+          "noResults": "No groups match your filters",
           "searchPlaceholder": "Search asset or group"
         }
       },
@@ -1447,6 +1448,7 @@
       "borrowApy": "A positive borrow APY means you'll pay interest and a negative one means you'll earn interest",
       "supplyApy": "A positive supply APY means you'll earn interest and a negative one means you'll pay interest"
     },
+    "noResults": "No markets match your filters",
     "pausedAssetsPlaceholder": {
       "description": "Please enable the \"Paused Assets\" toggle to view them.",
       "imgAlt": "Pause icon",
@@ -1456,6 +1458,9 @@
     "search": {
       "placeholder": "Search asset"
     }
+  },
+  "noResults": {
+    "resetFilters": "Reset filters"
   },
   "pagination": {
     "currentPage": "Current page",
@@ -2067,7 +2072,6 @@
       "nPools_one": "{{count}} pool",
       "nPools_other": "{{count}} pools",
       "reset": "Reset",
-      "resetFilters": "Reset filters",
       "searchPlaceholder": "Search asset",
       "selectCollaterals": "Select collaterals",
       "selectLoanAssets": "Select loan",
@@ -2576,7 +2580,6 @@
       "refund": "Refund",
       "repaying": "Repaying",
       "reset": "Reset",
-      "resetFilters": "Reset filters",
       "selectCategories": "Select categories",
       "selectStates": "Select states",
       "selectVenues": "Select venues"
@@ -2781,6 +2784,7 @@
       "message": "Proposals failed to fetch"
     },
     "for": "For",
+    "noResults": "No proposals match your filters",
     "omnichain": {
       "switchToBnb": "Switch to BNB Chain",
       "votingOnlyEnabledOnBnb": "Voting is only available on BNB Chain"

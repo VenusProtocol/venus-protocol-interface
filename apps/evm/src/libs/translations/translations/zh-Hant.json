@@ -1385,6 +1385,7 @@
             "threshold": "閾值"
           },
           "mobileSelectLabel": "排序：",
+          "noResults": "沒有符合篩選條件的分組",
           "searchPlaceholder": "搜尋資產或組"
         }
       },
@@ -1445,6 +1446,7 @@
       "borrowApy": "借款 APY 為正表示你需要支付利息，為負表示你將獲得利息",
       "supplyApy": "供應 APY 為正表示你將獲得利息，為負表示你需要支付利息"
     },
+    "noResults": "沒有符合篩選條件的市場",
     "pausedAssetsPlaceholder": {
       "description": "請啟用“已暫停資產”開關以查看。",
       "imgAlt": "暫停圖標",
@@ -1454,6 +1456,9 @@
     "search": {
       "placeholder": "搜尋資產"
     }
+  },
+  "noResults": {
+    "resetFilters": "重設篩選"
   },
   "pagination": {
     "currentPage": "當前頁",
@@ -2065,7 +2070,6 @@
       "nPools_one": "{{count}} 個資金池",
       "nPools_other": "{{count}} 個資金池",
       "reset": "重設",
-      "resetFilters": "重設篩選",
       "searchPlaceholder": "搜尋資產",
       "selectCollaterals": "選擇抵押品",
       "selectLoanAssets": "選擇借貸資產",
@@ -2568,7 +2572,6 @@
       "refund": "退款",
       "repaying": "還款中",
       "reset": "重置",
-      "resetFilters": "重置篩選",
       "selectCategories": "選擇類別",
       "selectStates": "選擇狀態",
       "selectVenues": "選擇平台"
@@ -2773,6 +2776,7 @@
       "message": "提案獲取失敗"
     },
     "for": "贊成",
+    "noResults": "沒有符合篩選條件的提案",
     "omnichain": {
       "switchToBnb": "切換到 BNB Chain",
       "votingOnlyEnabledOnBnb": "投票僅在 BNB Chain 上可用"

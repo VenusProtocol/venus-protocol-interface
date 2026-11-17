@@ -1,6 +1,13 @@
 import { useState } from 'react';
 
-import { Notice, type Order, Select, type SelectOption, type SelectProps } from 'components';
+import {
+  NoResults,
+  Notice,
+  type Order,
+  Select,
+  type SelectOption,
+  type SelectProps,
+} from 'components';
 import { Controls } from 'containers/Controls';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
@@ -19,7 +26,7 @@ export interface EModeProps {
 export const EMode: React.FC<EModeProps> = ({ pool, notice, extendedEModeGroups }) => {
   const { t } = useTranslation();
   const columns = useColumns();
-  const [userChainSettings] = useUserChainSettings();
+  const [userChainSettings, setUserChainSettings] = useUserChainSettings();
 
   const initialOrder: Order<ExtendedEModeAssetSettings> = {
     orderBy: columns[3],
@@ -103,6 +110,18 @@ export const EMode: React.FC<EModeProps> = ({ pool, notice, extendedEModeGroups 
           mobileOrder={order}
         />
       ))}
+
+      {filteredEModeGroups.length === 0 &&
+        (!!searchValue || userChainSettings.showUserAssetsOnly) && (
+          <NoResults
+            iconName="market"
+            title={t('markets.tabs.eMode.table.noResults')}
+            onReset={() => {
+              setSearchValue('');
+              setUserChainSettings({ showUserAssetsOnly: false });
+            }}
+          />
+        )}
     </div>
   );
 };

@@ -1385,6 +1385,7 @@
             "threshold": "เกณฑ์"
           },
           "mobileSelectLabel": "เรียงตาม:",
+          "noResults": "ไม่มีกลุ่มที่ตรงกับตัวกรองของคุณ",
           "searchPlaceholder": "ค้นหาสินทรัพย์หรือกลุ่ม"
         }
       },
@@ -1445,6 +1446,7 @@
       "borrowApy": "APY การยืมเป็นบวกหมายถึงคุณต้องจ่ายดอกเบี้ย และถ้าเป็นลบหมายถึงคุณจะได้รับดอกเบี้ย",
       "supplyApy": "APY การฝากเป็นบวกหมายถึงคุณจะได้รับดอกเบี้ย และถ้าเป็นลบหมายถึงคุณต้องจ่ายดอกเบี้ย"
     },
+    "noResults": "ไม่มีตลาดที่ตรงกับตัวกรองของคุณ",
     "pausedAssetsPlaceholder": {
       "description": "โปรดเปิดสวิตช์ \"สินทรัพย์ที่หยุดไว้\" เพื่อดู",
       "imgAlt": "ไอคอนหยุด",
@@ -1454,6 +1456,9 @@
     "search": {
       "placeholder": "ค้นหาสินทรัพย์"
     }
+  },
+  "noResults": {
+    "resetFilters": "รีเซ็ตตัวกรอง"
   },
   "pagination": {
     "currentPage": "หน้าปัจจุบัน",
@@ -2065,7 +2070,6 @@
       "nPools_one": "{{count}} พูล",
       "nPools_other": "{{count}} พูล",
       "reset": "รีเซ็ต",
-      "resetFilters": "รีเซ็ตตัวกรอง",
       "searchPlaceholder": "ค้นหาสินทรัพย์",
       "selectCollaterals": "เลือกหลักประกัน",
       "selectLoanAssets": "เลือกสินทรัพย์กู้",
@@ -2568,7 +2572,6 @@
       "refund": "คืนเงิน",
       "repaying": "กำลังชำระคืน",
       "reset": "รีเซ็ต",
-      "resetFilters": "รีเซ็ตตัวกรอง",
       "selectCategories": "เลือกหมวดหมู่",
       "selectStates": "เลือกสถานะ",
       "selectVenues": "เลือกแพลตฟอร์ม"
@@ -2773,6 +2776,7 @@
       "message": "ดึงข้อเสนอไม่สำเร็จ"
     },
     "for": "เห็นด้วย",
+    "noResults": "ไม่มีข้อเสนอที่ตรงกับตัวกรองของคุณ",
     "omnichain": {
       "switchToBnb": "สลับไปยัง BNB Chain",
       "votingOnlyEnabledOnBnb": "การโหวตใช้ได้เฉพาะบน BNB Chain เท่านั้น"

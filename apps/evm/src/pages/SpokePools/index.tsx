@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useGetSpokePools } from 'clients/api';
-import { type CellProps, MultiSelect, Page, PageStatHeader, Spinner } from 'components';
+import { type CellProps, MultiSelect, NoResults, Page, PageStatHeader, Spinner } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { Controls } from 'containers/Controls';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
@@ -10,7 +10,6 @@ import { useAccountAddress } from 'libs/wallet';
 import type { SpokeAsset } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
-import { NoResults } from './NoResults';
 import { SpokePoolCard } from './SpokePoolCard';
 import { useFilters } from './useFilters';
 
@@ -183,7 +182,13 @@ const SpokePools: React.FC = () => {
       selectedPools.length > 0 ||
       !!searchValue)
   ) {
-    poolsDom = <NoResults onReset={handleResetAll} />;
+    poolsDom = (
+      <NoResults
+        iconName="market"
+        title={t('spokePools.filter.noResults')}
+        onReset={handleResetAll}
+      />
+    );
   }
 
   return (
