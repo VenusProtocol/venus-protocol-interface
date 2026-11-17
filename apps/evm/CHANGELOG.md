@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.46.3
+
+### Patch Changes
+
+- 3cd2189: remove the meteors from the starfield background
+
 ## 5.46.2
 
 ### Patch Changes
