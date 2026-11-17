@@ -1,5 +1,23 @@
 # @venusprotocol/evm
 
+## 5.46.3
+
+### Patch Changes
+
+- 3cd2189: remove the meteors from the starfield background
+
+## 5.46.2
+
+### Patch Changes
+
+- 8c52227: keep the Lite planets smooth in Safari by caching the planet surface when gradient text is slow to draw
+
+## 5.46.1
+
+### Patch Changes
+
+- db56143: show five rows (five cards on mobile) in the Spoke supported collateral table and scroll the rest, with a fixed header on desktop, list the user's supplied collaterals first, and keep the Core mode info header fixed while its rows scroll
+
 ## 5.46.0
 
 ### Minor Changes

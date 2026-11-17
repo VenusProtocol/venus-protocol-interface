@@ -4,6 +4,8 @@ import { Icon } from 'components/Icon';
 import { Tooltip } from 'components/Tooltip';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
+import { useChainId } from 'libs/wallet';
+import { generateExplorerUrl } from 'utilities';
 import type { Address } from 'viem';
 
 export interface SpokeWhitelistMarkerProps {
@@ -20,8 +22,12 @@ export const SpokeWhitelistMarker: React.FC<SpokeWhitelistMarkerProps> = ({
   className,
 }) => {
   const { t } = useTranslation();
+  const { chainId } = useChainId();
 
-  const whitelistUrl = `https://bscscan.com/address/${comptrollerAddress}#readProxyContract`;
+  const whitelistUrl = `${generateExplorerUrl({
+    hash: comptrollerAddress,
+    chainId,
+  })}#readProxyContract`;
 
   const tooltipContent = (
     <div className="flex flex-col gap-y-2">

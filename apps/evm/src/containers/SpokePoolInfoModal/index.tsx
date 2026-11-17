@@ -2,17 +2,14 @@ import { Icon } from 'components/Icon';
 import { Modal } from 'components/Modal';
 import { Link } from 'containers/Link';
 import { useTranslation } from 'libs/translations';
-import type { LocalizedText, SpokePool } from 'types';
+import type { SpokePool } from 'types';
+import { getLocalizedText } from './getLocalizedText';
 
 export interface SpokePoolInfoModalProps {
   spokePool: Pick<SpokePool, 'name' | 'description' | 'infoTags'>;
   isOpen: boolean;
   handleClose: () => void;
 }
-
-// Current locale if present, otherwise English (required by the API)
-const getLocalizedText = (text: LocalizedText | undefined, locale: string) =>
-  text?.[locale] ?? text?.en ?? '';
 
 export const SpokePoolInfoModal: React.FC<SpokePoolInfoModalProps> = ({
   spokePool,

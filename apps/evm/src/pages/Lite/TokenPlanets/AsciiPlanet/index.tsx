@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { ASCII_PLANET_SIZE, drawAsciiPlanet } from '../drawAsciiPlanet';
 import { mixHexColors } from '../mixHexColors';
 import { PLANET_PALETTES } from '../palettes';
-import { getSurfaceGradient } from './getSurfaceGradient';
+import { createSphereRenderer } from './createSphereRenderer';
 
 const GLYPH_SCALE = 1.1;
 const FRAME_INTERVAL_MS = 50;
@@ -46,7 +46,15 @@ export const AsciiPlanet: React.FC<AsciiPlanetProps> = ({ symbol, isOpen, replay
 
     const glyphColor = isLight ? color : mixHexColors({ from: color, to: highlight, ratio: 0.3 });
 
-    const surfaceGradient = getSurfaceGradient({ ctx, isLight, highlight, color, shadow });
+    const { drawSphere, dispose: disposeSphere } = createSphereRenderer({
+      ctx,
+      pixelRatio,
+      glyphScale: GLYPH_SCALE,
+      isLight,
+      highlight,
+      color,
+      shadow,
+    });
 
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -58,18 +66,19 @@ export const AsciiPlanet: React.FC<AsciiPlanetProps> = ({ symbol, isOpen, replay
     const draw = () => {
       const { isOpen: isEngaged, startedAtMs } = scrambleRef.current;
       const isScrambling = isEngaged && !motionQuery.matches;
+      const scrambleElapsedMs = isScrambling
+        ? performance.now() - startedAtMs
+        : Number.POSITIVE_INFINITY;
 
       drawAsciiPlanet({
         ctx,
-        surfaceGradient,
+        drawSphere: () => drawSphere(scrambleElapsedMs),
         glyphColor,
         glyphScale: GLYPH_SCALE,
         isLight,
         phase,
         interaction: isEngaged ? 1 : 0,
-        scrambleElapsedMs: isScrambling
-          ? performance.now() - startedAtMs
-          : Number.POSITIVE_INFINITY,
+        scrambleElapsedMs,
       });
     };
 
@@ -125,6 +134,7 @@ export const AsciiPlanet: React.FC<AsciiPlanetProps> = ({ symbol, isOpen, replay
       window.removeEventListener('focus', syncLoop);
       window.removeEventListener('blur', syncLoop);
       motionQuery.removeEventListener('change', syncMotion);
+      disposeSphere();
     };
   }, [symbol, isLight]);
 

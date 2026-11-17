@@ -1,12 +1,11 @@
 import { getScrambledGlyph } from '../getScrambledGlyph';
 import { drawAsciiRing } from './drawAsciiRing';
 
+export { drawAsciiSphere } from './drawAsciiSphere';
+
 export const ASCII_PLANET_SIZE = 360;
 
 const CENTER = ASCII_PLANET_SIZE / 2;
-const SPHERE_RADIUS = 120;
-const GRID_LIMIT = 119;
-const GLYPH_RAMP = '.:+*oO#@';
 const RING_RADIUS_X = 170;
 const RING_RADIUS_Y = 43;
 const RING_TILT_COS = 0.94;
@@ -16,7 +15,7 @@ const PARTICLE_TAIL_LENGTH = 4;
 
 export interface DrawAsciiPlanetInput {
   ctx: CanvasRenderingContext2D;
-  surfaceGradient: CanvasGradient;
+  drawSphere: () => void;
   glyphColor: string;
   glyphScale: number;
   phase: number;
@@ -27,7 +26,7 @@ export interface DrawAsciiPlanetInput {
 
 export const drawAsciiPlanet = ({
   ctx,
-  surfaceGradient,
+  drawSphere,
   glyphColor,
   glyphScale,
   phase,
@@ -51,43 +50,7 @@ export const drawAsciiPlanet = ({
     isLight,
   });
 
-  ctx.fillStyle = surfaceGradient;
-
-  const stepX = 6 * glyphScale;
-  const stepY = 7 * glyphScale;
-  let glyphIndex = 0;
-
-  for (let y = -Math.floor(GRID_LIMIT / stepY) * stepY; y <= GRID_LIMIT; y += stepY) {
-    for (let x = -Math.floor(GRID_LIMIT / stepX) * stepX; x <= GRID_LIMIT; x += stepX) {
-      const nx = x / SPHERE_RADIUS;
-      const ny = y / SPHERE_RADIUS;
-      const squaredRadius = nx * nx + ny * ny;
-
-      if (squaredRadius > 1) {
-        continue;
-      }
-
-      const z = Math.sqrt(1 - squaredRadius);
-      const edge = (1 - z) ** 1.4;
-      const facing = Math.max(0, nx * 0.8 - ny * 0.5);
-      const shade = Math.max(0, -0.45 * nx - 0.4 * ny + 0.75 * z);
-      const density = isLight
-        ? Math.min(1, 0.3 + shade * 0.45 + edge * 0.12)
-        : Math.min(1, 0.22 + z * 0.15 + edge * 0.24 + facing * 0.65);
-
-      ctx.globalAlpha = 0.18 + density * 0.82;
-      ctx.fillText(
-        getScrambledGlyph({
-          glyph: GLYPH_RAMP[Math.min(7, Math.floor(density * 8))],
-          index: glyphIndex,
-          elapsedMs: scrambleElapsedMs,
-        }),
-        CENTER + x,
-        CENTER + y,
-      );
-      glyphIndex++;
-    }
-  }
+  drawSphere();
 
   ctx.fillStyle = glyphColor;
   drawAsciiRing({
