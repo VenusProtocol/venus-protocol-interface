@@ -1,8 +1,8 @@
 import {
   Apy,
-  EmptyState,
   InfoIcon,
   LayeredValues,
+  NoResults,
   type Order,
   Table,
   type TableColumn,
@@ -202,29 +202,17 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
   const handleRowClick = (_e: React.MouseEvent<HTMLDivElement>, row: LiquidityHub) =>
     captureHubSelectedAnalyticEvent(row);
 
-  let placeholder: React.ReactNode;
-
-  if (!isFetching && query) {
-    placeholder = (
-      <EmptyState
-        showIcon
-        title={t('liquidityHubs.table.placeholder.noResults', { query })}
-        onClear={() => setSearchValue('')}
-        clearLabel={t('liquidityHubs.table.placeholder.clearSearch')}
+  const placeholder = !isFetching &&
+    (!!query || userChainSettings.showUserLiquidityHubAssetsOnly) && (
+      <NoResults
+        iconName="market"
+        title={t('liquidityHubs.table.noResults')}
+        onReset={() => {
+          setSearchValue('');
+          setUserChainSettings({ showUserLiquidityHubAssetsOnly: false });
+        }}
       />
     );
-  }
-
-  if (!isFetching && !query && userChainSettings.showUserLiquidityHubAssetsOnly) {
-    placeholder = (
-      <EmptyState
-        showIcon
-        title={t('liquidityHubs.table.placeholder.noAssets')}
-        onClear={() => setUserChainSettings({ showUserLiquidityHubAssetsOnly: false })}
-        clearLabel={t('liquidityHubs.table.placeholder.exploreMoreAssets')}
-      />
-    );
-  }
 
   return (
     <>

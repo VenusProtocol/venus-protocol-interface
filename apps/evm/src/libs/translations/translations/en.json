@@ -1057,12 +1057,7 @@
         "supplyApy": "Supply APY",
         "totalSupply": "Total supply"
       },
-      "placeholder": {
-        "clearSearch": "Clear search",
-        "exploreMoreAssets": "Explore more assets",
-        "noAssets": "No assets found",
-        "noResults": "No results for \"{{query}}\""
-      },
+      "noResults": "No hubs match your filters",
       "search": {
         "placeholder": "Search asset"
       }
@@ -1119,14 +1114,11 @@
       "label": "Market mode"
     },
     "placeholders": {
-      "clearSearch": "Clear search",
       "noAssets": "No assets found",
       "noBorrowableAssets": "No borrowable assets found",
-      "noMarkets": "No markets match these filters",
-      "noResults": "No results for \"{{query}}\"",
+      "noMarkets": "No markets found",
+      "noMatchingMarkets": "No markets match your filters",
       "refresh": "Please refresh to try again.",
-      "tryAnotherCollateral": "Try another collateral or clear your search.",
-      "tryAnotherSymbol": "Try another symbol or clear your search.",
       "unavailable": "Market data is unavailable"
     },
     "planets": {
@@ -2068,7 +2060,7 @@
       "nCollaterals_other": "{{count}} collaterals",
       "nLoanAssets_one": "{{count}} loan asset",
       "nLoanAssets_other": "{{count}} loan assets",
-      "noResults": "No markets match your filters",
+      "noResults": "No pools match your filters",
       "nPools_one": "{{count}} pool",
       "nPools_other": "{{count}} pools",
       "reset": "Reset",

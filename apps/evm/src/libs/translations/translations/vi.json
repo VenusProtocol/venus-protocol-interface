@@ -1056,12 +1056,7 @@
         "supplyApy": "APY cung cấp",
         "totalSupply": "Tổng cung cấp"
       },
-      "placeholder": {
-        "clearSearch": "Xóa tìm kiếm",
-        "exploreMoreAssets": "Khám phá thêm tài sản",
-        "noAssets": "Không tìm thấy tài sản",
-        "noResults": "Không có kết quả cho \"{{query}}\""
-      },
+      "noResults": "Không có hub nào khớp bộ lọc của bạn",
       "search": {
         "placeholder": "Tìm kiếm tài sản"
       }
@@ -1117,14 +1112,11 @@
       "label": "Chế độ thị trường"
     },
     "placeholders": {
-      "clearSearch": "Xóa tìm kiếm",
       "noAssets": "Không tìm thấy tài sản",
       "noBorrowableAssets": "Không có tài sản nào có thể vay",
-      "noMarkets": "Không có thị trường nào khớp với bộ lọc này",
-      "noResults": "Không có kết quả cho \"{{query}}\"",
+      "noMarkets": "Không tìm thấy thị trường",
+      "noMatchingMarkets": "Không có thị trường nào khớp bộ lọc của bạn",
       "refresh": "Vui lòng làm mới và thử lại.",
-      "tryAnotherCollateral": "Hãy thử tài sản thế chấp khác hoặc xóa tìm kiếm.",
-      "tryAnotherSymbol": "Hãy thử ký hiệu khác hoặc xóa tìm kiếm.",
       "unavailable": "Không tải được dữ liệu thị trường"
     },
     "planets": {
@@ -2066,7 +2058,7 @@
       "nCollaterals_other": "{{count}} tài sản thế chấp",
       "nLoanAssets_one": "{{count}} tài sản vay",
       "nLoanAssets_other": "{{count}} tài sản vay",
-      "noResults": "Không có thị trường nào khớp bộ lọc của bạn",
+      "noResults": "Không có pool nào khớp bộ lọc của bạn",
       "nPools_one": "{{count}} nhóm",
       "nPools_other": "{{count}} nhóm",
       "reset": "Đặt lại",

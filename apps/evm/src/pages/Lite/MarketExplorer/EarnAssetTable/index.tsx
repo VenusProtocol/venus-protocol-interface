@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { EmptyState, Table, type TableColumn, TokenIconWithSymbol } from 'components';
+import { NoResults, Table, type TableColumn, TokenIconWithSymbol } from 'components';
 import { useTranslation } from 'libs/translations';
 import { MarketApy } from '../../MarketApy';
 import { getHighestApyMarket } from '../../getHighestApyMarket';
@@ -12,7 +12,6 @@ export interface EarnAssetTableProps {
   isReady: boolean;
   onSelect: (earnAsset: LiteEarnAsset) => void;
   header: React.ReactNode;
-  searchValue: string;
   onClearFilters?: () => void;
 }
 
@@ -22,29 +21,29 @@ export const EarnAssetTable: React.FC<EarnAssetTableProps> = ({
   isReady,
   onSelect,
   header,
-  searchValue,
   onClearFilters,
 }) => {
   const { t } = useTranslation();
   const { buildAmountColumn, buildApyColumn, getTableProps } = useMarketColumns();
 
-  const query = searchValue.trim();
   let placeholder: React.ReactNode;
 
   if (!isFetching) {
     placeholder = isReady ? (
-      <EmptyState
-        showIcon
+      <NoResults
+        iconName="market"
         title={
-          query ? t('lite.placeholders.noResults', { query }) : t('lite.placeholders.noAssets')
+          onClearFilters
+            ? t('lite.placeholders.noMatchingMarkets')
+            : t('lite.placeholders.noAssets')
         }
-        hint={onClearFilters && t('lite.placeholders.tryAnotherSymbol')}
-        onClear={onClearFilters}
+        onReset={onClearFilters}
       />
     ) : (
-      <EmptyState
+      <NoResults
+        iconName="market"
         title={t('lite.placeholders.unavailable')}
-        hint={t('lite.placeholders.refresh')}
+        description={t('lite.placeholders.refresh')}
       />
     );
   }

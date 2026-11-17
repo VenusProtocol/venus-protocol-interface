@@ -5,11 +5,12 @@ import { Icon, type IconName } from '../Icon';
 
 export interface NoResultsProps {
   title: string;
+  description?: string;
   iconName: IconName;
   onReset?: () => void;
 }
 
-export const NoResults: React.FC<NoResultsProps> = ({ title, iconName, onReset }) => {
+export const NoResults: React.FC<NoResultsProps> = ({ title, description, iconName, onReset }) => {
   const { t } = useTranslation();
 
   return (
@@ -18,7 +19,11 @@ export const NoResults: React.FC<NoResultsProps> = ({ title, iconName, onReset }
         <Icon name={iconName} className="text-secondary size-6" />
       </div>
 
-      <p className="text-p3s">{title}</p>
+      <div className="space-y-1">
+        <p className="text-p3s">{title}</p>
+
+        {!!description && <p className="text-b1r text-secondary">{description}</p>}
+      </div>
 
       {!!onReset && (
         <Button size="sm" onClick={onReset}>

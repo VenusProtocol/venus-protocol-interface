@@ -1056,12 +1056,7 @@
         "supplyApy": "供給 APY",
         "totalSupply": "総供給量"
       },
-      "placeholder": {
-        "clearSearch": "検索をクリア",
-        "exploreMoreAssets": "他の資産を見る",
-        "noAssets": "該当する資産がありません",
-        "noResults": "「{{query}}」に一致する結果はありません"
-      },
+      "noResults": "条件に一致するハブがありません",
       "search": {
         "placeholder": "資産を検索"
       }
@@ -1117,14 +1112,11 @@
       "label": "マーケットモード"
     },
     "placeholders": {
-      "clearSearch": "検索をクリア",
       "noAssets": "該当する資産がありません",
       "noBorrowableAssets": "借入可能な資産がありません",
-      "noMarkets": "条件に一致するマーケットがありません",
-      "noResults": "「{{query}}」に一致する結果はありません",
+      "noMarkets": "マーケットが見つかりません",
+      "noMatchingMarkets": "条件に一致するマーケットがありません",
       "refresh": "ページを再読み込みしてください。",
-      "tryAnotherCollateral": "別の担保を試すか、検索をクリアしてください。",
-      "tryAnotherSymbol": "別のシンボルを試すか、検索をクリアしてください。",
       "unavailable": "マーケットデータを取得できません"
     },
     "planets": {
@@ -2066,7 +2058,7 @@
       "nCollaterals_other": "{{count}} 件の担保",
       "nLoanAssets_one": "{{count}} 件の借入資産",
       "nLoanAssets_other": "{{count}} 件の借入資産",
-      "noResults": "条件に一致するマーケットがありません",
+      "noResults": "条件に一致するプールがありません",
       "nPools_one": "{{count}} 件のプール",
       "nPools_other": "{{count}} 件のプール",
       "reset": "リセット",

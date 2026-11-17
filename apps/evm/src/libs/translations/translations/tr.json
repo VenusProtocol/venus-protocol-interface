@@ -1057,12 +1057,7 @@
         "supplyApy": "Sağlama APY",
         "totalSupply": "Toplam arz"
       },
-      "placeholder": {
-        "clearSearch": "Aramayı temizle",
-        "exploreMoreAssets": "Daha fazla varlık keşfet",
-        "noAssets": "Varlık bulunamadı",
-        "noResults": "\"{{query}}\" için sonuç yok"
-      },
+      "noResults": "Filtrelerinizle eşleşen hub yok",
       "search": {
         "placeholder": "Varlık ara"
       }
@@ -1119,14 +1114,11 @@
       "label": "Piyasa modu"
     },
     "placeholders": {
-      "clearSearch": "Aramayı temizle",
       "noAssets": "Varlık bulunamadı",
       "noBorrowableAssets": "Borç alınabilecek varlık bulunamadı",
-      "noMarkets": "Bu filtrelerle eşleşen piyasa yok",
-      "noResults": "\"{{query}}\" için sonuç yok",
+      "noMarkets": "Pazar bulunamadı",
+      "noMatchingMarkets": "Filtrelerinizle eşleşen pazar yok",
       "refresh": "Lütfen sayfayı yenileyip tekrar deneyin.",
-      "tryAnotherCollateral": "Başka bir teminat deneyin veya aramayı temizleyin.",
-      "tryAnotherSymbol": "Başka bir sembol deneyin veya aramayı temizleyin.",
       "unavailable": "Piyasa verileri alınamıyor"
     },
     "planets": {
@@ -2068,7 +2060,7 @@
       "nCollaterals_other": "{{count}} teminat",
       "nLoanAssets_one": "{{count}} borç varlığı",
       "nLoanAssets_other": "{{count}} borç varlığı",
-      "noResults": "Filtrelerinizle eşleşen pazar yok",
+      "noResults": "Filtrelerinizle eşleşen havuz yok",
       "nPools_one": "{{count}} havuz",
       "nPools_other": "{{count}} havuz",
       "reset": "Sıfırla",

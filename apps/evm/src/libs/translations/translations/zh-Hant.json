@@ -1056,12 +1056,7 @@
         "supplyApy": "供應 APY",
         "totalSupply": "總供應量"
       },
-      "placeholder": {
-        "clearSearch": "清除搜尋",
-        "exploreMoreAssets": "瀏覽更多資產",
-        "noAssets": "找不到資產",
-        "noResults": "找不到「{{query}}」的結果"
-      },
+      "noResults": "沒有符合篩選條件的 Hub",
       "search": {
         "placeholder": "搜尋資產"
       }
@@ -1117,14 +1112,11 @@
       "label": "市場模式"
     },
     "placeholders": {
-      "clearSearch": "清除搜尋",
       "noAssets": "找不到資產",
       "noBorrowableAssets": "沒有可借款的資產",
-      "noMarkets": "沒有符合目前篩選條件的市場",
-      "noResults": "找不到「{{query}}」的結果",
+      "noMarkets": "未找到市場",
+      "noMatchingMarkets": "沒有符合篩選條件的市場",
       "refresh": "請重新整理後再試。",
-      "tryAnotherCollateral": "請換個抵押品試試，或清除搜尋。",
-      "tryAnotherSymbol": "請換個代號試試，或清除搜尋。",
       "unavailable": "市場資料暫時無法取得"
     },
     "planets": {
@@ -2066,7 +2058,7 @@
       "nCollaterals_other": "{{count}} 個抵押品",
       "nLoanAssets_one": "{{count}} 個借貸資產",
       "nLoanAssets_other": "{{count}} 個借貸資產",
-      "noResults": "沒有符合篩選條件的市場",
+      "noResults": "沒有符合篩選條件的池",
       "nPools_one": "{{count}} 個資金池",
       "nPools_other": "{{count}} 個資金池",
       "reset": "重設",

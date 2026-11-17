@@ -1,4 +1,4 @@
-import { EmptyState, SpokeCollateralGroup, Table, type TableColumn } from 'components';
+import { NoResults, SpokeCollateralGroup, Table, type TableColumn } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { Asset, SpokeAsset } from 'types';
 import { BorrowMarketApy } from '../../BorrowMarketApy';
@@ -13,7 +13,6 @@ export interface BorrowMarketTableProps {
   onSelectCollateral: (input: { market: LiteBorrowMarket; asset: SpokeAsset }) => void;
   onSelectCoreCollateral: (input: { market: LiteBorrowMarket; asset: Asset }) => void;
   header: React.ReactNode;
-  searchValue: string;
   onClearFilters?: () => void;
 }
 
@@ -24,7 +23,6 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
   onSelectCollateral,
   onSelectCoreCollateral,
   header,
-  searchValue,
   onClearFilters,
 }) => {
   const { t } = useTranslation();
@@ -112,15 +110,14 @@ export const BorrowMarketTable: React.FC<BorrowMarketTableProps> = ({
       initialOrder={{ orderBy: columns[1], orderDirection: 'asc' }}
       header={header}
       placeholder={
-        <EmptyState
-          showIcon
+        <NoResults
+          iconName="market"
           title={
-            searchValue.trim()
-              ? t('lite.placeholders.noResults', { query: searchValue.trim() })
+            onClearFilters
+              ? t('lite.placeholders.noMatchingMarkets')
               : t('lite.placeholders.noMarkets')
           }
-          hint={onClearFilters && t('lite.placeholders.tryAnotherCollateral')}
-          onClear={onClearFilters}
+          onReset={onClearFilters}
         />
       }
     />

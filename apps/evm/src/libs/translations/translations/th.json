@@ -1056,12 +1056,7 @@
         "supplyApy": "ซัพพลาย APY",
         "totalSupply": "ยอดฝากรวม"
       },
-      "placeholder": {
-        "clearSearch": "ล้างการค้นหา",
-        "exploreMoreAssets": "สำรวจสินทรัพย์เพิ่มเติม",
-        "noAssets": "ไม่พบสินทรัพย์",
-        "noResults": "ไม่พบผลลัพธ์สำหรับ \"{{query}}\""
-      },
+      "noResults": "ไม่มีฮับที่ตรงกับตัวกรองของคุณ",
       "search": {
         "placeholder": "ค้นหาสินทรัพย์"
       }
@@ -1117,14 +1112,11 @@
       "label": "โหมดตลาด"
     },
     "placeholders": {
-      "clearSearch": "ล้างการค้นหา",
       "noAssets": "ไม่พบสินทรัพย์",
       "noBorrowableAssets": "ไม่พบสินทรัพย์ที่ยืมได้",
-      "noMarkets": "ไม่มีตลาดที่ตรงกับตัวกรองเหล่านี้",
-      "noResults": "ไม่พบผลลัพธ์สำหรับ \"{{query}}\"",
+      "noMarkets": "ไม่พบตลาด",
+      "noMatchingMarkets": "ไม่มีตลาดที่ตรงกับตัวกรองของคุณ",
       "refresh": "กรุณารีเฟรชแล้วลองใหม่อีกครั้ง",
-      "tryAnotherCollateral": "ลองใช้หลักประกันอื่น หรือล้างการค้นหา",
-      "tryAnotherSymbol": "ลองค้นหาด้วยสัญลักษณ์อื่น หรือล้างการค้นหา",
       "unavailable": "ไม่สามารถโหลดข้อมูลตลาดได้"
     },
     "planets": {
@@ -2066,7 +2058,7 @@
       "nCollaterals_other": "{{count}} หลักประกัน",
       "nLoanAssets_one": "{{count}} สินทรัพย์กู้",
       "nLoanAssets_other": "{{count}} สินทรัพย์กู้",
-      "noResults": "ไม่มีตลาดที่ตรงกับตัวกรองของคุณ",
+      "noResults": "ไม่มีพูลที่ตรงกับตัวกรองของคุณ",
       "nPools_one": "{{count}} พูล",
       "nPools_other": "{{count}} พูล",
       "reset": "รีเซ็ต",
