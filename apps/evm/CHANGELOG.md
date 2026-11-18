@@ -1,5 +1,13 @@
 # @venusprotocol/evm
 
+## 5.46.6
+
+### Patch Changes
+
+- 51dd5ac: show the LTP logo and website on its vaults
+- Updated dependencies [51dd5ac]
+  - @venusprotocol/chains@0.33.2
+
 ## 5.46.5
 
 ### Patch Changes
