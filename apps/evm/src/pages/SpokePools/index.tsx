@@ -17,7 +17,7 @@ const multiSelectClassName = 'sm:flex-1/3 sm:min-w-45 xl:w-60 xl:flex-none';
 
 const SpokePools: React.FC = () => {
   const { t } = useTranslation();
-  const [userChainSettings] = useUserChainSettings();
+  const [userChainSettings, setUserChainSettings] = useUserChainSettings();
   const [searchValue, setSearchValue] = useState('');
   const { accountAddress } = useAccountAddress();
   const { data: getSpokePoolsData, isLoading: isGetSpokePoolsLoading } = useGetSpokePools({
@@ -42,6 +42,7 @@ const SpokePools: React.FC = () => {
   const handleResetAll = () => {
     resetFilters();
     setSearchValue('');
+    setUserChainSettings({ showUserSpokeAssetsOnly: false });
   };
 
   const cells: CellProps[] = [
