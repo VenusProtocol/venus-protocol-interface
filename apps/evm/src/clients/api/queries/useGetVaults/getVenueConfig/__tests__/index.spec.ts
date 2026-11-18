@@ -17,6 +17,14 @@ describe('getVenueConfig', () => {
     expect(venue.url).toBe('https://noon.capital/');
   });
 
+  it('returns the LTP logo and website instead of the Venus fallback', () => {
+    const venue = getVenueConfig('LTP');
+
+    expect(venue.name).toBe(VenueName.Ltp);
+    expect(venue.iconSrc).not.toBe(DEFAULT_VENUE.iconSrc);
+    expect(venue.url).toBe('https://www.liquiditytech.com/en');
+  });
+
   it('tells the two Solv venues apart by their full name', () => {
     const octagon = getVenueConfig('Solv(Octagon)');
     const ceffu = getVenueConfig('Solv(Ceffu custody)');
