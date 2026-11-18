@@ -331,16 +331,19 @@ describe('Vaults', () => {
     expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
   });
 
-  it('keeps the selected group when its reset link is used, since the link only clears the search', () => {
+  it('clears the selected group when the header reset is used', () => {
     const { getAllByText, queryByText } = renderComponent(<VaultsPage />, {
       routerInitialEntries: ['/?category=governance&venue=venus'],
     });
 
     fireEvent.click(getFilterTrigger(en.vault.category.governance));
 
-    expect(getAllByText(en.vault.filter.reset)[0]).toBeDisabled();
+    expect(getAllByText(en.vault.filter.reset)[0]).toBeEnabled();
     expect(queryByText(en.vault.filter.allCategories)).not.toBeInTheDocument();
-    expect(queryByText(en.vault.filter.allVenues)).not.toBeInTheDocument();
+
+    fireEvent.click(getAllByText(en.vault.filter.reset)[0]);
+
+    expect(queryByText(en.vault.filter.allCategories)).toBeInTheDocument();
   });
 
   it('replaces the history entry when a filter changes', () => {

@@ -78,9 +78,11 @@ export const MultiSelectPanel: React.FC<MultiSelectPanelProps> = ({
 
           <button
             type="button"
-            // Clears only the search text, the selected options are kept
-            onClick={() => handleQueryChange('')}
-            disabled={!query}
+            onClick={() => {
+              handleQueryChange('');
+              onChange([]);
+            }}
+            disabled={!query && value.length === 0}
             className="text-brand text-b1r shrink-0 cursor-pointer disabled:cursor-default disabled:opacity-50"
           >
             {resetLabel}

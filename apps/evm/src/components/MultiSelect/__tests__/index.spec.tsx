@@ -122,7 +122,7 @@ describe('MultiSelect', () => {
     expect(screen.getAllByPlaceholderText('Search option')[0]).toHaveValue('');
   });
 
-  it('clears only the search text from the header reset while a search is active', () => {
+  it('clears the query and selection from the header reset while a search is active', () => {
     const onChange = vi.fn();
     renderComponent(
       <MultiSelect
@@ -144,7 +144,7 @@ describe('MultiSelect', () => {
     });
     fireEvent.click(screen.getAllByRole('button', { name: 'Reset' })[0]);
 
-    expect(onChange).not.toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledWith([]);
     expect(screen.getAllByPlaceholderText('Search option')[0]).toHaveValue('');
   });
 
