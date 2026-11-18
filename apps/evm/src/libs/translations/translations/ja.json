@@ -514,6 +514,7 @@
       "allCategories": "すべてのカテゴリー",
       "nCategories_other": "{{count}} 件のカテゴリー",
       "reset": "リセット",
+      "search": "カテゴリを検索",
       "title": "カテゴリーを選択"
     },
     "pausedAssetsToggle": {
@@ -1100,6 +1101,7 @@
       "reset": "リセット",
       "searchAsset": "資産を検索",
       "searchAssetAriaLabel": "資産を検索",
+      "searchCategory": "カテゴリを検索",
       "searchCollateral": "担保を検索",
       "searchCollateralAriaLabel": "担保を検索"
     },
@@ -1451,6 +1453,10 @@
     "search": {
       "placeholder": "資産を検索"
     }
+  },
+  "multiSelect": {
+    "clearSearch": "検索をクリア",
+    "noResults": "一致する結果がありません"
   },
   "noResults": {
     "resetFilters": "フィルターをリセット"
@@ -2065,7 +2071,10 @@
       "nPools_one": "{{count}} 件のプール",
       "nPools_other": "{{count}} 件のプール",
       "reset": "リセット",
+      "searchCollaterals": "担保資産を検索",
+      "searchLoanAssets": "借入資産を検索",
       "searchPlaceholder": "資産を検索",
+      "searchPools": "プールを検索",
       "selectCollaterals": "担保を選択",
       "selectLoanAssets": "借入資産を選択",
       "selectPools": "プールを選択"
@@ -2567,6 +2576,9 @@
       "refund": "返金",
       "repaying": "返済中",
       "reset": "リセット",
+      "searchCategories": "カテゴリを検索",
+      "searchStates": "ステータスを検索",
+      "searchVenues": "プラットフォームを検索",
       "selectCategories": "カテゴリを選択",
       "selectStates": "状態を選択",
       "selectVenues": "プラットフォームを選択"

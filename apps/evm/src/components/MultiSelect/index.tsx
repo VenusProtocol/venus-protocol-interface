@@ -1,31 +1,13 @@
 import { Button, cn } from '@venusprotocol/ui';
 
-import { getPageContentTop } from 'utilities';
-
 import { Dropdown } from '../Dropdown';
 import { Icon } from '../Icon';
+import { FittedMenu } from './FittedMenu';
+import { MultiSelectPanel } from './MultiSelectPanel';
+import { MAX_VISIBLE_ROWS } from './constants';
+import type { MultiSelectProps } from './types';
 
-const MENU_VIEWPORT_MARGIN_PX = 16;
-const MENU_MIN_HEIGHT_PX = 144;
-const MENU_GAP_PX = 8;
-
-export interface MultiSelectOption {
-  value: string;
-  label: React.ReactNode;
-}
-
-export interface MultiSelectProps {
-  options: MultiSelectOption[];
-  value: string[];
-  onChange: (value: string[]) => void;
-  placeholder: React.ReactNode;
-  renderCount: (count: number) => React.ReactNode;
-  title: React.ReactNode;
-  resetLabel: React.ReactNode;
-  size?: 'xs' | 'sm';
-  className?: string;
-  buttonClassName?: string;
-}
+export * from './types';
 
 export const MultiSelect: React.FC<MultiSelectProps> = ({
   options,
@@ -35,51 +17,13 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   renderCount,
   title,
   resetLabel,
+  searchPlaceholder,
+  noResultsLabel,
   size = 'sm',
   className,
   buttonClassName,
 }) => {
-  const toggle = (optionValue: string) =>
-    onChange(
-      value.includes(optionValue) ? value.filter(v => v !== optionValue) : [...value, optionValue],
-    );
-
-  const fitMenuToViewport = (node: HTMLDivElement | null) => {
-    const menu = node?.closest<HTMLElement>('.venus-multiselect-menu');
-
-    if (!node || !menu) {
-      return;
-    }
-
-    const spaceBelow =
-      window.innerHeight - node.getBoundingClientRect().top - MENU_VIEWPORT_MARGIN_PX;
-    const menuWrapper = menu.parentElement;
-    const menuAnchor = menuWrapper?.parentElement;
-    const trigger = menuAnchor?.parentElement;
-
-    const fitBelow = () => {
-      node.style.maxHeight = `${Math.max(spaceBelow, MENU_MIN_HEIGHT_PX)}px`;
-    };
-
-    if (spaceBelow >= MENU_MIN_HEIGHT_PX || !menuWrapper || !menuAnchor || !trigger) {
-      fitBelow();
-      return;
-    }
-
-    const triggerTop = trigger.getBoundingClientRect().top;
-    const spaceAbove = triggerTop - getPageContentTop() - MENU_GAP_PX * 2;
-
-    if (spaceAbove <= spaceBelow) {
-      fitBelow();
-      return;
-    }
-
-    menuWrapper.style.top = 'auto';
-    menuWrapper.style.bottom = `${menuAnchor.getBoundingClientRect().top - triggerTop}px`;
-    menuWrapper.style.paddingTop = '0';
-    menuWrapper.style.paddingBottom = `${MENU_GAP_PX}px`;
-    node.style.maxHeight = `${spaceAbove}px`;
-  };
+  const isSearchEnabled = options.length > MAX_VISIBLE_ROWS;
 
   let triggerLabel = placeholder;
   if (value.length === 1) {
@@ -96,36 +40,23 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
       // option does not bleed past the border
       menuClassName="venus-multiselect-menu overflow-hidden"
       optionsDom={() => (
-        <div ref={fitMenuToViewport} className="min-w-full overflow-y-auto">
-          <div className="flex h-12 items-center justify-between gap-3 px-4 py-3">
-            <span className="text-b1r truncate text-primary">{title}</span>
-
-            <button
-              type="button"
-              onClick={() => onChange([])}
-              disabled={value.length === 0}
-              className="text-brand text-b1r shrink-0 cursor-pointer disabled:cursor-default disabled:opacity-50"
-            >
-              {resetLabel}
-            </button>
-          </div>
-
-          {options.map(option => (
-            <button
-              key={option.value}
-              type="button"
-              onClick={() => toggle(option.value)}
-              className="hover:bg-surface-dropdown-item-hover active:bg-surface-dropdown-item-hover flex h-12 w-full cursor-pointer items-center justify-between px-4 py-3 text-left"
-            >
-              <span className="text-b1r whitespace-nowrap text-primary">{option.label}</span>
-
-              <Icon
-                name={value.includes(option.value) ? 'checked' : 'checkboxBorder'}
-                className="size-5 shrink-0"
-              />
-            </button>
-          ))}
-        </div>
+        <FittedMenu
+          // Wide enough for the search placeholder to show in full.
+          className={cn(
+            'flex flex-col overflow-y-auto',
+            isSearchEnabled ? 'min-w-[max(100%,15rem)]' : 'min-w-full',
+          )}
+        >
+          <MultiSelectPanel
+            options={options}
+            value={value}
+            onChange={onChange}
+            title={title}
+            resetLabel={resetLabel}
+            searchPlaceholder={searchPlaceholder}
+            noResultsLabel={noResultsLabel}
+          />
+        </FittedMenu>
       )}
     >
       {({ isDropdownOpen, handleToggleDropdown }) => (
