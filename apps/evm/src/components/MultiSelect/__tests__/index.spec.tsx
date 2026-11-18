@@ -96,30 +96,16 @@ describe('MultiSelect', () => {
     expect(screen.getAllByText('No results found')[0]).toBeInTheDocument();
   });
 
-  it('clears the query and selection from the no results reset button', () => {
-    const onChange = vi.fn();
-    renderComponent(
-      <MultiSelect
-        options={manyOptions}
-        value={['AMDB']}
-        onChange={onChange}
-        placeholder="All options"
-        renderCount={count => `${count} options`}
-        title="Select options"
-        resetLabel="Reset"
-        searchPlaceholder="Search option"
-        noResultsLabel="No results found"
-      />,
-    );
+  it('does not offer a reset filters button when nothing matches the query', () => {
+    renderMultiSelect(manyOptions);
 
-    fireEvent.click(screen.getByRole('button', { name: 'AMDB' }));
+    openMenu();
     fireEvent.change(screen.getAllByPlaceholderText('Search option')[0], {
       target: { value: 'zzz' },
     });
-    fireEvent.click(screen.getAllByRole('button', { name: 'Reset filters' })[0]);
 
-    expect(onChange).toHaveBeenCalledWith([]);
-    expect(screen.getAllByPlaceholderText('Search option')[0]).toHaveValue('');
+    expect(screen.getAllByText('No results found')[0]).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Reset filters' })).not.toBeInTheDocument();
   });
 
   it('clears the query and selection from the header reset while a search is active', () => {

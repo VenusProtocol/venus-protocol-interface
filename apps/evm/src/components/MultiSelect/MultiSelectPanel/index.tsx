@@ -1,4 +1,4 @@
-import { Button, cn } from '@venusprotocol/ui';
+import { cn } from '@venusprotocol/ui';
 import { useLayoutEffect, useRef, useState } from 'react';
 
 import { useBreakpointUp } from 'hooks/responsive';
@@ -130,18 +130,8 @@ export const MultiSelectPanel: React.FC<MultiSelectPanelProps> = ({
         )}
       >
         {visibleOptions.length === 0 ? (
-          <div className="flex h-full flex-col items-center justify-center gap-3 px-4 py-6 text-center">
+          <div className="flex h-full flex-col items-center justify-center px-4 py-6 text-center">
             <span className="text-b1r text-secondary">{noResultsLabel}</span>
-
-            <Button
-              size="sm"
-              onClick={() => {
-                handleQueryChange('');
-                onChange([]);
-              }}
-            >
-              {t('noResults.resetFilters')}
-            </Button>
           </div>
         ) : (
           visibleOptions.map(option => (
