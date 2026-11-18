@@ -1,5 +1,11 @@
 # @venusprotocol/ui
 
+## 0.12.0
+
+### Minor Changes
+
+- cf007b2: add the Lite mode home page and restyle the interface
+
 ## 0.11.1
 
 ### Patch Changes
