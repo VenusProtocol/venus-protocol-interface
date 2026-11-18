@@ -2,6 +2,7 @@ import {
   Apy,
   InfoIcon,
   LayeredValues,
+  NoResults,
   type Order,
   Table,
   type TableColumn,
@@ -31,12 +32,13 @@ export interface LiquidityHubTableProps
 export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
   className,
   data,
+  isFetching,
   ...otherProps
 }) => {
   const { t, Trans } = useTranslation();
   const { captureAnalyticEvent } = useAnalytics();
 
-  const [userChainSettings] = useUserChainSettings();
+  const [userChainSettings, setUserChainSettings] = useUserChainSettings();
 
   const [searchValue, setSearchValue] = useState('');
   const [selectedLiquidityHub, setSelectedLiquidityHub] = useState<LiquidityHub>();
@@ -61,6 +63,8 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
     return <TableRowControl className="-ml-6" onClick={handleRowControlClick} />;
   };
 
+  const query = searchValue.trim();
+
   const filteredData = data.filter(row => {
     // Handle user settings
     if (
@@ -72,10 +76,7 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
     }
 
     // Handle search
-    return (
-      !searchValue ||
-      row.vhToken.underlyingToken.symbol.toLowerCase().includes(searchValue.toLowerCase())
-    );
+    return !query || row.vhToken.underlyingToken.symbol.toLowerCase().includes(query.toLowerCase());
   });
 
   const columns: TableColumn<LiquidityHub>[] = [
@@ -201,6 +202,18 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
   const handleRowClick = (_e: React.MouseEvent<HTMLDivElement>, row: LiquidityHub) =>
     captureHubSelectedAnalyticEvent(row);
 
+  const placeholder = !isFetching &&
+    (!!query || userChainSettings.showUserLiquidityHubAssetsOnly) && (
+      <NoResults
+        iconName="market"
+        title={t('liquidityHubs.table.noResults')}
+        onReset={() => {
+          setSearchValue('');
+          setUserChainSettings({ showUserLiquidityHubAssetsOnly: false });
+        }}
+      />
+    );
+
   return (
     <>
       <Table
@@ -217,6 +230,8 @@ export const LiquidityHubTable: React.FC<LiquidityHubTableProps> = ({
         initialOrder={initialOrder}
         getRowHref={getRowHref}
         rowOnClick={handleRowClick}
+        isFetching={isFetching}
+        placeholder={placeholder}
         header={
           <Controls
             searchValue={searchValue}

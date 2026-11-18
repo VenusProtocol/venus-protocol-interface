@@ -183,6 +183,36 @@ describe('NavBar', () => {
     expect(container.querySelector('button.hidden.lg\\:flex')).toBeNull();
   });
 
+  it('renders the dashboard link ahead of the reward claim button when the user is connected', () => {
+    setConnectedWalletState();
+    renderNavBar({
+      accountAddress: connectedAccountAddress,
+    });
+
+    const actions = screen.getByTestId(TEST_IDS.navBarActions);
+    const dashboardLink = screen.getByRole('link', { name: 'Dashboard' });
+
+    expect(screen.getByTestId(TEST_IDS.navBarMenu).textContent).not.toContain('Dashboard');
+    expect(actions.firstElementChild?.contains(dashboardLink)).toBe(true);
+    expect(dashboardLink.getAttribute('href')).toMatch(/^\/dashboard(\?|$)/);
+    expect(actions.firstElementChild).toHaveClass('hidden', 'xl:flex');
+  });
+
+  it('renders the dashboard link in Lite mode when the user is connected', () => {
+    useInterfaceModeStore.setState({ mode: 'lite' });
+    setConnectedWalletState();
+    renderNavBar({
+      accountAddress: connectedAccountAddress,
+    });
+
+    const actions = screen.getByTestId(TEST_IDS.navBarActions);
+
+    expect(
+      actions.firstElementChild?.contains(screen.getByRole('link', { name: 'Dashboard' })),
+    ).toBe(true);
+    expect(actions.firstElementChild).toHaveClass('hidden', 'xl:flex');
+  });
+
   it('toggles the mobile menu and page scroll lock', () => {
     const { container } = renderNavBar();
 

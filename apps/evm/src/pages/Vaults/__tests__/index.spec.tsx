@@ -387,7 +387,7 @@ describe('Vaults', () => {
 
     expect(getByText(en.vault.filter.noResults)).toBeInTheDocument();
 
-    fireEvent.click(getByText(en.vault.filter.resetFilters));
+    fireEvent.click(getByText(en.noResults.resetFilters));
 
     expect(queryByText(en.vault.filter.noResults)).not.toBeInTheDocument();
     expect(searchInput).toHaveValue('');
@@ -678,7 +678,7 @@ describe('Vaults', () => {
 
       expect(getByText(en.vault.filter.noResults)).toBeInTheDocument();
 
-      fireEvent.click(getByText(en.vault.filter.resetFilters));
+      fireEvent.click(getByText(en.noResults.resetFilters));
 
       expect(
         getByRole('checkbox', { name: en.vault.filter.archivedVaultsToggle.label }),
