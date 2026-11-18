@@ -195,6 +195,7 @@ describe('NavBar', () => {
     expect(screen.getByTestId(TEST_IDS.navBarMenu).textContent).not.toContain('Dashboard');
     expect(actions.firstElementChild?.contains(dashboardLink)).toBe(true);
     expect(dashboardLink.getAttribute('href')).toMatch(/^\/dashboard(\?|$)/);
+    expect(actions.firstElementChild).toHaveClass('hidden', 'xl:flex');
   });
 
   it('renders the dashboard link in Lite mode when the user is connected', () => {
@@ -209,6 +210,7 @@ describe('NavBar', () => {
     expect(
       actions.firstElementChild?.contains(screen.getByRole('link', { name: 'Dashboard' })),
     ).toBe(true);
+    expect(actions.firstElementChild).toHaveClass('hidden', 'xl:flex');
   });
 
   it('toggles the mobile menu and page scroll lock', () => {
