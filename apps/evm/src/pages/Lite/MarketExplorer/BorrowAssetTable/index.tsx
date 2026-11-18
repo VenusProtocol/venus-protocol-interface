@@ -1,10 +1,9 @@
-import { Table, type TableColumn, TokenIconWithSymbol } from 'components';
+import { NoResults, Table, type TableColumn, TokenIconWithSymbol } from 'components';
 import { useTranslation } from 'libs/translations';
 import { BorrowMarketApy } from '../../BorrowMarketApy';
 import { getLowestApyMarket } from '../../getLowestApyMarket';
 import { getLowestBorrowApyPercentage } from '../../getLowestBorrowApyPercentage';
 import type { LiteBorrowAsset } from '../../types';
-import { EmptyState } from '../EmptyState';
 import { useMarketColumns } from '../useMarketColumns';
 
 export interface BorrowAssetTableProps {
@@ -13,7 +12,6 @@ export interface BorrowAssetTableProps {
   isReady: boolean;
   onSelect: (borrowAsset: LiteBorrowAsset) => void;
   header: React.ReactNode;
-  searchValue: string;
   onClearFilters?: () => void;
 }
 
@@ -23,31 +21,29 @@ export const BorrowAssetTable: React.FC<BorrowAssetTableProps> = ({
   isReady,
   onSelect,
   header,
-  searchValue,
   onClearFilters,
 }) => {
   const { t } = useTranslation();
   const { buildAmountColumn, buildApyColumn, getTableProps } = useMarketColumns();
 
-  const query = searchValue.trim();
   let placeholder: React.ReactNode;
 
   if (!isFetching) {
     placeholder = isReady ? (
-      <EmptyState
-        showIcon
+      <NoResults
+        iconName="market"
         title={
-          query
-            ? t('lite.placeholders.noResults', { query })
+          onClearFilters
+            ? t('lite.placeholders.noMatchingMarkets')
             : t('lite.placeholders.noBorrowableAssets')
         }
-        hint={onClearFilters && t('lite.placeholders.tryAnotherSymbol')}
-        onClear={onClearFilters}
+        onReset={onClearFilters}
       />
     ) : (
-      <EmptyState
+      <NoResults
+        iconName="market"
         title={t('lite.placeholders.unavailable')}
-        hint={t('lite.placeholders.refresh')}
+        description={t('lite.placeholders.refresh')}
       />
     );
   }

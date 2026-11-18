@@ -72,6 +72,24 @@ describe('SpokePools', () => {
     expect(screen.queryByText(en.spokePools.filter.noResults)).not.toBeInTheDocument();
   });
 
+  it('turns off the user assets toggle when resetting filters', () => {
+    const setUserChainSettingsMock = vi.fn();
+    (useUserChainSettings as Mock).mockImplementation(() => [
+      { ...defaultUserChainSettings, showUserSpokeAssetsOnly: true },
+      setUserChainSettingsMock,
+    ]);
+    mockSpokePools([withBalances({ collateralWalletTokens: 1000, loanWalletTokens: 0 })]);
+
+    renderComponent(<SpokePools />, { accountAddress: fakeAccountAddress });
+
+    fireEvent.change(screen.getByPlaceholderText(en.spokePools.filter.searchPlaceholder), {
+      target: { value: 'unknown' },
+    });
+    fireEvent.click(screen.getByText(en.noResults.resetFilters));
+
+    expect(setUserChainSettingsMock).toHaveBeenCalledWith({ showUserSpokeAssetsOnly: false });
+  });
+
   it('keeps a pool where the user holds its collateral when showing their assets only', () => {
     showUserAssetsOnly();
     mockSpokePools([withBalances({ collateralWalletTokens: 10, loanWalletTokens: 0 })]);
