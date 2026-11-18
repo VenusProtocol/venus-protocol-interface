@@ -122,6 +122,32 @@ describe('MultiSelect', () => {
     expect(screen.getAllByPlaceholderText('Search option')[0]).toHaveValue('');
   });
 
+  it('clears only the search text from the header reset while a search is active', () => {
+    const onChange = vi.fn();
+    renderComponent(
+      <MultiSelect
+        options={manyOptions}
+        value={['AMDB']}
+        onChange={onChange}
+        placeholder="All options"
+        renderCount={count => `${count} options`}
+        title="Select options"
+        resetLabel="Reset"
+        searchPlaceholder="Search option"
+        noResultsLabel="No results found"
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'AMDB' }));
+    fireEvent.change(screen.getAllByPlaceholderText('Search option')[0], {
+      target: { value: 'zzz' },
+    });
+    fireEvent.click(screen.getAllByRole('button', { name: 'Reset' })[0]);
+
+    expect(onChange).not.toHaveBeenCalled();
+    expect(screen.getAllByPlaceholderText('Search option')[0]).toHaveValue('');
+  });
+
   it('searches the search text of options whose label is not a string', () => {
     renderComponent(
       <MultiSelect

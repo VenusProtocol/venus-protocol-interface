@@ -201,8 +201,9 @@ const MultiSelectPanel: React.FC<MultiSelectPanelProps> = ({
 
           <button
             type="button"
-            onClick={() => onChange([])}
-            disabled={value.length === 0}
+            // Clears the search text first, so the selected options are kept while searching
+            onClick={() => (query ? handleQueryChange('') : onChange([]))}
+            disabled={!query && value.length === 0}
             className="text-brand text-b1r shrink-0 cursor-pointer disabled:cursor-default disabled:opacity-50"
           >
             {resetLabel}
