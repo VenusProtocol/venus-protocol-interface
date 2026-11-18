@@ -102,7 +102,7 @@ export const NavBar: React.FC<NavBarProps> = ({ className, ...containerProps }) 
           className={cn('flex items-center h-9 sm:h-12', isLite ? 'gap-x-2' : 'gap-x-1 sm:gap-x-2')}
           data-testid={TEST_IDS.navBarActions}
         >
-          {!isLite && isUserConnected && (
+          {isUserConnected && (
             <div className="hidden items-center xl:flex">
               <MenuItem
                 item={{ to: routes.dashboard.path, label: t('layout.menu.dashboard.label') }}

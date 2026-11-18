@@ -197,6 +197,20 @@ describe('NavBar', () => {
     expect(dashboardLink.getAttribute('href')).toMatch(/^\/dashboard(\?|$)/);
   });
 
+  it('renders the dashboard link in Lite mode when the user is connected', () => {
+    useInterfaceModeStore.setState({ mode: 'lite' });
+    setConnectedWalletState();
+    renderNavBar({
+      accountAddress: connectedAccountAddress,
+    });
+
+    const actions = screen.getByTestId(TEST_IDS.navBarActions);
+
+    expect(
+      actions.firstElementChild?.contains(screen.getByRole('link', { name: 'Dashboard' })),
+    ).toBe(true);
+  });
+
   it('toggles the mobile menu and page scroll lock', () => {
     const { container } = renderNavBar();
 

@@ -2,4 +2,4 @@
 "@venusprotocol/evm": patch
 ---
 
-show the dashboard link in the Pro desktop top bar for connected users
+show the dashboard link in the desktop top bar for connected users
