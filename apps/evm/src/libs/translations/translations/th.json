@@ -873,7 +873,8 @@
         "theme": {
           "dark": "มืด",
           "label": "ธีม",
-          "light": "สว่าง"
+          "light": "สว่าง",
+          "system": "ตามระบบ"
         }
       },
       "vaults": {

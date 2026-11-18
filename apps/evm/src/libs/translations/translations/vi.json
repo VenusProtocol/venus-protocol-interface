@@ -873,7 +873,8 @@
         "theme": {
           "dark": "Tối",
           "label": "Giao diện",
-          "light": "Sáng"
+          "light": "Sáng",
+          "system": "Hệ thống"
         }
       },
       "vaults": {
