@@ -47,11 +47,11 @@ export const SpokePoolInfoModal: React.FC<SpokePoolInfoModalProps> = ({
               {!!title && (
                 <div className="flex items-center gap-x-2">
                   <Icon name="info" className="size-4 shrink-0 text-secondary" />
-                  <p className="text-p2s">{title}</p>
+                  <p className="min-w-0 break-words text-p2s">{title}</p>
                 </div>
               )}
 
-              <p className="whitespace-pre-line text-b2r text-secondary">{content}</p>
+              <p className="whitespace-pre-line break-words text-b2r text-secondary">{content}</p>
 
               {!!infoTag.url && (
                 <div className="flex flex-col gap-y-1">
