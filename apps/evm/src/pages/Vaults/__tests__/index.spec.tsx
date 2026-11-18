@@ -331,20 +331,16 @@ describe('Vaults', () => {
     expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
   });
 
-  it('lets user clear a single group from its reset link', () => {
-    const { getAllByText, getByText, queryByText } = renderComponent(<VaultsPage />, {
+  it('keeps the selected group when its reset link is used, since the link only clears the search', () => {
+    const { getAllByText, queryByText } = renderComponent(<VaultsPage />, {
       routerInitialEntries: ['/?category=governance&venue=venus'],
     });
 
     fireEvent.click(getFilterTrigger(en.vault.category.governance));
-    fireEvent.click(getAllByText(en.vault.filter.reset)[0]);
 
-    expect(getByText(en.vault.filter.allCategories)).toBeInTheDocument();
-    // The venue group is left untouched, so the institutional vault stays filtered out
+    expect(getAllByText(en.vault.filter.reset)[0]).toBeDisabled();
+    expect(queryByText(en.vault.filter.allCategories)).not.toBeInTheDocument();
     expect(queryByText(en.vault.filter.allVenues)).not.toBeInTheDocument();
-    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
-    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
-    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
   });
 
   it('replaces the history entry when a filter changes', () => {

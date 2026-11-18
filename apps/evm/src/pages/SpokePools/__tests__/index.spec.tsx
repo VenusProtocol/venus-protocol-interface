@@ -62,14 +62,15 @@ describe('SpokePools', () => {
     expect(screen.queryByText(spokePool.name)).not.toBeInTheDocument();
   });
 
-  it('does not offer to reset filters when only the user assets toggle hides every pool', () => {
+  it('offers to reset filters when only the user assets toggle hides every pool', () => {
     showUserAssetsOnly();
     mockSpokePools([withBalances({ collateralWalletTokens: 0, loanWalletTokens: 0 })]);
 
     renderComponent(<SpokePools />, { accountAddress: fakeAccountAddress });
 
     expect(screen.queryByText(spokePool.name)).not.toBeInTheDocument();
-    expect(screen.queryByText(en.spokePools.filter.noResults)).not.toBeInTheDocument();
+    expect(screen.getByText(en.spokePools.filter.noResults)).toBeInTheDocument();
+    expect(screen.getByText(en.noResults.resetFilters)).toBeInTheDocument();
   });
 
   it('turns off the user assets toggle when resetting filters', () => {
