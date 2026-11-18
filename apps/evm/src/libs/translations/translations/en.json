@@ -823,6 +823,9 @@
       "borrow": {
         "label": "Borrow"
       },
+      "dashboard": {
+        "label": "Dashboard"
+      },
       "earn": {
         "label": "Earn"
       },
@@ -1057,6 +1060,7 @@
         "supplyApy": "Supply APY",
         "totalSupply": "Total supply"
       },
+      "noResults": "No hubs match your filters",
       "search": {
         "placeholder": "Search asset"
       }
@@ -1113,14 +1117,11 @@
       "label": "Market mode"
     },
     "placeholders": {
-      "clearSearch": "Clear search",
       "noAssets": "No assets found",
       "noBorrowableAssets": "No borrowable assets found",
-      "noMarkets": "No markets match these filters",
-      "noResults": "No results for \"{{query}}\"",
+      "noMarkets": "No markets found",
+      "noMatchingMarkets": "No markets match your filters",
       "refresh": "Please refresh to try again.",
-      "tryAnotherCollateral": "Try another collateral or clear your search.",
-      "tryAnotherSymbol": "Try another symbol or clear your search.",
       "unavailable": "Market data is unavailable"
     },
     "planets": {
@@ -1381,6 +1382,7 @@
             "threshold": "Threshold"
           },
           "mobileSelectLabel": "Sort by:",
+          "noResults": "No groups match your filters",
           "searchPlaceholder": "Search asset or group"
         }
       },
@@ -1441,6 +1443,7 @@
       "borrowApy": "A positive borrow APY means you'll pay interest and a negative one means you'll earn interest",
       "supplyApy": "A positive supply APY means you'll earn interest and a negative one means you'll pay interest"
     },
+    "noResults": "No markets match your filters",
     "pausedAssetsPlaceholder": {
       "description": "Please enable the \"Paused Assets\" toggle to view them.",
       "imgAlt": "Pause icon",
@@ -1450,6 +1453,9 @@
     "search": {
       "placeholder": "Search asset"
     }
+  },
+  "noResults": {
+    "resetFilters": "Reset filters"
   },
   "pagination": {
     "currentPage": "Current page",
@@ -2061,11 +2067,10 @@
       "nCollaterals_other": "{{count}} collaterals",
       "nLoanAssets_one": "{{count}} loan asset",
       "nLoanAssets_other": "{{count}} loan assets",
-      "noResults": "No markets match your filters",
+      "noResults": "No pools match your filters",
       "nPools_one": "{{count}} pool",
       "nPools_other": "{{count}} pools",
       "reset": "Reset",
-      "resetFilters": "Reset filters",
       "searchPlaceholder": "Search asset",
       "selectCollaterals": "Select collaterals",
       "selectLoanAssets": "Select loan",
@@ -2586,7 +2591,6 @@
       "refund": "Refund",
       "repaying": "Repaying",
       "reset": "Reset",
-      "resetFilters": "Reset filters",
       "selectCategories": "Select categories",
       "selectStates": "Select states",
       "selectVenues": "Select venues"
@@ -2791,6 +2795,7 @@
       "message": "Proposals failed to fetch"
     },
     "for": "For",
+    "noResults": "No proposals match your filters",
     "omnichain": {
       "switchToBnb": "Switch to BNB Chain",
       "votingOnlyEnabledOnBnb": "Voting is only available on BNB Chain"

@@ -1,5 +1,18 @@
 # @venusprotocol/evm
 
+## 5.46.5
+
+### Patch Changes
+
+- c63c778: use one "No results" state with a reset filters button on every filterable list (Core markets, E-mode, Isolation mode, Liquidity Hubs, Spoke pools, Vaults, Governance and the Lite market explorer)
+- c63c778: show an empty state on the Liquidity Hub table when no hub matches the search or the "My assets only" filter, and drop the card background behind the Venus Core summary on the Dashboard
+
+## 5.46.4
+
+### Patch Changes
+
+- 1ef4ec8: show the dashboard link in the desktop top bar for connected users
+
 ## 5.46.3
 
 ### Patch Changes
