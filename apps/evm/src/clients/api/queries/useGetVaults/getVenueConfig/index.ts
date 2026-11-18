@@ -2,6 +2,7 @@ import assetoIconSrc from './asseto.png';
 import cactusIconSrc from './cactus.svg';
 import ceffuIconSrc from './ceffu.svg';
 import hashGlobalIconSrc from './hashGlobal.svg';
+import ltpIconSrc from './ltp.svg';
 import matrixdockIconSrc from './matrixdock.svg';
 import noonCapitalIconSrc from './noonCapital.svg';
 import octagonIconSrc from './octagon.png';
@@ -20,6 +21,7 @@ export enum VenueName {
   Asseto = 'Asseto',
   HashGlobal = 'Hash Global',
   NoonCapital = 'Noon Capital',
+  Ltp = 'LTP',
 }
 
 export interface VenueConfig {
@@ -40,6 +42,7 @@ const iconSrcByVenueName: Record<VenueName, string> = {
   [VenueName.Asseto]: assetoIconSrc,
   [VenueName.HashGlobal]: hashGlobalIconSrc,
   [VenueName.NoonCapital]: noonCapitalIconSrc,
+  [VenueName.Ltp]: ltpIconSrc,
 };
 
 const monochromeIconVenueNames: VenueName[] = [
@@ -59,6 +62,7 @@ const urlByVenueName: Partial<Record<VenueName, string>> = {
   [VenueName.Asseto]: 'https://asseto.finance/',
   [VenueName.HashGlobal]: 'https://www.hashglobal.io/',
   [VenueName.NoonCapital]: 'https://noon.capital/',
+  [VenueName.Ltp]: 'https://www.liquiditytech.com/en',
 };
 
 export const DEFAULT_VENUE_NAME = VenueName.Venus;

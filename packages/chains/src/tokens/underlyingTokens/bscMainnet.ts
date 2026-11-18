@@ -712,4 +712,11 @@ export const bscMainnet: Token[] = [
     symbol: 'sUSN',
     iconSrc: iconSrcs.susn,
   },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0x578B847Fc479Ac4AAfA2F505BEf4f74Bf2e16228',
+    decimals: 18,
+    symbol: 'ctBTC',
+    iconSrc: iconSrcs.ctBTC,
+  },
 ];
