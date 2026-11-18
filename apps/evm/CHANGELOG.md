@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.46.4
+
+### Patch Changes
+
+- 1ef4ec8: show the dashboard link in the desktop top bar for connected users
+
 ## 5.46.3
 
 ### Patch Changes
