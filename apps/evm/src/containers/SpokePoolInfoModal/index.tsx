@@ -24,7 +24,8 @@ export const SpokePoolInfoModal: React.FC<SpokePoolInfoModalProps> = ({
       isOpen={isOpen}
       handleClose={handleClose}
       title={spokePool.name}
-      className="max-h-[85dvh] max-w-120"
+      className="max-h-[85dvh] max-w-120 overflow-hidden"
+      contentClassName="min-h-0 overflow-y-auto"
     >
       <div className="flex flex-col gap-y-4">
         {!!spokePool.description && (
@@ -58,10 +59,10 @@ export const SpokePoolInfoModal: React.FC<SpokePoolInfoModalProps> = ({
                     href={infoTag.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-x-1 self-start font-semibold"
+                    className="inline-flex max-w-full items-center gap-x-1 self-start font-semibold"
                   >
-                    <span>{urlLabel}</span>
-                    <Icon name="open" className="size-3 text-inherit" />
+                    <span className="min-w-0 break-words">{urlLabel}</span>
+                    <Icon name="open" className="size-3 shrink-0 text-inherit" />
                   </Link>
 
                   <span className="text-b2r text-secondary">{urlHost}</span>
