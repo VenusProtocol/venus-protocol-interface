@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, within } from '@testing-library/react';
 
 import { renderComponent } from 'testUtils/render';
 
@@ -120,5 +120,34 @@ describe('MultiSelect', () => {
 
     expect(onChange).toHaveBeenCalledWith([]);
     expect(screen.getAllByPlaceholderText('Search option')[0]).toHaveValue('');
+  });
+
+  it('searches the search text of options whose label is not a string', () => {
+    renderComponent(
+      <MultiSelect
+        options={[
+          { value: 'institution', label: <span>Institution</span>, searchText: 'Institution' },
+          ...manyOptions,
+        ]}
+        value={[]}
+        onChange={vi.fn()}
+        placeholder="All options"
+        renderCount={count => `${count} options`}
+        title="Select options"
+        resetLabel="Reset"
+        searchPlaceholder="Search option"
+        noResultsLabel="No results found"
+      />,
+    );
+
+    openMenu();
+    fireEvent.change(screen.getAllByPlaceholderText('Search option')[0], {
+      target: { value: 'instit' },
+    });
+
+    // The desktop menu comes first in the DOM.
+    const menu = screen.getAllByText('Institution')[0].closest('.venus-multiselect-menu');
+
+    expect(within(menu as HTMLElement).queryByText('AMDB')).not.toBeInTheDocument();
   });
 });

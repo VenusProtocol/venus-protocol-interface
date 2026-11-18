@@ -1457,6 +1457,7 @@
     }
   },
   "multiSelect": {
+    "clearSearch": "Aramayı temizle",
     "noResults": "Sonuç bulunamadı"
   },
   "noResults": {

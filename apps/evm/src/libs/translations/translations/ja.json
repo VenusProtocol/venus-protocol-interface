@@ -1455,6 +1455,7 @@
     }
   },
   "multiSelect": {
+    "clearSearch": "検索をクリア",
     "noResults": "一致する結果がありません"
   },
   "noResults": {

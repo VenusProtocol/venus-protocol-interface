@@ -187,6 +187,7 @@ const SpokePools: React.FC = () => {
     (selectedLoanAssets.length > 0 ||
       selectedCollaterals.length > 0 ||
       selectedPools.length > 0 ||
+      userChainSettings.showUserSpokeAssetsOnly ||
       !!searchValue)
   ) {
     poolsDom = (

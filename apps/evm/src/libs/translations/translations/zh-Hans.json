@@ -1455,6 +1455,7 @@
     }
   },
   "multiSelect": {
+    "clearSearch": "清除搜索",
     "noResults": "无匹配结果"
   },
   "noResults": {

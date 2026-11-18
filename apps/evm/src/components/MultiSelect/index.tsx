@@ -19,6 +19,8 @@ const MAX_VISIBLE_ROWS = 6;
 export interface MultiSelectOption {
   value: string;
   label: React.ReactNode;
+  // Text the search matches against. Defaults to the label when it is a string, otherwise the value.
+  searchText?: string;
 }
 
 export interface MultiSelectProps {
@@ -36,6 +38,11 @@ export interface MultiSelectProps {
   buttonClassName?: string;
 }
 
+const getSearchText = (option: MultiSelectOption) =>
+  (
+    option.searchText ?? (typeof option.label === 'string' ? option.label : option.value)
+  ).toLowerCase();
+
 // Starts-with matches first, then contains matches.
 const filterOptions = (options: MultiSelectOption[], query: string) => {
   const normalizedQuery = query.trim().toLowerCase();
@@ -43,9 +50,6 @@ const filterOptions = (options: MultiSelectOption[], query: string) => {
   if (!normalizedQuery) {
     return options;
   }
-
-  const getSearchText = (option: MultiSelectOption) =>
-    (typeof option.label === 'string' ? option.label : option.value).toLowerCase();
 
   const startsWithQuery = options.filter(option =>
     getSearchText(option).startsWith(normalizedQuery),
@@ -57,6 +61,76 @@ const filterOptions = (options: MultiSelectOption[], query: string) => {
   );
 
   return [...startsWithQuery, ...containsQuery];
+};
+
+// Places the menu below its trigger, or above it when there is not enough room below.
+const fitMenuToViewport = (node: HTMLDivElement | null) => {
+  const menu = node?.closest<HTMLElement>('.venus-multiselect-menu');
+
+  if (!node || !menu) {
+    return;
+  }
+
+  const menuWrapper = menu.parentElement;
+  const menuAnchor = menuWrapper?.parentElement;
+  const trigger = menuAnchor?.parentElement;
+
+  // Clear a previous placement above the trigger before measuring again.
+  if (menuWrapper) {
+    menuWrapper.style.top = '';
+    menuWrapper.style.bottom = '';
+    menuWrapper.style.paddingTop = '';
+    menuWrapper.style.paddingBottom = '';
+  }
+
+  const spaceBelow =
+    window.innerHeight - node.getBoundingClientRect().top - MENU_VIEWPORT_MARGIN_PX;
+
+  const fitBelow = () => {
+    node.style.maxHeight = `${Math.max(spaceBelow, MENU_MIN_HEIGHT_PX)}px`;
+  };
+
+  if (spaceBelow >= MENU_MIN_HEIGHT_PX || !menuWrapper || !menuAnchor || !trigger) {
+    fitBelow();
+    return;
+  }
+
+  const triggerTop = trigger.getBoundingClientRect().top;
+  const spaceAbove = triggerTop - getPageContentTop() - MENU_GAP_PX * 2;
+
+  if (spaceAbove <= spaceBelow) {
+    fitBelow();
+    return;
+  }
+
+  menuWrapper.style.top = 'auto';
+  menuWrapper.style.bottom = `${menuAnchor.getBoundingClientRect().top - triggerTop}px`;
+  menuWrapper.style.paddingTop = '0';
+  menuWrapper.style.paddingBottom = `${MENU_GAP_PX}px`;
+  node.style.maxHeight = `${spaceAbove}px`;
+};
+
+// Keeps the menu fitted to the viewport while it is open, including when the window resizes.
+const FittedMenu: React.FC<{ className: string; children: React.ReactNode }> = ({
+  className,
+  children,
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const fit = () => fitMenuToViewport(ref.current);
+
+    fit();
+    window.addEventListener('resize', fit);
+
+    return () => window.removeEventListener('resize', fit);
+  }, []);
+
+  return (
+    <div ref={ref} className={className}>
+      {children}
+    </div>
+  );
 };
 
 interface MultiSelectPanelProps
@@ -99,12 +173,14 @@ const MultiSelectPanel: React.FC<MultiSelectPanelProps> = ({
   });
 
   const handleQueryChange = (newQuery: string) => {
-    const currentScrollTop = listRef.current?.scrollTop ?? 0;
+    if (newQuery) {
+      if (!query) {
+        scrollTopBeforeSearchRef.current = listRef.current?.scrollTop ?? 0;
+      }
 
-    if (!query && newQuery) {
-      scrollTopBeforeSearchRef.current = currentScrollTop;
+      // The results change with every keystroke, so show them from the top.
       pendingScrollTopRef.current = 0;
-    } else if (query && !newQuery) {
+    } else if (query) {
       // Restore the scroll position after clearing.
       pendingScrollTopRef.current = scrollTopBeforeSearchRef.current;
     }
@@ -149,7 +225,7 @@ const MultiSelectPanel: React.FC<MultiSelectPanelProps> = ({
                   <button
                     type="button"
                     onClick={() => handleQueryChange('')}
-                    aria-label="Clear search"
+                    aria-label={t('multiSelect.clearSearch')}
                     className="text-secondary hover:text-primary flex size-5 cursor-pointer items-center justify-center"
                   >
                     <Icon name="close" className="size-3" />
@@ -164,46 +240,46 @@ const MultiSelectPanel: React.FC<MultiSelectPanelProps> = ({
 
       {isSearchEnabled && isScrolled && <div className="border-subtle flex-none border-b" />}
 
-      {visibleOptions.length === 0 && (
-        <div className="flex flex-none flex-col items-center gap-3 px-4 py-6 text-center">
-          <span className="text-b1r text-secondary">{noResultsLabel}</span>
-
-          <Button
-            size="sm"
-            onClick={() => {
-              handleQueryChange('');
-              onChange([]);
-            }}
-          >
-            {t('noResults.resetFilters')}
-          </Button>
-        </div>
-      )}
-
       <div
         ref={listRef}
         onScroll={event => setIsScrolled(event.currentTarget.scrollTop > 0)}
         className={cn(
           'overscroll-contain',
-          // Only long lists scroll inside the menu.
-          isSearchEnabled && 'min-h-0 max-h-72 overflow-y-auto',
+          // Fixed height, so the menu keeps its size while the results change.
+          isSearchEnabled && 'min-h-0 h-72 overflow-y-auto',
         )}
       >
-        {visibleOptions.map(option => (
-          <button
-            key={option.value}
-            type="button"
-            onClick={() => toggle(option.value)}
-            className="hover:bg-surface-dropdown-item-hover active:bg-surface-dropdown-item-hover flex h-12 w-full cursor-pointer items-center justify-between px-4 py-3 text-left"
-          >
-            <span className="text-b1r whitespace-nowrap text-primary">{option.label}</span>
+        {visibleOptions.length === 0 ? (
+          <div className="flex h-full flex-col items-center justify-center gap-3 px-4 py-6 text-center">
+            <span className="text-b1r text-secondary">{noResultsLabel}</span>
 
-            <Icon
-              name={value.includes(option.value) ? 'checked' : 'checkboxBorder'}
-              className="size-5 shrink-0"
-            />
-          </button>
-        ))}
+            <Button
+              size="sm"
+              onClick={() => {
+                handleQueryChange('');
+                onChange([]);
+              }}
+            >
+              {t('noResults.resetFilters')}
+            </Button>
+          </div>
+        ) : (
+          visibleOptions.map(option => (
+            <button
+              key={option.value}
+              type="button"
+              onClick={() => toggle(option.value)}
+              className="hover:bg-surface-dropdown-item-hover active:bg-surface-dropdown-item-hover flex h-12 w-full cursor-pointer items-center justify-between px-4 py-3 text-left"
+            >
+              <span className="text-b1r whitespace-nowrap text-primary">{option.label}</span>
+
+              <Icon
+                name={value.includes(option.value) ? 'checked' : 'checkboxBorder'}
+                className="size-5 shrink-0"
+              />
+            </button>
+          ))
+        )}
       </div>
     </>
   );
@@ -223,42 +299,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   className,
   buttonClassName,
 }) => {
-  const fitMenuToViewport = (node: HTMLDivElement | null) => {
-    const menu = node?.closest<HTMLElement>('.venus-multiselect-menu');
-
-    if (!node || !menu) {
-      return;
-    }
-
-    const spaceBelow =
-      window.innerHeight - node.getBoundingClientRect().top - MENU_VIEWPORT_MARGIN_PX;
-    const menuWrapper = menu.parentElement;
-    const menuAnchor = menuWrapper?.parentElement;
-    const trigger = menuAnchor?.parentElement;
-
-    const fitBelow = () => {
-      node.style.maxHeight = `${Math.max(spaceBelow, MENU_MIN_HEIGHT_PX)}px`;
-    };
-
-    if (spaceBelow >= MENU_MIN_HEIGHT_PX || !menuWrapper || !menuAnchor || !trigger) {
-      fitBelow();
-      return;
-    }
-
-    const triggerTop = trigger.getBoundingClientRect().top;
-    const spaceAbove = triggerTop - getPageContentTop() - MENU_GAP_PX * 2;
-
-    if (spaceAbove <= spaceBelow) {
-      fitBelow();
-      return;
-    }
-
-    menuWrapper.style.top = 'auto';
-    menuWrapper.style.bottom = `${menuAnchor.getBoundingClientRect().top - triggerTop}px`;
-    menuWrapper.style.paddingTop = '0';
-    menuWrapper.style.paddingBottom = `${MENU_GAP_PX}px`;
-    node.style.maxHeight = `${spaceAbove}px`;
-  };
+  const isSearchEnabled = options.length > MAX_VISIBLE_ROWS;
 
   let triggerLabel = placeholder;
   if (value.length === 1) {
@@ -275,7 +316,13 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
       // option does not bleed past the border
       menuClassName="venus-multiselect-menu overflow-hidden"
       optionsDom={() => (
-        <div ref={fitMenuToViewport} className="flex min-w-full flex-col overflow-y-auto">
+        <FittedMenu
+          // Wide enough for the search placeholder to show in full.
+          className={cn(
+            'flex flex-col overflow-y-auto',
+            isSearchEnabled ? 'min-w-[max(100%,15rem)]' : 'min-w-full',
+          )}
+        >
           <MultiSelectPanel
             options={options}
             value={value}
@@ -285,7 +332,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
             searchPlaceholder={searchPlaceholder}
             noResultsLabel={noResultsLabel}
           />
-        </div>
+        </FittedMenu>
       )}
     >
       {({ isDropdownOpen, handleToggleDropdown }) => (
