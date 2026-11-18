@@ -1,4 +1,4 @@
-import { Button } from '@venusprotocol/ui';
+import { Button, cn } from '@venusprotocol/ui';
 import { useLocation, useNavigate } from 'react-router';
 import type { Address } from 'viem';
 import { useDisconnect } from 'wagmi';
@@ -84,7 +84,11 @@ export const AccountModal: React.FC<AccountModalProps> = ({ address, isVip, isPr
             <div className="flex flex-col gap-y-3">
               <Settings />
 
-              <Button variant="secondary" className="w-full min-h-12" onClick={handleViewDashboard}>
+              <Button
+                variant="secondary"
+                className={cn('w-full min-h-12', !isLite && 'xl:hidden')}
+                onClick={handleViewDashboard}
+              >
                 {t('accountModal.dashboardButtonLabel')}
               </Button>
 

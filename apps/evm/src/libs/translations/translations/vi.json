@@ -822,6 +822,9 @@
       "borrow": {
         "label": "Vay"
       },
+      "dashboard": {
+        "label": "Bảng điều khiển"
+      },
       "earn": {
         "label": "Kiếm lợi nhuận"
       },

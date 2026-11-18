@@ -823,6 +823,9 @@
       "borrow": {
         "label": "Borrow"
       },
+      "dashboard": {
+        "label": "Dashboard"
+      },
       "earn": {
         "label": "Earn"
       },
