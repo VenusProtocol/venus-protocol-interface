@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.46.7
+
+### Patch Changes
+
+- 39563ea: add search and scrolling to multi-select filters with more than six options
+
 ## 5.46.6
 
 ### Patch Changes
