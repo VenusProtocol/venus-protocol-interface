@@ -822,6 +822,9 @@
       "borrow": {
         "label": "借款"
       },
+      "dashboard": {
+        "label": "仪表盘"
+      },
       "earn": {
         "label": "赚取"
       },

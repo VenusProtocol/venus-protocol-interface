@@ -822,6 +822,9 @@
       "borrow": {
         "label": "借入"
       },
+      "dashboard": {
+        "label": "ダッシュボード"
+      },
       "earn": {
         "label": "獲得"
       },

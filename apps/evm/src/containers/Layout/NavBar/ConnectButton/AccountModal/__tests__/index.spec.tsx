@@ -92,6 +92,20 @@ describe('AccountModal', () => {
     expect(queryByTestId(accountOverviewTestIds.performanceChartPreview)).not.toBeInTheDocument();
   });
 
+  it('hides the dashboard button from the breakpoint the top bar link appears at', () => {
+    const { getByRole } = renderComponent(
+      <AccountModal address={fakeAccountAddress} isPrime={false} isVip={false} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    const dashboardButton = getByRole('button', { name: en.accountModal.dashboardButtonLabel });
+
+    expect(dashboardButton).toHaveClass('xl:hidden');
+    expect(dashboardButton).not.toHaveClass('hidden');
+  });
+
   it('only displays the VIP Telegram group link when isVip is truthy', () => {
     const vipTelegramGroupLabel = en.vipTelegramGroupButton.label;
 

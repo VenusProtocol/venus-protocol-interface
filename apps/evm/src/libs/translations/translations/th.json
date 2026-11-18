@@ -822,6 +822,9 @@
       "borrow": {
         "label": "ยืม"
       },
+      "dashboard": {
+        "label": "แดชบอร์ด"
+      },
       "earn": {
         "label": "รับผลตอบแทน"
       },
