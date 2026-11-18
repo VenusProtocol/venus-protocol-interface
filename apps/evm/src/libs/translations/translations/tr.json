@@ -515,6 +515,7 @@
       "nCategories_one": "{{count}} Kategori",
       "nCategories_other": "{{count}} Kategori",
       "reset": "Sıfırla",
+      "search": "Kategori ara",
       "title": "Kategorileri Seç"
     },
     "pausedAssetsToggle": {
@@ -1102,6 +1103,7 @@
       "reset": "Sıfırla",
       "searchAsset": "Varlık ara",
       "searchAssetAriaLabel": "Varlık ara",
+      "searchCategory": "Kategori ara",
       "searchCollateral": "Teminat ara",
       "searchCollateralAriaLabel": "Teminat ara"
     },
@@ -1453,6 +1455,10 @@
     "search": {
       "placeholder": "Varlık ara"
     }
+  },
+  "multiSelect": {
+    "clearSearch": "Aramayı temizle",
+    "noResults": "Sonuç bulunamadı"
   },
   "noResults": {
     "resetFilters": "Filtreleri sıfırla"
@@ -2071,7 +2077,10 @@
       "nPools_one": "{{count}} havuz",
       "nPools_other": "{{count}} havuz",
       "reset": "Sıfırla",
+      "searchCollaterals": "Teminat ara",
+      "searchLoanAssets": "Ödünç varlık ara",
       "searchPlaceholder": "Varlık ara",
+      "searchPools": "Havuz ara",
       "selectCollaterals": "Teminat seç",
       "selectLoanAssets": "Borç varlığı seç",
       "selectPools": "Havuz seç"
@@ -2590,6 +2599,9 @@
       "refund": "İade",
       "repaying": "Geri ödeniyor",
       "reset": "Sıfırla",
+      "searchCategories": "Kategori ara",
+      "searchStates": "Durum ara",
+      "searchVenues": "Platform ara",
       "selectCategories": "Kategorileri seç",
       "selectStates": "Durumları seç",
       "selectVenues": "Platformları seç"

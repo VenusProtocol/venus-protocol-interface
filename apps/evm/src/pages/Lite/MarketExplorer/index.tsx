@@ -140,6 +140,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       onSelectedValuesChange={setSelectedCategories}
       optionsPlaceholder={t('lite.filters.allCategories')}
       optionsTitle={t('lite.filters.category')}
+      optionsSearchPlaceholder={t('lite.filters.searchCategory')}
       renderOptionCount={count => t('lite.filters.categoryCount', { count })}
     />
   );
@@ -173,6 +174,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       onSelectedValuesChange={setSelectedCollaterals}
       optionsPlaceholder={t('spokePools.filter.allCollaterals')}
       optionsTitle={t('lite.columns.collateral')}
+      optionsSearchPlaceholder={t('lite.filters.searchCollateral')}
       renderOptionCount={count => t('spokePools.filter.nCollaterals', { count })}
     />
   );
