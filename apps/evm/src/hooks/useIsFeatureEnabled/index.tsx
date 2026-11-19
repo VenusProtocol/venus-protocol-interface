@@ -1,5 +1,6 @@
 import { useChainId } from 'libs/wallet';
 import { ChainId } from 'types';
+import { extractEnumValues } from 'utilities/extractEnumValues';
 
 export const featureFlags = {
   integratedSwap: [ChainId.BSC_MAINNET],
@@ -115,6 +116,7 @@ export const featureFlags = {
   liquidityHubAutoResupply: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   spoke: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
   liteMode: [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET],
+  iosExploitWarning: extractEnumValues(ChainId),
 };
 
 export type FeatureFlag = keyof typeof featureFlags;

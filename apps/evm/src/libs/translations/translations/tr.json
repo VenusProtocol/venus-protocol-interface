@@ -768,6 +768,15 @@
       "utilizationRate": "Kullanım oranı"
     }
   },
+  "iosRiskModal": {
+    "confirmLabel": "Riski üstlenerek devam etmek için <Bold>{{phrase}}</Bold> yazın",
+    "continueButton": "Devam et",
+    "mismatch": "Metin eşleşmiyor. Şunu yazın: {{phrase}}",
+    "noticeDescription": "{{kit}} (iOS {{from}} – {{to}}), yalnızca kötü amaçlı bir web sitesini açtığınızda cüzdan verilerinizi ve kurtarma ifadelerinizi çalabilir. Cüzdan bağlantısı veya imza gerekmez.<LineBreak/><LineBreak/>1. <Bold>Ayarlar › Genel › Yazılım Güncelleme</Bold> bölümünü açın ve en son iOS sürümünü yükleyin.<LineBreak/>2. Güncelleyemiyor musunuz? Ayarlar › Gizlilik ve Güvenlik bölümünden <Bold>Kilitleme Modu</Bold>'nu açın.",
+    "noticeTitle": "iOS {{version}}, {{kit}} tarafından etkileniyor",
+    "title": "iOS'u şimdi güncelleyin. Fonlarınız risk altında.",
+    "updateButton": "iOS nasıl güncellenir"
+  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "Toplu fiyatlama",

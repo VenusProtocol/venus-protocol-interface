@@ -767,6 +767,15 @@
       "utilizationRate": "利用率"
     }
   },
+  "iosRiskModal": {
+    "confirmLabel": "如需自行承担风险继续使用，请输入 <Bold>{{phrase}}</Bold>",
+    "continueButton": "继续",
+    "mismatch": "输入内容不一致。请输入：{{phrase}}",
+    "noticeDescription": "只要打开一个恶意网站，{{kit}}（iOS {{from}} – {{to}}）就能窃取钱包数据和助记词，无需连接钱包或签名。<LineBreak/><LineBreak/>1. 打开<Bold>设置 › 通用 › 软件更新</Bold>，安装最新版 iOS。<LineBreak/>2. 无法更新？在设置 › 隐私与安全性中打开<Bold>锁定模式</Bold>。",
+    "noticeTitle": "iOS {{version}} 受 {{kit}} 影响",
+    "title": "请立即更新 iOS，你的资金面临风险。",
+    "updateButton": "如何更新 iOS"
+  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "聚合定价",
