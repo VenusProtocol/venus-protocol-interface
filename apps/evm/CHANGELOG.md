@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.47.0
+
+### Minor Changes
+
+- 9bbe094: warn users on iOS versions affected by the Coruna and DarkSword exploit kits to update before using the app
+
 ## 5.46.8
 
 ### Patch Changes
