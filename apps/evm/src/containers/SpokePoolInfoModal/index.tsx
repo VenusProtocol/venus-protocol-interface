@@ -37,7 +37,6 @@ export const SpokePoolInfoModal: React.FC<SpokePoolInfoModalProps> = ({
           const content = getLocalizedText(infoTag.content, locale);
           const urlLabel =
             getLocalizedText(infoTag.urlLabel, locale) || t('spokePoolInfo.learnMore');
-          const urlHost = infoTag.url ? new URL(infoTag.url).hostname : undefined;
 
           return (
             <div
@@ -64,8 +63,6 @@ export const SpokePoolInfoModal: React.FC<SpokePoolInfoModalProps> = ({
                     <span className="min-w-0 break-words">{urlLabel}</span>
                     <Icon name="open" className="size-3 shrink-0 text-inherit" />
                   </Link>
-
-                  <span className="text-b2r text-secondary">{urlHost}</span>
                 </div>
               )}
             </div>
