@@ -2057,6 +2057,10 @@
       "title": "支持的抵押品"
     }
   },
+  "spokePoolInfo": {
+    "button": "关于 {{poolName}}",
+    "learnMore": "了解更多"
+  },
   "spokePools": {
     "description": "使用您在专属市场中提供的抵押品借出资产。",
     "filter": {
@@ -2103,6 +2107,18 @@
         "totalBorrow": "总借款"
       }
     }
+  },
+  "spokeWhitelist": {
+    "asset": {
+      "description": "只有白名单地址可以提供此抵押品。",
+      "userWhitelisted": "您在白名单中。"
+    },
+    "label": "白名单",
+    "pool": {
+      "description": "只有白名单地址可以向该池供应和借款。",
+      "userWhitelisted": "您有资格从该池借款。"
+    },
+    "viewOnChain": "在链上查看白名单"
   },
   "statsPage": {
     "illustrationAlt": "统计插图",

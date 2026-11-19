@@ -50,15 +50,20 @@ export const MultiSelectPanel: React.FC<MultiSelectPanelProps> = ({
   });
 
   const handleQueryChange = (newQuery: string) => {
-    if (newQuery) {
-      if (!query) {
-        scrollTopBeforeSearchRef.current = listRef.current?.scrollTop ?? 0;
-      }
+    const isStartingSearch = !query && !!newQuery;
+    const isClearingSearch = !!query && !newQuery;
 
-      // The results change with every keystroke, so show them from the top.
+    if (isStartingSearch) {
+      scrollTopBeforeSearchRef.current = listRef.current?.scrollTop ?? 0;
+    }
+
+    // The results change with every keystroke, so show them from the top.
+    if (newQuery) {
       pendingScrollTopRef.current = 0;
-    } else if (query) {
-      // Restore the scroll position after clearing.
+    }
+
+    // Restore the scroll position after clearing.
+    if (isClearingSearch) {
       pendingScrollTopRef.current = scrollTopBeforeSearchRef.current;
     }
 

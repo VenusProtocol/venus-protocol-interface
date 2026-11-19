@@ -26,6 +26,7 @@ export interface FormatToSpokeAssetInput {
   oraclePrice?: ApiTokenPrice;
   userPosition?: SpokeUserPosition;
   userTokenBalances: TokenBalance[];
+  isUserWhitelisted: boolean;
 }
 
 export const formatToSpokeAsset = ({
@@ -37,6 +38,7 @@ export const formatToSpokeAsset = ({
   oraclePrice,
   userPosition,
   userTokenBalances,
+  isUserWhitelisted,
 }: FormatToSpokeAssetInput): SpokeAsset | undefined => {
   const underlyingToken = tokens.find(
     token =>
@@ -137,6 +139,8 @@ export const formatToSpokeAsset = ({
     isSuppliable: apiMarket.suppliable,
     borrowRatePerBlockMantissa: new BigNumber(apiMarket.borrowRatePerBlockMantissa),
     isInactive,
+    hasWhitelist: apiMarket.side === 'collateral' && apiMarket.supplyAllowlistEnabled,
+    isUserWhitelisted: isUserConnected && isUserWhitelisted,
     reserveFactor: convertFactorFromSmartContract({
       factor: new BigNumber(apiMarket.reserveFactorMantissa),
     }),

@@ -2059,6 +2059,10 @@
       "title": "Supported collateral"
     }
   },
+  "spokePoolInfo": {
+    "button": "About {{poolName}}",
+    "learnMore": "Learn more"
+  },
   "spokePools": {
     "description": "Borrow assets against your supplied collateral from dedicated markets.",
     "filter": {
@@ -2105,6 +2109,18 @@
         "totalBorrow": "Total borrow"
       }
     }
+  },
+  "spokeWhitelist": {
+    "asset": {
+      "description": "Only whitelisted addresses can supply this collateral.",
+      "userWhitelisted": "You’re on the whitelist."
+    },
+    "label": "Whitelist",
+    "pool": {
+      "description": "Only whitelisted addresses can supply and borrow from this pool.",
+      "userWhitelisted": "You’re eligible to borrow from this pool."
+    },
+    "viewOnChain": "View whitelist on-chain"
   },
   "statsPage": {
     "illustrationAlt": "Stats illustration",

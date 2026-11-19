@@ -2059,6 +2059,10 @@
       "title": "Desteklenen teminatlar"
     }
   },
+  "spokePoolInfo": {
+    "button": "{{poolName}} hakkında",
+    "learnMore": "Daha fazla bilgi"
+  },
   "spokePools": {
     "description": "Özel pazarlarda sağladığınız teminat karşılığında varlık borç alın.",
     "filter": {
@@ -2105,6 +2109,18 @@
         "totalBorrow": "Toplam borç"
       }
     }
+  },
+  "spokeWhitelist": {
+    "asset": {
+      "description": "Bu teminatı yalnızca beyaz listedeki adresler sağlayabilir.",
+      "userWhitelisted": "Beyaz listedesiniz."
+    },
+    "label": "Beyaz liste",
+    "pool": {
+      "description": "Bu havuzdan yalnızca beyaz listedeki adresler arz edebilir ve ödünç alabilir.",
+      "userWhitelisted": "Bu havuzdan ödünç alma hakkınız var."
+    },
+    "viewOnChain": "Beyaz listeyi zincir üzerinde görüntüle"
   },
   "statsPage": {
     "illustrationAlt": "İstatistik illüstrasyonu",

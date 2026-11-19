@@ -12,6 +12,7 @@ export * from './CompactTableCardList';
 export * from './Delimiter';
 export * from './Dropdown';
 export * from './SpokeCollateralGroup';
+export * from './SpokeWhitelistMarker';
 export * from './Username';
 export * from './EllipseAddress';
 export * from './ApproveTokenSteps';

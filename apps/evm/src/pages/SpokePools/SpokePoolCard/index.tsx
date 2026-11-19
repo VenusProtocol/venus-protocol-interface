@@ -1,8 +1,16 @@
 import { useState } from 'react';
 
-import { HealthFactorPill, Table, type TableProps, TableRowControl } from 'components';
+import {
+  HealthFactorPill,
+  Icon,
+  SpokeWhitelistMarker,
+  Table,
+  type TableProps,
+  TableRowControl,
+} from 'components';
 import { routes } from 'constants/routing';
 import { SpokeFormModal } from 'containers/SpokeFormModal';
+import { SpokePoolInfoModal } from 'containers/SpokePoolInfoModal';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset, SpokePool } from 'types';
 
@@ -28,6 +36,7 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
     !!spokePool.userSupplyBalanceCents?.isGreaterThan(0) ||
     !!spokePool.userBorrowBalanceCents?.isGreaterThan(0);
   const [selectedAsset, setSelectedAsset] = useState<SpokeAsset>();
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
   const getRowHref = (asset: SpokeAsset) =>
     routes.spokeMarket.path
@@ -61,7 +70,29 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
         header={
           <div className="flex items-start justify-between gap-x-4">
             <div>
-              <p className="text-p2s">{spokePool.name}</p>
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <p className="text-p2s">{spokePool.name}</p>
+
+                {spokePool.infoTags.length > 0 && (
+                  <button
+                    type="button"
+                    aria-label={t('spokePoolInfo.button', { poolName: spokePool.name })}
+                    onClick={() => setIsInfoModalOpen(true)}
+                    className="inline-flex size-8 items-center justify-center rounded-full text-secondary hover:text-brand"
+                  >
+                    <Icon name="info" className="size-4 text-inherit" />
+                  </button>
+                )}
+
+                {spokePool.hasWhitelist && (
+                  <SpokeWhitelistMarker
+                    level="pool"
+                    comptrollerAddress={spokePool.comptrollerAddress}
+                    isUserWhitelisted={spokePool.isUserWhitelisted}
+                  />
+                )}
+              </div>
+
               <p className="text-b1r text-secondary">{spokePool.description}</p>
             </div>
 
@@ -71,6 +102,12 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
           </div>
         }
         {...otherProps}
+      />
+
+      <SpokePoolInfoModal
+        spokePool={spokePool}
+        isOpen={isInfoModalOpen}
+        handleClose={() => setIsInfoModalOpen(false)}
       />
 
       {selectedAsset && (

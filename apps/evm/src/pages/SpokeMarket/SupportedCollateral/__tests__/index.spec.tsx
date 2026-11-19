@@ -14,6 +14,7 @@ vi.mock('components/ProtectionModeIndicator', () => ({
 
 const collaterals = spokePools[0].assets.filter(({ isBorrowable }) => !isBorrowable);
 const [collateral] = collaterals;
+const fakeComptrollerAddress = '0xA73D31939c936d07fA0FD15b3d86C0fe2a72c282';
 
 describe('SupportedCollateral', () => {
   it('marks a protected collateral', () => {
@@ -21,6 +22,7 @@ describe('SupportedCollateral', () => {
       <SupportedCollateral
         collaterals={[{ ...collateral, isProtectionModeEnabled: true }]}
         onRowClick={vi.fn()}
+        comptrollerAddress={fakeComptrollerAddress}
       />,
     );
 
@@ -30,7 +32,13 @@ describe('SupportedCollateral', () => {
   });
 
   it('does not mark a collateral that is not protected', () => {
-    renderComponent(<SupportedCollateral collaterals={collaterals} onRowClick={vi.fn()} />);
+    renderComponent(
+      <SupportedCollateral
+        collaterals={collaterals}
+        onRowClick={vi.fn()}
+        comptrollerAddress={fakeComptrollerAddress}
+      />,
+    );
 
     expect(screen.queryByText(/^protected-/)).not.toBeInTheDocument();
   });
@@ -56,6 +64,7 @@ describe('SupportedCollateral', () => {
           makeCollateral('DDD', '0x0000000000000000000000000000000000000004', 500),
         ]}
         onRowClick={vi.fn()}
+        comptrollerAddress={fakeComptrollerAddress}
       />,
     );
 

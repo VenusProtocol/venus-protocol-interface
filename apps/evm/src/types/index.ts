@@ -270,17 +270,35 @@ export interface Pool {
   userEModeGroup?: EModeGroup;
 }
 
+export type LocalizedText = Record<string, string>;
+
+export interface SpokePoolInfoTag {
+  title?: LocalizedText;
+  content: LocalizedText;
+  url?: string;
+  urlLabel?: LocalizedText;
+}
+
 export interface SpokeAsset extends Asset {
   borrowRatePerBlockMantissa: BigNumber;
   isSuppliable: boolean;
   isInactive: boolean;
   isParticipantCountUnavailable: boolean;
+  // Collateral market with its supply allowlist turned on
+  hasWhitelist: boolean;
+  // Connected wallet is on this market's supply allowlist
+  isUserWhitelisted: boolean;
 }
 
 export interface SpokePool extends Omit<Pool, 'assets'> {
   description: string;
   isUserDataUnavailable: boolean;
   assets: SpokeAsset[];
+  infoTags: SpokePoolInfoTag[];
+  // Every collateral market of the pool has its supply allowlist turned on
+  hasWhitelist: boolean;
+  // Connected wallet is on the allowlist of at least one collateral market
+  isUserWhitelisted: boolean;
 }
 
 export interface LiquidityHubSourceCollateral {
