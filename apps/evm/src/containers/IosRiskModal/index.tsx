@@ -1,14 +1,13 @@
 import { useEffect, useId, useRef, useState } from 'react';
 
 import { Button, ButtonWrapper, Icon, Modal, Notice, TextField } from 'components';
+import { IOS_RISK_CONFIRM_PHRASE, IOS_UPDATE_GUIDE_URL } from 'constants/iosRisk';
 import { useInterfaceMode } from 'hooks/useInterfaceMode';
 import { useIosRiskModal } from 'hooks/useIosRiskModal';
 import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
-import { IOS_RISK_CONFIRM_PHRASE, getIosBrowserName, isIosRiskPhraseMatch } from 'utilities';
-
-export const IOS_UPDATE_GUIDE_URL = 'https://support.apple.com/118575';
+import { getIosBrowserName, isIosRiskPhraseMatch } from 'utilities';
 
 const IosRiskModal: React.FC = () => {
   const { t, Trans } = useTranslation();
@@ -19,18 +18,18 @@ const IosRiskModal: React.FC = () => {
   const inputId = useId();
   const [value, setValue] = useState('');
   const [isTouched, setIsTouched] = useState(false);
-  const openedAtRef = useRef<number | undefined>(undefined);
+  const openedAtMsRef = useRef<number | undefined>(undefined);
   const hasTrackedDetectFailedRef = useRef(false);
 
   const isMatch = isIosRiskPhraseMatch(value);
   const hasError = isTouched && !isMatch;
 
   useEffect(() => {
-    if (!isOpen || !risk || openedAtRef.current !== undefined) {
+    if (!isOpen || !risk || openedAtMsRef.current !== undefined) {
       return;
     }
 
-    openedAtRef.current = Date.now();
+    openedAtMsRef.current = Date.now();
 
     captureAnalyticEvent('ios_risk_popup_shown', {
       kit: risk.kit,
@@ -79,7 +78,7 @@ const IosRiskModal: React.FC = () => {
     captureAnalyticEvent('ios_risk_acknowledged', {
       kit: risk.kit,
       ios_version: risk.version,
-      time_to_ack_ms: Date.now() - (openedAtRef.current ?? Date.now()),
+      time_to_ack_ms: Date.now() - (openedAtMsRef.current ?? Date.now()),
     });
 
     acknowledge();

@@ -1,28 +1,10 @@
 import { create } from 'zustand';
 
-import { type IosRisk, getIosRisk } from 'utilities/getIosRisk';
+import { IOS_RISK_ACK_STORAGE_KEY } from 'constants/iosRisk';
+import type { IosRisk } from 'types';
 
-export const IOS_RISK_ACK_STORAGE_KEY = 'venus-ios-risk-ack';
-
-const detectIosRisk = (): IosRisk | undefined => {
-  if (typeof window === 'undefined') {
-    return undefined;
-  }
-
-  return getIosRisk({
-    userAgent: window.navigator.userAgent,
-    maxTouchPoints: window.navigator.maxTouchPoints ?? 0,
-    supportsWebKit26: !!window.CSS?.supports?.('anchor-name', '--x'),
-  });
-};
-
-const readAcknowledgedVersion = () => {
-  try {
-    return window.sessionStorage.getItem(IOS_RISK_ACK_STORAGE_KEY);
-  } catch {
-    return null;
-  }
-};
+import { detectIosRisk } from './detectIosRisk';
+import { readAcknowledgedVersion } from './readAcknowledgedVersion';
 
 interface State {
   risk?: IosRisk;

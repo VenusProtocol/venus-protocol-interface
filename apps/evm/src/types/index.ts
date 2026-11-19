@@ -1152,3 +1152,25 @@ export enum TransactionPoolType {
   Core = 'core',
   Spoke = 'spoke',
 }
+
+export type IosExploitKit = 'Coruna' | 'DarkSword';
+
+export type IosVersionParts = [number, number, number];
+
+export interface IosAffectedRange {
+  kit: IosExploitKit;
+  from: IosVersionParts;
+  to: IosVersionParts;
+  fromLabel: string;
+  toLabel: string;
+}
+
+export type IosRisk =
+  | {
+      status: 'affected';
+      kit: IosExploitKit;
+      version: string;
+      from: string;
+      to: string;
+    }
+  | { status: 'unreadable' };

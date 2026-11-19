@@ -1,14 +1,15 @@
 import { fireEvent, screen } from '@testing-library/react';
 import type { Mock } from 'vitest';
 
+import { IOS_RISK_ACK_STORAGE_KEY, IOS_UPDATE_GUIDE_URL } from 'constants/iosRisk';
 import { useIosRiskModal } from 'hooks/useIosRiskModal';
-import { IOS_RISK_ACK_STORAGE_KEY, useStore } from 'hooks/useIosRiskModal/store';
+import { useStore } from 'hooks/useIosRiskModal/store';
 import { type UseIsFeatureEnabledInput, useIsFeatureEnabled } from 'hooks/useIsFeatureEnabled';
 import { useAnalytics } from 'libs/analytics';
 import { en } from 'libs/translations';
 import { renderComponent, renderHook } from 'testUtils/render';
 
-import IosRiskModal, { IOS_UPDATE_GUIDE_URL } from '..';
+import IosRiskModal from '..';
 
 const risk = {
   status: 'affected' as const,

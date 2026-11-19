@@ -34,6 +34,8 @@ export { default as getUniqueTokenBalances } from './getUniqueTokenBalances';
 export * from './generateTransactionDeadline';
 export * from './getDisabledTokenActions';
 export * from './getIosRisk';
+export * from './getIosBrowserName';
+export * from './isIosRiskPhraseMatch';
 export * from './isAssetPaused';
 export * from './restService';
 export * from './formatTokensToReadableValue';

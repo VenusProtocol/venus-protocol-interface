@@ -1,5 +1,4 @@
-import type { ChainId, ImportableProtocol } from 'types';
-import type { IosExploitKit } from 'utilities/getIosRisk';
+import type { ChainId, ImportableProtocol, IosExploitKit } from 'types';
 import type { Address } from 'viem';
 
 // These props are automatically set with every event, but we allow individual events to override
