@@ -1,5 +1,11 @@
 # @venusprotocol/chains
 
+## 0.33.2
+
+### Patch Changes
+
+- 51dd5ac: add the ctBTC token and its icon
+
 ## 0.33.1
 
 ### Patch Changes

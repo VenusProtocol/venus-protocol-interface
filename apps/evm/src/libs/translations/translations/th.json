@@ -514,6 +514,7 @@
       "allCategories": "ทุกหมวดหมู่",
       "nCategories_other": "{{count}} หมวดหมู่",
       "reset": "รีเซ็ต",
+      "search": "ค้นหาหมวดหมู่",
       "title": "เลือกหมวดหมู่"
     },
     "pausedAssetsToggle": {
@@ -1101,6 +1102,7 @@
       "reset": "รีเซ็ต",
       "searchAsset": "ค้นหาสินทรัพย์",
       "searchAssetAriaLabel": "ค้นหาสินทรัพย์",
+      "searchCategory": "ค้นหาหมวดหมู่",
       "searchCollateral": "ค้นหาหลักประกัน",
       "searchCollateralAriaLabel": "ค้นหาหลักประกัน"
     },
@@ -1452,6 +1454,10 @@
     "search": {
       "placeholder": "ค้นหาสินทรัพย์"
     }
+  },
+  "multiSelect": {
+    "clearSearch": "ล้างการค้นหา",
+    "noResults": "ไม่พบผลลัพธ์"
   },
   "noResults": {
     "resetFilters": "รีเซ็ตตัวกรอง"
@@ -2052,6 +2058,10 @@
       "title": "หลักประกันที่รองรับ"
     }
   },
+  "spokePoolInfo": {
+    "button": "เกี่ยวกับ {{poolName}}",
+    "learnMore": "เรียนรู้เพิ่มเติม"
+  },
   "spokePools": {
     "description": "ยืมสินทรัพย์โดยใช้หลักประกันที่คุณฝากไว้ในตลาดเฉพาะ",
     "filter": {
@@ -2066,7 +2076,10 @@
       "nPools_one": "{{count}} พูล",
       "nPools_other": "{{count}} พูล",
       "reset": "รีเซ็ต",
+      "searchCollaterals": "ค้นหาหลักประกัน",
+      "searchLoanAssets": "ค้นหาสินทรัพย์ที่ยืม",
       "searchPlaceholder": "ค้นหาสินทรัพย์",
+      "searchPools": "ค้นหาพูล",
       "selectCollaterals": "เลือกหลักประกัน",
       "selectLoanAssets": "เลือกสินทรัพย์กู้",
       "selectPools": "เลือกพูล"
@@ -2095,6 +2108,18 @@
         "totalBorrow": "ยอดกู้รวม"
       }
     }
+  },
+  "spokeWhitelist": {
+    "asset": {
+      "description": "มีเพียงที่อยู่ในไวท์ลิสต์เท่านั้นที่สามารถจัดหาหลักประกันนี้ได้",
+      "userWhitelisted": "คุณอยู่ในไวท์ลิสต์"
+    },
+    "label": "ไวท์ลิสต์",
+    "pool": {
+      "description": "มีเพียงที่อยู่ในไวท์ลิสต์เท่านั้นที่สามารถจัดหาและยืมจากพูลนี้ได้",
+      "userWhitelisted": "คุณมีสิทธิ์ยืมจากพูลนี้"
+    },
+    "viewOnChain": "ดูไวท์ลิสต์บนเชน"
   },
   "statsPage": {
     "illustrationAlt": "ภาพประกอบสถิติ",
@@ -2568,6 +2593,9 @@
       "refund": "คืนเงิน",
       "repaying": "กำลังชำระคืน",
       "reset": "รีเซ็ต",
+      "searchCategories": "ค้นหาหมวดหมู่",
+      "searchStates": "ค้นหาสถานะ",
+      "searchVenues": "ค้นหาแพลตฟอร์ม",
       "selectCategories": "เลือกหมวดหมู่",
       "selectStates": "เลือกสถานะ",
       "selectVenues": "เลือกแพลตฟอร์ม"

@@ -208,6 +208,12 @@ export const TokenListWrapper: React.FC<TokenListWrapperProps> = ({
                       )}
                   </div>
                 ))}
+
+                {!!searchValue && filteredTokenBalances.length === 0 && (
+                  <div className="flex h-12 items-center px-3">
+                    <span className="text-b1r text-secondary">{t('multiSelect.noResults')}</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>

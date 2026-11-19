@@ -514,6 +514,7 @@
       "allCategories": "Tất cả danh mục",
       "nCategories_other": "{{count}} danh mục",
       "reset": "Đặt lại",
+      "search": "Tìm danh mục",
       "title": "Chọn danh mục"
     },
     "pausedAssetsToggle": {
@@ -1101,6 +1102,7 @@
       "reset": "Đặt lại",
       "searchAsset": "Tìm tài sản",
       "searchAssetAriaLabel": "Tìm tài sản",
+      "searchCategory": "Tìm danh mục",
       "searchCollateral": "Tìm tài sản thế chấp",
       "searchCollateralAriaLabel": "Tìm tài sản thế chấp"
     },
@@ -1452,6 +1454,10 @@
     "search": {
       "placeholder": "Tìm tài sản"
     }
+  },
+  "multiSelect": {
+    "clearSearch": "Xóa tìm kiếm",
+    "noResults": "Không tìm thấy kết quả"
   },
   "noResults": {
     "resetFilters": "Đặt lại bộ lọc"
@@ -2052,6 +2058,10 @@
       "title": "Tài sản thế chấp được hỗ trợ"
     }
   },
+  "spokePoolInfo": {
+    "button": "Giới thiệu {{poolName}}",
+    "learnMore": "Tìm hiểu thêm"
+  },
   "spokePools": {
     "description": "Vay tài sản bằng tài sản thế chấp bạn đã cung cấp trong các thị trường chuyên biệt.",
     "filter": {
@@ -2066,7 +2076,10 @@
       "nPools_one": "{{count}} nhóm",
       "nPools_other": "{{count}} nhóm",
       "reset": "Đặt lại",
+      "searchCollaterals": "Tìm tài sản thế chấp",
+      "searchLoanAssets": "Tìm tài sản vay",
       "searchPlaceholder": "Tìm tài sản",
+      "searchPools": "Tìm pool",
       "selectCollaterals": "Chọn tài sản thế chấp",
       "selectLoanAssets": "Chọn tài sản vay",
       "selectPools": "Chọn nhóm"
@@ -2095,6 +2108,18 @@
         "totalBorrow": "Tổng vay"
       }
     }
+  },
+  "spokeWhitelist": {
+    "asset": {
+      "description": "Chỉ các địa chỉ trong danh sách trắng mới có thể cung cấp tài sản thế chấp này.",
+      "userWhitelisted": "Bạn có trong danh sách trắng."
+    },
+    "label": "Danh sách trắng",
+    "pool": {
+      "description": "Chỉ các địa chỉ trong danh sách trắng mới có thể cung cấp và vay từ pool này.",
+      "userWhitelisted": "Bạn đủ điều kiện vay từ pool này."
+    },
+    "viewOnChain": "Xem danh sách trắng trên chain"
   },
   "statsPage": {
     "illustrationAlt": "Hình minh họa thống kê",
@@ -2568,6 +2593,9 @@
       "refund": "Hoàn tiền",
       "repaying": "Đang trả nợ",
       "reset": "Đặt lại",
+      "searchCategories": "Tìm danh mục",
+      "searchStates": "Tìm trạng thái",
+      "searchVenues": "Tìm nền tảng",
       "selectCategories": "Chọn danh mục",
       "selectStates": "Chọn trạng thái",
       "selectVenues": "Chọn nền tảng"

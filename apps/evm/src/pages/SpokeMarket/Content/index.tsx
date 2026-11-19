@@ -54,7 +54,11 @@ export const Content: React.FC<ContentProps> = ({ spokePool, asset }) => {
           <div className="space-y-6">
             <BorrowInfo asset={asset} />
 
-            <SupportedCollateral collaterals={collaterals} onRowClick={handleCollateralRowClick} />
+            <SupportedCollateral
+              collaterals={collaterals}
+              onRowClick={handleCollateralRowClick}
+              comptrollerAddress={spokePool.comptrollerAddress}
+            />
 
             <InterestRateChart asset={asset} isIsolatedPoolMarket />
 

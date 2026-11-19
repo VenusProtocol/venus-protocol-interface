@@ -11,6 +11,7 @@ export interface FiltersProps {
   onSelectedValuesChange: (values: string[]) => void;
   optionsPlaceholder: string;
   optionsTitle: string;
+  optionsSearchPlaceholder: string;
   renderOptionCount: (count: number) => string;
 }
 
@@ -24,6 +25,7 @@ export const Filters: React.FC<FiltersProps> = ({
   onSelectedValuesChange,
   optionsPlaceholder,
   optionsTitle,
+  optionsSearchPlaceholder,
   renderOptionCount,
 }) => {
   const { t } = useTranslation();
@@ -48,6 +50,8 @@ export const Filters: React.FC<FiltersProps> = ({
         placeholder={optionsPlaceholder}
         title={optionsTitle}
         resetLabel={t('lite.filters.reset')}
+        searchPlaceholder={optionsSearchPlaceholder}
+        noResultsLabel={t('multiSelect.noResults')}
         renderCount={renderOptionCount}
         size="xs"
         className="w-full min-w-0 shrink-0 sm:w-45"

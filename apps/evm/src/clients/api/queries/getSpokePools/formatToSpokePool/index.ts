@@ -3,6 +3,7 @@ import { addUserBorrowLimitShares, areAddressesEqual, calculateUserPoolValues } 
 
 import { formatToSpokeAsset } from '../formatToSpokeAsset';
 import type { ApiSpokePool, ApiSpokeToken, SpokeUserPosition } from '../types';
+import { formatToSpokePoolInfoTags } from './formatToSpokePoolInfoTags';
 
 export interface FormatToSpokePoolInput {
   apiPool: ApiSpokePool;
@@ -13,6 +14,7 @@ export interface FormatToSpokePoolInput {
   userPositions: SpokeUserPosition[];
   userTokenBalances: TokenBalance[];
   apiTokens: ApiSpokeToken[];
+  supplyAllowlistStatus?: Record<string, boolean>;
 }
 
 export const formatToSpokePool = ({
@@ -24,6 +26,7 @@ export const formatToSpokePool = ({
   userPositions,
   userTokenBalances,
   apiTokens,
+  supplyAllowlistStatus = {},
 }: FormatToSpokePoolInput): SpokePool => {
   const assets = apiPool.markets.reduce<SpokeAsset[]>((acc, apiMarket) => {
     const spokeAsset = formatToSpokeAsset({
@@ -48,6 +51,7 @@ export const formatToSpokePool = ({
         areAddressesEqual(position.vTokenAddress, apiMarket.address),
       ),
       userTokenBalances,
+      isUserWhitelisted: !!supplyAllowlistStatus[apiMarket.address.toLowerCase()],
     });
 
     return spokeAsset ? [...acc, spokeAsset] : acc;
@@ -60,6 +64,10 @@ export const formatToSpokePool = ({
     userBorrowLimitCents: userPoolValues.userBorrowLimitCents,
   });
 
+  const collateralMarkets = apiPool.markets.filter(
+    apiMarket => apiMarket.isListed && apiMarket.side === 'collateral',
+  );
+
   const spokePool: SpokePool = {
     ...userPoolValues,
     comptrollerAddress: apiPool.address,
@@ -69,6 +77,11 @@ export const formatToSpokePool = ({
     isIsolated: true,
     eModeGroups: [],
     assets: assetsWithShares,
+    infoTags: formatToSpokePoolInfoTags(apiPool.tags),
+    hasWhitelist:
+      collateralMarkets.length > 0 &&
+      collateralMarkets.every(apiMarket => apiMarket.supplyAllowlistEnabled),
+    isUserWhitelisted: assetsWithShares.some(asset => asset.isUserWhitelisted),
   };
 
   return spokePool;
