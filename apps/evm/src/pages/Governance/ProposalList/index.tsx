@@ -13,6 +13,7 @@ import {
 import {
   ErrorState,
   InfoIcon,
+  NoResults,
   Pagination,
   Select,
   type SelectOption,
@@ -266,6 +267,22 @@ const ProposalList: React.FC<ProposalListPageProps> = ({
           }}
         />
       )}
+
+      {!isFetchingProposals &&
+        !proposalsError &&
+        proposals.length === 0 &&
+        (!!searchValue || selectedProposalState !== PROPOSAL_STATE_ALL_OPTION_VALUE) && (
+          <NoResults
+            iconName="vote"
+            title={t('vote.noResults')}
+            onReset={() =>
+              updateFilters({
+                search: '',
+                proposalState: PROPOSAL_STATE_ALL_OPTION_VALUE,
+              })
+            }
+          />
+        )}
 
       <div className="space-y-4 md:space-y-6">
         {proposals.map(proposalPreview => (

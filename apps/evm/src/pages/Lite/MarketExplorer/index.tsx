@@ -140,6 +140,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       onSelectedValuesChange={setSelectedCategories}
       optionsPlaceholder={t('lite.filters.allCategories')}
       optionsTitle={t('lite.filters.category')}
+      optionsSearchPlaceholder={t('lite.filters.searchCategory')}
       renderOptionCount={count => t('lite.filters.categoryCount', { count })}
     />
   );
@@ -173,6 +174,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       onSelectedValuesChange={setSelectedCollaterals}
       optionsPlaceholder={t('spokePools.filter.allCollaterals')}
       optionsTitle={t('lite.columns.collateral')}
+      optionsSearchPlaceholder={t('lite.filters.searchCollateral')}
       renderOptionCount={count => t('spokePools.filter.nCollaterals', { count })}
     />
   );
@@ -235,7 +237,6 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
           isReady={isEarnReady}
           onSelect={earnAsset => selectAsset(earnAsset.token.symbol)}
           header={header}
-          searchValue={searchValue}
           onClearFilters={clearFilters}
         />
       )}
@@ -255,7 +256,6 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
           isReady={isBorrowReady}
           onSelect={borrowAsset => selectAsset(borrowAsset.token.symbol)}
           header={header}
-          searchValue={searchValue}
           onClearFilters={clearFilters}
         />
       )}
@@ -268,7 +268,6 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
           onSelectCollateral={setSelectedCollateral}
           onSelectCoreCollateral={setSelectedCoreCollateral}
           header={header}
-          searchValue={collateralSearchValue}
           onClearFilters={clearCollateralFilters}
         />
       )}

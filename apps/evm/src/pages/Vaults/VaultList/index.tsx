@@ -1,6 +1,7 @@
 import {
   InfoIcon,
   MultiSelect,
+  NoResults,
   Pagination,
   TextField,
   type TextFieldProps,
@@ -15,7 +16,6 @@ import { useTranslation } from 'libs/translations';
 import { type FC, type HTMLAttributes, useId, useState } from 'react';
 import type { Vault } from 'types';
 
-import { NoResults } from './NoResults';
 import { useFilterOptions } from './hooks/useFilterOptions';
 import { isVaultArchived } from './isVaultArchived';
 
@@ -115,6 +115,8 @@ export const VaultList: FC<VaultListProps> = ({
               renderCount={count => t('vault.filter.nCategories', { count })}
               title={t('vault.filter.selectCategories')}
               resetLabel={t('vault.filter.reset')}
+              searchPlaceholder={t('vault.filter.searchCategories')}
+              noResultsLabel={t('multiSelect.noResults')}
               size="xs"
             />
             <MultiSelect
@@ -126,6 +128,8 @@ export const VaultList: FC<VaultListProps> = ({
               renderCount={count => t('vault.filter.nVenues', { count })}
               title={t('vault.filter.selectVenues')}
               resetLabel={t('vault.filter.reset')}
+              searchPlaceholder={t('vault.filter.searchVenues')}
+              noResultsLabel={t('multiSelect.noResults')}
               size="xs"
             />
             <MultiSelect
@@ -137,6 +141,8 @@ export const VaultList: FC<VaultListProps> = ({
               renderCount={count => t('vault.filter.nStates', { count })}
               title={t('vault.filter.selectStates')}
               resetLabel={t('vault.filter.reset')}
+              searchPlaceholder={t('vault.filter.searchStates')}
+              noResultsLabel={t('multiSelect.noResults')}
               size="xs"
             />
           </div>
@@ -161,7 +167,7 @@ export const VaultList: FC<VaultListProps> = ({
       </div>
 
       {filteredVaults.length === 0 ? (
-        <NoResults onReset={handleResetAll} />
+        <NoResults iconName="vault" title={t('vault.filter.noResults')} onReset={handleResetAll} />
       ) : (
         <>
           <div

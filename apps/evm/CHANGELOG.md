@@ -1,5 +1,38 @@
 # @venusprotocol/evm
 
+## 5.46.8
+
+### Patch Changes
+
+- 462afe3: show info tags in the Spoke pool info modal, and show whitelist markers on Spoke pools and assets whose supply is restricted to whitelisted addresses
+
+## 5.46.7
+
+### Patch Changes
+
+- 39563ea: add search and scrolling to multi-select filters with more than six options
+
+## 5.46.6
+
+### Patch Changes
+
+- 51dd5ac: show the LTP logo and website on its vaults
+- Updated dependencies [51dd5ac]
+  - @venusprotocol/chains@0.33.2
+
+## 5.46.5
+
+### Patch Changes
+
+- c63c778: use one "No results" state with a reset filters button on every filterable list (Core markets, E-mode, Isolation mode, Liquidity Hubs, Spoke pools, Vaults, Governance and the Lite market explorer)
+- c63c778: show an empty state on the Liquidity Hub table when no hub matches the search or the "My assets only" filter, and drop the card background behind the Venus Core summary on the Dashboard
+
+## 5.46.4
+
+### Patch Changes
+
+- 1ef4ec8: show the dashboard link in the desktop top bar for connected users
+
 ## 5.46.3
 
 ### Patch Changes

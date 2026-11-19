@@ -514,6 +514,7 @@
       "allCategories": "全部類別",
       "nCategories_other": "{{count}} 個類別",
       "reset": "重置",
+      "search": "搜尋類別",
       "title": "選擇類別"
     },
     "pausedAssetsToggle": {
@@ -822,6 +823,9 @@
       "borrow": {
         "label": "借款"
       },
+      "dashboard": {
+        "label": "儀表盤"
+      },
       "earn": {
         "label": "賺取"
       },
@@ -1056,6 +1060,7 @@
         "supplyApy": "供應 APY",
         "totalSupply": "總供應量"
       },
+      "noResults": "沒有符合篩選條件的 Hub",
       "search": {
         "placeholder": "搜尋資產"
       }
@@ -1096,6 +1101,7 @@
       "reset": "重置",
       "searchAsset": "搜尋資產",
       "searchAssetAriaLabel": "搜尋資產",
+      "searchCategory": "搜尋類別",
       "searchCollateral": "搜尋抵押品",
       "searchCollateralAriaLabel": "搜尋抵押品"
     },
@@ -1111,14 +1117,11 @@
       "label": "市場模式"
     },
     "placeholders": {
-      "clearSearch": "清除搜尋",
       "noAssets": "找不到資產",
       "noBorrowableAssets": "沒有可借款的資產",
-      "noMarkets": "沒有符合目前篩選條件的市場",
-      "noResults": "找不到「{{query}}」的結果",
+      "noMarkets": "未找到市場",
+      "noMatchingMarkets": "沒有符合篩選條件的市場",
       "refresh": "請重新整理後再試。",
-      "tryAnotherCollateral": "請換個抵押品試試，或清除搜尋。",
-      "tryAnotherSymbol": "請換個代號試試，或清除搜尋。",
       "unavailable": "市場資料暫時無法取得"
     },
     "planets": {
@@ -1379,6 +1382,7 @@
             "threshold": "閾值"
           },
           "mobileSelectLabel": "排序：",
+          "noResults": "沒有符合篩選條件的分組",
           "searchPlaceholder": "搜尋資產或組"
         }
       },
@@ -1439,6 +1443,7 @@
       "borrowApy": "借款 APY 為正表示你需要支付利息，為負表示你將獲得利息",
       "supplyApy": "供應 APY 為正表示你將獲得利息，為負表示你需要支付利息"
     },
+    "noResults": "沒有符合篩選條件的市場",
     "pausedAssetsPlaceholder": {
       "description": "請啟用“已暫停資產”開關以查看。",
       "imgAlt": "暫停圖標",
@@ -1448,6 +1453,13 @@
     "search": {
       "placeholder": "搜尋資產"
     }
+  },
+  "multiSelect": {
+    "clearSearch": "清除搜尋",
+    "noResults": "無符合結果"
+  },
+  "noResults": {
+    "resetFilters": "重設篩選"
   },
   "pagination": {
     "currentPage": "當前頁",
@@ -2045,6 +2057,10 @@
       "title": "支援的抵押品"
     }
   },
+  "spokePoolInfo": {
+    "button": "關於 {{poolName}}",
+    "learnMore": "瞭解更多"
+  },
   "spokePools": {
     "description": "使用您在專屬市場中提供的抵押品借出資產。",
     "filter": {
@@ -2055,12 +2071,14 @@
       "nCollaterals_other": "{{count}} 個抵押品",
       "nLoanAssets_one": "{{count}} 個借貸資產",
       "nLoanAssets_other": "{{count}} 個借貸資產",
-      "noResults": "沒有符合篩選條件的市場",
+      "noResults": "沒有符合篩選條件的池",
       "nPools_one": "{{count}} 個資金池",
       "nPools_other": "{{count}} 個資金池",
       "reset": "重設",
-      "resetFilters": "重設篩選",
+      "searchCollaterals": "搜尋抵押品",
+      "searchLoanAssets": "搜尋借貸資產",
       "searchPlaceholder": "搜尋資產",
+      "searchPools": "搜尋資金池",
       "selectCollaterals": "選擇抵押品",
       "selectLoanAssets": "選擇借貸資產",
       "selectPools": "選擇資金池"
@@ -2089,6 +2107,18 @@
         "totalBorrow": "總借款"
       }
     }
+  },
+  "spokeWhitelist": {
+    "asset": {
+      "description": "只有白名單地址可以提供此抵押品。",
+      "userWhitelisted": "您在白名單中。"
+    },
+    "label": "白名單",
+    "pool": {
+      "description": "只有白名單地址可以向此池供應和借款。",
+      "userWhitelisted": "您有資格從此池借款。"
+    },
+    "viewOnChain": "在鏈上查看白名單"
   },
   "statsPage": {
     "illustrationAlt": "統計插圖",
@@ -2562,7 +2592,9 @@
       "refund": "退款",
       "repaying": "還款中",
       "reset": "重置",
-      "resetFilters": "重置篩選",
+      "searchCategories": "搜尋類別",
+      "searchStates": "搜尋狀態",
+      "searchVenues": "搜尋平台",
       "selectCategories": "選擇類別",
       "selectStates": "選擇狀態",
       "selectVenues": "選擇平台"
@@ -2767,6 +2799,7 @@
       "message": "提案獲取失敗"
     },
     "for": "贊成",
+    "noResults": "沒有符合篩選條件的提案",
     "omnichain": {
       "switchToBnb": "切換到 BNB Chain",
       "votingOnlyEnabledOnBnb": "投票僅在 BNB Chain 上可用"

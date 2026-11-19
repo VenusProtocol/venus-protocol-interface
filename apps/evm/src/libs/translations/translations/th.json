@@ -514,6 +514,7 @@
       "allCategories": "ทุกหมวดหมู่",
       "nCategories_other": "{{count}} หมวดหมู่",
       "reset": "รีเซ็ต",
+      "search": "ค้นหาหมวดหมู่",
       "title": "เลือกหมวดหมู่"
     },
     "pausedAssetsToggle": {
@@ -822,6 +823,9 @@
       "borrow": {
         "label": "ยืม"
       },
+      "dashboard": {
+        "label": "แดชบอร์ด"
+      },
       "earn": {
         "label": "รับผลตอบแทน"
       },
@@ -1056,6 +1060,7 @@
         "supplyApy": "ซัพพลาย APY",
         "totalSupply": "ยอดฝากรวม"
       },
+      "noResults": "ไม่มีฮับที่ตรงกับตัวกรองของคุณ",
       "search": {
         "placeholder": "ค้นหาสินทรัพย์"
       }
@@ -1096,6 +1101,7 @@
       "reset": "รีเซ็ต",
       "searchAsset": "ค้นหาสินทรัพย์",
       "searchAssetAriaLabel": "ค้นหาสินทรัพย์",
+      "searchCategory": "ค้นหาหมวดหมู่",
       "searchCollateral": "ค้นหาหลักประกัน",
       "searchCollateralAriaLabel": "ค้นหาหลักประกัน"
     },
@@ -1111,14 +1117,11 @@
       "label": "โหมดตลาด"
     },
     "placeholders": {
-      "clearSearch": "ล้างการค้นหา",
       "noAssets": "ไม่พบสินทรัพย์",
       "noBorrowableAssets": "ไม่พบสินทรัพย์ที่ยืมได้",
-      "noMarkets": "ไม่มีตลาดที่ตรงกับตัวกรองเหล่านี้",
-      "noResults": "ไม่พบผลลัพธ์สำหรับ \"{{query}}\"",
+      "noMarkets": "ไม่พบตลาด",
+      "noMatchingMarkets": "ไม่มีตลาดที่ตรงกับตัวกรองของคุณ",
       "refresh": "กรุณารีเฟรชแล้วลองใหม่อีกครั้ง",
-      "tryAnotherCollateral": "ลองใช้หลักประกันอื่น หรือล้างการค้นหา",
-      "tryAnotherSymbol": "ลองค้นหาด้วยสัญลักษณ์อื่น หรือล้างการค้นหา",
       "unavailable": "ไม่สามารถโหลดข้อมูลตลาดได้"
     },
     "planets": {
@@ -1379,6 +1382,7 @@
             "threshold": "เกณฑ์"
           },
           "mobileSelectLabel": "เรียงตาม:",
+          "noResults": "ไม่มีกลุ่มที่ตรงกับตัวกรองของคุณ",
           "searchPlaceholder": "ค้นหาสินทรัพย์หรือกลุ่ม"
         }
       },
@@ -1439,6 +1443,7 @@
       "borrowApy": "APY การยืมเป็นบวกหมายถึงคุณต้องจ่ายดอกเบี้ย และถ้าเป็นลบหมายถึงคุณจะได้รับดอกเบี้ย",
       "supplyApy": "APY การฝากเป็นบวกหมายถึงคุณจะได้รับดอกเบี้ย และถ้าเป็นลบหมายถึงคุณต้องจ่ายดอกเบี้ย"
     },
+    "noResults": "ไม่มีตลาดที่ตรงกับตัวกรองของคุณ",
     "pausedAssetsPlaceholder": {
       "description": "โปรดเปิดสวิตช์ \"สินทรัพย์ที่หยุดไว้\" เพื่อดู",
       "imgAlt": "ไอคอนหยุด",
@@ -1448,6 +1453,13 @@
     "search": {
       "placeholder": "ค้นหาสินทรัพย์"
     }
+  },
+  "multiSelect": {
+    "clearSearch": "ล้างการค้นหา",
+    "noResults": "ไม่พบผลลัพธ์"
+  },
+  "noResults": {
+    "resetFilters": "รีเซ็ตตัวกรอง"
   },
   "pagination": {
     "currentPage": "หน้าปัจจุบัน",
@@ -2045,6 +2057,10 @@
       "title": "หลักประกันที่รองรับ"
     }
   },
+  "spokePoolInfo": {
+    "button": "เกี่ยวกับ {{poolName}}",
+    "learnMore": "เรียนรู้เพิ่มเติม"
+  },
   "spokePools": {
     "description": "ยืมสินทรัพย์โดยใช้หลักประกันที่คุณฝากไว้ในตลาดเฉพาะ",
     "filter": {
@@ -2055,12 +2071,14 @@
       "nCollaterals_other": "{{count}} หลักประกัน",
       "nLoanAssets_one": "{{count}} สินทรัพย์กู้",
       "nLoanAssets_other": "{{count}} สินทรัพย์กู้",
-      "noResults": "ไม่มีตลาดที่ตรงกับตัวกรองของคุณ",
+      "noResults": "ไม่มีพูลที่ตรงกับตัวกรองของคุณ",
       "nPools_one": "{{count}} พูล",
       "nPools_other": "{{count}} พูล",
       "reset": "รีเซ็ต",
-      "resetFilters": "รีเซ็ตตัวกรอง",
+      "searchCollaterals": "ค้นหาหลักประกัน",
+      "searchLoanAssets": "ค้นหาสินทรัพย์ที่ยืม",
       "searchPlaceholder": "ค้นหาสินทรัพย์",
+      "searchPools": "ค้นหาพูล",
       "selectCollaterals": "เลือกหลักประกัน",
       "selectLoanAssets": "เลือกสินทรัพย์กู้",
       "selectPools": "เลือกพูล"
@@ -2089,6 +2107,18 @@
         "totalBorrow": "ยอดกู้รวม"
       }
     }
+  },
+  "spokeWhitelist": {
+    "asset": {
+      "description": "มีเพียงที่อยู่ในไวท์ลิสต์เท่านั้นที่สามารถจัดหาหลักประกันนี้ได้",
+      "userWhitelisted": "คุณอยู่ในไวท์ลิสต์"
+    },
+    "label": "ไวท์ลิสต์",
+    "pool": {
+      "description": "มีเพียงที่อยู่ในไวท์ลิสต์เท่านั้นที่สามารถจัดหาและยืมจากพูลนี้ได้",
+      "userWhitelisted": "คุณมีสิทธิ์ยืมจากพูลนี้"
+    },
+    "viewOnChain": "ดูไวท์ลิสต์บนเชน"
   },
   "statsPage": {
     "illustrationAlt": "ภาพประกอบสถิติ",
@@ -2562,7 +2592,9 @@
       "refund": "คืนเงิน",
       "repaying": "กำลังชำระคืน",
       "reset": "รีเซ็ต",
-      "resetFilters": "รีเซ็ตตัวกรอง",
+      "searchCategories": "ค้นหาหมวดหมู่",
+      "searchStates": "ค้นหาสถานะ",
+      "searchVenues": "ค้นหาแพลตฟอร์ม",
       "selectCategories": "เลือกหมวดหมู่",
       "selectStates": "เลือกสถานะ",
       "selectVenues": "เลือกแพลตฟอร์ม"
@@ -2767,6 +2799,7 @@
       "message": "ดึงข้อเสนอไม่สำเร็จ"
     },
     "for": "เห็นด้วย",
+    "noResults": "ไม่มีข้อเสนอที่ตรงกับตัวกรองของคุณ",
     "omnichain": {
       "switchToBnb": "สลับไปยัง BNB Chain",
       "votingOnlyEnabledOnBnb": "การโหวตใช้ได้เฉพาะบน BNB Chain เท่านั้น"

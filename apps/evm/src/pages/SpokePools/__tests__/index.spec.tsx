@@ -62,14 +62,33 @@ describe('SpokePools', () => {
     expect(screen.queryByText(spokePool.name)).not.toBeInTheDocument();
   });
 
-  it('does not offer to reset filters when only the user assets toggle hides every pool', () => {
+  it('offers to reset filters when only the user assets toggle hides every pool', () => {
     showUserAssetsOnly();
     mockSpokePools([withBalances({ collateralWalletTokens: 0, loanWalletTokens: 0 })]);
 
     renderComponent(<SpokePools />, { accountAddress: fakeAccountAddress });
 
     expect(screen.queryByText(spokePool.name)).not.toBeInTheDocument();
-    expect(screen.queryByText(en.spokePools.filter.noResults)).not.toBeInTheDocument();
+    expect(screen.getByText(en.spokePools.filter.noResults)).toBeInTheDocument();
+    expect(screen.getByText(en.noResults.resetFilters)).toBeInTheDocument();
+  });
+
+  it('turns off the user assets toggle when resetting filters', () => {
+    const setUserChainSettingsMock = vi.fn();
+    (useUserChainSettings as Mock).mockImplementation(() => [
+      { ...defaultUserChainSettings, showUserSpokeAssetsOnly: true },
+      setUserChainSettingsMock,
+    ]);
+    mockSpokePools([withBalances({ collateralWalletTokens: 1000, loanWalletTokens: 0 })]);
+
+    renderComponent(<SpokePools />, { accountAddress: fakeAccountAddress });
+
+    fireEvent.change(screen.getByPlaceholderText(en.spokePools.filter.searchPlaceholder), {
+      target: { value: 'unknown' },
+    });
+    fireEvent.click(screen.getByText(en.noResults.resetFilters));
+
+    expect(setUserChainSettingsMock).toHaveBeenCalledWith({ showUserSpokeAssetsOnly: false });
   });
 
   it('keeps a pool where the user holds its collateral when showing their assets only', () => {
