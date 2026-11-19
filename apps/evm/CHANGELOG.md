@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.46.8
+
+### Patch Changes
+
+- 462afe3: show info tags in the Spoke pool info modal, and show whitelist markers on Spoke pools and assets whose supply is restricted to whitelisted addresses
+
 ## 5.46.7
 
 ### Patch Changes
