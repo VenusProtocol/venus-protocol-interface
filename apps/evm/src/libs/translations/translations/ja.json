@@ -514,6 +514,7 @@
       "allCategories": "すべてのカテゴリー",
       "nCategories_other": "{{count}} 件のカテゴリー",
       "reset": "リセット",
+      "search": "カテゴリを検索",
       "title": "カテゴリーを選択"
     },
     "pausedAssetsToggle": {
@@ -822,6 +823,9 @@
       "borrow": {
         "label": "借入"
       },
+      "dashboard": {
+        "label": "ダッシュボード"
+      },
       "earn": {
         "label": "獲得"
       },
@@ -1056,6 +1060,7 @@
         "supplyApy": "供給 APY",
         "totalSupply": "総供給量"
       },
+      "noResults": "条件に一致するハブがありません",
       "search": {
         "placeholder": "資産を検索"
       }
@@ -1096,6 +1101,7 @@
       "reset": "リセット",
       "searchAsset": "資産を検索",
       "searchAssetAriaLabel": "資産を検索",
+      "searchCategory": "カテゴリを検索",
       "searchCollateral": "担保を検索",
       "searchCollateralAriaLabel": "担保を検索"
     },
@@ -1111,14 +1117,11 @@
       "label": "マーケットモード"
     },
     "placeholders": {
-      "clearSearch": "検索をクリア",
       "noAssets": "該当する資産がありません",
       "noBorrowableAssets": "借入可能な資産がありません",
-      "noMarkets": "条件に一致するマーケットがありません",
-      "noResults": "「{{query}}」に一致する結果はありません",
+      "noMarkets": "マーケットが見つかりません",
+      "noMatchingMarkets": "条件に一致するマーケットがありません",
       "refresh": "ページを再読み込みしてください。",
-      "tryAnotherCollateral": "別の担保を試すか、検索をクリアしてください。",
-      "tryAnotherSymbol": "別のシンボルを試すか、検索をクリアしてください。",
       "unavailable": "マーケットデータを取得できません"
     },
     "planets": {
@@ -1379,6 +1382,7 @@
             "threshold": "しきい値"
           },
           "mobileSelectLabel": "並び替え:",
+          "noResults": "条件に一致するグループがありません",
           "searchPlaceholder": "資産またはグループを検索"
         }
       },
@@ -1439,6 +1443,7 @@
       "borrowApy": "正の借入APYは利息の支払い、負の借入APYは利息の受取を意味します",
       "supplyApy": "正の供給APYは利息の受取、負の供給APYは利息の支払いを意味します"
     },
+    "noResults": "条件に一致するマーケットがありません",
     "pausedAssetsPlaceholder": {
       "description": "表示するには「停止中の資産」トグルを有効にしてください。",
       "imgAlt": "一時停止アイコン",
@@ -1448,6 +1453,13 @@
     "search": {
       "placeholder": "資産を検索"
     }
+  },
+  "multiSelect": {
+    "clearSearch": "検索をクリア",
+    "noResults": "一致する結果がありません"
+  },
+  "noResults": {
+    "resetFilters": "フィルターをリセット"
   },
   "pagination": {
     "currentPage": "現在のページ",
@@ -2045,6 +2057,10 @@
       "title": "対応担保"
     }
   },
+  "spokePoolInfo": {
+    "button": "{{poolName}}について",
+    "learnMore": "詳しく見る"
+  },
   "spokePools": {
     "description": "専用マーケットに預けた担保を使って資産を借り入れます。",
     "filter": {
@@ -2055,12 +2071,14 @@
       "nCollaterals_other": "{{count}} 件の担保",
       "nLoanAssets_one": "{{count}} 件の借入資産",
       "nLoanAssets_other": "{{count}} 件の借入資産",
-      "noResults": "条件に一致するマーケットがありません",
+      "noResults": "条件に一致するプールがありません",
       "nPools_one": "{{count}} 件のプール",
       "nPools_other": "{{count}} 件のプール",
       "reset": "リセット",
-      "resetFilters": "フィルターをリセット",
+      "searchCollaterals": "担保資産を検索",
+      "searchLoanAssets": "借入資産を検索",
       "searchPlaceholder": "資産を検索",
+      "searchPools": "プールを検索",
       "selectCollaterals": "担保を選択",
       "selectLoanAssets": "借入資産を選択",
       "selectPools": "プールを選択"
@@ -2089,6 +2107,18 @@
         "totalBorrow": "総借入額"
       }
     }
+  },
+  "spokeWhitelist": {
+    "asset": {
+      "description": "このコラテラルは、ホワイトリストに登録されたアドレスのみ供給できます。",
+      "userWhitelisted": "ホワイトリストに登録されています。"
+    },
+    "label": "ホワイトリスト",
+    "pool": {
+      "description": "ホワイトリストに登録されたアドレスのみ、このプールから供給と借入ができます。",
+      "userWhitelisted": "このプールから借入する資格があります。"
+    },
+    "viewOnChain": "オンチェーンでホワイトリストを表示"
   },
   "statsPage": {
     "illustrationAlt": "統計イラスト",
@@ -2562,7 +2592,9 @@
       "refund": "返金",
       "repaying": "返済中",
       "reset": "リセット",
-      "resetFilters": "フィルターをリセット",
+      "searchCategories": "カテゴリを検索",
+      "searchStates": "ステータスを検索",
+      "searchVenues": "プラットフォームを検索",
       "selectCategories": "カテゴリを選択",
       "selectStates": "状態を選択",
       "selectVenues": "プラットフォームを選択"
@@ -2767,6 +2799,7 @@
       "message": "提案の取得に失敗しました"
     },
     "for": "賛成",
+    "noResults": "条件に一致するプロポーザルがありません",
     "omnichain": {
       "switchToBnb": "BNB Chainに切り替える",
       "votingOnlyEnabledOnBnb": "投票はBNB Chainでのみ利用可能です"

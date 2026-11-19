@@ -1,7 +1,6 @@
 import type BigNumber from 'bignumber.js';
 import {
   AccountHealthBar,
-  Card,
   Cell,
   CellGroup,
   type CellProps,
@@ -150,17 +149,17 @@ export const Summary: React.FC<SummaryProps> = ({
       </div>
 
       {/* XL or above view */}
-      <Card className="justify-between border-0 p-0 hidden xl:flex">
+      <div className="hidden xl:flex xl:items-center xl:justify-between">
         <CellGroup
           cells={displayAccountHealth ? cells.slice(0, cells.length - 1) : cells}
-          className="w-full xl:p-0"
+          className="w-full xl:bg-transparent xl:p-0"
         />
 
         {/* Account health */}
         {displayAccountHealth && (
           <div className="shrink-0 min-w-96">{cells[cells.length - 1].value}</div>
         )}
-      </Card>
+      </div>
     </Section>
   );
 };

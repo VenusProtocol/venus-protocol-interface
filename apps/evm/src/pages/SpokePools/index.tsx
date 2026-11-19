@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useGetSpokePools } from 'clients/api';
-import { type CellProps, MultiSelect, Page, PageStatHeader, Spinner } from 'components';
+import { type CellProps, MultiSelect, NoResults, Page, PageStatHeader, Spinner } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { Controls } from 'containers/Controls';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
@@ -10,7 +10,6 @@ import { useAccountAddress } from 'libs/wallet';
 import type { SpokeAsset } from 'types';
 import { formatCentsToReadableValue } from 'utilities';
 
-import { NoResults } from './NoResults';
 import { SpokePoolCard } from './SpokePoolCard';
 import { useFilters } from './useFilters';
 
@@ -18,7 +17,7 @@ const multiSelectClassName = 'sm:flex-1/3 sm:min-w-45 xl:w-60 xl:flex-none';
 
 const SpokePools: React.FC = () => {
   const { t } = useTranslation();
-  const [userChainSettings] = useUserChainSettings();
+  const [userChainSettings, setUserChainSettings] = useUserChainSettings();
   const [searchValue, setSearchValue] = useState('');
   const { accountAddress } = useAccountAddress();
   const { data: getSpokePoolsData, isLoading: isGetSpokePoolsLoading } = useGetSpokePools({
@@ -43,6 +42,7 @@ const SpokePools: React.FC = () => {
   const handleResetAll = () => {
     resetFilters();
     setSearchValue('');
+    setUserChainSettings({ showUserSpokeAssetsOnly: false });
   };
 
   const cells: CellProps[] = [
@@ -134,6 +134,8 @@ const SpokePools: React.FC = () => {
         renderCount={count => t('spokePools.filter.nLoanAssets', { count })}
         title={t('spokePools.filter.selectLoanAssets')}
         resetLabel={t('spokePools.filter.reset')}
+        searchPlaceholder={t('spokePools.filter.searchLoanAssets')}
+        noResultsLabel={t('multiSelect.noResults')}
         size="xs"
       />
 
@@ -146,6 +148,8 @@ const SpokePools: React.FC = () => {
         renderCount={count => t('spokePools.filter.nCollaterals', { count })}
         title={t('spokePools.filter.selectCollaterals')}
         resetLabel={t('spokePools.filter.reset')}
+        searchPlaceholder={t('spokePools.filter.searchCollaterals')}
+        noResultsLabel={t('multiSelect.noResults')}
         size="xs"
       />
 
@@ -158,6 +162,8 @@ const SpokePools: React.FC = () => {
         renderCount={count => t('spokePools.filter.nPools', { count })}
         title={t('spokePools.filter.selectPools')}
         resetLabel={t('spokePools.filter.reset')}
+        searchPlaceholder={t('spokePools.filter.searchPools')}
+        noResultsLabel={t('multiSelect.noResults')}
         size="xs"
       />
     </div>
@@ -181,9 +187,16 @@ const SpokePools: React.FC = () => {
     (selectedLoanAssets.length > 0 ||
       selectedCollaterals.length > 0 ||
       selectedPools.length > 0 ||
+      userChainSettings.showUserSpokeAssetsOnly ||
       !!searchValue)
   ) {
-    poolsDom = <NoResults onReset={handleResetAll} />;
+    poolsDom = (
+      <NoResults
+        iconName="market"
+        title={t('spokePools.filter.noResults')}
+        onReset={handleResetAll}
+      />
+    );
   }
 
   return (

@@ -1,6 +1,6 @@
 {
   "name": "@venusprotocol/chains",
-  "version": "0.33.1",
+  "version": "0.33.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public",

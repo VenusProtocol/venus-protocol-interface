@@ -55,8 +55,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
-          BLOB_READ_WRITE_TOKEN: ${{ secrets.VERCEL_BLOB_TOKEN }}
-          IMG_CDN_URL: ${{ vars.IMG_CDN_URL }}
         run: |
           git config user.name toolsvenus
           git config user.email tools@venus.io
@@ -68,7 +66,6 @@ jobs:
           npx changeset version
 
           if git diff -- "packages/chains/package.json" | grep -qE '^\+ *"version":'; then
-            yarn workspace @venusprotocol/chains deploy-images
             yarn workspace @venusprotocol/chains build
           fi
 

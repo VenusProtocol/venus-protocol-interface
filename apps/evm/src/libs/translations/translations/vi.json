@@ -514,6 +514,7 @@
       "allCategories": "Tất cả danh mục",
       "nCategories_other": "{{count}} danh mục",
       "reset": "Đặt lại",
+      "search": "Tìm danh mục",
       "title": "Chọn danh mục"
     },
     "pausedAssetsToggle": {
@@ -822,6 +823,9 @@
       "borrow": {
         "label": "Vay"
       },
+      "dashboard": {
+        "label": "Bảng điều khiển"
+      },
       "earn": {
         "label": "Kiếm lợi nhuận"
       },
@@ -1056,6 +1060,7 @@
         "supplyApy": "APY cung cấp",
         "totalSupply": "Tổng cung cấp"
       },
+      "noResults": "Không có hub nào khớp bộ lọc của bạn",
       "search": {
         "placeholder": "Tìm kiếm tài sản"
       }
@@ -1096,6 +1101,7 @@
       "reset": "Đặt lại",
       "searchAsset": "Tìm tài sản",
       "searchAssetAriaLabel": "Tìm tài sản",
+      "searchCategory": "Tìm danh mục",
       "searchCollateral": "Tìm tài sản thế chấp",
       "searchCollateralAriaLabel": "Tìm tài sản thế chấp"
     },
@@ -1111,14 +1117,11 @@
       "label": "Chế độ thị trường"
     },
     "placeholders": {
-      "clearSearch": "Xóa tìm kiếm",
       "noAssets": "Không tìm thấy tài sản",
       "noBorrowableAssets": "Không có tài sản nào có thể vay",
-      "noMarkets": "Không có thị trường nào khớp với bộ lọc này",
-      "noResults": "Không có kết quả cho \"{{query}}\"",
+      "noMarkets": "Không tìm thấy thị trường",
+      "noMatchingMarkets": "Không có thị trường nào khớp bộ lọc của bạn",
       "refresh": "Vui lòng làm mới và thử lại.",
-      "tryAnotherCollateral": "Hãy thử tài sản thế chấp khác hoặc xóa tìm kiếm.",
-      "tryAnotherSymbol": "Hãy thử ký hiệu khác hoặc xóa tìm kiếm.",
       "unavailable": "Không tải được dữ liệu thị trường"
     },
     "planets": {
@@ -1379,6 +1382,7 @@
             "threshold": "Ngưỡng"
           },
           "mobileSelectLabel": "Sắp xếp theo:",
+          "noResults": "Không có nhóm nào khớp bộ lọc của bạn",
           "searchPlaceholder": "Tìm tài sản hoặc nhóm"
         }
       },
@@ -1439,6 +1443,7 @@
       "borrowApy": "APY vay dương nghĩa là bạn sẽ trả lãi, âm nghĩa là bạn sẽ nhận lãi",
       "supplyApy": "APY cung cấp dương nghĩa là bạn sẽ nhận lãi, âm nghĩa là bạn sẽ trả lãi"
     },
+    "noResults": "Không có thị trường nào khớp bộ lọc của bạn",
     "pausedAssetsPlaceholder": {
       "description": "Vui lòng bật công tắc \"Tài sản tạm dừng\" để xem.",
       "imgAlt": "Biểu tượng tạm dừng",
@@ -1448,6 +1453,13 @@
     "search": {
       "placeholder": "Tìm tài sản"
     }
+  },
+  "multiSelect": {
+    "clearSearch": "Xóa tìm kiếm",
+    "noResults": "Không tìm thấy kết quả"
+  },
+  "noResults": {
+    "resetFilters": "Đặt lại bộ lọc"
   },
   "pagination": {
     "currentPage": "Trang hiện tại",
@@ -2045,6 +2057,10 @@
       "title": "Tài sản thế chấp được hỗ trợ"
     }
   },
+  "spokePoolInfo": {
+    "button": "Giới thiệu {{poolName}}",
+    "learnMore": "Tìm hiểu thêm"
+  },
   "spokePools": {
     "description": "Vay tài sản bằng tài sản thế chấp bạn đã cung cấp trong các thị trường chuyên biệt.",
     "filter": {
@@ -2055,12 +2071,14 @@
       "nCollaterals_other": "{{count}} tài sản thế chấp",
       "nLoanAssets_one": "{{count}} tài sản vay",
       "nLoanAssets_other": "{{count}} tài sản vay",
-      "noResults": "Không có thị trường nào khớp bộ lọc của bạn",
+      "noResults": "Không có pool nào khớp bộ lọc của bạn",
       "nPools_one": "{{count}} nhóm",
       "nPools_other": "{{count}} nhóm",
       "reset": "Đặt lại",
-      "resetFilters": "Đặt lại bộ lọc",
+      "searchCollaterals": "Tìm tài sản thế chấp",
+      "searchLoanAssets": "Tìm tài sản vay",
       "searchPlaceholder": "Tìm tài sản",
+      "searchPools": "Tìm pool",
       "selectCollaterals": "Chọn tài sản thế chấp",
       "selectLoanAssets": "Chọn tài sản vay",
       "selectPools": "Chọn nhóm"
@@ -2089,6 +2107,18 @@
         "totalBorrow": "Tổng vay"
       }
     }
+  },
+  "spokeWhitelist": {
+    "asset": {
+      "description": "Chỉ các địa chỉ trong danh sách trắng mới có thể cung cấp tài sản thế chấp này.",
+      "userWhitelisted": "Bạn có trong danh sách trắng."
+    },
+    "label": "Danh sách trắng",
+    "pool": {
+      "description": "Chỉ các địa chỉ trong danh sách trắng mới có thể cung cấp và vay từ pool này.",
+      "userWhitelisted": "Bạn đủ điều kiện vay từ pool này."
+    },
+    "viewOnChain": "Xem danh sách trắng trên chain"
   },
   "statsPage": {
     "illustrationAlt": "Hình minh họa thống kê",
@@ -2562,7 +2592,9 @@
       "refund": "Hoàn tiền",
       "repaying": "Đang trả nợ",
       "reset": "Đặt lại",
-      "resetFilters": "Đặt lại bộ lọc",
+      "searchCategories": "Tìm danh mục",
+      "searchStates": "Tìm trạng thái",
+      "searchVenues": "Tìm nền tảng",
       "selectCategories": "Chọn danh mục",
       "selectStates": "Chọn trạng thái",
       "selectVenues": "Chọn nền tảng"
@@ -2767,6 +2799,7 @@
       "message": "Không thể lấy đề xuất"
     },
     "for": "Ủng hộ",
+    "noResults": "Không có đề xuất nào khớp bộ lọc của bạn",
     "omnichain": {
       "switchToBnb": "Chuyển sang BNB Chain",
       "votingOnlyEnabledOnBnb": "Bỏ phiếu chỉ khả dụng trên BNB Chain"

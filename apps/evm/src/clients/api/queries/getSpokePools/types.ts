@@ -38,6 +38,17 @@ export interface ApiSpokeMarket {
   pausedActionsBitmap: number;
 }
 
+export type ApiLocalizedText = Record<string, string>;
+
+export interface ApiSpokePoolTag {
+  type: string;
+  title?: ApiLocalizedText | null;
+  content?: ApiLocalizedText | null;
+  url?: string | null;
+  urlLabel?: ApiLocalizedText | null;
+  order?: number | null;
+}
+
 export interface ApiSpokePool {
   address: Address;
   chainId: string;
@@ -46,6 +57,7 @@ export interface ApiSpokePool {
   category: string | null;
   priceOracleAddress?: Address | null;
   markets: ApiSpokeMarket[];
+  tags?: ApiSpokePoolTag[];
 }
 
 export interface ApiSpokeTotals {

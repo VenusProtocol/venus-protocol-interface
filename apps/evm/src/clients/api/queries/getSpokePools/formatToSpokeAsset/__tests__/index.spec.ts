@@ -22,6 +22,7 @@ const format = (overrides: Partial<typeof apiMarket>, token: Token) =>
     tokens: [token],
     isUserConnected: false,
     userTokenBalances: [],
+    isUserWhitelisted: false,
   });
 
 describe('formatToSpokeAsset', () => {

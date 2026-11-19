@@ -83,6 +83,8 @@ export const Controls: React.FC<ControlsProps> = ({
               renderCount={count => t('controls.categoryFilter.nCategories', { count })}
               title={t('controls.categoryFilter.title')}
               resetLabel={t('controls.categoryFilter.reset')}
+              searchPlaceholder={t('controls.categoryFilter.search')}
+              noResultsLabel={t('multiSelect.noResults')}
               size="xs"
               className="shrink-0 sm:w-60"
             />

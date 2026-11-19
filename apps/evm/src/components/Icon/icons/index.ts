@@ -68,6 +68,7 @@ export { default as isolated } from './isolated';
 export { default as lightning } from './lightning';
 export { default as lightning2 } from './lightning2';
 export { default as link } from './link';
+export { default as lock } from './lock';
 export { default as loading } from './loading';
 export { default as logoMobile } from './logoMobile';
 export { default as longArrow } from './longArrow';

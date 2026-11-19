@@ -5,12 +5,15 @@ import {
   LayeredValues,
   ProgressBar,
   ProtectionModeIndicator,
+  SpokeWhitelistMarker,
   type TableColumn,
   TokenIconWithSymbol,
 } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
+import type { Address } from 'viem';
+
 import {
   compareBigNumbers,
   formatCentsToReadableValue,
@@ -18,7 +21,11 @@ import {
   formatTokensToReadableValue,
 } from 'utilities';
 
-export const useColumns = () => {
+export interface UseColumnsInput {
+  comptrollerAddress: Address;
+}
+
+export const useColumns = ({ comptrollerAddress }: UseColumnsInput) => {
   const { t, Trans } = useTranslation();
 
   const columns: TableColumn<SpokeAsset>[] = [
@@ -38,6 +45,14 @@ export const useColumns = () => {
               variant="icon"
               tooltipType="list"
               tokenName={asset.vToken.underlyingToken.symbol}
+            />
+          )}
+
+          {asset.hasWhitelist && (
+            <SpokeWhitelistMarker
+              level="asset"
+              comptrollerAddress={comptrollerAddress}
+              isUserWhitelisted={asset.isUserWhitelisted}
             />
           )}
 

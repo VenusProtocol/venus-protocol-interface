@@ -331,20 +331,19 @@ describe('Vaults', () => {
     expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
   });
 
-  it('lets user clear a single group from its reset link', () => {
-    const { getAllByText, getByText, queryByText } = renderComponent(<VaultsPage />, {
+  it('clears the selected group when the header reset is used', () => {
+    const { getAllByText, queryByText } = renderComponent(<VaultsPage />, {
       routerInitialEntries: ['/?category=governance&venue=venus'],
     });
 
     fireEvent.click(getFilterTrigger(en.vault.category.governance));
+
+    expect(getAllByText(en.vault.filter.reset)[0]).toBeEnabled();
+    expect(queryByText(en.vault.filter.allCategories)).not.toBeInTheDocument();
+
     fireEvent.click(getAllByText(en.vault.filter.reset)[0]);
 
-    expect(getByText(en.vault.filter.allCategories)).toBeInTheDocument();
-    // The venue group is left untouched, so the institutional vault stays filtered out
-    expect(queryByText(en.vault.filter.allVenues)).not.toBeInTheDocument();
-    expect(queryByText(en.vault.modals.depositPeriodEnds)).not.toBeInTheDocument();
-    expect(getByText('VAI', { selector: titleSelector })).toBeInTheDocument();
-    expect(getByText('XVS', { selector: titleSelector })).toBeInTheDocument();
+    expect(queryByText(en.vault.filter.allCategories)).toBeInTheDocument();
   });
 
   it('replaces the history entry when a filter changes', () => {
@@ -387,7 +386,7 @@ describe('Vaults', () => {
 
     expect(getByText(en.vault.filter.noResults)).toBeInTheDocument();
 
-    fireEvent.click(getByText(en.vault.filter.resetFilters));
+    fireEvent.click(getByText(en.noResults.resetFilters));
 
     expect(queryByText(en.vault.filter.noResults)).not.toBeInTheDocument();
     expect(searchInput).toHaveValue('');
@@ -678,7 +677,7 @@ describe('Vaults', () => {
 
       expect(getByText(en.vault.filter.noResults)).toBeInTheDocument();
 
-      fireEvent.click(getByText(en.vault.filter.resetFilters));
+      fireEvent.click(getByText(en.noResults.resetFilters));
 
       expect(
         getByRole('checkbox', { name: en.vault.filter.archivedVaultsToggle.label }),

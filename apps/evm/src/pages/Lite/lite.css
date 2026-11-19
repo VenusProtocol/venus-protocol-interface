@@ -27,20 +27,6 @@
   z-index: 30;
 }
 
-.lite-panel .venus-multiselect-menu {
-  max-height: calc(var(--spacing) * 80);
-  overflow-y: auto;
-}
-
-.lite-panel .venus-multiselect-menu > div > div:first-child {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background-image: var(--background-image-menu);
-  backdrop-filter: blur(var(--blur-raised));
-  -webkit-backdrop-filter: blur(var(--blur-raised));
-}
-
 .lite-table-scroll::-webkit-scrollbar-track {
   margin-top: calc(var(--spacing) * 10);
 }

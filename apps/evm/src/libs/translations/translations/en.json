@@ -515,6 +515,7 @@
       "nCategories_one": "{{count}} Category",
       "nCategories_other": "{{count}} Categories",
       "reset": "Reset",
+      "search": "Search category",
       "title": "Select Categories"
     },
     "pausedAssetsToggle": {
@@ -823,6 +824,9 @@
       "borrow": {
         "label": "Borrow"
       },
+      "dashboard": {
+        "label": "Dashboard"
+      },
       "earn": {
         "label": "Earn"
       },
@@ -1057,6 +1061,7 @@
         "supplyApy": "Supply APY",
         "totalSupply": "Total supply"
       },
+      "noResults": "No hubs match your filters",
       "search": {
         "placeholder": "Search asset"
       }
@@ -1098,6 +1103,7 @@
       "reset": "Reset",
       "searchAsset": "Search asset",
       "searchAssetAriaLabel": "Search assets",
+      "searchCategory": "Search category",
       "searchCollateral": "Search collateral",
       "searchCollateralAriaLabel": "Search collaterals"
     },
@@ -1113,14 +1119,11 @@
       "label": "Market mode"
     },
     "placeholders": {
-      "clearSearch": "Clear search",
       "noAssets": "No assets found",
       "noBorrowableAssets": "No borrowable assets found",
-      "noMarkets": "No markets match these filters",
-      "noResults": "No results for \"{{query}}\"",
+      "noMarkets": "No markets found",
+      "noMatchingMarkets": "No markets match your filters",
       "refresh": "Please refresh to try again.",
-      "tryAnotherCollateral": "Try another collateral or clear your search.",
-      "tryAnotherSymbol": "Try another symbol or clear your search.",
       "unavailable": "Market data is unavailable"
     },
     "planets": {
@@ -1381,6 +1384,7 @@
             "threshold": "Threshold"
           },
           "mobileSelectLabel": "Sort by:",
+          "noResults": "No groups match your filters",
           "searchPlaceholder": "Search asset or group"
         }
       },
@@ -1441,6 +1445,7 @@
       "borrowApy": "A positive borrow APY means you'll pay interest and a negative one means you'll earn interest",
       "supplyApy": "A positive supply APY means you'll earn interest and a negative one means you'll pay interest"
     },
+    "noResults": "No markets match your filters",
     "pausedAssetsPlaceholder": {
       "description": "Please enable the \"Paused Assets\" toggle to view them.",
       "imgAlt": "Pause icon",
@@ -1450,6 +1455,13 @@
     "search": {
       "placeholder": "Search asset"
     }
+  },
+  "multiSelect": {
+    "clearSearch": "Clear search",
+    "noResults": "No results found"
+  },
+  "noResults": {
+    "resetFilters": "Reset filters"
   },
   "pagination": {
     "currentPage": "Current page",
@@ -2047,6 +2059,10 @@
       "title": "Supported collateral"
     }
   },
+  "spokePoolInfo": {
+    "button": "About {{poolName}}",
+    "learnMore": "Learn more"
+  },
   "spokePools": {
     "description": "Borrow assets against your supplied collateral from dedicated markets.",
     "filter": {
@@ -2057,12 +2073,14 @@
       "nCollaterals_other": "{{count}} collaterals",
       "nLoanAssets_one": "{{count}} loan asset",
       "nLoanAssets_other": "{{count}} loan assets",
-      "noResults": "No markets match your filters",
+      "noResults": "No pools match your filters",
       "nPools_one": "{{count}} pool",
       "nPools_other": "{{count}} pools",
       "reset": "Reset",
-      "resetFilters": "Reset filters",
+      "searchCollaterals": "Search collateral",
+      "searchLoanAssets": "Search loan asset",
       "searchPlaceholder": "Search asset",
+      "searchPools": "Search pool",
       "selectCollaterals": "Select collaterals",
       "selectLoanAssets": "Select loan",
       "selectPools": "Select pools"
@@ -2091,6 +2109,18 @@
         "totalBorrow": "Total borrow"
       }
     }
+  },
+  "spokeWhitelist": {
+    "asset": {
+      "description": "Only whitelisted addresses can supply this collateral.",
+      "userWhitelisted": "You’re on the whitelist."
+    },
+    "label": "Whitelist",
+    "pool": {
+      "description": "Only whitelisted addresses can supply and borrow from this pool.",
+      "userWhitelisted": "You’re eligible to borrow from this pool."
+    },
+    "viewOnChain": "View whitelist on-chain"
   },
   "statsPage": {
     "illustrationAlt": "Stats illustration",
@@ -2570,7 +2600,9 @@
       "refund": "Refund",
       "repaying": "Repaying",
       "reset": "Reset",
-      "resetFilters": "Reset filters",
+      "searchCategories": "Search category",
+      "searchStates": "Search state",
+      "searchVenues": "Search venue",
       "selectCategories": "Select categories",
       "selectStates": "Select states",
       "selectVenues": "Select venues"
@@ -2775,6 +2807,7 @@
       "message": "Proposals failed to fetch"
     },
     "for": "For",
+    "noResults": "No proposals match your filters",
     "omnichain": {
       "switchToBnb": "Switch to BNB Chain",
       "votingOnlyEnabledOnBnb": "Voting is only available on BNB Chain"

@@ -515,6 +515,7 @@
       "nCategories_one": "{{count}} Kategori",
       "nCategories_other": "{{count}} Kategori",
       "reset": "Sıfırla",
+      "search": "Kategori ara",
       "title": "Kategorileri Seç"
     },
     "pausedAssetsToggle": {
@@ -823,6 +824,9 @@
       "borrow": {
         "label": "Borç al"
       },
+      "dashboard": {
+        "label": "Gösterge paneli"
+      },
       "earn": {
         "label": "Kazan"
       },
@@ -1057,6 +1061,7 @@
         "supplyApy": "Sağlama APY",
         "totalSupply": "Toplam arz"
       },
+      "noResults": "Filtrelerinizle eşleşen hub yok",
       "search": {
         "placeholder": "Varlık ara"
       }
@@ -1098,6 +1103,7 @@
       "reset": "Sıfırla",
       "searchAsset": "Varlık ara",
       "searchAssetAriaLabel": "Varlık ara",
+      "searchCategory": "Kategori ara",
       "searchCollateral": "Teminat ara",
       "searchCollateralAriaLabel": "Teminat ara"
     },
@@ -1113,14 +1119,11 @@
       "label": "Piyasa modu"
     },
     "placeholders": {
-      "clearSearch": "Aramayı temizle",
       "noAssets": "Varlık bulunamadı",
       "noBorrowableAssets": "Borç alınabilecek varlık bulunamadı",
-      "noMarkets": "Bu filtrelerle eşleşen piyasa yok",
-      "noResults": "\"{{query}}\" için sonuç yok",
+      "noMarkets": "Pazar bulunamadı",
+      "noMatchingMarkets": "Filtrelerinizle eşleşen pazar yok",
       "refresh": "Lütfen sayfayı yenileyip tekrar deneyin.",
-      "tryAnotherCollateral": "Başka bir teminat deneyin veya aramayı temizleyin.",
-      "tryAnotherSymbol": "Başka bir sembol deneyin veya aramayı temizleyin.",
       "unavailable": "Piyasa verileri alınamıyor"
     },
     "planets": {
@@ -1381,6 +1384,7 @@
             "threshold": "Eşik"
           },
           "mobileSelectLabel": "Sırala:",
+          "noResults": "Filtrelerinizle eşleşen grup yok",
           "searchPlaceholder": "Varlık veya grup ara"
         }
       },
@@ -1441,6 +1445,7 @@
       "borrowApy": "Pozitif borç APY faiz ödeyeceğiniz, negatif ise faiz kazanacağınız anlamına gelir",
       "supplyApy": "Pozitif tedarik APY faiz kazanacağınız, negatif ise faiz ödeyeceğiniz anlamına gelir"
     },
+    "noResults": "Filtrelerinizle eşleşen pazar yok",
     "pausedAssetsPlaceholder": {
       "description": "Görmek için \"Durdurulan Varlıklar\" anahtarını etkinleştirin.",
       "imgAlt": "Duraklatma ikonu",
@@ -1450,6 +1455,13 @@
     "search": {
       "placeholder": "Varlık ara"
     }
+  },
+  "multiSelect": {
+    "clearSearch": "Aramayı temizle",
+    "noResults": "Sonuç bulunamadı"
+  },
+  "noResults": {
+    "resetFilters": "Filtreleri sıfırla"
   },
   "pagination": {
     "currentPage": "Geçerli sayfa",
@@ -2047,6 +2059,10 @@
       "title": "Desteklenen teminatlar"
     }
   },
+  "spokePoolInfo": {
+    "button": "{{poolName}} hakkında",
+    "learnMore": "Daha fazla bilgi"
+  },
   "spokePools": {
     "description": "Özel pazarlarda sağladığınız teminat karşılığında varlık borç alın.",
     "filter": {
@@ -2057,12 +2073,14 @@
       "nCollaterals_other": "{{count}} teminat",
       "nLoanAssets_one": "{{count}} borç varlığı",
       "nLoanAssets_other": "{{count}} borç varlığı",
-      "noResults": "Filtrelerinizle eşleşen pazar yok",
+      "noResults": "Filtrelerinizle eşleşen havuz yok",
       "nPools_one": "{{count}} havuz",
       "nPools_other": "{{count}} havuz",
       "reset": "Sıfırla",
-      "resetFilters": "Filtreleri sıfırla",
+      "searchCollaterals": "Teminat ara",
+      "searchLoanAssets": "Ödünç varlık ara",
       "searchPlaceholder": "Varlık ara",
+      "searchPools": "Havuz ara",
       "selectCollaterals": "Teminat seç",
       "selectLoanAssets": "Borç varlığı seç",
       "selectPools": "Havuz seç"
@@ -2091,6 +2109,18 @@
         "totalBorrow": "Toplam borç"
       }
     }
+  },
+  "spokeWhitelist": {
+    "asset": {
+      "description": "Bu teminatı yalnızca beyaz listedeki adresler sağlayabilir.",
+      "userWhitelisted": "Beyaz listedesiniz."
+    },
+    "label": "Beyaz liste",
+    "pool": {
+      "description": "Bu havuzdan yalnızca beyaz listedeki adresler arz edebilir ve ödünç alabilir.",
+      "userWhitelisted": "Bu havuzdan ödünç alma hakkınız var."
+    },
+    "viewOnChain": "Beyaz listeyi zincir üzerinde görüntüle"
   },
   "statsPage": {
     "illustrationAlt": "İstatistik illüstrasyonu",
@@ -2569,7 +2599,9 @@
       "refund": "İade",
       "repaying": "Geri ödeniyor",
       "reset": "Sıfırla",
-      "resetFilters": "Filtreleri sıfırla",
+      "searchCategories": "Kategori ara",
+      "searchStates": "Durum ara",
+      "searchVenues": "Platform ara",
       "selectCategories": "Kategorileri seç",
       "selectStates": "Durumları seç",
       "selectVenues": "Platformları seç"
@@ -2774,6 +2806,7 @@
       "message": "Teklifler alınamadı"
     },
     "for": "Lehte",
+    "noResults": "Filtrelerinizle eşleşen teklif yok",
     "omnichain": {
       "switchToBnb": "BNB Chain'e geç",
       "votingOnlyEnabledOnBnb": "Oylama yalnızca BNB Chain üzerinde kullanılabilir"

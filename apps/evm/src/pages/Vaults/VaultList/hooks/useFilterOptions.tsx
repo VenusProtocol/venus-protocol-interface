@@ -56,6 +56,7 @@ export const useFilterOptions = () => {
           Venus
         </div>
       ),
+      searchText: 'Venus',
       value: VaultVenue.Venus,
     },
     {
@@ -65,6 +66,7 @@ export const useFilterOptions = () => {
           Pendle
         </div>
       ),
+      searchText: 'Pendle',
       value: VaultVenue.Pendle,
     },
     {
@@ -74,6 +76,7 @@ export const useFilterOptions = () => {
           {t('vault.filter.institution')}
         </div>
       ),
+      searchText: t('vault.filter.institution'),
       value: VaultVenue.Institution,
     },
   ];
