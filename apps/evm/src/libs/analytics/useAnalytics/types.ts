@@ -1,4 +1,5 @@
 import type { ChainId, ImportableProtocol } from 'types';
+import type { IosExploitKit } from 'utilities/getIosRisk';
 import type { Address } from 'viem';
 
 // These props are automatically set with every event, but we allow individual events to override
@@ -183,6 +184,25 @@ type HubSelected = AnalyticEvent & {
   assetSymbol: string;
 };
 
+type IosRiskEvent = AnalyticEvent & {
+  kit: IosExploitKit;
+  ios_version: string;
+};
+
+type IosRiskPopupShown = IosRiskEvent & {
+  browser: string;
+  layer: 'lite' | 'pro';
+  wallet_connected: boolean;
+};
+
+type IosRiskAcknowledged = IosRiskEvent & {
+  time_to_ack_ms: number;
+};
+
+type IosRiskDetectFailed = AnalyticEvent & {
+  user_agent: string;
+};
+
 type EventMap = {
   connect_wallet_initiated: AnalyticEvent;
   wallet_connected: AnalyticEvent;
@@ -273,6 +293,11 @@ type EventMap = {
   promo_banner_viewed: MarketsAdBanner;
   promo_banner_cta_click: MarketsAdBanner;
   promo_banner_dismissed: MarketsAdBanner;
+
+  ios_risk_popup_shown: IosRiskPopupShown;
+  ios_risk_update_clicked: IosRiskEvent;
+  ios_risk_acknowledged: IosRiskAcknowledged;
+  ios_risk_detect_failed: IosRiskDetectFailed;
 };
 
 export type AnalyticEventName = keyof EventMap;

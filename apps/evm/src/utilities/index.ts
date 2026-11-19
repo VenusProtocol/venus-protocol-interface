@@ -33,6 +33,7 @@ export { default as extractSettledPromiseValue } from './extractSettledPromiseVa
 export { default as getUniqueTokenBalances } from './getUniqueTokenBalances';
 export * from './generateTransactionDeadline';
 export * from './getDisabledTokenActions';
+export * from './getIosRisk';
 export * from './isAssetPaused';
 export * from './restService';
 export * from './formatTokensToReadableValue';
