@@ -155,6 +155,13 @@ export const validatePoolBalanceMutations = ({
       };
     }
 
+    if (swapQuoteErrorCode === 'priceImpactTooHigh') {
+      return {
+        code: 'SWAP_PRICE_IMPACT_TOO_HIGH',
+        message: t('marketForm.error.priceImpactTooHigh'),
+      };
+    }
+
     if (swapQuoteErrorCode) {
       return {
         code: 'NO_SWAP_QUOTE_FOUND',

@@ -82,6 +82,15 @@ export const IncreaseForm: React.FC<IncreaseFormProps> = ({ position }) => {
     }
   }, [setFormValues, swapQuote]);
 
+  useEffect(() => {
+    if (getSwapQuoteError) {
+      setFormValues(currentFormValues => ({
+        ...currentFormValues,
+        longAmountTokens: '',
+      }));
+    }
+  }, [setFormValues, getSwapQuoteError]);
+
   const balanceMutations: AssetBalanceMutation[] = [
     {
       type: 'asset',
