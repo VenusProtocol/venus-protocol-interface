@@ -13,5 +13,5 @@ export const SuperPropertiesRegistrar: React.FC = () => {
     posthog?.register({ version, themePreference });
   }, [posthog, version, themePreference, accountAddress]);
 
-  return null;
+  return undefined;
 };
