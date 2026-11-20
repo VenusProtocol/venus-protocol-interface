@@ -1511,6 +1511,7 @@
         "label": "Borç alınan {{tokenSymbol}}"
       }
     },
+    "noPrimeMarkets": "Bu ağda şu anda Prime ödülü olan bir piyasa yok.",
     "rewardDetails": {
       "fromBorrowedTokens": "Borç alınan {{tokenSymbol}}'den",
       "fromSuppliedTokens": "Sağlanan {{tokenSymbol}}'den",

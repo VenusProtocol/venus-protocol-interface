@@ -1509,6 +1509,7 @@
         "label": "借入{{tokenSymbol}}"
       }
     },
+    "noPrimeMarkets": "現在このネットワークにはPrime報酬のあるマーケットがありません。",
     "rewardDetails": {
       "fromBorrowedTokens": "借入{{tokenSymbol}}から",
       "fromSuppliedTokens": "供給{{tokenSymbol}}から",

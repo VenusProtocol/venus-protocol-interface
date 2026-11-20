@@ -1509,6 +1509,7 @@
         "label": "已借入 {{tokenSymbol}}"
       }
     },
+    "noPrimeMarkets": "該網路目前沒有提供 Prime 獎勵的市場。",
     "rewardDetails": {
       "fromBorrowedTokens": "來自借入 {{tokenSymbol}}",
       "fromSuppliedTokens": "來自供應 {{tokenSymbol}}",
