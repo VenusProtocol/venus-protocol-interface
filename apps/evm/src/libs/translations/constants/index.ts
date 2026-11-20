@@ -1,4 +1,4 @@
-import { type Locale, enUS, ja, th, tr, vi, zhCN, zhTW } from 'date-fns/locale';
+import { type Locale, enUS, ja, th, tr, vi, zhCN, zhT, id } from 'date-fns/locale';
 
 export type DateFormatType =
   | 'textual'
@@ -105,6 +105,19 @@ export const supportedLanguages: SupportedLanguage[] = [
       dayMonth: 'dd.MM',
       numericWithTime: 'dd.MM.yy HH:mm',
       time: 'HH:mm',
+    },
+  },
+  {
+    name: 'Bahasa Indonesia',
+    bcp47Tag: 'id',
+    locale: id,
+    dateFormats: {
+      textual: 'MMM d, yyyy',
+      textualWithTime: 'MMM d, yyyy h:mm a',
+      numeric: 'MM/dd/yy',
+      dayMonth: 'MM/dd',
+      numericWithTime: 'MM/dd/yy h:mm a',
+      time: 'h:mm a',
     },
   },
 ];
