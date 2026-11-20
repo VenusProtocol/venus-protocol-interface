@@ -1,4 +1,4 @@
-import { type Locale, enUS, ja, th, tr, vi, zhCN, zhT, id } from 'date-fns/locale';
+import { type Locale, enUS, id, ja, th, tr, vi, zhCN, zhTW } from 'date-fns/locale';
 
 export type DateFormatType =
   | 'textual'
