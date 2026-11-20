@@ -767,6 +767,15 @@
       "utilizationRate": "利用率"
     }
   },
+  "iosRiskModal": {
+    "confirmLabel": "如需自行承擔風險繼續使用，請輸入 <Bold>{{phrase}}</Bold>",
+    "continueButton": "繼續",
+    "mismatch": "輸入內容不一致。請輸入：{{phrase}}",
+    "noticeDescription": "只要開啟一個惡意網站，{{kit}}（iOS {{from}} – {{to}}）就能竊取錢包資料和助記詞，無需連接錢包或簽名。<LineBreak/><LineBreak/>1. 開啟<Bold>設定 › 一般 › 軟體更新</Bold>，安裝最新版 iOS。<LineBreak/>2. 無法更新？在設定 › 隱私權與安全性中開啟<Bold>鎖定模式</Bold>。",
+    "noticeTitle": "iOS {{version}} 受 {{kit}} 影響",
+    "title": "請立即更新 iOS，你的資金面臨風險。",
+    "updateButton": "如何更新 iOS"
+  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "聚合定價",
@@ -874,7 +883,8 @@
         "theme": {
           "dark": "深色",
           "label": "主題",
-          "light": "淺色"
+          "light": "淺色",
+          "system": "跟隨系統"
         }
       },
       "vaults": {

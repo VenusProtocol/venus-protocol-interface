@@ -1,4 +1,5 @@
 import { useGetProfitableImports } from 'hooks/useGetProfitableImports';
+import { useIosRiskModal } from 'hooks/useIosRiskModal';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useAccountAddress } from 'libs/wallet';
 import { useMeeClient } from 'libs/wallet';
@@ -12,8 +13,10 @@ const ImportPositionsModal: React.FC = () => {
   const [userChainSettings] = useUserChainSettings();
   const { importablePositionsCount } = useGetProfitableImports();
   const { data: getMeeClientData } = useMeeClient();
+  const { isOpen: isIosRiskModalOpen } = useIosRiskModal();
 
   if (
+    isIosRiskModalOpen ||
     !accountAddress ||
     userChainSettings.doNotShowImportPositionsModal ||
     importablePositionsCount === 0 ||

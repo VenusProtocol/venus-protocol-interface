@@ -767,6 +767,15 @@
       "utilizationRate": "利用率"
     }
   },
+  "iosRiskModal": {
+    "confirmLabel": "自己責任で続行するには、<Bold>{{phrase}}</Bold> と入力してください",
+    "continueButton": "続行",
+    "mismatch": "入力内容が一致しません。次のように入力してください：{{phrase}}",
+    "noticeDescription": "{{kit}}（iOS {{from}} – {{to}}）は、悪意のある Web サイトを開くだけでウォレットのデータやリカバリーフレーズを盗み取ります。ウォレットの接続や署名は必要ありません。<LineBreak/><LineBreak/>1. <Bold>設定 › 一般 › ソフトウェアアップデート</Bold>を開き、最新の iOS をインストールしてください。<LineBreak/>2. アップデートできない場合は、設定 › プライバシーとセキュリティで<Bold>ロックダウンモード</Bold>をオンにしてください。",
+    "noticeTitle": "iOS {{version}} は {{kit}} の影響を受けます",
+    "title": "今すぐ iOS をアップデートしてください。資金が危険にさらされています。",
+    "updateButton": "iOS のアップデート方法"
+  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "集計価格",
@@ -874,7 +883,8 @@
         "theme": {
           "dark": "ダーク",
           "label": "テーマ",
-          "light": "ライト"
+          "light": "ライト",
+          "system": "システム"
         }
       },
       "vaults": {

@@ -768,6 +768,15 @@
       "utilizationRate": "Utilization rate"
     }
   },
+  "iosRiskModal": {
+    "confirmLabel": "To continue at your own risk, type <Bold>{{phrase}}</Bold>",
+    "continueButton": "Continue",
+    "mismatch": "Text doesn't match. Type: {{phrase}}",
+    "noticeDescription": "{{kit}} (iOS {{from}} – {{to}}) can steal wallet data and recovery phrases when you simply open a malicious website. No wallet connection or signature needed.<LineBreak/><LineBreak/>1. Open <Bold>Settings › General › Software Update</Bold> and install the latest iOS.<LineBreak/>2. Can't update? Turn on <Bold>Lockdown Mode</Bold> in Settings › Privacy & Security.",
+    "noticeTitle": "iOS {{version}} is affected by {{kit}}",
+    "title": "Update iOS now. Your funds are at risk.",
+    "updateButton": "How to update iOS"
+  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "Aggregate pricing",
@@ -875,7 +884,8 @@
         "theme": {
           "dark": "Dark",
           "label": "Theme",
-          "light": "Light"
+          "light": "Light",
+          "system": "System"
         }
       },
       "vaults": {

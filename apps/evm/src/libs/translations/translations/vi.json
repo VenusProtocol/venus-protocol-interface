@@ -767,6 +767,15 @@
       "utilizationRate": "Tỷ lệ sử dụng"
     }
   },
+  "iosRiskModal": {
+    "confirmLabel": "Để tiếp tục và tự chịu rủi ro, hãy nhập <Bold>{{phrase}}</Bold>",
+    "continueButton": "Tiếp tục",
+    "mismatch": "Nội dung không khớp. Hãy nhập: {{phrase}}",
+    "noticeDescription": "{{kit}} (iOS {{from}} – {{to}}) có thể đánh cắp dữ liệu ví và cụm từ khôi phục chỉ khi bạn mở một trang web độc hại. Không cần kết nối ví hay ký giao dịch.<LineBreak/><LineBreak/>1. Mở <Bold>Cài đặt › Cài đặt chung › Cập nhật phần mềm</Bold> và cài đặt iOS mới nhất.<LineBreak/>2. Không thể cập nhật? Bật <Bold>Chế độ phong tỏa</Bold> trong Cài đặt › Quyền riêng tư & Bảo mật.",
+    "noticeTitle": "iOS {{version}} bị ảnh hưởng bởi {{kit}}",
+    "title": "Hãy cập nhật iOS ngay. Tài sản của bạn đang gặp rủi ro.",
+    "updateButton": "Cách cập nhật iOS"
+  },
   "kLineChart": {
     "disclaimer": {
       "buttonLabel": "Định giá tổng hợp",
@@ -874,7 +883,8 @@
         "theme": {
           "dark": "Tối",
           "label": "Giao diện",
-          "light": "Sáng"
+          "light": "Sáng",
+          "system": "Hệ thống"
         }
       },
       "vaults": {
