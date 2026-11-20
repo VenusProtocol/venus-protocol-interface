@@ -1,0 +1,2981 @@
+{
+  "account": {
+    "circularGradient": "Gradien melingkar",
+    "hubs": {
+      "placeholder": {
+        "title": "Belum ada posisi Hub Likuiditas"
+      }
+    },
+    "isolatedPoolsDeprecationNotice": {
+      "description": "Pool terisolasi telah sepenuhnya dihentikan. Anda masih memiliki posisi di {{chainNames}}. Lunasi seluruh pinjaman dan tarik aset Anda. <LearnMore>Pelajari selengkapnya</LearnMore>"
+    },
+    "marketBreakdown": {
+      "tables": {
+        "borrowTableTitle": "Dipinjam",
+        "eModeHeader": {
+          "illustrationAltText": "Ilustrasi Mode-E",
+          "title": "Mode-E: <UnderlinedText>{{eModeGroupName}}</UnderlinedText>"
+        },
+        "isolatedModeHeader": {
+          "title": "Mode terisolasi: <UnderlinedText>{{groupName}}</UnderlinedText>"
+        },
+        "supplyTableTitle": "Disuplai",
+        "tabletBorrowTabTitle": "Dipinjam",
+        "tabletSupplyTabTitle": "Disuplai",
+        "tabletTitle": "Aset"
+      }
+    },
+    "performanceChart": {
+      "absolutePerformance": "Performa absolut",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "errorState": {
+        "failedToFetchMessage": "Tidak dapat mengambil riwayat akun",
+        "refetchButtonLabel": "Coba lagi"
+      },
+      "netWorth": {
+        "label": "Kekayaan bersih",
+        "tooltip": "Aset bersih yang tersedia setelah memperhitungkan suplai brankas dan pinjaman",
+        "tooltipWithVai": "Aset bersih yang tersedia setelah memperhitungkan suplai brankas, setoran Hub Likuiditas, pinjaman, dan VAI yang dicetak"
+      },
+      "periodOption": {
+        "oneYear": "1Thn",
+        "sixMonths": "6Bln",
+        "thirtyDays": "30Hr"
+      },
+      "placeholderText": "Membuat laporan, proses ini dapat memakan waktu hingga satu menit",
+      "todaysChange": "Perubahan hari ini",
+      "xAxisValue": "{{ date, numeric }}"
+    },
+    "placeholder": {
+      "buttonLabel": "Jelajahi"
+    },
+    "pools": {
+      "placeholder": {
+        "buttonLabel": "Jelajahi pasar",
+        "title": "Belum ada posisi"
+      }
+    },
+    "positions": {
+      "label": "Posisi"
+    },
+    "settings": {
+      "gaslessTransactions": {
+        "switchLabel": "Aktifkan transaksi tanpa biaya gas di {{chainName}}"
+      }
+    },
+    "spoke": {
+      "borrowed": {
+        "columns": {
+          "apy": "APY",
+          "asset": "Aset",
+          "balance": "Saldo",
+          "limitShare": "% dari batas"
+        },
+        "title": "Dipinjam"
+      },
+      "corePoolPill": "Venus Core",
+      "summary": {
+        "borrowApy": "APY Pinjaman",
+        "dailyBorrowInterest": "Bunga pinjaman harian",
+        "healthFactor": "Faktor kesehatan",
+        "totalBorrow": "Total pinjaman",
+        "totalSupply": "Total suplai"
+      },
+      "supplied": {
+        "columns": {
+          "asset": "Aset",
+          "balance": "Saldo",
+          "liquidationThreshold": "LT",
+          "maxLtv": "LTV Maks."
+        },
+        "title": "Disuplai"
+      }
+    },
+    "summary": {
+      "cellGroup": {
+        "dailyEarnings": "Pendapatan harian",
+        "healthFactor": "Faktor kesehatan",
+        "healthFactorTooltip": "Likuidasi pada < 1,0",
+        "mintedVai": "VAI yang dicetak",
+        "netApy": "APY Bersih",
+        "netApyTooltip": "Persentase dari total saldo suplai Anda yang diterima sebagai bunga tahunan",
+        "netApyWithVaultStakeTooltip": "Persentase dari total suplai dan suplai brankas Anda yang diterima sebagai bunga tahunan",
+        "totalBorrow": "Total pinjaman",
+        "totalSupply": "Total suplai",
+        "totalVaultStake": "Total suplai brankas"
+      },
+      "title": "Ringkasan"
+    },
+    "tabs": {
+      "hubs": "Hub Likuiditas",
+      "settings": "Pengaturan",
+      "transactions": "Transaksi",
+      "vaults": "Brankas"
+    },
+    "transactions": {
+      "date": {
+        "full": "{{ date, textual }}",
+        "time": "{{ date, time }}"
+      },
+      "placeholder": {
+        "description": "Transaksi Anda akan muncul di sini",
+        "title": "Belum ada transaksi"
+      },
+      "selects": {
+        "source": {
+          "all": "Semua sumber"
+        },
+        "txType": {
+          "all": "Semua transaksi"
+        }
+      },
+      "today": "Hari ini",
+      "txSource": {
+        "liquidityHub": "Hub Likuiditas",
+        "trade": "Perdagangan",
+        "venusCore": "Venus Core",
+        "venusSpoke": "Venus Spoke"
+      },
+      "txText": {
+        "enterLoanMarket": "<Styled>Memasuki</Styled> pasar {{vTokenSymbol}}",
+        "enterMarket": "<Styled>Mengaktifkan</Styled> {{vTokenSymbol}} sebagai agunan",
+        "exitLoanMarket": "<Styled>Keluar dari</Styled> pasar {{vTokenSymbol}}",
+        "exitMarket": "<Styled>Menonaktifkan</Styled> {{vTokenSymbol}} sebagai agunan"
+      },
+      "txType": {
+        "borrow": "Pinjam",
+        "enterLoanMarket": "Masuk pasar",
+        "enterMarket": "Aktifkan agunan",
+        "exitLoanMarket": "Keluar pasar",
+        "exitMarket": "Nonaktifkan agunan",
+        "mint": "Suplai",
+        "mintFromCollateral": "Migrasi",
+        "positionClosedWithLoss": "Tutup (rugi)",
+        "positionClosedWithProfit": "Tutup (untung)",
+        "positionIncreased": "Tingkatkan",
+        "positionOpened": "Dibuka",
+        "positionReducedWithLoss": "Dikurangi (rugi)",
+        "positionReducedWithProfit": "Dikurangi (untung)",
+        "principalSupplied": "Suplai",
+        "principalWithdrawn": "Tarik",
+        "realizedPnl": "PnL Terealisasi",
+        "redeem": "Tarik",
+        "repay": "Lunasi"
+      },
+      "yesterday": "Kemarin"
+    },
+    "vaults": {
+      "placeholder": {
+        "title": "Belum ada posisi brankas"
+      }
+    }
+  },
+  "accountData": {
+    "balanceUpdate": {
+      "borrowBalance": "Saldo pinjaman",
+      "supplyBalance": "Saldo suplai"
+    }
+  },
+  "accountHealth": {
+    "borrowed": "Dipinjam:",
+    "borrowedSpotTooltip": "Nilai pinjaman ini dihitung berdasarkan harga spot aset yang dipinjam dan akan digunakan untuk menentukan status kesehatan akun Anda.",
+    "healthFactor": {
+      "label": "Faktor kesehatan",
+      "tooltip": "Likuidasi pada < 1,0"
+    },
+    "liquidationThreshold": "Ambang batas likuidasi:",
+    "liquidationThresholdShort": "LT:",
+    "liquidationThresholdTooltip": "LT = Ambang Batas Likuidasi (Liquidation Threshold)<LineBreak/>Ketika saldo pinjaman Anda mencapai nilai ini, posisi Anda memenuhi syarat untuk dilikuidasi.<LineBreak/><LineBreak/>Pelajari selengkapnya mengenai <Link>perhitungannya</Link>.",
+    "tooltip": "Saldo pinjaman:<LineBreak/>{{borrowBalance}} ({{borrowLimitUsedPercentage}} dari batas pinjaman Anda)<LineBreak/><LineBreak/>Batas pinjaman:<LineBreak/>{{borrowLimit}}",
+    "tooltipProtection": "Saldo pinjaman (terlindungi):<LineBreak/>{{borrowBalanceProtected}} ({{protectedBorrowLimitUsedPercentage}} dari batas pinjaman Anda)<LineBreak/><LineBreak/>Saldo pinjaman (spot): {{borrowBalance}}<LineBreak/>Batas pinjaman: {{borrowLimitProtected}}"
+  },
+  "accountLiquidityHubDailyEarnings": {
+    "label": "Pendapatan harian"
+  },
+  "accountModal": {
+    "dashboardButtonLabel": "Lihat Dasbor",
+    "disconnectButtonLabel": "Putuskan koneksi"
+  },
+  "accountPoolDailyEarnings": {
+    "label": "Pendapatan harian"
+  },
+  "adBanner": {
+    "startNow": "Mulai sekarang"
+  },
+  "announcements": {
+    "bethUpdate": {
+      "description": "Binance menjeda penarikan BETH pada 26-04-2023. Kami menyarankan pengguna untuk mengurangi eksposur mereka terhadap BETH di Venus. Peminjaman telah dijeda. Konversikan BETH ke WBETH secara on-chain dengan rasio 1:1 <Link>di sini</Link>."
+    },
+    "sxpDisabling": {
+      "description": "Berdasarkan rekomendasi dari Gauntlet, peminjaman dan penyuplaian untuk SXP telah dijeda mengingat kekhawatiran terkait migrasi SXP ke jaringan baru serta perkiraan penurunan likuiditas SXP."
+    },
+    "trxMigration": {
+      "description": "Venus mendukung token TRX baru di pasar yang baru. Peminjaman dan penyuplaian telah dijeda untuk token TRX lama. Untuk informasi selengkapnya, lihat <Link>pengumuman resmi oleh Binance</Link>."
+    },
+    "tusdMigration": {
+      "description": "Venus mendukung token TUSD baru di pasar yang baru. Peminjaman dan penyuplaian telah dijeda untuk token TUSD lama. Untuk informasi selengkapnya, lihat <Link>pengumuman resmi oleh Binance</Link>."
+    }
+  },
+  "approveDelegateSteps": {
+    "approveDelegateButton": {
+      "text": "Setujui kontrak delegasi",
+      "tooltip": "Kami memerlukan persetujuan kontrak delegasi untuk menjalankan operasi ini atas nama Anda."
+    },
+    "step1": "Langkah 1"
+  },
+  "approveTokenSteps": {
+    "approveTokenButton": {
+      "text": "Setujui {{tokenSymbol}}",
+      "tooltip": "Kami memerlukan persetujuan pengeluaran untuk setiap token yang ingin Anda gunakan pada protokol Venus."
+    },
+    "step1": "Langkah 1",
+    "step2": "Langkah 2"
+  },
+  "appVersionChecker": {
+    "newVersionMessage": "Versi baru Venus telah tersedia. Muat ulang halaman untuk menggunakannya sekarang."
+  },
+  "apy": {
+    "boost": {
+      "iconAlt": "Ikon pasar yang ditingkatkan",
+      "tooltip": {
+        "borrowApy": {
+          "description": "Bunga yang terakumulasi saat meminjam aset ini dari Venus Protocol.",
+          "name": "APY Pinjaman"
+        },
+        "collateralGatedMerklReward": {
+          "description": "Tingkat imbalan maksimum di pasar ini, dihitung berdasarkan jumlah pinjaman yang memenuhi syarat saat ini sebesar {{amount}}. Ini hanya berlaku selama pinjaman {{tokenSymbol}} Anda diagunkan dengan bStock — posisi Anda belum memenuhi syarat."
+        },
+        "defaultMerklRewardName": "Imbalan Merkl",
+        "externalRewardDescription": "Imbalan dari program eksternal ini dapat diklaim melalui <AppLink>aplikasi resmi</AppLink> mereka. Protokol Venus tidak menjaminnya dan tidak bertanggung jawab atas kerugian apa pun.",
+        "intrinsicApy": {
+          "description": "Imbal hasil asli dari aset dasar itu sendiri — misalnya, imbalan setoran. Imbal hasil ini berasal dari sumber eksternal dan tidak dijamin oleh Venus Protocol.",
+          "name": "APY Intrinsik"
+        },
+        "liquidityHubIntrinsicApy": {
+          "description": "Imbal hasil asli yang diperoleh dengan menyuplai aset dasar ke <AppLink>Venus Hub Likuiditas</AppLink>. vhToken mengakumulasi imbal hasil ini melalui kenaikan nilai tukar penebusan alih-alih imbalan yang dapat diklaim — Anda akan menerimanya secara otomatis saat melakukan penarikan.",
+          "name": "APY intrinsik Hub Likuiditas"
+        },
+        "liquidityHubPrimeDistribution": {
+          "description": "APY Prime yang sebenarnya Anda peroleh pada posisi Hub Anda, dibobotkan berdasarkan seberapa banyak yang disuplai ke Core pool. Imbalan ini berasal dari Core pool dan tidak dibayarkan dua kali. Venus Prime memberikan penghargaan kepada pengguna setia dengan peningkatan imbalan; protokol Venus tidak menjaminnya dan tidak bertanggung jawab atas kerugian apa pun.",
+          "name": "APY Prime Efektif"
+        },
+        "liquidityHubSupplyApy": {
+          "description": "Imbal hasil dasar dari penyuplaian ke Venus Hub Likuiditas, tidak termasuk Prime dan imbalan lainnya."
+        },
+        "offChainApy": {
+          "description": "Imbal hasil tambahan dari aktivitas off-chain, seperti airdrop atau kampanye promosi, yang dikelola oleh pihak ketiga. Imbal hasil ini tidak dijamin oleh Venus Protocol.",
+          "name": "APY Off-chain"
+        },
+        "pointDistribution": {
+          "learnMore": "Pelajari selengkapnya"
+        },
+        "primeDistribution": {
+          "description": "Venus Prime memberikan penghargaan kepada pengguna setia dengan peningkatan imbalan. Protokol Venus tidak menjamin imbalan ini dan tidak bertanggung jawab atas kerugian apa pun.",
+          "name": "APY Prime"
+        },
+        "supplyApy": {
+          "description": "Total imbal hasil yang diperoleh dengan menyuplai aset Anda ke Venus Protocol.",
+          "name": "APY Suplai"
+        },
+        "xvsDistribution": {
+          "description": "Imbalan distribusi diprakarsai dan dilaksanakan oleh komunitas Venus yang terdesentralisasi. Protokol Venus tidak menjaminnya dan tidak bertanggung jawab atas kerugian apa pun.",
+          "name": "Distribusi XVS"
+        },
+        "yieldToMaturityApy": {
+          "description": "Imbal hasil ini mewakili pengembalian tahunan dari pembelian token PT dengan harga diskon menggunakan aset dasar dan menyimpannya hingga jatuh tempo. Imbal hasil ini tidak dijamin oleh Venus Protocol.",
+          "name": "APY imbal hasil hingga jatuh tempo"
+        }
+      }
+    },
+    "merklBadge": {
+      "logoAlt": "Logo kampanye",
+      "tooltip": {
+        "leadLine": "Pada tingkat imbalan maksimum di bawah ini, APY pinjaman Anda akan menjadi {{apy}}."
+      }
+    },
+    "primeBadge": {
+      "logoAlt": "Logo Prime",
+      "tooltip": {
+        "calculatorLink": "Hitung imbalan Prime Anda",
+        "liquidityHubCorePoolBoost": "Peningkatan ini berasal dari Core pool dan tidak dibayarkan dua kali.",
+        "primeBorrowSimulation": "APY ditingkatkan oleh <PrimeLink>program Prime</PrimeLink> berdasarkan rata-rata pinjaman pengguna sebesar {{borrowBalance}} dan suplai brankas sebesar {{xvsStaked}}.",
+        "primeBorrowSimulationCapped": "APY ditingkatkan oleh <PrimeLink>program Prime</PrimeLink> berdasarkan pinjaman sebesar {{borrowBalance}} dan suplai brankas sebesar {{xvsStaked}} (pinjaman maksimum yang dihitung untuk staking ini).",
+        "primeDocLink": "Pelajari selengkapnya",
+        "primeMarket": "APY ditingkatkan oleh Prime.",
+        "primeSupplySimulation": "APY ditingkatkan oleh <PrimeLink>program Prime</PrimeLink> berdasarkan rata-rata suplai pengguna sebesar {{supplyBalance}} dan suplai brankas sebesar {{xvsStaked}}.",
+        "primeSupplySimulationCapped": "APY ditingkatkan oleh <PrimeLink>program Prime</PrimeLink> berdasarkan suplai sebesar {{supplyBalance}} dan suplai brankas sebesar {{xvsStaked}} (suplai maksimum yang dihitung untuk staking ini)."
+      }
+    }
+  },
+  "apyBreakdown": {
+    "borrowApy": "APY Pinjaman",
+    "distributionApy": "APY Distribusi",
+    "distributionTooltip": "Imbalan distribusi diprakarsai dan dilaksanakan oleh komunitas Venus yang terdesentralisasi. Protokol Venus tidak menjaminnya dan tidak bertanggung jawab atas kerugian apa pun.",
+    "externalDistributionApy": "APY {{description}}",
+    "intrinsicApy": "APY Intrinsik",
+    "intrinsicApyTooltip": "APY yang diperoleh langsung dari aset itu sendiri (misalnya penyetoran atau imbalan eksternal), terpisah dari imbal hasil pinjaman Venus. Protokol Venus tidak menjaminnya dan tidak bertanggung jawab atas kerugian apa pun.",
+    "liquidityHubIntrinsicApy": "APY intrinsik Hub Likuiditas",
+    "liquidityHubIntrinsicApyTooltip": "Imbal hasil asli yang diperoleh dengan menyuplai aset dasar ke <AppLink>Venus Hub Likuiditas</AppLink>. vhToken mengakumulasi imbal hasil ini melalui kenaikan nilai tukar penebusan alih-alih imbalan yang dapat diklaim — Anda akan menerimanya secara otomatis saat melakukan penarikan.",
+    "netApy": {
+      "label": "APY Bersih",
+      "tooltip": "Jumlah keseluruhan APY dari semua pasar yang terlibat"
+    },
+    "offChainApy": "APY Off-chain",
+    "offChainApyTooltip": "Imbal hasil tambahan dari aktivitas off-chain, seperti airdrop atau kampanye promosi, yang dikelola oleh pihak ketiga. Protokol Venus tidak menjaminnya dan tidak bertanggung jawab atas kerugian apa pun.",
+    "primeApy": "APY Prime",
+    "supplyApy": "APY Suplai",
+    "totalApy": {
+      "borrowApyLabel": "Total APY pinjaman",
+      "borrowApyTooltip": "APY Pinjaman - APY Distribusi",
+      "supplyApyLabel": "Total APY suplai",
+      "supplyApyTooltip": "APY Suplai + APY Distribusi"
+    },
+    "yieldToMaturityApy": "APY imbal hasil hingga jatuh tempo",
+    "yieldToMaturityApyTooltip": "Imbal hasil ini mewakili pengembalian tahunan dari pembelian token PT dengan harga diskon menggunakan aset dasar dan menyimpannya hingga jatuh tempo. Imbal hasil ini tidak dijamin oleh Venus Protocol."
+  },
+  "apyChart": {
+    "date": {
+      "full": "{{ date, numeric }}",
+      "short": "{{ date, numericWithTime }}"
+    },
+    "tooltipItemLabels": {
+      "borrowApy": "APY Pinjaman",
+      "date": "Tanggal",
+      "supplyApy": "APY Suplai",
+      "totalBorrow": "Total pinjaman",
+      "totalStaked": "Total disuplai",
+      "totalSupply": "Total suplai",
+      "unitPrice": "Harga unit"
+    }
+  },
+  "asset": {
+    "marketInfo": {
+      "title": "Info pasar"
+    }
+  },
+  "assetAccessor": {
+    "assetNotAvailable": "Aset ini tidak tersedia di negara Anda",
+    "disabledActionNotice": {
+      "boost": "Fitur Boost telah dinonaktifkan untuk pasar ini",
+      "borrow": "Peminjaman telah dinonaktifkan untuk pasar ini",
+      "repay": "Pelunasan telah dinonaktifkan untuk pasar ini",
+      "supply": "Penyuplaian telah dinonaktifkan untuk pasar ini",
+      "withdraw": "Penarikan telah dinonaktifkan untuk pasar ini"
+    },
+    "eModeBlockedActionNotice": {
+      "borrow": "Pengaturan Mode-E Anda tidak mengizinkan peminjaman dari pasar ini. <Link>Kelola Mode-E</Link>"
+    },
+    "isolationModeBlockedActionNotice": {
+      "borrow": "Pengaturan mode isolasi Anda tidak mengizinkan peminjaman dari pasar ini. <Link>Kelola Mode-E</Link>"
+    }
+  },
+  "assetWarning": {
+    "modalTitle": "Token {{ poolName }}",
+    "modeInfoHint": "<LineBreak/>Kunjungi bagian <ModeInfoButton>info mode</ModeInfoButton> untuk menjelajahi grup lain yang tersedia.",
+    "modeOnly": {
+      "eMode": "{{tokenSymbol}} hanya tersedia dalam Mode-E. Kunjungi bagian <ModeInfoButton>info mode</ModeInfoButton> untuk mengaktifkan grup tersebut, atau jelajahi <ShowAllMarketsButton>aset lainnya</ShowAllMarketsButton>.",
+      "eModeAndIsolation": "{{tokenSymbol}} hanya tersedia dalam Mode-E dan mode Isolasi. Kunjungi bagian <ModeInfoButton>info mode</ModeInfoButton> untuk mengaktifkan salah satu grup, atau jelajahi <ShowAllMarketsButton>aset lainnya</ShowAllMarketsButton>.",
+      "isolation": "{{tokenSymbol}} hanya tersedia dalam mode Isolasi. Kunjungi bagian <ModeInfoButton>info mode</ModeInfoButton> untuk mengaktifkan grup tersebut, atau jelajahi <ShowAllMarketsButton>aset lainnya</ShowAllMarketsButton>."
+    },
+    "supplyDescription": "Menyuplai {{tokenSymbol}} ke Core Pool memungkinkan Anda meminjam token secara eksklusif dari pool ini. <ShowAllMarketsButton>Tampilkan semua pasar</ShowAllMarketsButton>"
+  },
+  "availableBalance": {
+    "label": "Tersedia"
+  },
+  "boostBanner": {
+    "description": "Leverage sekali klik untuk meningkatkan imbal hasil Anda <White>hingga 5x</White>.",
+    "rocketAltText": "Ilustrasi roket",
+    "title": "Fitur Boost kini tersedia!"
+  },
+  "breadcrumbs": {
+    "bridge": "Bridge",
+    "dashboard": "Dasbor",
+    "governance": "Tata Kelola",
+    "leaderboard": "Papan Peringkat",
+    "liquidityHubs": "Hub Likuiditas",
+    "markets": "Pasar",
+    "primeCalculator": "Kalkulator Prime",
+    "proposal": "Proposal #{{proposalId}}",
+    "spokeMarket": "{{tokenSymbol}} di {{poolName}}",
+    "spokePools": "Spoke",
+    "vai": "VAI",
+    "vaults": "Brankas"
+  },
+  "bridgePage": {
+    "amountInput": {
+      "label": "Jumlah",
+      "maxButtonLabel": "MAKS"
+    },
+    "bridgeGasFee": {
+      "label": "Biaya gas bridge",
+      "tooltip": "Digunakan untuk menutupi biaya gas pengiriman transfer Anda di jaringan tujuan"
+    },
+    "errors": {
+      "dailyTransactionLimitExceeded": {
+        "message": "Anda tidak dapat melakukan bridge lebih dari {{readableAmountTokens}} ({{readableAmountUsd}}) di jaringan tujuan karena batas 24 jam. Batas ini akan diatur ulang pada {{ date, textualWithTime }}",
+        "submitButton": "Jumlah yang dimasukkan melebihi batas harian"
+      },
+      "doesNotHaveEnoughNativeFunds": "Saldo {{tokenSymbol}} tidak mencukupi",
+      "doesNotHaveEnoughXvs": "Saldo {{tokenSymbol}} tidak mencukupi",
+      "mintCapReached": {
+        "message": "Anda tidak dapat melakukan bridge lebih dari {{readableAmountTokens}} karena batas pencetakan bridge",
+        "submitButton": "Batas pencetakan bridge tercapai"
+      },
+      "singleTransactionLimitExceeded": {
+        "message": "Anda tidak dapat melakukan bridge lebih dari {{readableAmountTokens}} ({{readableAmountUsd}}) di jaringan tujuan dalam satu transaksi",
+        "submitButton": "Jumlah yang dimasukkan melebihi batas"
+      }
+    },
+    "footer": {
+      "bridgeDocLink": "Cara melakukan bridge",
+      "poweredBy": "Didukung oleh"
+    },
+    "fromChainSelect": {
+      "label": "Dari"
+    },
+    "submitButton": {
+      "label": {
+        "enterValidAmount": "Masukkan jumlah yang valid",
+        "submit": "Konfirmasi"
+      }
+    },
+    "toChainSelect": {
+      "label": "Ke"
+    },
+    "walletBalance": {
+      "label": "Saldo dompet"
+    }
+  },
+  "cellGroup": {
+    "ariaLabel": "Statistik"
+  },
+  "chainExplorerLink": {
+    "content": "Lihat di {{domainName}}"
+  },
+  "chip": {
+    "proposalType": {
+      "critical": "Kritis",
+      "fastTrack": "Jalur cepat"
+    }
+  },
+  "claimReward": {
+    "modal": {
+      "claimButton": {
+        "disabledLabel": "Pilih grup untuk mengambil imbalan",
+        "enabledLabel": "Klaim"
+      },
+      "claimOn": "Klaim di {{appName}}",
+      "externalRewards": "Imbalan eksternal",
+      "primeGroup": {
+        "disabledContractWarningMessage": "Kontrak Prime saat ini sedang dijeda. Bunga dari Prime tetap terakumulasi tetapi belum dapat diklaim hingga kontrak diaktifkan kembali.",
+        "name": "Prime"
+      },
+      "rewards": "Imbalan",
+      "title": "Klaim imbalan ({{chainName}})",
+      "vaultGroup": {
+        "disabledContractWarningMessage": "Brankas ini saat ini sedang dijeda. Suku bunga tetap terakumulasi tetapi belum dapat diklaim hingga brankas diaktifkan kembali.",
+        "name": "Brankas {{stakedTokenSymbol}}"
+      },
+      "vestingVaultGroup": {
+        "name": "Brankas vesting {{stakedTokenSymbol}}"
+      }
+    }
+  },
+  "connectButton": {
+    "connect": "Hubungkan dompet",
+    "vipLogoAlt": "Logo VIP"
+  },
+  "connectWallet": {
+    "connectButton": "Hubungkan dompet"
+  },
+  "contractErrors": {
+    "actionPaused": "Tindakan ini sedang dijeda sementara di pasar ini.",
+    "borrowCapExceeded": "Batas maksimum pinjaman untuk pasar ini telah tercapai.",
+    "hubCapacityExceeded": "Hub Likuiditas ini sudah penuh. Anda tidak dapat menyuplai lebih banyak hingga penarikan dilakukan atau batas suplainya ditingkatkan.",
+    "insufficientCollateral": "Agunan tidak mencukupi untuk operasi ini.",
+    "insufficientLiquidity": "Likuiditas yang tersedia tidak mencukupi untuk operasi ini.",
+    "notice": {
+      "copyDetails": "Salin detail",
+      "errorLabel": "Kesalahan",
+      "fallback": "Transaksi akan gagal. Silakan periksa input Anda dan coba lagi.",
+      "hideRawError": "Sembunyikan kesalahan mentah",
+      "showRawError": "Tampilkan kesalahan mentah"
+    },
+    "slippageExceeded": "Harga bergerak melampaui toleransi selisih harga (slippage) Anda. Silakan coba lagi.",
+    "supplyCapExceeded": "Batas maksimum suplai untuk pasar ini telah tercapai.",
+    "supplyNotAllowed": "Pasar ini hanya menerima setoran dari penyuplai yang telah disetujui.",
+    "swapDeadlineExpire": "Batas waktu pertukaran (swap) telah habis. Silakan coba lagi.",
+    "tooMuchRepay": "Jumlah pelunasan melebihi sisa pinjaman Anda."
+  },
+  "controls": {
+    "categoryFilter": {
+      "allCategories": "Semua Kategori",
+      "nCategories_one": "{{count}} Kategori",
+      "nCategories_other": "{{count}} Kategori",
+      "reset": "Atur ulang",
+      "search": "Cari kategori",
+      "title": "Pilih Kategori"
+    },
+    "pausedAssetsToggle": {
+      "label": "Aset yang dijeda"
+    },
+    "userAssetsOnlyToggle": {
+      "label": "Hanya aset saya"
+    }
+  },
+  "dashboard": {
+    "hubs": {
+      "apy": "APY",
+      "dailyEarnings": "Pendapatan harian",
+      "dailyEarningsTooltip": "Perkiraan pendapatan harian Anda di seluruh posisi Hub Likuiditas yang aktif, berdasarkan APY masing-masing hub saat ini. Pendapatan aktual dapat bervariasi.",
+      "totalSuppliedValue": "Total nilai yang disuplai"
+    },
+    "overview": {
+      "30DayAbsolutePerformance": "Kinerja absolut 30Hr",
+      "absolutePerformance": "Kinerja absolut",
+      "netWorth": {
+        "label": "Kekayaan bersih",
+        "tooltip": "Aset bersih yang tersedia setelah memperhitungkan suplai brankas dan pinjaman",
+        "tooltipWithVai": "Aset bersih yang tersedia setelah memperhitungkan suplai brankas, setoran Hub Likuiditas, pinjaman, dan VAI yang dicetak"
+      },
+      "performanceChart": {
+        "emptyState": "Belum ada riwayat akun",
+        "errorState": {
+          "failedToFetchMessage": "Tidak dapat mengambil riwayat akun",
+          "refetchButtonLabel": "Coba lagi"
+        },
+        "placeholderText": "Membuat laporan, proses ini dapat memakan waktu hingga satu menit"
+      },
+      "periodOption": {
+        "oneYear": "1Thn",
+        "sixMonths": "6Bln",
+        "thirtyDays": "30Hr"
+      },
+      "summary": {
+        "cellGroup": {
+          "dailyEarnings": "Pendapatan harian",
+          "mintedVai": "VAI yang dicetak",
+          "netApy": "APY Bersih",
+          "netApyTooltip": "Imbal hasil bersih tahunan Anda di seluruh Core, Spoke, Hub Likuiditas, brankas XVS / VAI, brankas suku bunga tetap, dan Perdagangan, sebagai persentase dari total suplai Anda pada produk-produk tersebut",
+          "totalBorrow": "Total pinjaman",
+          "totalSupply": "Total suplai",
+          "totalVaultStake": "Total suplai brankas"
+        },
+        "title": "Ringkasan"
+      },
+      "todaysChange": "Perubahan hari ini"
+    },
+    "performanceChart": {
+      "balancesHidden": "Saldo disembunyikan",
+      "connectWallet": "Hubungkan dompet untuk melihat kinerja",
+      "dataPoint": {
+        "date": "{{ date, textual }}"
+      },
+      "xAxisValue": "{{ date, dayMonth }}"
+    },
+    "previewCard": {
+      "apr": "APR",
+      "currentlySupplied": "Saat ini disuplai",
+      "totalSupplied": "Total disuplai"
+    },
+    "topMarkets": {
+      "supplyButton": {
+        "label": "Suplai"
+      }
+    },
+    "vaults": {
+      "dailyEarnings": "Pendapatan harian",
+      "dailyEarningsTooltip": "Perkiraan pendapatan harian Anda di seluruh brankas yang aktif, berdasarkan suku bunga saat ini atau APR tetap masing-masing brankas. Pendapatan aktual dapat bervariasi.",
+      "totalStakedValue": "Total nilai yang disuplai"
+    }
+  },
+  "eModeBanner": {
+    "exploreButtonLabel": "Jelajahi",
+    "illustrationAltText": "Ilustrasi Mode-E",
+    "manageEModeButtonLabel": "Kelola Mode-E",
+    "title": "Tingkatkan daya pinjam Anda dengan Mode-E"
+  },
+  "eModeGroupList": {
+    "controls": {
+      "mobileSelectLabel": "Urutkan berdasarkan:",
+      "searchPlaceholder": "Cari grup atau aset"
+    },
+    "group": {
+      "cannotDisable": {
+        "tooltip": {
+          "blockingPositions": "Anda tidak dapat menonaktifkan grup ini karena Anda memiliki posisi pinjaman dengan aset yang tidak dapat dipinjam dari pool. <Link>Tampilkan posisi saya</Link>",
+          "notEnoughCollateral": "Anda tidak dapat menonaktifkan grup ini karena total nilai agunan Anda tidak akan mencukupi total saldo pinjaman Anda"
+        }
+      },
+      "cannotEnable": {
+        "modal": {
+          "description": "Anda perlu menutup posisi pinjaman berikut untuk mengaktifkan grup <WhiteText>{{ eModeGroupName }}</WhiteText>:",
+          "repayButtonLabel": "Lunasi",
+          "title": "Posisi Anda"
+        },
+        "tooltip": {
+          "blockingPositions": "Anda tidak dapat mengaktifkan grup ini karena Anda memiliki posisi pinjaman dengan aset yang tidak termasuk dalam grup tersebut. <Link>Tampilkan posisi saya</Link>",
+          "notEnoughCollateral": "Anda tidak dapat mengaktifkan grup ini karena total nilai agunan Anda tidak akan mencukupi total saldo pinjaman Anda"
+        }
+      },
+      "disableButtonLabel": "Nonaktifkan",
+      "disabledNotice": "Grup ini tidak lagi didukung. Akun Anda kini kembali menggunakan parameter Core Pool. Silakan beralih ke grup lain yang tersedia atau nonaktifkan grup ini.",
+      "enableButtonLabel": "Aktifkan",
+      "healthFactor": "Faktor kesehatan:",
+      "switchButtonLabel": "Ganti"
+    },
+    "table": {
+      "columns": {
+        "asset": "Aset",
+        "collateral": "Agunan",
+        "isBorrowable": "Dapat dipinjam",
+        "liquidationPenalty": "Penalti",
+        "liquidationThreshold": "Ambang batas",
+        "maxLtv": "LTV Maks."
+      }
+    }
+  },
+  "errors": {
+    "couldNotRetrieveSigner": "Penanda tangan tidak dapat diambil, pastikan dompet Anda tidak terkunci lalu muat ulang halaman",
+    "couldNotSwitchChain": "Tidak dapat mengganti jaringan, pastikan dompet Anda tidak terkunci lalu muat ulang halaman",
+    "missingAbstainDescription": "Proposal memerlukan deskripsi suara 'abstain'",
+    "missingAgainstDescription": "Proposal memerlukan deskripsi suara 'menolak'",
+    "missingDescription": "Tidak ada deskripsi proposal di dalam berkas",
+    "missingForDescription": "Proposal memerlukan deskripsi suara 'setuju'",
+    "missingParamForSignature": "Tidak ada parameter yang sesuai untuk fungsi tersebut",
+    "missingSafeWalletApiUrl": "Transaksi Safe tidak dapat diambil karena kesalahan konfigurasi",
+    "missingTargetForSignature": "Tidak ada target yang sesuai untuk fungsi tersebut",
+    "missingTitle": "Proposal harus memiliki judul",
+    "noMetaKey": "Tidak ada informasi metadata di dalam berkas",
+    "noParamsKey": "Berkas tidak memuat daftar parameter",
+    "noSignaturesKey": "Tidak ada tanda tangan panggilan (call signatures) di dalam berkas",
+    "noSwapQuoteFound": "Tidak ada pertukaran (swap) yang ditemukan.",
+    "noTargetsKey": "Berkas tidak memuat daftar target",
+    "noTypeKey": "Berkas tidak mencantumkan jenis proposal",
+    "proposalNotFound": "Proposal tidak ditemukan",
+    "serviceIssue": "Layanan sedang tidak tersedia untuk sementara. Silakan coba lagi nanti.",
+    "serviceIssueDetails": "Detail",
+    "serviceIssueTitle": "Gangguan server",
+    "somethingWentWrong": "Terjadi kesalahan",
+    "somethingWentWrongRetrievingTransactions": "Terjadi kesalahan saat mengambil data transaksi",
+    "somethingWentWrongRetrievingVoterAccounts": "Terjadi kesalahan saat mengambil data akun pemilih",
+    "somethingWentWrongRetrievingVoterDetails": "Terjadi kesalahan saat mengambil detail pemilih",
+    "somethingWentWrongRetrievingVoterHistory": "Terjadi kesalahan saat mengambil riwayat pemilih",
+    "undefinedAccountErrorMessage": "Akun tidak terdefinisi",
+    "validationError": "Validasi gagal untuk proposal yang diimpor:",
+    "walletNotConnected": "Dompet tidak terhubung"
+  },
+  "errorState": {
+    "buttonLabel": "Coba lagi",
+    "defaultMessage": "Terjadi kesalahan"
+  },
+  "footer": {
+    "links": {
+      "documentation": "Dokumentasi",
+      "privacyPolicy": "Kebijakan privasi",
+      "skills": "Keahlian agen",
+      "termsOfUse": "Ketentuan penggunaan"
+    }
+  },
+  "gaslessTransactions": {
+    "chainLabel": "Gratis",
+    "errorModal": {
+      "cancel": "Batal",
+      "description": "Anda tetap dapat mengirim transaksi ini dengan membayar biaya gas sendiri",
+      "resendButtonLabel": "Kirim ulang dengan biaya gas",
+      "title": "Transaksi bebas biaya gas sedang tidak tersedia saat ini"
+    },
+    "tooltip": {
+      "disabled": "Jaringan ini mendukung transaksi bebas biaya gas tanpa biaya apa pun, tetapi fitur ini saat ini dinonaktifkan di pengaturan Anda. Informasi selengkapnya <Link>di sini</Link>",
+      "enabled": "Transaksi di jaringan ini bebas biaya gas tanpa biaya apa pun. Informasi selengkapnya <Link>di sini</Link>"
+    }
+  },
+  "gatedAssetAcknowledgementModal": {
+    "acceptButtonLabel": "Saya mengerti dan mengonfirmasi",
+    "description": "bStocks adalah sekuritas tertokenisasi yang diterbitkan oleh BTECH Holdings Ltd (ADGM). Informasi yang disajikan di sini hanya untuk tujuan informasi dan bukan merupakan penawaran, ajakan, atau nasihat investasi. bStocks tidak ditujukan untuk didistribusikan di Amerika Serikat, kepada Warga Negara/Entitas AS (US Person), atau di yurisdiksi terlarang lainnya. Berinvestasi mengandung risiko — nilai investasi Anda dapat turun dan Anda mungkin tidak mendapatkan kembali jumlah yang telah diinvestasikan. Untuk pengungkapan risiko selengkapnya, dokumentasi hukum, dan daftar yurisdiksi terlarang, silakan kunjungi <Link>{{ url }}</Link>.<LineBreak/><LineBreak/>Dengan melanjutkan, Anda mengonfirmasi bahwa Anda bukan Pihak Terlarang dan bahwa mengakses produk ini sah secara hukum di yurisdiksi Anda.",
+    "rejectButtonLabel": "Saya menolak & keluar",
+    "title": "Pemberitahuan penting"
+  },
+  "healthFactor": {
+    "label": {
+      "healthy": "Sehat",
+      "liquidation": "Likuidasi",
+      "moderate": "Sedang",
+      "risky": "Berisiko"
+    }
+  },
+  "importPositionsModal": {
+    "aave": {
+      "logoAlt": "Logo Aave",
+      "title": "Aave"
+    },
+    "emptyState": "Tidak ada posisi eksternal untuk diimpor",
+    "gasLess": {
+      "label": "Gratis",
+      "tooltip": "Transaksi untuk memigrasikan posisi Anda ke Venus disponsori oleh Venus Protocol"
+    },
+    "infoSection": {
+      "1": {
+        "description": "Satu-satunya platform dengan suku bunga APY yang ditingkatkan oleh imbal hasil nyata.",
+        "title": "Imbal hasil lebih baik"
+      },
+      "2": {
+        "description": "Bergabunglah dengan platform DeFi penghasil nilai tertinggi dengan pertumbuhan yang konsisten.",
+        "title": "Efisiensi modal tertinggi"
+      },
+      "3": {
+        "description": "Kontrak yang telah teruji dan paling banyak diaudit di bidang pinjam-meminjam.",
+        "title": "Sangat aman"
+      },
+      "title": "Mengapa Venus?"
+    },
+    "limitNotice": "Hanya posisi dengan nilai antara <Number>{{min}}</Number> dan <Number>{{max}}</Number> yang saat ini dapat diimpor ke Venus.",
+    "position": {
+      "currentApy": {
+        "label": "APY Saat Ini"
+      },
+      "importButtonLabel": "Impor",
+      "missedYearlyGains": "Anda melewatkan potensi keuntungan sebesar <Number><Gains /> / tahun</Number>",
+      "newApy": {
+        "label": "APY Venus"
+      }
+    },
+    "title": "Impor ke Venus dan dapatkan imbal hasil lebih banyak"
+  },
+  "interactive": {
+    "addToWallet": {
+      "modalTitle": "Tambahkan token ke dompet"
+    },
+    "copy": {
+      "address": {
+        "modalTitle": "Salin alamat token",
+        "name": "Alamat",
+        "tooltip": "Salin Alamat"
+      }
+    },
+    "copyToClipboard": "{{name}} disalin ke papan klip",
+    "goTo": {
+      "modalTitle": "Buka kontrak token"
+    }
+  },
+  "interestRateChart": {
+    "currentUtilizationRateLabelValue": "Saat ini ({{percentage}})",
+    "tooltipItemLabels": {
+      "borrowApy": "APY Pinjaman",
+      "supplyApy": "APY Suplai",
+      "utilizationRate": "Tingkat pemanfaatan"
+    }
+  },
+  "iosRiskModal": {
+    "confirmLabel": "Untuk melanjutkan dengan risiko Anda sendiri, ketik <Bold>{{phrase}}</Bold>",
+    "continueButton": "Lanjutkan",
+    "mismatch": "Teks tidak cocok. Ketik: {{phrase}}",
+    "noticeDescription": "{{kit}} (iOS {{from}} – {{to}}) dapat mencuri data dompet dan frasa pemulihan hanya saat Anda membuka situs web berbahaya. Tidak diperlukan koneksi dompet maupun tanda tangan.<LineBreak/><LineBreak/>1. Buka <Bold>Pengaturan › Umum › Pembaruan Perangkat Lunak</Bold> dan pasang versi iOS terbaru.<LineBreak/>2. Tidak dapat memperbarui? Aktifkan <Bold>Mode Isolasi (Lockdown Mode)</Bold> di Pengaturan › Privasi & Keamanan.",
+    "noticeTitle": "iOS {{version}} terdampak oleh {{kit}}",
+    "title": "Perbarui iOS sekarang. Dana Anda dalam risiko.",
+    "updateButton": "Cara memperbarui iOS"
+  },
+  "kLineChart": {
+    "disclaimer": {
+      "buttonLabel": "Penetapan harga agregat",
+      "description": "Data harga dikumpulkan dari berbagai sumber hanya sebagai referensi. Harga AMM on-chain yang sebenarnya dapat berbeda.",
+      "title": "Informasi grafik"
+    }
+  },
+  "labeledSlider": {
+    "0": "0%",
+    "100": "100%"
+  },
+  "layout": {
+    "chainSelect": {
+      "label": "Pilih jaringan"
+    },
+    "header": {
+      "dashboardAdBanner": {
+        "buttonLabel": "Jelajahi sekarang",
+        "title": "Brankas Berjangka Tetap USDT Kini Tersedia di BNB Chain. Target ≈4,2% APR."
+      },
+      "exposures": "Eksposur",
+      "liquidity": "Likuiditas",
+      "maxLtv": {
+        "label": "LTV Maks.",
+        "modeInfoHint": "<Link>Jelajahi</Link> opsi LTV yang tersedia.",
+        "tooltip": "LTV maksimum adalah batas peminjaman. Pada LTV {{maxLtv}}, 1 {{tokenSymbol}} agunan memungkinkan peminjaman mata uang senilai {{userCollateralFactor}} {{tokenSymbol}}."
+      },
+      "price": "Harga",
+      "resilientOracle": "Resilient Oracle",
+      "suppliers": "Penyuplai",
+      "supply": "Suplai",
+      "utilizationRate": "Tingkat pemanfaatan"
+    },
+    "interfaceMode": {
+      "lite": "Lite",
+      "pro": "Pro",
+      "switchTo": "Beralih ke {{mode}}"
+    },
+    "interfaceOnboarding": {
+      "closeButtonLabel": "Tutup pengenalan",
+      "lite": {
+        "description": "Suplai dan pinjam dengan navigasi yang lebih ringkas. Jelajahi aset dan bandingkan suku bunga dalam satu tampilan sederhana.",
+        "title": "Kenali Venus Lite.",
+        "tryButtonLabel": "Coba Lite sekarang"
+      },
+      "pro": {
+        "description": "Mencari antarmuka lengkap? Setiap pasar, posisi, dan kontrol lanjutan tetap tersedia di mode Pro dengan satu klik.",
+        "title": "Venus Pro telah hadir.",
+        "tryButtonLabel": "Coba Pro sekarang"
+      }
+    },
+    "menu": {
+      "beta": "beta",
+      "borrow": {
+        "label": "Pinjam"
+      },
+      "dashboard": {
+        "label": "Dasbor"
+      },
+      "earn": {
+        "label": "Hasilkan"
+      },
+      "flux": {
+        "label": "Flux"
+      },
+      "label": "Menu",
+      "new": "Baru",
+      "others": {
+        "bridge": {
+          "description": "Transfer $XVS lintas jaringan di Venus.",
+          "label": "Bridge"
+        },
+        "governance": {
+          "description": "Berikan suara pada proposal Venus menggunakan $XVS.",
+          "label": "Tata Kelola"
+        },
+        "label": "Lainnya",
+        "port": {
+          "description": "Impor posisi pinjam-meminjam tanpa biaya gas.",
+          "label": "Port"
+        },
+        "stats": {
+          "description": "Parameter Risiko Waktu Nyata",
+          "label": "Statistik"
+        },
+        "trade": {
+          "description": "Buka posisi long pada satu aset dan short pada aset lainnya untuk memperoleh selisih harga.",
+          "label": "Perdagangan"
+        },
+        "vai": {
+          "description": "Cetak stablecoin asli Venus.",
+          "label": "VAI"
+        }
+      },
+      "prime": {
+        "label": "Prime"
+      },
+      "settings": {
+        "gasLessTransactions": {
+          "label": "Aktifkan transaksi tanpa biaya gas di {{chainName}}"
+        },
+        "language": {
+          "label": "Bahasa (beta)"
+        },
+        "theme": {
+          "dark": "Gelap",
+          "label": "Tema",
+          "light": "Terang"
+        }
+      },
+      "vaults": {
+        "label": "Brankas"
+      },
+      "venusLogoAlt": "Logo Venus"
+    },
+    "settingsModal": {
+      "title": "Pengaturan"
+    },
+    "sunsetModal": {
+      "description": "Jaringan ini telah dihentikan. Silakan lunasi seluruh pinjaman dan tarik dana yang Anda setorkan.",
+      "title": "Dihentikan (Sunset)"
+    },
+    "testEnvWarning": "Ini adalah lingkungan pengujian. Jangan berinteraksi dengannya untuk tujuan apa pun selain pengujian. <Link>Buka situs web resmi Venus Protocol</Link>"
+  },
+  "layouts": {
+    "menu": {
+      "markets": {
+        "liquidityHub": {
+          "description": "Satu suplai, dialokasikan secara otomatis ke berbagai sumber imbal hasil.",
+          "label": "Hub Likuiditas"
+        },
+        "vaults": {
+          "description": "Brankas suplai strategi tunggal untuk target imbalan tertentu.",
+          "label": "Brankas Venus"
+        },
+        "venusCore": {
+          "description": "Pinjam-meminjam klasik dengan leverage yang mudah dan teroptimalisasi.",
+          "label": "Venus Core"
+        },
+        "venusSpoke": {
+          "description": "Pinjam aset dengan agunan yang Anda suplai dari pasar khusus.",
+          "label": "Venus Spoke"
+        }
+      }
+    }
+  },
+  "legal": {
+    "lastUpdatedAt": "Terakhir diperbarui: {{ date, textual }}"
+  },
+  "liquidityHub": {
+    "allocationDetails": {
+      "table": {
+        "allocationColumn": {
+          "title": "Alok."
+        },
+        "averageApyColumn": {
+          "title": "APY"
+        },
+        "capDollarsColumn": {
+          "title": "Batas efektif",
+          "tooltip": "Batas efektif dari suatu grup imbal hasil",
+          "unlimited": "Tidak terbatas"
+        },
+        "capPercentageColumn": {
+          "title": "Batas"
+        },
+        "liquidityColumn": {
+          "title": "Likuiditas"
+        },
+        "sourceColumn": {
+          "title": "Sumber"
+        }
+      },
+      "title": "Detail alokasi",
+      "unallocated": "Belum dialokasikan",
+      "yieldGroup": {
+        "allocationColumn": {
+          "title": "Alok."
+        },
+        "apyColumn": {
+          "title": "APY"
+        },
+        "collateralColumn": {
+          "group": {
+            "asset": "Aset",
+            "liquidationThreshold": "Ambang batas likuidasi"
+          },
+          "title": "Agunan"
+        },
+        "liquidityColumn": {
+          "title": "Likuiditas"
+        },
+        "lockEndDateColumn": {
+          "date": "{{date, textual}}",
+          "time": "{{date, time}}",
+          "title": "Tanggal berakhirnya penguncian"
+        },
+        "nameColumn": {
+          "title": {
+            "fund": "Dana",
+            "market": "Pasar",
+            "vault": "Brankas"
+          }
+        },
+        "names": {
+          "centrifuge": "Dana Centrifuge",
+          "core": "Venus Core",
+          "flux": "Venus Flux",
+          "frv": "Brankas suku bunga tetap",
+          "spoke": "Venus Spoke"
+        },
+        "ratingColumn": {
+          "group": {
+            "agency": "Lembaga",
+            "rating": "Peringkat"
+          },
+          "title": "CRA",
+          "tooltip": "Lembaga independen yang menerbitkan peringkat ini."
+        }
+      }
+    },
+    "info": {
+      "stats": {
+        "dailySupplyingInterests": "Bunga suplai harian",
+        "exchangeRate": {
+          "title": "Nilai tukar",
+          "value": "1 {{vhTokenSymbol}} = {{ exchangeRate }} {{ underlyingTokenSymbol }}"
+        },
+        "operator": "Operator",
+        "operatorAddress": "Alamat operator",
+        "operatorName": "Venus DAO",
+        "performanceFee": "Biaya kinerja",
+        "redeemFee": "Biaya penebusan",
+        "riskDisclosures": {
+          "title": "Pengungkapan Risiko",
+          "value": "<Span>Dengan menyuplai ke, menarik dari, atau berinteraksi dengan Venus Hub Likuiditas, Anda mengakui dan menyetujui bahwa:</Span><Ul><Li>Anda berinteraksi dengan kontrak pintar otonom. Venus dan afiliasinya tidak menjamin kinerja, keamanan, atau ketersediaan Hub Likuiditas maupun perangkat lunak terkait, kontrak pintar, jaringan blockchain, atau integrasi pihak ketiga mana pun.</Li><Li>Menyuplai ke Hub Likuiditas bukan merupakan produk simpanan, pinjaman, maupun investasi. Setiap suplai dari halaman ini secara otomatis menyuplai {{vhTokenSymbol}} Anda ke Venus Core sebagai agunan (yang dapat Anda nonaktifkan di Venus Core), tunduk pada parameter risikonya, termasuk likuidasi. Anda mungkin tidak dapat melakukan penarikan setiap saat, dan imbal hasil, jika ada, tidak dijamin.</Li><Li>Anda menanggung seluruh risiko yang terkait dengan penggunaan Hub Likuiditas dan bertanggung jawab penuh untuk menentukan apakah layanan ini sesuai dengan kondisi keuangan, toleransi risiko, dan kemampuan teknis Anda. Anda bertanggung jawab untuk melakukan evaluasi mandiri, termasuk meninjau kode sumber terkait dan konfigurasi on-chain.</Li><Li>Venus hanya bertindak sebagai penyedia teknologi dan tidak menyediakan layanan investasi, konsultasi, fidusia, maupun kustodian, serta tidak mengelola atau menyimpan aset Anda.</Li></Ul><Span>Interaksi Anda dengan Hub Likuiditas diatur oleh <Link>Ketentuan Penggunaan</Link>.</Span>"
+        },
+        "vhTokenContract": "Kontrak {{ vhTokenSymbol }}"
+      },
+      "title": "Info hub"
+    },
+    "periodOption": {
+      "all": "Semua",
+      "oneWeek": "1Mgg",
+      "oneYear": "1Thn",
+      "thirtyDays": "30Hr",
+      "threeMonths": "3Bln"
+    }
+  },
+  "liquidityHubForm": {
+    "balanceUpdates": {
+      "corePool": "Core pool",
+      "liquidityHub": "Hub Likuiditas"
+    },
+    "error": {
+      "higherThanAvailableAmount": "Jumlah yang dimasukkan melebihi jumlah yang tersedia",
+      "higherThanAvailableLiquidity": "Likuiditas hub tidak mencukupi",
+      "higherThanSupplyCap": "Anda tidak dapat menyuplai lebih dari {{userMaxSupplyAmount}} ke Hub Likuiditas ini, karena batas maksimum suplainya ditetapkan sebesar {{supplyCap}} dan saat ini {{supplyBalance}} sedang disuplai.",
+      "higherThanWalletSpendingLimit": "Anda memasukkan jumlah yang melebihi batas pengeluaran Anda untuk aset ini. Silakan cabut batas pengeluaran Anda lalu tetapkan yang baru untuk melanjutkan transaksi ini.",
+      "smallerThanMinimumAmount": "Anda tidak dapat memigrasikan kurang dari {{minimumAmount}}",
+      "supplyCapReached": "Batas maksimum suplai sebesar {{supplyCap}} telah tercapai untuk Hub Likuiditas ini. Anda tidak dapat menyuplai ke dalamnya lagi hingga penarikan dilakukan atau batas suplainya ditingkatkan."
+    },
+    "rightMaxButtonLabel": "MAKS",
+    "rightSafeMaxButtonLabel": "MAKS AMAN",
+    "supplySubmitButtonLabel": "Suplai",
+    "supplyTab": {
+      "collateralTabTitle": "Agunan",
+      "walletTabTitle": "Dompet"
+    },
+    "supplyTabTitle": "Suplai",
+    "withdrawSubmitButtonLabel": "Tarik",
+    "withdrawTabTitle": "Tarik"
+  },
+  "liquidityHubs": {
+    "description": "Satu suplai, diarahkan secara otomatis ke seluruh sumber imbal hasil Venus.",
+    "header": "Hub Likuiditas",
+    "stats": {
+      "hubs": "Hub",
+      "totalLiquidity": "Total likuiditas",
+      "totalSupply": "Total suplai"
+    },
+    "table": {
+      "columns": {
+        "asset": "Aset",
+        "exposure": {
+          "selectionOptionLabel": "Eksposur",
+          "title": "Eksposur <InfoIcon/>",
+          "tooltip": "Agunan dari setiap sumber tempat aset ini dipinjamkan"
+        },
+        "liquidity": "Likuiditas",
+        "supplyApy": "APY Suplai",
+        "totalSupply": "Total suplai"
+      },
+      "noResults": "Tidak ada hub yang sesuai dengan filter Anda",
+      "search": {
+        "placeholder": "Cari aset"
+      }
+    }
+  },
+  "lite": {
+    "assetAriaLabel": "Bandingkan pasar {{symbol}}",
+    "breadcrumb": {
+      "backToAssets": "Kembali ke aset {{mode}}",
+      "backToMarkets": "Kembali ke pasar {{symbol}}"
+    },
+    "collateralSelect": {
+      "ariaLabel": "Pilih agunan",
+      "asset": "Aset",
+      "liquidationThreshold": "LT",
+      "liquidationThresholdTooltip": "Jika jumlah pinjaman Anda mencapai persentase ini dari nilai agunan Anda, posisi Anda dapat dilikuidasi.",
+      "maxLtv": "LTV Maks.",
+      "maxLtvTooltip": "Jumlah maksimum yang dapat Anda pinjam terhadap agunan ini, dinyatakan sebagai persentase dari nilainya.",
+      "optionLabel": "{{symbol}} (pasar {{marketSymbol}})",
+      "title": "Pilih agunan"
+    },
+    "columns": {
+      "apy": "APY",
+      "asset": "Aset",
+      "collateral": "Agunan",
+      "liquidity": "Likuiditas",
+      "loan": "Pinjaman",
+      "market": "Pasar",
+      "pool": "Pool",
+      "totalBorrow": "Total Pinjaman",
+      "totalSupply": "Total Suplai"
+    },
+    "description": "Layanan pinjam-meminjam yang sederhana namun tangguh untuk berbagai strategi imbal hasil DeFi.",
+    "filters": {
+      "allCategories": "Semua kategori",
+      "category": "Kategori",
+      "categoryCount_one": "{{count}} kategori",
+      "categoryCount_other": "{{count}} kategori",
+      "reset": "Atur ulang",
+      "searchAsset": "Cari aset",
+      "searchAssetAriaLabel": "Cari aset",
+      "searchCategory": "Cari kategori",
+      "searchCollateral": "Cari agunan",
+      "searchCollateralAriaLabel": "Cari agunan"
+    },
+    "formTitle": "{{symbol}} / {{marketName}}",
+    "markets": {
+      "corePool": "Venus Core",
+      "liquidityHub": "Hub Likuiditas",
+      "xvsVault": "Brankas XVS"
+    },
+    "modes": {
+      "borrow": "Pinjam",
+      "earn": "Hasilkan",
+      "label": "Mode pasar"
+    },
+    "placeholders": {
+      "noAssets": "Tidak ada aset yang ditemukan",
+      "noBorrowableAssets": "Tidak ada aset yang dapat dipinjam yang ditemukan",
+      "noMarkets": "Tidak ada pasar yang ditemukan",
+      "noMatchingMarkets": "Tidak ada pasar yang sesuai dengan filter Anda",
+      "refresh": "Silakan muat ulang halaman untuk mencoba lagi.",
+      "unavailable": "Data pasar tidak tersedia"
+    },
+    "planets": {
+      "earnNow": "Hasilkan sekarang",
+      "label": "Jelajahi APY Imbal Hasil",
+      "market": "Pasar",
+      "openAriaLabel": "Lihat APY suplai {{symbol}}",
+      "supplyApy": "APY Suplai"
+    },
+    "title": "Pasar Uang Universal",
+    "totals": {
+      "availableLiquidity": "Likuiditas Tersedia",
+      "totalSupply": "Total Suplai"
+    }
+  },
+  "markdownEditor": {
+    "markdownTabLabel": "Tulis",
+    "placeholder": "Tidak ada yang dapat dipratinjau",
+    "previewTabLabel": "Pratinjau"
+  },
+  "market": {
+    "borrowCapThreshold": {
+      "title": "Total dipinjam",
+      "tooltip": "Jumlah maksimum yang tersedia untuk dipinjam adalah {{amountDollars}} ({{amountTokens}})<LineBreak />Batas pinjaman: {{capTokens}}"
+    },
+    "borrowInfo": {
+      "title": "Info pinjaman"
+    },
+    "eModeInfo": {
+      "eMode": {
+        "title": "Mode-E",
+        "tooltip": "Meningkatkan efisiensi modal untuk aset yang berkorelasi (misalnya stablecoin, LST) dengan faktor agunan yang lebih baik dan biaya likuidasi yang lebih rendah."
+      },
+      "isolationMode": {
+        "title": "Mode isolasi",
+        "tooltip": "Mode pembatasan risiko untuk aset yang lebih baru atau lebih volatil."
+      },
+      "link": "Tampilkan semua pasar",
+      "table": {
+        "columns": {
+          "collateral": "Agunan",
+          "group": "Grup",
+          "isBorrowable": "Dapat dipinjam",
+          "liquidationPenalty": "Penalti",
+          "liquidationThreshold": "Ambang batas",
+          "maxLtv": "LTV Maks."
+        }
+      }
+    },
+    "errorState": {
+      "failedToFetchMessage": "Tidak dapat mengambil data pasar",
+      "refetchButtonLabel": "Coba lagi"
+    },
+    "history": {
+      "emptyState": "Tidak ada riwayat yang tersedia untuk periode ini",
+      "errorState": {
+        "failedToFetchMessage": "Tidak dapat mengambil riwayat pasar",
+        "refetchButtonLabel": "Coba lagi"
+      }
+    },
+    "interestRateModel": {
+      "title": "Model Suku Bunga"
+    },
+    "legends": {
+      "borrowApy": "APY Pinjaman",
+      "supplyApy": "APY Suplai",
+      "utilizationRate": "Tingkat pemanfaatan"
+    },
+    "marketInfo": {
+      "stats": {
+        "borrowerCountLabel": "Jumlah peminjam",
+        "collateralFactorLabel": "Faktor agunan (Core)",
+        "dailyBorrowingInterestsLabel": "Bunga pinjaman harian",
+        "dailyDistribution": "{{tokenSymbol}} yang didistribusikan harian",
+        "dailySupplyingInterestsLabel": "Bunga suplai harian",
+        "exchangeRateLabel": "Nilai tukar",
+        "exchangeRateValue": "1 {{tokenSymbol}}={{rate}} {{vTokenSymbol}}",
+        "isBorrowableLabel": "Dapat dipinjam (Core)",
+        "liquidationPenaltyLabel": "Penalti likuidasi (Core)",
+        "liquidationThresholdLabel": "Ambang batas likuidasi (Core)",
+        "no": "Tidak",
+        "reserveFactorLabel": "Faktor cadangan",
+        "supplierCountLabel": "Jumlah penyuplai",
+        "yes": "Ya"
+      }
+    },
+    "periodOption": {
+      "oneYear": "1Thn",
+      "sixMonths": "6Bln",
+      "thirtyDays": "30Hr"
+    },
+    "positionUnitPrice": "Harga unit posisi ({{ vhTokenSymbol }})",
+    "stats": {
+      "apy": "APY Saat Ini",
+      "averageApy": "APY Rata-rata",
+      "liquidationPenalty": "Penalti",
+      "liquidationThreshold": "Ambang batas"
+    },
+    "supplyCapThreshold": {
+      "title": "Total disuplai",
+      "tooltip": "Jumlah maksimum yang tersedia untuk disuplai adalah {{amountDollars}} ({{amountTokens}})"
+    },
+    "supplyInfo": {
+      "title": "Info suplai"
+    }
+  },
+  "marketForm": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "Saya memahami dampak harga yang tinggi",
+        "tooltip": "Transaksi ini diperkirakan memiliki dampak harga lebih dari {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "Saya memahami risiko yang terlibat",
+        "tooltip": "Faktor kesehatan Anda akan menjadi rendah setelah transaksi ini, sehingga meningkatkan risiko likuidasi"
+      }
+    },
+    "availableAmount": "Tersedia",
+    "boostTabAltText": "Ikon roket",
+    "boostTabTitle": "Tingkatkan",
+    "borrow": "Pinjam",
+    "borrowTabTitle": "Pinjam",
+    "collateral": "Agunan",
+    "collateralField": {
+      "label": "Agunan"
+    },
+    "error": {
+      "borrowCapReached": "Batas maksimum pinjaman sebesar {{assetBorrowCap}} telah tercapai untuk pool ini. Anda tidak dapat meminjam dari pasar ini lagi hingga pinjaman dilunasi atau batas pinjamannya ditingkatkan.",
+      "higherThanAvailableAmount": "Jumlah yang dimasukkan melebihi jumlah yang tersedia",
+      "higherThanAvailableLiquidity": "Likuiditas aset tidak mencukupi",
+      "higherThanBorrowBalance": "Jumlah yang dimasukkan melebihi saldo pinjaman",
+      "higherThanBorrowCap": "Anda tidak dapat meminjam lebih dari {{userMaxBorrowAmount}} dari pool ini, karena batas maksimum pinjaman untuk pasar ini ditetapkan sebesar {{assetBorrowCap}} dan saat ini {{assetBorrowBalance}} sedang dipinjam.",
+      "higherThanRepayBalance": "Jumlah yang dimasukkan melebihi saldo pelunasan",
+      "higherThanSupplyCap": "Anda tidak dapat menyuplai lebih dari {{userMaxSupplyAmount}} ke pool ini, karena batas maksimum suplai untuk pasar ini ditetapkan sebesar {{assetSupplyCap}} dan saat ini {{assetSupplyBalance}} sedang disuplai.",
+      "higherThanWalletBalance": "Saldo {{tokenSymbol}} tidak mencukupi",
+      "higherThanWalletSpendingLimit": "Anda memasukkan jumlah yang melebihi batas pengeluaran Anda untuk aset ini. Silakan cabut batas pengeluaran Anda lalu tetapkan yang baru untuk melanjutkan transaksi ini.",
+      "noCollateral": "Anda perlu menyuplai token dan mengaktifkannya sebagai agunan sebelum dapat meminjam {{tokenSymbol}} dari pool ini",
+      "noSwapQuoteFound": "Tidak ada pertukaran (swap) yang ditemukan.",
+      "priceImpactTooHigh": "Dampak harga terlalu tinggi",
+      "smallerThanMinimumAmount": "Anda tidak dapat menyuplai kurang dari {{minAmount}} sekaligus",
+      "supplyCapReached": "Batas maksimum suplai sebesar {{assetSupplyCap}} telah tercapai untuk pool ini. Anda tidak dapat menyuplai ke pasar ini lagi hingga penarikan dilakukan atau batas suplainya ditingkatkan.",
+      "tooRisky": "Transaksi ini akan menyebabkan akun Anda dilikuidasi"
+    },
+    "leverageFactor": "{{ leverageFactor }}x",
+    "leverageFactorModal": {
+      "maximumShortAmount": "Posisi maksimum pada leverage saat ini: {{ value }}",
+      "submitButtonLabel": "Konfirmasi",
+      "title": "Faktor leverage",
+      "warning": "Leverage memengaruhi pemanfaatan modal Anda dan tidak dapat diubah hingga Anda sepenuhnya keluar dari posisi tersebut."
+    },
+    "receiveNativeToken": {
+      "label": "Terima {{tokenSymbol}}",
+      "tooltip": "Buka pembungkus (unwrap) {{wrappedNativeTokenSymbol}} yang dipinjam menjadi {{nativeTokenSymbol}}"
+    },
+    "repaidField": {
+      "label": "Utang yang harus dilunasi"
+    },
+    "repay": {
+      "fullRepaymentWarning": "Nilai transaksi mungkin sedikit lebih tinggi daripada jumlah pinjaman saat ini untuk menutupi bunga yang baru terakumulasi",
+      "swappingWithHighPriceImpactWarning": "Dampak harga dari transaksi ini tinggi, yang dapat mengindikasikan pertukaran (swap) yang kurang menguntungkan. Pastikan nilai tukar dan jumlah token yang ditukarkan sesuai dengan ekspektasi Anda."
+    },
+    "repayTab": {
+      "collateralTabTitle": "Agunan",
+      "noCollateralWarning": "Anda tidak memiliki agunan apa pun untuk digunakan melunasi pinjaman.",
+      "title": "Lunasi",
+      "walletBalanceTabTitle": "Dompet"
+    },
+    "rightMaxButtonLabel": "MAKS",
+    "safeMaxButtonLabel": "MAKS AMAN",
+    "submitButtonLabel": {
+      "boost": "Tingkatkan",
+      "borrow": "Pinjam",
+      "enterValidAmount": "Masukkan jumlah yang valid",
+      "repay": "Lunasi",
+      "supply": "Suplai",
+      "withdraw": "Tarik"
+    },
+    "supply": "Suplai",
+    "supplyTabTitle": "Suplai",
+    "swapDetails": {
+      "label": {
+        "repay": "Anda akan melunasi",
+        "supply": "Anda akan menyuplai"
+      },
+      "value": {
+        "estimatedAmount": "≈ {{ value }}",
+        "exactAmount": "{{ value }}"
+      }
+    },
+    "walletBalance": "Saldo dompet",
+    "withdrawTabTitle": "Tarik"
+  },
+  "markets": {
+    "eMode": {
+      "table": {
+        "card": {
+          "header": {
+            "borrowable": "Dapat dipinjam",
+            "collateral": "Agunan"
+          }
+        }
+      }
+    },
+    "errors": {
+      "accountError": "Akun Diperlukan - Silakan hubungkan dompet Anda.",
+      "collateralDisableError": "Kesalahan Penonaktifan Agunan - Terjadi masalah saat menonaktifkan {{assetName}} sebagai agunan. Silakan coba lagi.",
+      "collateralEnableError": "Kesalahan Pengaktifan Agunan - Terjadi masalah saat mengaktifkan {{assetName}} sebagai agunan. Silakan coba lagi.",
+      "collateralRequired": "Agunan Diperlukan - Silakan lunasi seluruh aset yang dipinjam atau tetapkan aset lain sebagai agunan."
+    },
+    "header": {
+      "venusCore": {
+        "description": "Keuangan berbasis komunitas yang sederhana dan tangguh untuk seluruh dunia.",
+        "title": "Venus Core"
+      }
+    },
+    "isolatedEModeGroupTooltip": {
+      "content": "Daya pinjam Anda meningkat dengan menyuplai aset secara eksklusif dari grup {{ eModeGroupName }}",
+      "label": "Terisolasi"
+    },
+    "tabs": {
+      "eMode": {
+        "eModeNotice": "Mengaktifkan Mode-E memungkinkan Anda memaksimalkan daya pinjam, namun peminjaman dibatasi hanya pada aset di dalam grup yang dipilih. <Link>Pelajari selengkapnya</Link>",
+        "group": {
+          "cannotDisable": {
+            "tooltip": {
+              "blockingPositions": "Anda tidak dapat menonaktifkan grup ini karena Anda memiliki posisi pinjaman dengan aset yang tidak dapat dipinjam dari pool. <Link>Tampilkan posisi saya</Link>",
+              "notEnoughCollateral": "Anda tidak dapat menonaktifkan grup ini karena total nilai agunan Anda tidak akan mencukupi total saldo pinjaman Anda"
+            }
+          },
+          "cannotEnable": {
+            "modal": {
+              "description": "Anda perlu menutup posisi pinjaman berikut untuk mengaktifkan grup <WhiteText>{{ eModeGroupName }}</WhiteText>:",
+              "repayButtonLabel": "Lunasi",
+              "title": "Posisi Anda"
+            },
+            "tooltip": {
+              "blockingPositions": "Anda tidak dapat mengaktifkan grup ini karena Anda memiliki posisi pinjaman dengan aset yang tidak termasuk dalam grup tersebut. <Link>Tampilkan posisi saya</Link>",
+              "notEnoughCollateral": "Anda tidak dapat mengaktifkan grup ini karena total nilai agunan Anda tidak akan mencukupi total saldo pinjaman Anda"
+            }
+          },
+          "disableButtonLabel": "Nonaktifkan",
+          "disabledNotice": "Grup ini tidak lagi didukung. Akun Anda kini kembali menggunakan parameter Core Pool. Silakan beralih ke grup lain yang tersedia atau nonaktifkan grup ini.",
+          "enableButtonLabel": "Aktifkan",
+          "healthFactor": "Faktor kesehatan:",
+          "switchButtonLabel": "Ganti"
+        },
+        "isolationModeNotice": "Mengaktifkan mode isolasi memungkinkan Anda memaksimalkan daya pinjam, namun penyuplaian dan peminjaman dibatasi hanya pada aset di dalam grup yang dipilih. <Link>Pelajari selengkapnya</Link>",
+        "label": "Mode-E",
+        "table": {
+          "columns": {
+            "asset": "Aset",
+            "collateral": "Agunan",
+            "isBorrowable": "Dapat dipinjam",
+            "liquidationPenalty": "Penalti likuidasi",
+            "liquidationThreshold": "Ambang batas likuidasi",
+            "maxLtv": "LTV Maks.",
+            "penalty": "Penalti",
+            "threshold": "Ambang batas"
+          },
+          "mobileSelectLabel": "Urutkan berdasarkan:",
+          "noResults": "Tidak ada grup yang sesuai dengan filter Anda",
+          "searchPlaceholder": "Cari aset atau grup"
+        }
+      },
+      "isolationMode": {
+        "label": "Mode isolasi"
+      },
+      "markets": {
+        "label": "Pasar"
+      }
+    }
+  },
+  "marketTable": {
+    "assetColumn": {
+      "eMode": "Pasar ini merupakan bagian dari grup Mode-E {{eModeGroupName}}",
+      "isolated": "Terisolasi",
+      "isolatedTooltip": "Aset ini hanya tersedia dalam mode isolasi yang sesuai.",
+      "isolationMode": "Pasar ini merupakan bagian dari grup mode isolasi {{eModeGroupName}}",
+      "pausedAssetTooltip": "Aset dijeda oleh Tata Kelola Venus. Peminjaman dan penyuplaian telah dinonaktifkan.",
+      "protectionMode": "Mode perlindungan aktif untuk {{tokenName}} akibat volatilitas harga, yang memengaruhi harga agunan dan pinjamannya. <LearnMore>Pelajari selengkapnya</LearnMore>",
+      "protectionModeBorrow": "Pasar ini sedang mengalami volatilitas tinggi.<LineBreak/><LineBreak/>Nilai pinjaman terlindungi dihitung sebesar {{protectedValue}}, yang merupakan nilai konservatif yang diperhitungkan terhadap daya pinjam Anda.",
+      "protectionModePair": "Mode perlindungan aktif untuk {{tokenName}} akibat volatilitas harga, yang memengaruhi harga agunan dan pinjamannya. <LearnMore>Pelajari selengkapnya</LearnMore>",
+      "protectionModeSupply": "Pasar ini sedang mengalami volatilitas tinggi.<LineBreak/><LineBreak/>Nilai agunan terlindungi dihitung sebesar {{protectedValue}}, yang merupakan nilai konservatif yang digunakan untuk menentukan daya pinjam Anda."
+    },
+    "columnKeys": {
+      "asset": "Aset",
+      "assetAndChain": "Aset",
+      "borrowApy": "APY <InfoIcon />",
+      "borrowBalance": "Total pinjaman",
+      "collateral": "Agunan",
+      "labeledBorrowApy": "APY Pinjaman <InfoIcon />",
+      "labeledSupplyApy": "APY Suplai <InfoIcon />",
+      "liquidity": "Likuiditas",
+      "price": "Harga",
+      "supplyApy": "APY <InfoIcon />",
+      "supplyBalance": "Total suplai",
+      "userBorrowBalance": "Saldo",
+      "userBorrowLimitSharePercentage": "% dari batas",
+      "userSupplyBalance": "Saldo",
+      "userWalletBalance": "Dompet"
+    },
+    "columnSelectOptionLabel": {
+      "asset": "Aset",
+      "borrowApy": "APY Pinjaman",
+      "borrowBalance": "Total pinjaman",
+      "collateral": "Agunan",
+      "labeledBorrowApy": "APY Pinjaman",
+      "labeledSupplyApy": "APY Suplai / LTV",
+      "liquidity": "Likuiditas",
+      "price": "Harga",
+      "supplyApy": "APY Suplai / LTV",
+      "supplyBalance": "Total suplai",
+      "userBorrowBalance": "Saldo pinjaman",
+      "userBorrowLimitSharePercentage": "% dari batas",
+      "userSupplyBalance": "Saldo suplai",
+      "userWalletBalance": "Saldo dompet"
+    },
+    "columnTooltips": {
+      "borrowApy": "APY pinjaman positif berarti Anda akan membayar bunga, sedangkan nilai negatif berarti Anda akan memperoleh bunga",
+      "supplyApy": "APY suplai positif berarti Anda akan memperoleh bunga, sedangkan nilai negatif berarti Anda akan membayar bunga"
+    },
+    "noResults": "Tidak ada pasar yang sesuai dengan filter Anda",
+    "pausedAssetsPlaceholder": {
+      "description": "Silakan aktifkan tombol \"Aset yang Dijeda\" untuk melihatnya.",
+      "imgAlt": "Ikon jeda",
+      "selectedCategoriesTitle": "Semua aset dalam kategori yang dipilih telah dijeda",
+      "title": "Semua aset di dalam pool ini telah dijeda"
+    },
+    "search": {
+      "placeholder": "Cari aset"
+    }
+  },
+  "multiSelect": {
+    "clearSearch": "Hapus pencarian",
+    "noResults": "Tidak ada hasil yang ditemukan"
+  },
+  "noResults": {
+    "resetFilters": "Atur ulang filter"
+  },
+  "pagination": {
+    "currentPage": "Halaman saat ini",
+    "goToFirstPage": "Ke halaman pertama",
+    "goToLastPage": "Ke halaman terakhir",
+    "goToNextPage": "Ke halaman berikutnya",
+    "goToPreviousPage": "Ke halaman sebelumnya",
+    "itemOf": "Item {{currentPageLastIndex}} dari {{itemsCount}}",
+    "itemsOf": "Item {{firstItemNumber}} - {{currentPageLastIndex}} dari {{itemsCount}}"
+  },
+  "pendleVaultBanner": {
+    "description": "Imbal hasil Pendle sekali klik langsung dari <White>Venus</White>",
+    "illustrationAltText": "Ilustrasi brankas",
+    "title": "Brankas Pendle kini dibuka"
+  },
+  "poolsStats": {
+    "cell": {
+      "assetsLabel": "Aset",
+      "availableLiquidityLabel": "Likuiditas tersedia",
+      "dailyXvsDistributionLabel": "Distribusi XVS harian",
+      "totalBorrowLabel": "Total pinjaman",
+      "totalSupplyLabel": "Total suplai",
+      "treasuryLabel": "Perbendaharaan"
+    }
+  },
+  "primeButton": {
+    "primeLogoAlt": "Logo Venus Prime"
+  },
+  "primeCalculator": {
+    "borrowedTokens": {
+      "infos": {
+        "label": "{{tokenSymbol}} pinjaman yang memenuhi syarat",
+        "tooltip": "Batas pinjaman: {{borrowCapTokens}} ({{borrowCapUsd}})",
+        "tooltip_empty": "Batas pinjaman: -"
+      },
+      "textField": {
+        "label": "{{tokenSymbol}} yang dipinjam"
+      }
+    },
+    "rewardDetails": {
+      "fromBorrowedTokens": "Dari {{tokenSymbol}} yang dipinjam",
+      "fromSuppliedTokens": "Dari {{tokenSymbol}} yang disuplai",
+      "primeBorrowApy": {
+        "title": "APY pinjaman Prime",
+        "tooltip": "Peningkatan Prime yang akan ditambahkan ke APY pinjaman pasar. <Link>Pelajari selengkapnya</Link>"
+      },
+      "primeSupplyApy": {
+        "title": "APY suplai Prime",
+        "tooltip": "Peningkatan Prime yang akan ditambahkan ke APY suplai pasar. <Link>Pelajari selengkapnya</Link>"
+      },
+      "title": "Detail imbalan",
+      "totalDailyRewards": {
+        "title": "Total imbalan harian",
+        "tooltip": "Jumlah seluruh imbalan yang didistribusikan kepada pengguna Prime dalam sehari"
+      },
+      "yourDailyRewards": "Imbalan harian Anda"
+    },
+    "stakedTokens": {
+      "infos": {
+        "error": "Agar memenuhi syarat untuk imbalan Prime, setidaknya {{minimumXvsStaked}} token XVS harus disuplai.",
+        "label": "XVS suplai yang memenuhi syarat",
+        "tooltip": "Hingga {{maximumXvsStaked}} akan diperhitungkan untuk imbalan Prime Anda"
+      },
+      "textField": {
+        "label": "XVS yang disuplai"
+      }
+    },
+    "suppliedTokens": {
+      "infos": {
+        "label": "{{tokenSymbol}} suplai yang memenuhi syarat",
+        "tooltip": "Batas suplai: {{supplyCapTokens}} ({{supplyCapUsd}})",
+        "tooltip_empty": "Batas suplai: -"
+      },
+      "textField": {
+        "label": "{{tokenSymbol}} yang disuplai"
+      }
+    },
+    "tokenSelect": {
+      "label": "Token"
+    },
+    "topMessage": "Anda dapat menggunakan kalkulator Prime untuk memperkirakan imbalan yang akan Anda terima dari kepemilikan token Prime berdasarkan posisi Anda. <Link>Pelajari selengkapnya</Link>"
+  },
+  "primeLeaderboard": {
+    "description": "Lakukan staking XVS ke dalam brankas tata kelola dan dapatkan imbalan Prime sebagai tambahan atas imbal hasil Anda.",
+    "endOfCycle": {
+      "cycleEnded": "Siklus saat ini telah berakhir. Siklus berikutnya akan segera dimulai.",
+      "days": "Hari",
+      "deadline": "{{date, textualWithTime}}",
+      "helper": "Pertahankan posisi di peringkat {{limit}} teratas hingga <Bold>{{deadline}}</Bold> untuk menerima imbalan Prime pada siklus berikutnya. <SummaryLink>Lihat ringkasan Prime siklus terakhir</SummaryLink>.",
+      "helperEnded": "Pertahankan posisi di peringkat {{limit}} teratas hingga <Bold>{{deadline}}</Bold> untuk menerima imbalan Prime pada siklus berikutnya.",
+      "hours": "Jam",
+      "mins": "Mnt",
+      "sec": "Dtk",
+      "title": "AKHIR SIKLUS",
+      "tooltip": "Hitung mundur ini hanya berlaku untuk kelayakan Prime: {{limit}} akun teratas saat waktu berakhir akan menerima imbalan Prime pada siklus berikutnya. Imbalan Prime didasarkan pada APY yang saat ini ditampilkan."
+    },
+    "lastCycleSummary": {
+      "primeScoreLabel": "Skor Prime",
+      "rankLabel": "Peringkat Anda",
+      "rankMissed": "Hampir berhasil! Anda tidak masuk dalam peringkat {{limit}} teratas pada siklus lalu. Tingkatkan staking Anda untuk memenuhi syarat pada siklus ini.",
+      "rankNoStake": "Anda tidak melakukan staking XVS selama siklus terakhir. Lakukan staking sekarang untuk memenuhi syarat Prime pada siklus berikutnya dan dapatkan imbalan ekstra.",
+      "rankQualified": "Selamat! Anda berada di peringkat {{limit}} teratas pada siklus lalu dan memenuhi syarat untuk menerima imbalan Prime.",
+      "title": "Ringkasan Prime Siklus Terakhir",
+      "userRewardsTitle": "Imbalan Prime Anda pada siklus terakhir"
+    },
+    "rankCard": {
+      "connectPrompt": "Hubungkan dompet untuk memeriksa kelayakan Prime Anda.",
+      "eligible": "Anda saat ini memenuhi syarat untuk Prime pada siklus berikutnya.",
+      "notEligible": "Anda saat ini TIDAK memenuhi syarat untuk Prime pada siklus berikutnya.",
+      "primeScoreLabel": "Skor Prime",
+      "rankLabel": "Peringkat Anda",
+      "rulesButton": "Aturan",
+      "stakeButton": "Stake XVS",
+      "stakeMore": "Lakukan staking XVS lebih banyak untuk bersaing mendapatkan Prime pada siklus berikutnya.",
+      "stakeMoreToCompete": "Lakukan staking XVS lebih banyak untuk bersaing mendapatkan Prime.",
+      "stakePrompt": "Lakukan staking XVS untuk bersaing mendapatkan Prime.",
+      "stakeToReachTop": "Lakukan staking <Highlight>{{amount}} XVS</Highlight> untuk berkesempatan masuk ke peringkat #{{limit}} teratas pada akhir siklus dan memenuhi syarat untuk Prime pada siklus berikutnya."
+    },
+    "rankCutoffNote": "Peringkat <Rank/> saat ini memegang skor Prime <Score/> dengan <Staked/> yang di-stake.",
+    "rankFooter": {
+      "connectPrompt": "Hubungkan dompet untuk melihat peringkat Anda.",
+      "learnMore": "<LeaderboardLink>Lihat Papan Peringkat Prime</LeaderboardLink>"
+    },
+    "rankTable": {
+      "columns": {
+        "primeScore": "Skor Prime",
+        "wallet": "Dompet"
+      },
+      "rankBadgeAlt": "Lencana peringkat {{rank}}",
+      "walletTooltip": "Peringkat dihitung secara on-chain, verifikasi di <BscScan>BscScan</BscScan>"
+    },
+    "rewardTable": {
+      "columns": {
+        "marketRewards": "Imbalan {{symbol}}",
+        "totalRewards": "Total imbalan",
+        "wallet": "Dompet"
+      }
+    },
+    "rulesModal": {
+      "boostColumn": "Tingkatkan",
+      "boostMax": "{{boost}} (maks)",
+      "contribution": "Untuk setiap setoran, kontribusi Anda adalah <Highlight>XVS × peningkatan × lama penyimpanan (hari)</Highlight>. Total skor Prime Anda merupakan akumulasi dari seluruh setoran Anda.",
+      "daysHeld": "{{range}} hari",
+      "daysHeldColumn": "Lama penyimpanan (hari)",
+      "footer": "Untuk naik di papan peringkat: lakukan staking lebih banyak, dan simpan lebih lama.",
+      "intro1": "<Highlight>Skor Prime</Highlight> Anda menentukan posisi Anda di papan peringkat. Peringkat <Highlight>{{limit}} Teratas</Highlight> setiap bulannya menjadi pemegang Prime dan berbagi kumpulan imbalan bulanan.",
+      "intro2": "Skor Anda memberikan penghargaan atas <Highlight>seberapa banyak</Highlight> XVS yang Anda stake dan <Highlight>seberapa lama</Highlight> Anda menyimpannya. Setiap setoran memperoleh peningkatan loyalitas berdasarkan usia setoran tersebut:",
+      "point1": "<Highlight>Baik peningkatan (boost) maupun hitungan hari dibatasi maksimal hingga 90 hari</Highlight> — menyimpan lebih lama tidak akan menambah skor per XVS lebih jauh.",
+      "point2": "<Highlight>Ingin menarik dana? Setoran terbaru Anda akan ditarik terlebih dahulu.</Highlight> Staking terlama Anda dengan peningkatan tertinggi tetap terlindungi.",
+      "point3": "Skor diperbarui secara <Highlight>langsung</Highlight> — tetapi status Prime Anda dikunci pada saat <Highlight>cuplikan (snapshot) bulanan.</Highlight>",
+      "thingsToKnowTitle": "Beberapa hal yang perlu diketahui:",
+      "title": "Aturan"
+    },
+    "tablesRefreshNote": "Diperbarui setiap jam · Pembaruan terakhir: {{date, distanceToNow}} yang lalu",
+    "tabs": {
+      "ranking": "Peringkat",
+      "rewards": "Imbalan Prime"
+    },
+    "title": "Papan peringkat Prime",
+    "totalRewards": {
+      "title": "Total imbalan Prime yang didistribusikan",
+      "totalPoolLabel": "dari total imbalan <Highlight>{{amount}}</Highlight> pada siklus ini"
+    },
+    "userRewards": {
+      "cta": {
+        "borrowTooltip": "Pinjam {{tokenSymbol}} untuk mendapatkan APY Prime ini.",
+        "bothTooltip": "Suplai atau pinjam {{tokenSymbol}} untuk mendapatkan APY Prime ini.",
+        "supplyTooltip": "Suplai {{tokenSymbol}} untuk mendapatkan APY Prime ini."
+      },
+      "eligibleMessage": "Anda saat ini memenuhi syarat untuk berbagi imbalan Prime pada siklus ini. Suplai aset di bawah ini untuk berbagi imbalan.",
+      "notEligibleMessage": "Anda saat ini TIDAK memenuhi syarat untuk berbagi imbalan Prime pada siklus ini. Lakukan staking XVS untuk bersaing mendapatkan Prime pada siklus berikutnya.",
+      "primeLogoAlt": "Logo Venus Prime",
+      "title": "Imbalan Prime Anda pada siklus ini"
+    }
+  },
+  "primeStatusBanner": {
+    "becomePrimeTitle": "Anda sekarang dapat menjadi pengguna Prime",
+    "claimButtonLabel": "Klaim token Prime",
+    "description": {
+      "primeCalculator": "Suplai <WhiteText>{{stakeDelta}}</WhiteText> lagi lalu tunggu {{claimWaitingPeriod}} untuk mengklaim token Prime Anda dan meningkatkan pendapatan Anda. <Link>Hitung imbalan Prime Anda</Link>",
+      "primeDoc": "Suplai <WhiteText>{{stakeDelta}}</WhiteText> lagi lalu tunggu {{claimWaitingPeriod}} untuk mengklaim token Prime Anda dan meningkatkan pendapatan Anda. <Link>Pelajari selengkapnya</Link>"
+    },
+    "noPrimeTokenWarning": {
+      "text": "Semua token Prime telah diklaim",
+      "tooltip": "Semua {{primeTokenLimit}} token Prime saat ini telah diklaim. Sebagian mungkin akan tersedia kembali jika pemiliknya tidak lagi memenuhi kriteria kelayakan atau jika kami menambah kuota."
+    },
+    "progressBar": {
+      "label": "Disuplai: <WhiteText>{{userStakedXvsTokens}} / {{minXvsToStakeForPrimeTokens}}</WhiteText>"
+    },
+    "promotionalTitle": "Tingkatkan pendapatan Anda hingga <GreenText>{{percentage}}</GreenText>",
+    "stakeButtonLabel": "Suplai XVS",
+    "tokensLeft": "Tersisa <WhiteText>{{count}}</WhiteText> token Prime",
+    "tokensLeft_one": "Tersisa <WhiteText>{{count}}</WhiteText> token Prime",
+    "tokensLeft_many": "Tersisa <WhiteText>{{count}}</WhiteText> token Prime",
+    "tokensLeft_other": "Tersisa <WhiteText>{{count}}</WhiteText> token Prime",
+    "waitForPrimeTitle": "{{claimWaitingPeriod}} hingga Anda dapat mengklaim imbalan Prime"
+  },
+  "proposalList": {
+    "selectOptions": {
+      "all": {
+        "label": "Semua"
+      }
+    }
+  },
+  "proposalState": {
+    "active": "Aktif",
+    "bridged": "Dijembatani (Bridged)",
+    "canceled": "Dibatalkan",
+    "defeated": "Ditolak",
+    "executed": "Dieksekusi",
+    "expired": "Kedaluwarsa",
+    "failed": "Gagal",
+    "pending": "Tertunda",
+    "queued": "Dalam antrean",
+    "succeeded": "Berhasil"
+  },
+  "protectionModeIndicator": {
+    "detailedTooltip": "Pasar ini sedang mengalami volatilitas tinggi.<LineBreak/><LineBreak/>Harga Agunan Terlindungi adalah {{collateralPrice}}, yaitu harga konservatif yang digunakan untuk menentukan daya pinjam Anda.<LineBreak/><LineBreak/>Harga Pinjaman Terlindungi adalah {{borrowPrice}}, yaitu harga konservatif yang digunakan untuk menghitung berapa banyak aset ini yang dapat dipinjam.",
+    "label": "Terlindungi",
+    "pairTokenNames": "baik {{longToken}} maupun {{shortToken}}"
+  },
+  "requestWithdrawalFromVestingVaultForm": {
+    "withdrawalRequestList": {
+      "approveToken": {
+        "connectWalletMessage": "Silakan hubungkan dompet Anda untuk melihat permintaan penarikan Anda"
+      },
+      "emptyState": "Anda tidak memiliki permintaan penarikan yang aktif",
+      "locked": "Dikunci hingga {{date, textualWithTime}}",
+      "title": "Permintaan penarikan",
+      "unlocked": "Terbuka",
+      "withdrawButtonLabel": "Tarik saldo yang telah terbuka"
+    }
+  },
+  "selectTokenTextField": {
+    "searchInput": {
+      "placeholder": "Cari aset"
+    }
+  },
+  "skillsPage": {
+    "footer": {
+      "tagline": "Dibangun untuk komunitas Venus Protocol"
+    },
+    "header": {
+      "beta": "BETA",
+      "tagline": "Otomatisasi DeFi bertenaga AI untuk Venus Protocol",
+      "title": "Venus Agent Skills"
+    },
+    "sections": {
+      "installation": {
+        "icon": "📦",
+        "note": {
+          "securityLabel": "🔐 Catatan Keamanan:",
+          "securityText": "Kunci privat Anda tidak pernah meninggalkan perangkat Anda. Agen mengeksekusi transaksi secara lokal menggunakan dompet Anda.",
+          "warningLabel": "⚠️ Peringatan Versi BETA:",
+          "warningText": "Ini adalah rilis beta. Gunakan dengan risiko Anda sendiri. Hanya gunakan dana uji coba atau jumlah kecil. Selalu verifikasi transaksi sebelum mengonfirmasi."
+        },
+        "paragraph1": "Pemasangan Venus Agent Skills memerlukan waktu kurang dari 5 menit. Ikuti langkah-langkah berikut:",
+        "repository": {
+          "label": "Repositori:"
+        },
+        "steps": {
+          "1": {
+            "text": "<Bold>Unduh paket keahlian (skill)</Bold> dari <RepoLink>repositori resmi</RepoLink>"
+          },
+          "2": {
+            "text": "<Bold>Tempatkan ke dalam direktori keahlian agen Anda:</Bold>"
+          },
+          "3": {
+            "text": "<Bold>Konfigurasikan kredensial dompet Anda</Bold> di dalam berkas .env:"
+          },
+          "4": {
+            "text": "<Bold>Pasang dependensi:</Bold>"
+          },
+          "5": {
+            "text": "<Bold>Mulai ulang agen Anda</Bold> untuk memuat keahlian baru"
+          }
+        },
+        "title": "Cara Memasang"
+      },
+      "introduction": {
+        "features": {
+          "1": {
+            "description": "Berbicaralah dengan agen Anda selayaknya manusia, tanpa perlu istilah teknis yang rumit",
+            "title": "Perintah Bahasa Alami"
+          },
+          "2": {
+            "description": "Dapatkan suku bunga APY langsung, likuiditas, dan statistik pasar secara instan",
+            "title": "Data Pasar Waktu Nyata"
+          },
+          "3": {
+            "description": "AI menganalisis dompet Anda dan menyarankan strategi perolehan imbal hasil yang optimal",
+            "title": "Rekomendasi Cerdas"
+          },
+          "4": {
+            "description": "Setor, pinjam, lunasi, dan tarik dana dengan perintah sederhana",
+            "title": "Otomatisasi Transaksi"
+          },
+          "5": {
+            "description": "Tetapkan ketentuan seperti \"setor ketika APY > 3%\" dan biarkan agen bekerja",
+            "title": "Aturan Perdagangan Otomatis"
+          },
+          "6": {
+            "description": "Pantau posisi, faktor kesehatan, dan pendapatan Anda 24/7",
+            "title": "Pelacakan Portofolio"
+          }
+        },
+        "highlight": "Sangat cocok bagi pemula DeFi maupun pedagang berpengalaman yang ingin menghemat waktu dan mengoptimalkan imbal hasil.",
+        "icon": "🚀",
+        "paragraph1": "Venus Agent Skills adalah kerangka kerja otomatisasi bertenaga AI yang memungkinkan Anda berinteraksi dengan Venus Protocol menggunakan bahasa alami. Alih-alih menavigasi antarmuka DeFi yang rumit, cukup beri tahu agen AI Anda apa yang ingin Anda lakukan.",
+        "title": "Apa itu Venus Agent Skills?"
+      },
+      "verification": {
+        "dialog1": {
+          "agentIntro": "🤖 Agen: \"Ya! Saya telah memasang keahlian Venus Protocol. Saya dapat membantu Anda dengan:",
+          "agentOutro": "Apa yang ingin Anda lakukan?\"",
+          "capabilities": {
+            "1": "Memeriksa data pasar dan suku bunga APY",
+            "2": "Menganalisis dompet dan posisi Venus Anda",
+            "3": "Menyetor dan menarik aset",
+            "4": "Meminjam dan melunasi pinjaman",
+            "5": "Menyiapkan aturan perdagangan otomatis"
+          },
+          "user": "👤 Anda: \"Apakah Anda sudah memasang keahlian Venus?\""
+        },
+        "dialog2": {
+          "agent": "🤖 Agen mengambil data langsung dari Venus Core Pool...",
+          "user": "👤 \"Tampilkan 5 pasar teratas berdasarkan likuiditas\""
+        },
+        "dialog3": {
+          "agent": "🤖 Agen memeriksa dompet Anda dan menampilkan suplai, pinjaman, serta faktor kesehatan Anda...",
+          "user": "👤 \"Bagaimana posisi saya saat ini di Venus Core/Flux?\""
+        },
+        "dialog4": {
+          "agent": "🤖 Agen menganalisis saldo dompet Anda dan merekomendasikan strategi perolehan imbal hasil terbaik...",
+          "user": "👤 \"Saya ingin memperoleh imbal hasil\""
+        },
+        "highlight": "Jika agen merespons dengan data pasar atau rekomendasi, selamat! Venus Agent Skills telah terpasang dan siap digunakan. 🎉",
+        "icon": "✅",
+        "paragraph1": "Setelah pemasangan, pastikan Venus Agent Skills berfungsi dengan baik dengan mengobrol bersama agen Anda:",
+        "paragraph2": "Coba perintah pengujian berikut untuk memastikan semuanya berfungsi:",
+        "tip": {
+          "label": "💡 Tips:",
+          "text": "Mulailah dengan perintah hanya-baca (seperti memeriksa pasar) sebelum mengeksekusi transaksi. Hal ini membantu Anda terbiasa dengan kemampuan agen."
+        },
+        "title": "Verifikasi Pemasangan"
+      }
+    },
+    "terminal": {
+      "sequence": {
+        "balance": {
+          "1": {
+            "amount": "0.004784",
+            "token": "BNB"
+          },
+          "2": {
+            "amount": "10.501949",
+            "token": "USDT"
+          },
+          "3": {
+            "amount": "4.000000",
+            "token": "USDC"
+          }
+        },
+        "header": {
+          "currentPosition": "Posisi Venus Saat Ini (Core Pool):",
+          "finalPosition": "Posisi Akhir:",
+          "recommendation": "Rekomendasi:",
+          "topMarkets": "5 Pasar Teratas Berdasarkan Likuiditas:",
+          "updatedPosition": "Posisi yang Diperbarui:",
+          "walletBalance": "Saldo Dompet Saat Ini (BNB Chain):"
+        },
+        "market": {
+          "1": {
+            "borrow": "1.0841%",
+            "liquidity": "$356,095,914.68",
+            "name": "vBTC",
+            "supply": "0.1711%"
+          },
+          "2": {
+            "borrow": "0.8598%",
+            "liquidity": "$300,845,581.93",
+            "name": "vBNB",
+            "supply": "0.1648%"
+          },
+          "3": {
+            "borrow": "0.0514%",
+            "liquidity": "$130,654,243.33",
+            "name": "vSolvBTC",
+            "supply": "0.0002%"
+          },
+          "4": {
+            "borrow": "3.7054%",
+            "liquidity": "$109,840,237.54",
+            "name": "vUSDT",
+            "supply": "1.8415%"
+          },
+          "5": {
+            "borrow": "0.0000%",
+            "liquidity": "$91,022,728.98",
+            "name": "vasBNB",
+            "supply": "0.0000%"
+          }
+        },
+        "output": {
+          "analyzingWallet": "Menganalisis dompet dan posisi Venus Anda...",
+          "borrowAfterCleanup": "  Pinjaman: $0,50 → ~$0,000001 (sisa kecil)",
+          "cleaningBorrow": "Membersihkan posisi pinjaman...",
+          "depositAmount": "  Jumlah: 10 USDT → vUSDT (Core Pool)",
+          "fetchingMarkets": "Mengambil data pasar Venus Core Pool...",
+          "healthAfterCleanup": "  Faktor Kesehatan: 34,14 → ~17.656.287",
+          "initiatingDeposit": "Memulai transaksi penyetoran...",
+          "processingWithdrawal": "Memproses penarikan...",
+          "recommendationAmount": "   Jumlah yang disarankan: 10 USDT",
+          "recommendationApy": "   Perkiraan APY: ~1,84% (~0,184 USDT/tahun)",
+          "recommendationTitle": "💡 Setor USDT ke dalam Venus Core Pool",
+          "ruleAction": "  Tindakan: Setorkan seluruh USDC di dompet",
+          "ruleId": "  ID Tugas: eadf856a-393b-4587-aa69-10b252c22efa",
+          "ruleInterval": "  Interval: Periksa setiap 10 menit",
+          "ruleTrigger": "  Pemicu: APY Suplai vUSDC > 3,0%",
+          "settingRule": "Menyiapkan aturan penyetoran otomatis...",
+          "walletUsdtAfterWithdrawal": "  USDT Dompet: 10,001736",
+          "withdrawalAmount": "  Jumlah: 10 USDT ditarik dari vUSDT"
+        },
+        "position": {
+          "current": {
+            "1": {
+              "label": "Total Suplai",
+              "value": "$11.003238"
+            },
+            "2": {
+              "label": "Total Pinjaman",
+              "value": "$0.500249"
+            },
+            "3": {
+              "label": "Faktor Kesehatan",
+              "status": "risiko RENDAH",
+              "value": "18.15"
+            }
+          },
+          "final": {
+            "1": {
+              "label": "Total Suplai",
+              "value": "$11.003250"
+            },
+            "2": {
+              "label": "Total Pinjaman",
+              "value": "~$0.000001"
+            },
+            "3": {
+              "label": "Faktor Kesehatan",
+              "status": "sangat aman",
+              "value": "~9,384,800"
+            }
+          },
+          "updated": {
+            "1": {
+              "change": "+$10.00",
+              "label": "Total Suplai",
+              "value": "$21.003943"
+            },
+            "2": {
+              "change": "meningkat",
+              "label": "Faktor Kesehatan",
+              "value": "34.14"
+            }
+          }
+        },
+        "success": {
+          "borrowCleaned": "✓ Pinjaman berhasil dibersihkan",
+          "depositComplete": "✓ Setoran berhasil dieksekusi",
+          "ruleEnabled": "✓ Aturan perdagangan otomatis diaktifkan",
+          "withdrawalComplete": "✓ Penarikan selesai"
+        },
+        "tx": {
+          "approve": {
+            "hash": "0xa66216ffb5de805e1d870bfa6dc8ce43af8c85935c0423e2cd779a1b4e3bae2a",
+            "label": "Setujui"
+          },
+          "approveBorrow": {
+            "hash": "0x2539aebcf903c14dfc28c3757ccd358f1da7afe7c5334691a800e35523624049",
+            "label": "Setujui"
+          },
+          "deposit": {
+            "hash": "0x7d485c4022644db464262a56b46ef5740909c890566d0f001895938fde3bc620",
+            "label": "Setor"
+          },
+          "repay": {
+            "hash": "0xdbccf6a5e9dc1ea5727115e86c9081646bf2c00a908512e7d9705f6e245930db",
+            "label": "Lunasi"
+          },
+          "withdraw": {
+            "hash": "0x4d313a66b6c966b543bfc874e4c5fa78c55b1a4c284bac224ff22fc4066abe91",
+            "label": "Tarik"
+          }
+        },
+        "user": {
+          "autoDepositRule": "Setorkan seluruh USDC saya secara otomatis ketika APY melebihi 3%",
+          "cleanupBorrow": "Bersihkan pinjaman saya",
+          "confirmDeposit": "Konfirmasi setoran",
+          "showTopMarkets": "Tampilkan 5 pasar teratas berdasarkan likuiditas",
+          "wantToEarn": "Saya ingin memperoleh imbal hasil",
+          "withdrawRequest": "Tarik 10 USDT untuk saya"
+        }
+      },
+      "title": "Venus-agent.md"
+    }
+  },
+  "spendingLimit": {
+    "label": "Batas pengeluaran",
+    "labelTooltip": "Ini adalah batas pengeluaran Anda saat ini untuk aset ini. Untuk membelanjakan lebih banyak, cabut batas saat ini dan tetapkan batas yang baru."
+  },
+  "spokeCollateralGroup": {
+    "asset": "Aset",
+    "maxLtv": "LTV Maks."
+  },
+  "spokeForm": {
+    "borrow": {
+      "submitButtonLabel": "Pinjam",
+      "tabTitle": "Pinjam",
+      "zeroCollateralNotice": "Anda perlu <SupplyLink>menyuplai</SupplyLink> token sebelum dapat meminjam {{tokenSymbol}} dari pool ini."
+    },
+    "borrowModalTitle": "Pinjam {{tokenSymbol}} dari pool {{poolName}}",
+    "collateralModalTitle": "Kelola agunan di pool {{poolName}}",
+    "collateralTabTitle": "Agunan",
+    "dailyBorrowInterest": "Bunga pinjaman harian",
+    "enterValidAmountButtonLabel": "Masukkan jumlah yang valid",
+    "error": {
+      "higherThanAvailableAmount": "Jumlah melebihi saldo yang tersedia",
+      "lowerThanMinAmount": "Jumlah berada di bawah batas minimum {{minAmount}}",
+      "supplyDisabled": "Penyuplaian saat ini dijeda untuk agunan ini"
+    },
+    "loanTabTitle": "Pinjaman",
+    "repay": {
+      "submitButtonLabel": "Lunasi",
+      "tabTitle": "Lunasi",
+      "walletBalanceLabel": "Saldo dompet"
+    },
+    "rightMaxButtonLabel": "MAKS",
+    "safeMaxButtonLabel": "MAKS AMAN",
+    "supply": {
+      "submitButtonLabel": "Suplai",
+      "tabTitle": "Suplai",
+      "walletBalanceLabel": "Saldo dompet"
+    },
+    "withdraw": {
+      "submitButtonLabel": "Tarik",
+      "tabTitle": "Tarik"
+    }
+  },
+  "spokeMarket": {
+    "borrowCapThreshold": {
+      "title": "Total dipinjam",
+      "tooltip": "Jumlah maksimum yang tersedia untuk dipinjam adalah {{amountDollars}} ({{amountTokens}})<LineBreak />Batas pinjaman: {{capTokens}}"
+    },
+    "borrowInfo": {
+      "currentApy": "APY Saat Ini",
+      "title": "Info pinjaman"
+    },
+    "header": {
+      "collateral": "Agunan",
+      "liquidity": "Likuiditas",
+      "price": "Harga",
+      "supply": "Suplai"
+    },
+    "loanInfo": {
+      "borrowerCount": "Jumlah peminjam",
+      "dailyBorrowInterests": "Bunga pinjaman harian",
+      "marketContract": "Kontrak pasar",
+      "reserveFactor": "Faktor cadangan",
+      "suppliable": "Dapat disuplai",
+      "suppliableNo": "Tidak",
+      "suppliableYes": "Ya",
+      "title": "Info pinjaman"
+    },
+    "periodOption": {
+      "all": "Semua",
+      "oneMonth": "1Bln",
+      "oneWeek": "1Mgg",
+      "oneYear": "1Thn",
+      "threeMonths": "3Bln"
+    },
+    "supportedCollateral": {
+      "capacity": "{{supplied}}/{{cap}}",
+      "columns": {
+        "capacityFilled": "Kapasitas terisi",
+        "collateral": "Agunan",
+        "liquidationThreshold": "LT <InfoIcon />",
+        "maxLtv": "LTV Maks.",
+        "penalty": "Penalti",
+        "supplied": "Disuplai"
+      },
+      "columnTooltips": {
+        "liquidationThreshold": "Ambang batas likuidasi"
+      },
+      "title": "Agunan yang didukung"
+    }
+  },
+  "spokePoolInfo": {
+    "button": "Tentang {{poolName}}",
+    "learnMore": "Pelajari selengkapnya"
+  },
+  "spokePools": {
+    "description": "Pinjam aset dengan agunan yang Anda suplai dari pasar khusus.",
+    "filter": {
+      "allCollaterals": "Semua agunan",
+      "allLoanAssets": "Semua aset pinjaman",
+      "allPools": "Semua pool",
+      "nCollaterals_one": "{{count}} agunan",
+      "nCollaterals_other": "{{count}} agunan",
+      "nLoanAssets_one": "{{count}} aset pinjaman",
+      "nLoanAssets_other": "{{count}} aset pinjaman",
+      "noResults": "Tidak ada pool yang sesuai dengan filter Anda",
+      "nPools_one": "{{count}} pool",
+      "nPools_other": "{{count}} pool",
+      "reset": "Atur ulang",
+      "searchCollaterals": "Cari agunan",
+      "searchLoanAssets": "Cari aset pinjaman",
+      "searchPlaceholder": "Cari aset",
+      "searchPools": "Cari pool",
+      "selectCollaterals": "Pilih agunan",
+      "selectLoanAssets": "Pilih pinjaman",
+      "selectPools": "Pilih pool"
+    },
+    "header": "Venus Spoke",
+    "stats": {
+      "availableLiquidity": "Likuiditas tersedia",
+      "pools": "Pool",
+      "totalBorrow": "Total pinjaman"
+    },
+    "table": {
+      "columns": {
+        "borrowApy": {
+          "selectOptionLabel": "APY Pinjaman",
+          "title": "APY Pinjaman <InfoIcon/>",
+          "tooltip": "Biaya tahunan untuk meminjam aset ini."
+        },
+        "borrowed": "Dipinjam",
+        "collateral": {
+          "selectOptionLabel": "Agunan",
+          "title": "Agunan <InfoIcon/>",
+          "tooltip": "Aset yang diterima pool ini sebagai agunan, beserta LTV maksimumnya."
+        },
+        "liquidity": "Likuiditas",
+        "loanAsset": "Aset pinjaman",
+        "totalBorrow": "Total pinjaman"
+      }
+    }
+  },
+  "spokeWhitelist": {
+    "asset": {
+      "description": "Hanya alamat yang masuk dalam daftar putih (whitelist) yang dapat menyuplai agunan ini.",
+      "userWhitelisted": "Anda terdaftar dalam daftar putih."
+    },
+    "label": "Daftar putih",
+    "pool": {
+      "description": "Hanya alamat yang masuk dalam daftar putih yang dapat menyuplai dan meminjam dari pool ini.",
+      "userWhitelisted": "Anda memenuhi syarat untuk meminjam dari pool ini."
+    },
+    "viewOnChain": "Lihat daftar putih secara on-chain"
+  },
+  "statsPage": {
+    "illustrationAlt": "Ilustrasi statistik",
+    "poweredBy": "Didukung oleh <Link>{{provider}}</Link>",
+    "subtitle": "Parameter risiko waktu nyata (real-time) untuk pasar Venus Protocol",
+    "title": "Statistik Venus"
+  },
+  "swap": {
+    "errors": {
+      "incorrectSwapInput": "Input yang diberikan untuk pertukaran tidak tepat"
+    }
+  },
+  "swapDetails": {
+    "priceImpact": {
+      "label": "Dampak harga"
+    },
+    "slippageTolerance": {
+      "label": "Toleransi selisih harga (slippage)"
+    },
+    "slippageToleranceModal": {
+      "description": "Menetapkan toleransi selisih harga yang tinggi dapat membantu transaksi berhasil, tetapi Anda mungkin tidak mendapatkan harga yang terbaik. Gunakan dengan hati-hati.",
+      "title": "Toleransi selisih harga (slippage)"
+    }
+  },
+  "switchChain": {
+    "switchButton": "Beralih ke {{chainName}}"
+  },
+  "switchChainNotice": {
+    "buttonLabel": "Beralih ke {{chainName}}",
+    "description": "Anda perlu mengalihkan dompet Anda ke {{chainName}} untuk mengaktifkan atau menonaktifkan agunan"
+  },
+  "table": {
+    "cardsSelect": {
+      "label": "Urutkan berdasarkan"
+    }
+  },
+  "tokenTextField": {
+    "valueDollars": "≈ {{ value }}"
+  },
+  "trade": {
+    "banner": {
+      "illustrationAltText": "Ilustrasi perdagangan",
+      "learnMore": "Pelajari selengkapnya",
+      "title": "Apa itu Trade?"
+    },
+    "closePositionModal": {
+      "title": "Tutup"
+    },
+    "longLiquidity": "Likuiditas long",
+    "longSupplyApy": "APY suplai {{ longTokenSymbol }}",
+    "longTokenSelect": {
+      "label": "Long"
+    },
+    "operationForm": {
+      "increaseForm": {
+        "submitButtonLabel": "Tingkatkan"
+      },
+      "invalidLiquidationPrice": "T/A",
+      "openForm": {
+        "collateral": "Agunan",
+        "dsaFieldLabel": "Agunan",
+        "dsaFieldPlaceholder": "Masukkan untuk melanjutkan",
+        "entryPrice": "Harga masuk",
+        "liquidationPrice": "Harga likuidasi",
+        "long": "Long",
+        "longFieldLabel": "Long",
+        "netApy": "APY Bersih",
+        "pnl": "PnL Terealisasi",
+        "short": "Short",
+        "shortFieldLabel": "Short",
+        "submitButtonLabel": "Buka"
+      },
+      "reduceForm": {
+        "submitButtonLabel": {
+          "close": "Tutup",
+          "reduce": "Kurangi"
+        }
+      },
+      "supplyDsaForm": {
+        "submitButtonLabel": "Suplai"
+      },
+      "walletBalance": "Saldo dompet",
+      "warning": {
+        "cannotBorrowShort": "Peminjaman token short untuk posisi ini telah dinonaktifkan",
+        "cannotRepayShort": "Pelunasan token short untuk posisi ini telah dinonaktifkan",
+        "cannotSupplyDsa": "Penyuplaian token agunan untuk posisi ini telah dinonaktifkan",
+        "cannotSupplyLong": "Penyuplaian token long untuk posisi ini telah dinonaktifkan",
+        "cannotWithdrawDsa": "Penarikan token agunan untuk posisi ini telah dinonaktifkan",
+        "cannotWithdrawLong": "Penarikan token long untuk posisi ini telah dinonaktifkan",
+        "notEnoughLeverage": "Pasangan token ini tidak memungkinkan faktor leverage minimal {{ minimumLeverageFactor }}, yang merupakan syarat minimum untuk membuka posisi Trade",
+        "txLikelyToFail": "Transaksi ini melibatkan pertukaran bernilai rendah yang kemungkinan besar akan gagal"
+      },
+      "withdrawDsaForm": {
+        "submitButtonLabel": "Tarik"
+      }
+    },
+    "positions": {
+      "closeButtonLabel": "Tutup",
+      "placeholder": {
+        "title": "Belum ada posisi"
+      },
+      "status": {
+        "collateralColumn": {
+          "label": "Agunan"
+        },
+        "collateralUtilizationColumn": {
+          "label": "Utilisasi agunan"
+        },
+        "healthFactor": {
+          "label": "Faktor kesehatan",
+          "tooltip": "Likuidasi pada < 1,0"
+        },
+        "netApy": {
+          "label": "APY Bersih"
+        },
+        "netValue": {
+          "label": "Nilai bersih"
+        },
+        "title": "Status"
+      },
+      "table": {
+        "entryPrice": {
+          "title": "EP",
+          "tooltip": "Rasio harga masuk dari posisi ini (jumlah aset short ÷ jumlah aset long, atau jumlah aset long ÷ jumlah aset short, bergantung pada token dasar yang dipilih), yang mencerminkan nilai relatif antara kedua token saat masuk."
+        },
+        "liquidationPrice": {
+          "title": "Lik.",
+          "tooltip": "Harga likuidasi dihitung berdasarkan harga token dasar saat ini dan dapat berubah seiring pergerakan harga token dasar. Selalu pantau Faktor Kesehatan (HF)."
+        },
+        "longColumn": {
+          "title": "Long"
+        },
+        "pnlColumn": {
+          "title": "PnL"
+        },
+        "positionColumn": {
+          "title": "Posisi"
+        },
+        "shortColumn": {
+          "title": "Short"
+        }
+      },
+      "transactions": {
+        "title": "Transaksi"
+      }
+    },
+    "shortBorrowApy": "APY pinjaman {{ shortTokenSymbol }}",
+    "shortLiquidity": "Likuiditas short",
+    "shortTokenSelect": {
+      "label": "Short"
+    }
+  },
+  "tradeBanner": {
+    "description": "Perdagangkan kinerja relatif secara on-chain",
+    "illustrationAltText": "Ilustrasi perdagangan",
+    "title": "Venus Trade kini telah aktif"
+  },
+  "tradeOperationForm": {
+    "managePositionsTabs": {
+      "collateral": "Agunan",
+      "position": "Posisi",
+      "positionsTabs": {
+        "increase": "Tingkatkan",
+        "reduce": "Kurangi",
+        "supply": "Suplai",
+        "withdraw": "Tarik"
+      }
+    }
+  },
+  "transactionErrors": {
+    "acceptAdminPendingAdminCheck": "Pemeriksaan Admin Tertunda untuk Terima Admin Gagal",
+    "acceptPendingImplementationAddressCheck": "Pemeriksaan Alamat Implementasi Tertunda untuk Terima Implementasi Gagal",
+    "accrueInterestAccumulatedInterestCalculationFailed": "Perhitungan Bunga Terakumulasi pada Akrual Bunga Gagal",
+    "accrueInterestBorrowRateCalculationFailed": "Perhitungan Suku Bunga Pinjaman pada Akrual Bunga Gagal",
+    "accrueInterestNewBorrowIndexCalculationFailed": "Perhitungan Indeks Pinjaman Baru pada Akrual Bunga Gagal",
+    "accrueInterestNewTotalBorrowsCalculationFailed": "Perhitungan Total Pinjaman Baru pada Akrual Bunga Gagal",
+    "accrueInterestNewTotalReservesCalculationFailed": "Perhitungan Total Cadangan Baru pada Akrual Bunga Gagal",
+    "accrueInterestSimpleInterestFactorCalculationFailed": "Perhitungan Faktor Bunga Sederhana pada Akrual Bunga Gagal",
+    "addReservesAccrueInterestFailed": "Akrual Bunga pada Penambahan Cadangan Gagal",
+    "addReservesFreshCheck": "Pemeriksaan Pembaruan pada Penambahan Cadangan Gagal",
+    "addReservesTransferInNotPossible": "Transfer Masuk pada Penambahan Cadangan Tidak Memungkinkan",
+    "badInput": "Input Tidak Valid",
+    "borrowAccrueInterestFailed": "Akrual Bunga pada Peminjaman Gagal",
+    "borrowAccumulatedBalanceCalculationFailed": "Perhitungan Saldo Terakumulasi pada Peminjaman Gagal",
+    "borrowCashNotAvailable": "Kas Pinjaman Tidak Tersedia",
+    "borrowComptrollerRejection": "Penolakan Comptroller pada Peminjaman",
+    "borrowFreshnessCheck": "Pemeriksaan Pembaruan pada Peminjaman Gagal",
+    "borrowMarketNotListed": "Pasar Pinjaman Tidak Terdaftar",
+    "borrowNewAccountBorrowBalanceCalculationFailed": "Perhitungan Saldo Pinjaman Akun Baru pada Peminjaman Gagal",
+    "borrowNewTotalBalanceCalculationFailed": "Perhitungan Total Saldo Baru pada Peminjaman Gagal",
+    "comptrollerCalculationError": "Kesalahan Perhitungan Comptroller",
+    "comptrollerMismatch": "Ketidakcocokan Comptroller",
+    "comptrollerRejection": "Penolakan Comptroller",
+    "exitMarketBalanceOwed": "Saldo Terutang saat Keluar Pasar",
+    "exitMarketRejection": "Penolakan Keluar Pasar",
+    "gasEstimationFailed": "Estimasi gas gagal",
+    "gaslessTransactionNotAvailable": "Transaksi tanpa gas tidak tersedia",
+    "insufficientBalanceForVai": "Saldo Tidak Mencukupi untuk VAI",
+    "insufficientLiquidity": "Likuiditas Tidak Mencukupi",
+    "insufficientShortfall": "Kekurangan Jaminan Tidak Mencukupi",
+    "interestRateModelError": "Kesalahan Model Suku Bunga",
+    "invalidAccountPair": "Pasangan Akun Tidak Valid",
+    "invalidCloseAmountRequested": "Jumlah Penutupan yang Diminta Tidak Valid",
+    "invalidCloseFactor": "Faktor Penutupan Tidak Valid",
+    "invalidCollateralFactor": "Faktor Agunan Tidak Valid",
+    "invalidLiquidationIncentive": "Insentif Likuidasi Tidak Valid",
+    "liquidateAccrueBorrowInterestFailed": "Akrual Bunga Pinjaman pada Likuidasi Gagal",
+    "liquidateAccrueCollateralInterestFailed": "Akrual Bunga Agunan pada Likuidasi Gagal",
+    "liquidateCloseAmountIsUintMax": "Jumlah Penutupan Likuidasi Adalah Maksimal UINT",
+    "liquidateCloseAmountIsZero": "Jumlah Penutupan Likuidasi Adalah Nol",
+    "liquidateCollateralFreshnessCheck": "Pemeriksaan Pembaruan Agunan pada Likuidasi Gagal",
+    "liquidateComptrollerCalculateAmountSeizeFailed": "Perhitungan Jumlah Penyitaan Comptroller pada Likuidasi Gagal",
+    "liquidateComptrollerRejection": "Penolakan Comptroller pada Likuidasi",
+    "liquidateFreshnessCheck": "Pemeriksaan Pembaruan pada Likuidasi Gagal",
+    "liquidateSeizeBalanceDecrementFailed": "Pengurangan Saldo Penyitaan pada Likuidasi Gagal",
+    "liquidateSeizeBalanceIncrementFailed": "Penambahan Saldo Penyitaan pada Likuidasi Gagal",
+    "liquidateSeizeBorrowFreshFailed": "Pemeriksaan Pembaruan Pinjaman Penyitaan pada Likuidasi Gagal",
+    "liquidateSeizeComptrollerRejection": "Penolakan Comptroller Penyitaan pada Likuidasi",
+    "liquidateSeizeIsBorrower": "Penyita Likuidasi Adalah Peminjam",
+    "liquidateSeizeLiquidatorIsBorrower": "Likuidator Penyitaan Adalah Peminjam",
+    "liquidateSeizeTooMuch": "Penyitaan Likuidasi Terlalu Banyak",
+    "marketAlreadyListed": "Pasar Sudah Terdaftar",
+    "marketNotEntered": "Pasar Belum Dimasuki",
+    "marketNotFresh": "Pasar Belum Diperbarui",
+    "marketNotListed": "Pasar Tidak Terdaftar",
+    "mathError": "Kesalahan Matematis",
+    "mintAccrueInterestFailed": "Akrual Bunga pada Pencetakan (Mint) Gagal",
+    "mintComptrollerRejection": "Penolakan Comptroller pada Pencetakan",
+    "mintExchangeRateReadFailed": "Pembacaan Nilai Tukar pada Pencetakan Gagal",
+    "mintFeeCalculationFailed": "Perhitungan Biaya pada Pencetakan Gagal",
+    "mintFreshnessCheck": "Pemeriksaan Pembaruan pada Pencetakan Gagal",
+    "mintNewAccountBalanceCalculationFailed": "Perhitungan Saldo Akun Baru pada Pencetakan Gagal",
+    "mintNewTotalSupplyCalculationFailed": "Perhitungan Total Suplai Baru pada Pencetakan Gagal",
+    "mintTransferInFailed": "Transfer Masuk pada Pencetakan Gagal",
+    "mintTransferNotPossible": "Transfer pada Pencetakan Tidak Memungkinkan",
+    "noError": "Tidak Ada Kesalahan",
+    "nonzeroBorrowBalance": "Saldo Pinjaman Tidak Nol",
+    "priceError": "Kesalahan Harga",
+    "redeemAccrueInterestFailed": "Akrual Bunga pada Penebusan (Redeem) Gagal",
+    "redeemComptrollerRejection": "Penolakan Comptroller pada Penebusan",
+    "redeemExchangeAmountCalculatioFailed": "Perhitungan Jumlah Pertukaran pada Penebusan Gagal",
+    "redeemExchangeRateReadFailed": "Pembacaan Nilai Tukar pada Penebusan Gagal",
+    "redeemExchangeTokensCalculationFailed": "Perhitungan Token Pertukaran pada Penebusan Gagal",
+    "redeemFeeCalculationFailed": "Perhitungan Biaya pada Penebusan Gagal",
+    "redeemFreshnessCheck": "Pemeriksaan Pembaruan pada Penebusan Gagal",
+    "redeemNewAccountBalanceCalculationFailed": "Perhitungan Saldo Akun Baru pada Penebusan Gagal",
+    "redeemNewTotalSupplyCalculationFailed": "Perhitungan Total Suplai Baru pada Penebusan Gagal",
+    "redeemTransferOutNotPossible": "Transfer Keluar pada Penebusan Tidak Memungkinkan",
+    "reduceReservesAccrueInterestFailed": "Akrual Bunga pada Pengurangan Cadangan Gagal",
+    "reduceReservesAdminCheck": "Pemeriksaan Admin pada Pengurangan Cadangan Gagal",
+    "reduceReservesCashNotAvailable": "Kas pada Pengurangan Cadangan Tidak Tersedia",
+    "reduceReservesFreshCheck": "Pemeriksaan Pembaruan pada Pengurangan Cadangan Gagal",
+    "reduceReservesValidation": "Validasi Pengurangan Cadangan Gagal",
+    "rejection": "Penolakan",
+    "repayBehalfAccrueInterestFailed": "Akrual Bunga pada Pelunasan Atas Nama Gagal",
+    "repayBorrowAccrueInterestFailed": "Akrual Bunga pada Pelunasan Pinjaman Gagal",
+    "repayBorrowAccumulatedBalanceCalculationFailed": "Perhitungan Saldo Terakumulasi pada Pelunasan Pinjaman Gagal",
+    "repayBorrowComptrollerRejection": "Penolakan Comptroller pada Pelunasan Pinjaman",
+    "repayBorrowFreshnessCheck": "Pemeriksaan Pembaruan pada Pelunasan Pinjaman Gagal",
+    "repayBorrowNewAccountBorrowBalanceCalculationFailed": "Perhitungan Saldo Pinjaman Akun Baru pada Pelunasan Pinjaman Gagal",
+    "repayBorrowTransferInNotPossible": "Transfer Masuk pada Pelunasan Pinjaman Tidak Memungkinkan",
+    "repayBorrowTransferNotPossible": "Transfer pada Pelunasan Pinjaman Tidak Memungkinkan",
+    "repayVaiComptrollerRejection": "Penolakan Comptroller pada Pelunasan VAI",
+    "repayVaiFreshnessCheck": "Pemeriksaan Pembaruan pada Pelunasan VAI Gagal",
+    "setCloseFactorOwnerCheck": "Pemeriksaan Pemilik pada Pengaturan Faktor Penutupan Gagal",
+    "setCloseFactorValidation": "Validasi Pengaturan Faktor Penutupan Gagal",
+    "setCollateralFactorNoExists": "Faktor Agunan Tidak Ada",
+    "setCollateralFactorOwnerCheck": "Pemeriksaan Pemilik pada Pengaturan Faktor Agunan Gagal",
+    "setCollateralFactorValidation": "Validasi Pengaturan Faktor Agunan Gagal",
+    "setCollateralFactorWithoutPrice": "Pengaturan Faktor Agunan Tanpa Harga",
+    "setComptrollerOwnerCheck": "Pemeriksaan Pemilik pada Pengaturan Comptroller Gagal",
+    "setImplementationOwnerCheck": "Pemeriksaan Pemilik pada Pengaturan Implementasi Gagal",
+    "setInterestRateModelAccrueInterestFailed": "Akrual Bunga pada Pengaturan Model Suku Bunga Gagal",
+    "setInterestRateModelFreshCheck": "Pemeriksaan Pembaruan pada Pengaturan Model Suku Bunga Gagal",
+    "setInterestRateModelOwnerCheck": "Pemeriksaan Pemilik pada Pengaturan Model Suku Bunga Gagal",
+    "setLiquidationIncentiveOwnerCheck": "Pemeriksaan Pemilik pada Pengaturan Insentif Likuidasi Gagal",
+    "setLiquidationIncentiveValidation": "Validasi Pengaturan Insentif Likuidasi Gagal",
+    "setMaxAssetsOwnerCheck": "Pemeriksaan Pemilik pada Pengaturan Aset Maksimum Gagal",
+    "setMintedVaiRejection": "Penolakan Pengaturan VAI yang Dicetak",
+    "setOracleMarketNotListed": "Pasar Oracle Tidak Terdaftar",
+    "setPauseGuardianOwnerCheck": "Pemeriksaan Pemilik pada Pengaturan Wali Jeda Gagal",
+    "setPendingAdminOwnerCheck": "Pemeriksaan Pemilik pada Pengaturan Admin Tertunda Gagal",
+    "setPendingImplementationOwnerCheck": "Pemeriksaan Pemilik pada Pengaturan Implementasi Tertunda Gagal",
+    "setPriceOracleOwnerCheck": "Pemeriksaan Pemilik pada Pengaturan Oracle Harga Gagal",
+    "setReserveFactorAccrueInterestFailed": "Akrual Bunga pada Pengaturan Faktor Cadangan Gagal",
+    "setReserveFactorAdminCheck": "Pemeriksaan Admin pada Pengaturan Faktor Cadangan Gagal",
+    "setReserveFactorBoundsCheck": "Pemeriksaan Batas pada Pengaturan Faktor Cadangan Gagal",
+    "setReserveFactorFreshCheck": "Pemeriksaan Pembaruan pada Pengaturan Faktor Cadangan Gagal",
+    "setTreasuryOwnerCheck": "Pemeriksaan Pemilik pada Pengaturan Perbendaharaan Gagal",
+    "setVaiControllerOwnerCheck": "Pemeriksaan Pemilik pada Pengaturan Pengontrol VAI Gagal",
+    "setVaiMintRateCheck": "Pemeriksaan Tarif Pencetakan VAI Gagal",
+    "sftMintNewAccountBalanceCalculationFailed": "Perhitungan Saldo Akun Baru pada Pencetakan SFT Gagal",
+    "snapshotError": "Kesalahan Cuplikan (Snapshot)",
+    "supportMarketExists": "Pasar yang Didukung Sudah Ada",
+    "supportMarketOwnerCheck": "Pemeriksaan Pemilik pada Dukungan Pasar Gagal",
+    "tokenGetUnderlyingPriceError": "Kesalahan Pengambilan Harga Aset Dasar Token",
+    "tokenInsufficentCash": "Kas Token Tidak Mencukupi",
+    "tokenInsufficientAllowance": "Batas Izin Token Tidak Mencukupi",
+    "tokenInsufficientBalance": "Saldo Token Tidak Mencukupi",
+    "tokenPriceError": "Kesalahan Harga Token",
+    "tokenTransferInFailed": "Transfer Masuk Token Gagal",
+    "tokenTransferOutFailed": "Transfer Keluar Token Gagal",
+    "tooManyAssets": "Terlalu Banyak Aset",
+    "tooMuchRepay": "Pelunasan Terlalu Banyak",
+    "transferComptrollerRejection": "Penolakan Comptroller pada Transfer",
+    "transferNotAllowed": "Transfer Tidak Diizinkan",
+    "transferNotEnough": "Jumlah Transfer Tidak Mencukupi",
+    "transferTooMuch": "Jumlah Transfer Terlalu Banyak",
+    "unauthorized": "Tidak Sah",
+    "vaiBurnRejection": "Penolakan Pembakaran (Burn) VAI",
+    "vaiLiquidateAccrueBorrowInterestFailed": "Akrual Bunga Pinjaman pada Likuidasi VAI Gagal",
+    "vaiLiquidateAccrueCollateralInterestFailed": "Akrual Bunga Agunan pada Likuidasi VAI Gagal",
+    "vaiLiquidateCloseAmountIsUintMax": "Jumlah Penutupan Likuidasi VAI Adalah Maksimal UINT",
+    "vaiLiquidateCloseAmountIsZero": "Jumlah Penutupan Likuidasi VAI Adalah Nol",
+    "vaiLiquidateCollateralFreshnessCheck": "Pemeriksaan Pembaruan Agunan pada Likuidasi VAI Gagal",
+    "vaiLiquidateComptrollerCalculateAmountSeizeFailed": "Perhitungan Jumlah Penyitaan Comptroller pada Likuidasi VAI Gagal",
+    "vaiLiquidateComptrollerRejection": "Penolakan Comptroller pada Likuidasi VAI",
+    "vaiLiquidateFreshnessCheck": "Pemeriksaan Pembaruan pada Likuidasi VAI Gagal",
+    "vaiLiquidateLiquidatorIsBorrower": "Likuidator pada Likuidasi VAI Adalah Peminjam",
+    "vaiLiquidateRepayBorrowFreshFailed": "Pemeriksaan Pembaruan Pelunasan Pinjaman pada Likuidasi VAI Gagal",
+    "vaiLiquidateSeizeBalanceDecrementFailed": "Pengurangan Saldo Penyitaan pada Likuidasi VAI Gagal",
+    "vaiLiquidateSeizeBalanceIncrementFailed": "Penambahan Saldo Penyitaan pada Likuidasi VAI Gagal",
+    "vaiLiquidateSeizeComptrollerRejection": "Penolakan Comptroller Penyitaan pada Likuidasi VAI",
+    "vaiLiquidateSeizeLiquidatorIsBorrower": "Likuidator Penyitaan pada Likuidasi VAI Adalah Peminjam",
+    "vaiLiquidateSeizeTooMuch": "Penyitaan pada Likuidasi VAI Terlalu Banyak",
+    "vaiMintExchangeCalculationFailed": "Perhitungan Pertukaran pada Pencetakan VAI Gagal",
+    "vaiMintRejection": "Pencetakan VAI Ditolak"
+  },
+  "transactionNotification": {
+    "couldNotFetchReceipt": {
+      "title": "Tidak dapat mengambil status transaksi"
+    },
+    "failed": {
+      "title": "Transaksi gagal"
+    },
+    "pending": {
+      "title": "Mengonfirmasi transaksi"
+    },
+    "success": {
+      "title": "Transaksi terkonfirmasi"
+    }
+  },
+  "transactions": {
+    "liquidityHub": {
+      "label": "Hub Likuiditas"
+    },
+    "venusCore": {
+      "label": "Venus Core"
+    }
+  },
+  "txFormSubmitButton": {
+    "acknowledgements": {
+      "highPriceImpact": {
+        "label": "Saya memahami dampak harga yang tinggi",
+        "tooltip": "Transaksi ini diperkirakan memiliki dampak harga lebih dari {{priceImpactPercentage}}%"
+      },
+      "riskyOperation": {
+        "label": "Saya memahami risiko yang terlibat",
+        "tooltip": "Faktor kesehatan Anda akan menjadi rendah setelah transaksi ini, sehingga meningkatkan risiko likuidasi"
+      }
+    }
+  },
+  "vai": {
+    "borrow": {
+      "amountTokensInput": {
+        "limitButtonLabel": "MAKS AMAN"
+      },
+      "availableAmount": {
+        "label": "Tersedia",
+        "tooltip": "Jumlah maksimum VAI yang dapat Anda pinjam, berdasarkan batas global dan agunan yang Anda suplai"
+      },
+      "borrowApr": {
+        "label": "APR Pinjaman",
+        "tooltip": "Suku bunga tahunan yang harus dibayarkan di masa mendatang, di atas VAI yang dicetak"
+      },
+      "fee": {
+        "label": "Biaya"
+      },
+      "notice": {
+        "amountHigherThanAccountMintableAmount": "Jumlah yang dimasukkan melebihi jumlah yang tersedia",
+        "amountHigherThanLiquidity": "Jumlah yang dimasukkan melebihi likuiditas VAI yang tersedia"
+      },
+      "primeOnlyWarning": "Hanya pengguna yang memiliki token Prime yang dapat meminjam VAI. Pelajari selengkapnya tentang Prime <Link>di sini</Link>.",
+      "submitButton": {
+        "borrowLabel": "Pinjam",
+        "enterValidAmountLabel": "Masukkan jumlah yang valid untuk dipinjam"
+      },
+      "tabTitle": "Pinjam"
+    },
+    "headerMessage": "VAI adalah stablecoin utama dari Venus Protocol. Pinjam VAI menggunakan agunan yang Anda suplai. <Link>Pelajari selengkapnya</Link>",
+    "repay": {
+      "amountTokensInput": {
+        "limitButtonLabel": "MAKS"
+      },
+      "borrowApr": {
+        "label": "APR Pinjaman",
+        "tooltip": "Suku bunga tahunan yang harus dibayarkan di masa mendatang, di atas VAI yang dicetak"
+      },
+      "notice": {
+        "amountHigherThanBorrowBalance": "Jumlah yang dimasukkan melebihi saldo pelunasan",
+        "amountHigherThanWalletBalance": "Saldo {{tokenSymbol}} tidak mencukupi",
+        "amountHigherThanWalletSpendingLimit": "Anda memasukkan jumlah yang melebihi batas pengeluaran Anda untuk aset ini. Silakan cabut batas pengeluaran Anda lalu tetapkan yang baru untuk melanjutkan transaksi ini.",
+        "fullRepaymentWarning": "Nilai transaksi mungkin sedikit lebih tinggi daripada jumlah pinjaman saat ini untuk menutupi bunga yang baru terakumulasi"
+      },
+      "submitButton": {
+        "enterValidAmountLabel": "Masukkan jumlah yang valid untuk dilunasi",
+        "repayLabel": "Lunasi"
+      },
+      "tabTitle": "Lunasi",
+      "walletBalance": {
+        "label": "Saldo dompet"
+      }
+    }
+  },
+  "vault": {
+    "card": {
+      "apr": "APR",
+      "blockingPendingWithdrawalsWarning": "Anda harus menyelesaikan penarikan yang tertunda untuk berinteraksi dengan brankas ini.",
+      "collateral": "Agunan",
+      "dailyEmission": "Emisi harian",
+      "header": {
+        "fixedTermTitle": "{{ tokenSymbol }} Jangka Tetap",
+        "maturityDate_zero": "{{ date, textual }}",
+        "maturityDate_one": "{{ date, textual }} ({{ count }} hari)",
+        "maturityDate_other": "{{ date, textual }} ({{ count }} hari)"
+      },
+      "liquidity": "Likuiditas",
+      "liquidityTooltip": "Total nilai aset yang saat ini disediakan dalam pool (atau strategi) terintegrasi Pendle yang mendasari brankas ini.",
+      "maturityDate": "Tanggal berakhirnya penguncian",
+      "maturityDatePendle": "Tanggal jatuh tempo",
+      "maturityDatePendleTooltip": "Tanggal berakhirnya posisi imbal hasil tetap ini (dari Pendle). Setelah tanggal ini, Anda akan mendapatkan kembali aset asli secara penuh (pokok). Imbal hasil tetap yang terkunci berhenti di sini; sebaiknya tahan hingga tanggal tersebut untuk mendapatkan imbal hasil yang direncanakan.",
+      "minRequested": "Min. diminta",
+      "pausedWarning": "Brankas ini sedang dijeda. Suku bunga tetap terakumulasi, tetapi fitur klaim, suplai, dan penarikan dinonaktifkan hingga jeda brankas dicabut",
+      "primeEligibility": "Kelayakan Prime",
+      "realizedAprTooltip": "Imbal hasil tahunan yang benar-benar didistribusikan kepada penyuplai saat penyelesaian, berdasarkan jumlah yang dilunasi ke brankas, setelah dikurangi biaya protokol. Setara dengan Target APR jika pinjaman dilunasi sepenuhnya; lebih rendah jika brankas diselesaikan melalui likuidasi.",
+      "realizedTargetApr": "APR Terealisasi / Target",
+      "remainingDays_one": "({{ count }} hari)",
+      "remainingDays_other": "({{ count }} hari)",
+      "targetApr": "Target APR",
+      "targetAprTooltip": "Target imbalan tahunan yang ingin dicapai oleh strategi brankas ini, dinyatakan sebagai target Tingkat Persentase Tahunan (APR) termasuk bunga majemuk. Imbal hasil aktual bersifat variabel dan bergantung pada kinerja pihak lawan; modal memiliki risiko dan Anda mungkin menerima kurang dari jumlah yang Anda suplai.",
+      "textualWithTime": "{{date, textualWithTime}}",
+      "totalDeposited": "Total disuplai",
+      "vaultVenueIcon": "Logo Venus",
+      "venue": "Penyedia (Venue)",
+      "youDeposited": "Anda menyuplai"
+    },
+    "category": {
+      "governance": "Tata Kelola",
+      "stablecoins": "Stablecoin",
+      "yieldTokens": "Token imbal hasil"
+    },
+    "description": "Imbal hasil yang disederhanakan, keuntungan yang nyata",
+    "filter": {
+      "allCategories": "Semua kategori",
+      "allStates": "Semua status",
+      "allVenues": "Semua penyedia",
+      "archivedVaultsToggle": {
+        "label": "Brankas yang diarsipkan",
+        "tooltip": "Brankas yang jatuh tempo atau dananya dikembalikan lebih dari 90 hari yang lalu, serta brankas yang ditutup, akan disembunyikan kecuali opsi ini diaktifkan. Brankas yang masih menyimpan dana Anda akan selalu ditampilkan."
+      },
+      "claim": "Klaim",
+      "deposit": "Suplai",
+      "inactive": "Tidak aktif",
+      "inputPlaceholder": "Cari aset",
+      "institution": "Institusi",
+      "liquidated": "Dilikuidasi",
+      "locked": "Terkunci",
+      "nCategories_one": "{{count}} Kategori",
+      "nCategories_other": "{{count}} Kategori",
+      "noResults": "Tidak ada brankas yang sesuai dengan filter Anda",
+      "nStates_one": "{{count}} Status",
+      "nStates_other": "{{count}} Status",
+      "nVenues_one": "{{count}} Penyedia",
+      "nVenues_other": "{{count}} Penyedia",
+      "paused": "Dijeda",
+      "pending": "Tertunda",
+      "refund": "Pengembalian dana",
+      "repaying": "Pelunasan",
+      "reset": "Atur ulang",
+      "searchCategories": "Cari kategori",
+      "searchStates": "Cari status",
+      "searchVenues": "Cari penyedia",
+      "selectCategories": "Pilih kategori",
+      "selectStates": "Pilih status",
+      "selectVenues": "Pilih penyedia"
+    },
+    "header": "Brankas",
+    "modals": {
+      "afterMaturityPendleDisclaimer": "Silakan tarik token PT Anda ke dompet terlebih dahulu melalui tombol Tarik, lalu kunjungi situs web <Link>resmi Pendle</Link> untuk menukarkan token dasar Anda.",
+      "claim": "Klaim",
+      "connectWalletMessage": "Silakan hubungkan dompet Anda untuk berinteraksi dengan brankas ini",
+      "convert": "Konversi",
+      "currentDeposited": "Saat ini disuplai",
+      "currentDepositedTooltip": "Jumlah aset Anda yang saat ini terkunci dan menghasilkan imbal hasil di brankas ini.",
+      "deposit": "Suplai",
+      "depositPeriodEnds": "Periode suplai berakhir",
+      "depositsPausedNotice": "Dana dikunci selama periode Suplai dan Terkunci, dan hanya dapat diklaim selama periode Klaim atau Pengembalian Dana. Hasil aktual bergantung pada kinerja pihak lawan; modal memiliki risiko dan Anda mungkin menerima kurang dari yang Anda suplai.",
+      "depositTab": "Suplai",
+      "error": {
+        "amountTooLow": "Jumlah yang dimasukkan terlalu rendah.",
+        "invalidAmountFromQuote": "Jumlah melebihi likuiditas yang tersedia di pasar Pendle.",
+        "lowerThanMinimumAmount": "Jumlah yang dimasukkan terlalu rendah. Jumlah minimum yang diizinkan setara dengan {{amount}} USD.",
+        "noSwapQuoteFound": "Tidak ada pertukaran (swap) yang ditemukan.",
+        "pendleApiError": "Saat ini permintaan pada Pendle sedang tinggi. Silakan coba lagi beberapa saat lagi."
+      },
+      "estPenalty": "Est. penalti",
+      "estReceived": "Est. diterima",
+      "estYield": "Est. imbalan",
+      "institutionalDisclaimer": "Dana dikunci selama periode Suplai dan Terkunci, dan hanya dapat diklaim selama periode Klaim atau Pengembalian Dana. Hasil aktual bergantung pada kinerja pihak lawan; modal memiliki risiko dan Anda mungkin menerima kurang dari yang Anda suplai.",
+      "institutionalTcsAgreement": "Dengan melanjutkan, saya menyetujui <Link>Ketentuan Penggunaan</Link> Brankas Jangka Tetap Venus dan menyatakan bahwa saya bukan orang yang dibatasi. Orang yang dibatasi mencakup Warga Negara/Penduduk AS (sebagaimana didefinisikan dalam Peraturan S Undang-Undang Sekuritas AS tahun 1933), orang yang berlokasi di, bertempat tinggal tetap di, atau berkewarganegaraan Inggris Raya, Kanada, atau Tiongkok daratan, serta siapa pun yang berlokasi di atau tunduk pada undang-undang sanksi dari yurisdiksi yang dikenai sanksi OFAC. Lihat Ketentuan Penggunaan untuk daftar selengkapnya.",
+      "institutionalTimeline": {
+        "claimPeriod": "Estimasi periode klaim",
+        "depositPeriod": "Periode suplai",
+        "estimatedLockedPeriod": "Estimasi periode terkunci",
+        "estimatedRepayingPeriod": "Estimasi periode pelunasan",
+        "refundPeriod": "Periode pengembalian dana"
+      },
+      "maturityDate": "Tanggal berakhirnya penguncian",
+      "maturityDatePendle": "Tanggal jatuh tempo",
+      "maturityDatePendleTooltip": "Tanggal berakhirnya posisi imbal hasil tetap ini (dari Pendle). Setelah tanggal ini, Anda akan mendapatkan kembali aset asli secara penuh (pokok). Imbal hasil tetap yang terkunci berhenti di sini; sebaiknya tahan hingga tanggal tersebut untuk mendapatkan imbal hasil yang direncanakan.",
+      "maturityPendleDisclaimer": "Sebelum jatuh tempo, jumlah yang diterima saat penarikan bergantung pada harga pasar Pendle. Setelah jatuh tempo, penarikan ditebus dengan rasio 1:1 berdasarkan kepemilikan token PT Anda.",
+      "minReceived": "Min. diterima",
+      "overview": {
+        "campaignTimeline": "Linimasa kampanye",
+        "collateral": "Agunan",
+        "contractAddress": "Alamat kontrak",
+        "loan": "Pinjaman",
+        "marketInfo": "Info pasar",
+        "marketRiskDisclosures": "Pengungkapan risiko pasar",
+        "riskDisclosureText": {
+          "institution": "<Bold>Modal memiliki risiko</Bold>. Tingkat target bersifat variabel dan terkait dengan kinerja brankas. Ini bukan imbal hasil yang dijamin. <Bold>Anda mungkin mendapatkan kembali lebih sedikit dari yang Anda masukkan</Bold>. Pada saat penyelesaian, Anda menerima bagian Anda dari aset apa pun yang sebenarnya dimiliki brankas pada saat itu. <Bold>Dana Anda akan dikunci</Bold>. Setelah periode terkunci dimulai, Anda tidak dapat menyuplai atau menarik dana. Dana hanya dapat diklaim pada saat penyelesaian. <Bold>Hal yang memengaruhi hasil:</Bold> kinerja pihak lawan, kondisi agunan, eksekusi kontrak pintar, keandalan oracle, dan hasil penyelesaian. <Bold>Pembatasan yurisdiksi berlaku</Bold>. Brankas ini tidak tersedia di yurisdiksi yang dibatasi atau bagi orang yang dibatasi. Lihat Ketentuan Penggunaan untuk daftar selengkapnya. Harap tinjau <TermsOfUseLink>Ketentuan Penggunaan</TermsOfUseLink> dan parameter brankas di halaman ini sebelum menyuplai.",
+          "pendle": "Pendle adalah protokol perdagangan imbal hasil terdesentralisasi yang memungkinkan imbal hasil suku bunga tetap melalui Principal Token (PT). Brankas Suku Bunga Tetap Venus menyalurkan dana yang disuplai melalui infrastruktur Pendle untuk memperoleh PT, yang kemudian disuplai ke Venus Core sebagai agunan. <br />Meskipun Pendle tidak dapat mengakses atau memindahkan dana yang Anda suplai, penggunaan brankas ini membuat Anda terpapar risiko dari kedua protokol. Risiko tersebut meliputi kerentanan kontrak pintar, kegagalan oracle, serta kemungkinan salah satu protokol dieksploitasi atau dijeda. Penarikan dini dieksekusi pada harga pasar dan dapat mengembalikan jumlah yang lebih sedikit daripada jumlah yang disuplai. APY tetap dikunci saat Anda menyuplai dan tidak melindungi dari kegagalan di tingkat protokol."
+        },
+        "strategy": {
+          "pendleRouter": "Router Pendle",
+          "users": "Pengguna",
+          "venue": "Penyedia",
+          "venusCore": "Venus Core",
+          "venusVault": "Brankas Venus"
+        },
+        "strategyAllocation": "Alokasi strategi",
+        "supply": "Suplai",
+        "totalDeposited": "Total disuplai",
+        "vaultDeploymentDate": "Tanggal penerapan brankas",
+        "vaultVenueIcon": "Logo penyedia",
+        "venue": "Penyedia",
+        "venueTooltip": "Pihak lawan yang menyimpan dan menyalurkan aset dasar brankas ini selama periode penguncian. Aset yang disuplai dikerahkan berdasarkan ketentuan yang telah disepakati sebelumnya; jadwal penebusan dan penyelesaian mengikuti jadwal brankas yang dipublikasikan dan hanya dapat bergeser dalam kondisi luar biasa yang ditetapkan dalam aturan tersebut."
+      },
+      "overviewTab": "Ikhtisar",
+      "pendleFee": "Biaya Pendle",
+      "positionTab": "Posisi",
+      "realizedApr": "APR Terealisasi",
+      "realizedAprTooltip": "Imbal hasil tahunan yang benar-benar didistribusikan kepada penyuplai saat penyelesaian, berdasarkan jumlah yang dilunasi ke brankas, setelah dikurangi biaya protokol. Setara dengan Target APR jika pinjaman dilunasi sepenuhnya; lebih rendah jika brankas diselesaikan melalui likuidasi.",
+      "stakeTab": "Suplai",
+      "targetApr": "Target APR",
+      "targetAprTooltip": "Target imbalan tahunan yang ingin dicapai oleh strategi brankas ini, dinyatakan sebagai target Tingkat Persentase Tahunan (APR) termasuk bunga majemuk. Imbal hasil aktual bersifat variabel dan bergantung pada kinerja pihak lawan; modal memiliki risiko dan Anda mungkin menerima kurang dari jumlah yang Anda suplai.",
+      "textualDate": "{{date, textual}}",
+      "textualWithTime": "{{date, textualWithTime}}",
+      "totalRealizedRewards": "Total imbalan terealisasi",
+      "totalTargetRewards": "Total target imbalan",
+      "withdraw": "Tarik",
+      "withdrawTab": "Tarik"
+    },
+    "timeline": {
+      "description": {
+        "claim": "Seluruh pokok dan bunga yang diperoleh tersedia untuk ditarik.",
+        "deposit": "Pengguna dapat menyuplai {{ tokenSymbol }} secara bebas selama periode ini.",
+        "locked": "Penyuplaian dan klaim dijeda. Periode terkunci dimulai setelah Periode Tertunda berakhir dan dana ditransfer sepenuhnya.",
+        "refund": "Pokok tersedia untuk ditarik.",
+        "repaying": "Brankas telah jatuh tempo. Pokok dan bunga sedang diselesaikan. Proses ini biasanya memakan waktu 2–3 hari."
+      },
+      "tbd": "Akan ditentukan",
+      "textualWithTime": "{{date, textualWithTime}}"
+    }
+  },
+  "vaultCard": {
+    "vaultModal": {
+      "footer": {
+        "currentlyStaked": "Saat ini disuplai",
+        "estimatedDailyEarnings": "Est. pendapatan harian",
+        "lockingPeriod": {
+          "duration": "{{date, distanceToNow}}",
+          "label": "Periode penguncian",
+          "tooltip": "Periode penguncian adalah jeda waktu antara permintaan penarikan dan saat jumlah yang diminta benar-benar dapat ditarik dari brankas."
+        }
+      },
+      "requestWithdrawalFromVestingVaultForm": {
+        "displayWithdrawalRequestListButton": {
+          "label": "Daftar permintaan penarikan",
+          "tooltip": "Anda memiliki XVS yang tidak terkunci dan siap untuk diklaim."
+        },
+        "primeLossWarning": {
+          "message": "Anda akan kehilangan token Prime Anda jika menarik jumlah ini, karena jumlah suplai Anda di brankas XVS akan berada di bawah batas minimum yang disyaratkan sebesar {{minimumXvsStake}} untuk memenuhi syarat Prime."
+        },
+        "requestWithdrawalField": {
+          "label": "Ajukan penarikan"
+        },
+        "submitButton": {
+          "label": "Ajukan penarikan"
+        }
+      },
+      "stakeForm": {
+        "depositField": {
+          "label": "Suplai"
+        },
+        "footer": {
+          "apr": "APR"
+        },
+        "submitButton": {
+          "label": "Suplai"
+        }
+      },
+      "withdrawFromVaiVault": {
+        "submitButton": {
+          "label": "Tarik"
+        },
+        "withdrawField": {
+          "label": "Tarik"
+        }
+      }
+    }
+  },
+  "vaultForm": {
+    "error": {
+      "priceImpactTooHigh": "Dampak harga terlalu tinggi"
+    }
+  },
+  "vipModal": {
+    "backgroundAlt": "Ilustrasi latar belakang",
+    "cancelButton": {
+      "label": "Tidak, terima kasih"
+    },
+    "description": "Anda adalah bagian dari kelompok pengguna VIP Venus terpilih. Berikut adalah undangan pribadi Anda ke saluran Venus. Khusus Whale Venus Protocol.",
+    "illustration": {
+      "header": "Anda adalah <Highlight>VIP</Highlight><Linebreak/>Venus Protocol"
+    }
+  },
+  "vipTelegramGroupButton": {
+    "label": "Gabung grup Telegram pribadi"
+  },
+  "vote": {
+    "abstain": "Abstain",
+    "addComment": "Tambah komentar",
+    "against": "Menolak",
+    "comment": "Komentar",
+    "createProposalForm": {
+      "abstainOption": "Opsi abstain",
+      "action": "Tindakan",
+      "actions": "Tindakan",
+      "addDescription": "Tambahkan deskripsi (pemformatan dasar dengan Markdown didukung)",
+      "addOneMoreAction": "+ Tambah satu tindakan lagi",
+      "address": "Alamat",
+      "againstOption": "Opsi menolak",
+      "confirm": "Konfirmasi",
+      "create": "Buat",
+      "description": "Deskripsi",
+      "forOption": "Opsi mendukung",
+      "name": "Nama",
+      "nextStep": "Langkah berikutnya",
+      "proposalName": "Nama proposal",
+      "proposalType": "Jenis proposal",
+      "signature": "Tanda tangan",
+      "submitError": "Terjadi kesalahan saat membuat proposal Anda",
+      "votingOptions": "Opsi pemungutan suara"
+    },
+    "createProposalModal": {
+      "createManually": "Buat secara manual",
+      "createProposal": "Buat Proposal",
+      "uploadFile": "Unggah file",
+      "youCanEitherCreateManuallyOrUpload": "Anda dapat membuat proposal secara manual atau mengunggah file yang berisi detailnya. Jika Anda memilih untuk mengunggah file, Anda dapat menggunakan templat ini sebagai contoh: <Link>Github</Link>"
+    },
+    "createProposalPlus": "+ Buat proposal",
+    "delegate": "Delegasikan",
+    "delegateAddress": "Alamat delegasi",
+    "delegateLeaderboard": "Papan peringkat delegasi",
+    "delegateVotes": "Delegasikan suara",
+    "delegateVoting": "Delegasi pemungutan suara",
+    "delegateYourVoting": "2. <Anchor>Delegasikan hak suara Anda</Anchor> kepada diri sendiri atau orang lain",
+    "depositXvs": "Suplai XVS",
+    "depositYourTokens": "1. <Link>Suplai token Anda</Link> di Brankas XVS ",
+    "enterContactAddress": "Masukkan alamat kontak",
+    "errorState": {
+      "buttonLabel": "Coba lagi",
+      "message": "Gagal mengambil data proposal"
+    },
+    "for": "Mendukung",
+    "noResults": "Tidak ada proposal yang sesuai dengan filter Anda",
+    "omnichain": {
+      "switchToBnb": "Beralih ke BNB Chain",
+      "votingOnlyEnabledOnBnb": "Pemungutan suara hanya tersedia di BNB Chain"
+    },
+    "pages": {
+      "actions": "3 dari 3 Tindakan",
+      "confirmation": "Konfirmasi",
+      "proposalInformation": "1 dari 3 Informasi proposal",
+      "votingOptions": "2 dari 3 Opsi pemungutan suara"
+    },
+    "pasteYourAddress": "Tempel alamat Anda",
+    "pleasePayAttention": "Harap perhatikan",
+    "proposals": "Proposal",
+    "proposalStateFilter": {
+      "label": "Status"
+    },
+    "proposalType": {
+      "critical": "Kritis",
+      "fastTrack": "Jalur cepat",
+      "normal": "Normal"
+    },
+    "redelegate": "Delegasikan ulang",
+    "redelegateVoting": "Delegasi ulang pemungutan suara",
+    "requiredVotingPower": "Anda harus memiliki {{votingPower}} kekuatan suara untuk membuat proposal",
+    "searchInput": {
+      "placeholder": "Cari proposal"
+    },
+    "totalLocked": "Total terkunci",
+    "toVoteYouShould": "Untuk memberikan suara, Anda harus:",
+    "voteAbstain": "Pilih abstain",
+    "voteAgainst": "Pilih menolak",
+    "voteFor": "Pilih mendukung",
+    "votingPower": "Kekuatan suara",
+    "votingWallet": "Dompet pemungutan suara",
+    "votingWeight": "Bobot suara",
+    "youCanDelegateVotes": "Anda dapat mendelegasikan suara kepada diri sendiri atau orang lain. Jika Anda mengetahui alamat tujuan delegasi, masukkan di bawah ini. Jika tidak, Anda dapat melihat Papan Peringkat Delegasi untuk menemukan pihak yang ingin Anda dukung",
+    "youDelegatedTo": "Anda mendelegasikan token terkunci Anda kepada {{delegate}}"
+  },
+  "voteProposalUi": {
+    "activeUntilDate": "Aktif hingga: <Date>{{ date, textualWithTime }}</Date>",
+    "canceledDate": "Dibatalkan: <Date>{{ date, textualWithTime }}</Date>",
+    "command": {
+      "actionButton": {
+        "cancel": "Batalkan",
+        "execute": "Eksekusi",
+        "queue": "Antrekan"
+      },
+      "dates": {
+        "activeAt": "Tertunda hingga {{date, }}",
+        "executableAt": "Dapat dieksekusi pada {{date, }}",
+        "previousStep": "{{date, }}",
+        "queueableAt": "Dapat diantrekan pada {{date, }}"
+      },
+      "description": {
+        "bridged": "Menunggu jembatan (bridge) meneruskan transaksi",
+        "canceled": "Eksekusi muatan dibatalkan oleh wali tata kelola",
+        "failed": "Muatan tidak dapat dikirim ke jaringan tujuan",
+        "pending": "Menunggu muatan {{chainName}} dieksekusi",
+        "pendingBsc": "Menunggu pemungutan suara dimulai",
+        "waitingToBeExecutable": "Menunggu periode antrean berakhir",
+        "wrongChain": "Muatan ini perlu dieksekusi di jaringan {{chainName}}"
+      },
+      "operations": {
+        "title": "Operasi"
+      },
+      "status": {
+        "pending": "Tertunda"
+      }
+    },
+    "commands": {
+      "allPayloadsExecuted": "Semua muatan telah dieksekusi",
+      "somePayloadsExecuted": "Muatan yang dieksekusi",
+      "title": "Perintah"
+    },
+    "countdownFormat": {
+      "daysIncluded": "{{days}}h : {{hours}}j : {{minutes}}m : {{seconds}}d",
+      "hoursIncluded": "{{hours}}j : {{minutes}}m : {{seconds}}d",
+      "minutesIncluded": "{{minutes}}m : {{seconds}}d",
+      "secondsIncluded": "{{seconds}}d"
+    },
+    "defeatedDate": "Ditolak: <Date>{{ date, textualWithTime }}</Date>",
+    "description": "Deskripsi",
+    "executedDate": "Dieksekusi: <Date>{{ date, textualWithTime }}</Date>",
+    "expiredDate": "Kedaluwarsa: <Date>{{ date, textualWithTime }}</Date>",
+    "greenPulseAnimation": {
+      "altText": "Animasi denyut hijau"
+    },
+    "proposalState": {
+      "activeTimestamp": "Aktif sejak: <Span>{{date, textualWithTime}}</Span>",
+      "canceledTimestamp": "Dibatalkan: <Span>{{date, textualWithTime}}</Span>",
+      "defeatedTimestamp": "Ditolak: <Span>{{date, textualWithTime}}</Span>",
+      "executedTimestamp": "Dieksekusi: <Span>{{date, textualWithTime}}</Span>",
+      "expiredTimestamp": "Kedaluwarsa: <Span>{{date, textualWithTime}}</Span>",
+      "queuedTimestamp": "Diantrekan: <Span>{{date, textualWithTime}}</Span>",
+      "succeededTimestamp": "Berhasil: <Span>{{date, textualWithTime}}</Span>"
+    },
+    "queuedUntilDate": "Diantrekan hingga: <Date>{{ date, textualWithTime }}</Date>",
+    "status": {
+      "executedPayloads": "Muatan yang dieksekusi",
+      "readyForExecution": "Siap dieksekusi",
+      "readyForQueuing": "Siap diantrekan"
+    },
+    "timeUntilExecutable": "Dapat dieksekusi pada: <Date>{{ date, textualWithTime }}</Date>",
+    "timeUntilVotable": "Pemungutan suara dimulai pada: <Date>{{ date, textualWithTime }}</Date>",
+    "voteStatus": {
+      "abstained": "Abstain",
+      "notVoted": "Belum memilih",
+      "votedAgainst": "Memilih menolak",
+      "votedFor": "Memilih mendukung"
+    },
+    "votingOptions": "Opsi pemungutan suara"
+  },
+  "voterDetail": {
+    "actions": "Tindakan",
+    "amount": "Jumlah",
+    "delegated": "Didelegasikan",
+    "delegatingTo": "Mendelegasikan kepada",
+    "holding": "Kepemilikan",
+    "proposalNumber": "Proposal #",
+    "transactions": "Transaksi",
+    "undelegated": "Tidak didelegasikan",
+    "venusBalance": "Saldo Venus",
+    "viewAll": "Lihat semua",
+    "votedAbstain": "Memilih abstain",
+    "votedAgainst": "Memilih menolak",
+    "votedFor": "Memilih mendukung",
+    "votes": "Suara",
+    "votingHistory": "Riwayat pemungutan suara"
+  },
+  "voterLeaderboard": {
+    "addressesByVotingWeight": "Alamat berdasarkan Bobot Suara",
+    "columns": {
+      "proposalsVoted": "Proposal yang Diikuti",
+      "rank": "Peringkat",
+      "votes": "Suara",
+      "voteWeight": "Bobot Suara"
+    }
+  },
+  "voteSummary": {
+    "addresses_zero": "{{count}} alamat",
+    "addresses_one": "{{count}} alamat",
+    "addresses_other": "{{count}} alamat",
+    "votes": "Suara"
+  },
+  "wallets": {
+    "errors": {
+      "noProvider": "Tidak dapat terhubung. Pastikan dompet yang Anda pilih telah terpasang di peramban Anda."
+    }
+  },
+  "web3DomainNames": {
+    "providers": {
+      "ens": "Nama ENS",
+      "spaceId": "Nama Space ID"
+    },
+    "tooltip": {
+      "address": "({{address}})"
+    }
+  },
+  "yieldsGroups": {
+    "protocol": "Protokol"
+  }
+}
