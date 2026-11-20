@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.48.0
+
+### Minor Changes
+
+- f1720f0: add a System theme option that follows the device appearance
+
 ## 5.47.0
 
 ### Minor Changes
