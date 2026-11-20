@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 
+import { useIosRiskModal } from 'hooks/useIosRiskModal';
 import { useIsConnectedAccountVip } from 'hooks/useIsConnectedAccountVip';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useAccountAddress } from 'libs/wallet';
@@ -11,8 +12,14 @@ const VipModal: React.FC = () => {
   const { accountAddress } = useAccountAddress();
   const [userChainSettings] = useUserChainSettings();
   const { isConnectedAccountVip } = useIsConnectedAccountVip();
+  const { isOpen: isIosRiskModalOpen } = useIosRiskModal();
 
-  if (!accountAddress || !isConnectedAccountVip || userChainSettings.doNotShowVipModal) {
+  if (
+    isIosRiskModalOpen ||
+    !accountAddress ||
+    !isConnectedAccountVip ||
+    userChainSettings.doNotShowVipModal
+  ) {
     return undefined;
   }
 
