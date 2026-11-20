@@ -884,7 +884,8 @@
         "theme": {
           "dark": "Dark",
           "label": "Theme",
-          "light": "Light"
+          "light": "Light",
+          "system": "System"
         }
       },
       "vaults": {

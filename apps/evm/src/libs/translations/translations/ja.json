@@ -883,7 +883,8 @@
         "theme": {
           "dark": "ダーク",
           "label": "テーマ",
-          "light": "ライト"
+          "light": "ライト",
+          "system": "システム"
         }
       },
       "vaults": {
