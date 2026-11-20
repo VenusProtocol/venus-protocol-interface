@@ -7,6 +7,7 @@ import { PostHogProvider } from 'posthog-js/react';
 import config from 'config';
 import { version as APP_VERSION } from 'constants/version';
 import { AuthAnalyticVariantProvider } from '../context';
+import { useSuperProperties } from '../useSuperProperties';
 import { RouteChangeTracker } from './RouteChangeTracker';
 import { SuperPropertiesRegistrar } from './SuperPropertiesRegistrar';
 import { UserIdentifier } from './UserIdentifier';
@@ -23,6 +24,8 @@ export interface AnalyticProviderProps {
 }
 
 export const AnalyticProvider: React.FC<AnalyticProviderProps> = ({ children }) => {
+  const superProperties = useSuperProperties();
+
   const dom =
     // Only enable analytics in production
     config.environment !== 'production' ? (
@@ -37,6 +40,9 @@ export const AnalyticProvider: React.FC<AnalyticProviderProps> = ({ children }) 
           persistence: 'memory',
           name: APP_VERSION,
           before_send: appendHash,
+          // PostHogProvider initializes in an effect that runs after its children's effects, so
+          // SuperPropertiesRegistrar cannot register the first values itself
+          loaded: posthog => posthog.register(superProperties),
           // Never execute JavaScript served by PostHog (remote config script, site apps, surveys,
           // toolbar, recorder). Anyone with admin access to the PostHog project, or control of its
           // CDN, could otherwise run arbitrary code on the dApp and tamper with users' transactions
