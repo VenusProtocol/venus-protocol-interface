@@ -1,33 +1,45 @@
+import proposalsResponse from '__mocks__/api/proposals.json';
 import BigNumber from 'bignumber.js';
-import { getBscProposal } from 'clients/subgraph';
 import { ChainId } from 'types';
+import { restService } from 'utilities';
 import type { Mock } from 'vitest';
 import { type GetProposalInput, getProposal } from '..';
 
+vi.mock('utilities/restService');
+
 const fakeParams: GetProposalInput = {
-  proposalId: 1,
-  chainId: ChainId.BSC_TESTNET,
-  currentBlockNumber: 1,
-  proposalMinQuorumVotesMantissa: new BigNumber(10),
+  proposalId: 681,
+  chainId: ChainId.BSC_MAINNET,
+  currentBlockNumber: 134614181,
+  proposalMinQuorumVotesMantissa: new BigNumber('600000000000000000000000'),
 };
 
 describe('getProposal', () => {
   beforeEach(() => {
-    vi.useFakeTimers().setSystemTime(new Date(1710401645000));
+    vi.useFakeTimers().setSystemTime(new Date(1795600000000));
+
+    (restService as Mock).mockImplementation(async () => ({
+      status: 200,
+      data: proposalsResponse.result[0],
+    }));
   });
 
   it('throws an error if proposal was not found', async () => {
-    (getBscProposal as Mock).mockImplementation(() => ({
-      proposal: undefined,
+    (restService as Mock).mockImplementation(async () => ({
+      status: 404,
+      data: { error: 'Item not found' },
     }));
 
-    try {
-      await getProposal(fakeParams);
+    await expect(getProposal(fakeParams)).rejects.toThrow('proposalNotFound');
+  });
 
-      throw new Error('getProposal should have thrown an error but did not');
-    } catch (error) {
-      expect(error).toMatchInlineSnapshot('[Error: proposalNotFound]');
-    }
+  it('fetches the proposal from the API', async () => {
+    await getProposal(fakeParams);
+
+    expect(restService).toHaveBeenCalledWith({
+      endpoint: '/governance/proposals/681',
+      method: 'GET',
+    });
   });
 
   it('returns proposal in the correct format', async () => {

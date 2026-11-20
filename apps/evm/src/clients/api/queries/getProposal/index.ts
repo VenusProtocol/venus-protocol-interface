@@ -1,12 +1,10 @@
 import type BigNumber from 'bignumber.js';
-import {
-  type GetBscProposalInput as GetBscGqlProposalInput,
-  enrichRemoteProposals,
-  formatToProposal,
-  getBscProposal,
-} from 'clients/subgraph';
 import { VError } from 'libs/errors';
 import type { ChainId, Proposal } from 'types';
+import { restService } from 'utilities';
+
+import { formatToProposal } from '../getProposals/formatToProposal';
+import type { ApiProposal } from '../getProposals/types';
 
 export interface GetProposalInput {
   proposalId: number;
@@ -22,37 +20,38 @@ export type GetProposalOutput = {
 
 export const getProposal = async ({
   proposalId,
-  chainId,
   currentBlockNumber,
   proposalMinQuorumVotesMantissa,
   accountAddress,
 }: GetProposalInput): Promise<GetProposalOutput> => {
-  const variables: GetBscGqlProposalInput['variables'] = {
-    id: proposalId.toString(),
-  };
-
-  const response = await getBscProposal({
-    chainId,
-    variables,
+  const response = await restService<ApiProposal>({
+    endpoint: `/governance/proposals/${proposalId}`,
+    method: 'GET',
   });
 
-  const gqlProposal = response?.proposal;
+  const payload = response.data;
 
-  if (!gqlProposal) {
+  if (response.status === 404) {
     throw new VError({
       type: 'proposal',
       code: 'proposalNotFound',
     });
   }
 
-  // Fetch remote proposals
-  const gqlRemoteProposalsMapping = await enrichRemoteProposals({
-    gqlRemoteProposals: gqlProposal.remoteProposals,
-  });
+  if (payload && 'error' in payload) {
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+      data: { exception: payload.error },
+    });
+  }
+
+  if (!payload) {
+    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+  }
 
   const proposal = formatToProposal({
-    gqlProposal,
-    gqlRemoteProposalsMapping,
+    apiProposal: payload,
     proposalMinQuorumVotesMantissa,
     currentBlockNumber,
     accountAddress,
