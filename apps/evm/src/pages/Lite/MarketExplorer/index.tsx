@@ -1,11 +1,12 @@
 import { ButtonGroup, type MultiSelectOption } from 'components';
 import { SpokeFormModal } from 'containers/SpokeFormModal';
 import { useIsSmDown } from 'hooks/responsive';
+import { useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 import { useState } from 'react';
 import type { Asset, SpokeAsset } from 'types';
 import { getMarketSlug } from '../getMarketSlug';
-import type { LiteBorrowMarket, LiteEarnAsset, MarketMode } from '../types';
+import type { LiteBorrowMarket, LiteEarnAsset, LiteEarnMarket, MarketMode } from '../types';
 import { useBorrowAssets } from '../useBorrowAssets';
 import type { useEarnAssets } from '../useEarnAssets';
 import type { useLiteNavigation } from '../useLiteNavigation';
@@ -36,6 +37,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
 }) => {
   const { mode, assetSymbol, marketSlug, setMode, selectAsset, selectMarket } = navigation;
   const { t } = useTranslation();
+  const { captureAnalyticEvent } = useAnalytics();
   const isSmDown = useIsSmDown();
   const [searchValue, setSearchValue] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -84,6 +86,28 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
     hasSingleMarket(selectedAsset?.markets.length ?? 0)
       ? selectAsset(undefined)
       : selectMarket(undefined);
+
+  const captureHubSelected = (market: LiteEarnMarket) => {
+    if (market.source.type === 'hub') {
+      captureAnalyticEvent('hub_selected', {
+        variant: 'lite_market_list',
+        assetSymbol: market.source.hub.vhToken.underlyingToken.symbol,
+      });
+    }
+  };
+
+  const selectEarnAsset = (earnAsset: LiteEarnAsset) => {
+    if (earnAsset.markets.length === 1) {
+      captureHubSelected(earnAsset.markets[0]);
+    }
+
+    selectAsset(earnAsset.token.symbol);
+  };
+
+  const selectEarnMarket = (market: LiteEarnMarket) => {
+    captureHubSelected(market);
+    selectMarket(getMarketSlug(market));
+  };
 
   const backToAssets = () => {
     selectAsset(undefined);
@@ -235,7 +259,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
           earnAssets={visibleEarnAssets}
           isFetching={isEarnLoading}
           isReady={isEarnReady}
-          onSelect={earnAsset => selectAsset(earnAsset.token.symbol)}
+          onSelect={selectEarnAsset}
           header={header}
           onClearFilters={clearFilters}
         />
@@ -244,7 +268,7 @@ export const MarketExplorer: React.FC<MarketExplorerProps> = ({
       {mode === 'earn' && selectedEarnAsset && !isSingleEarnMarket && (
         <EarnMarketTable
           earnAsset={selectedEarnAsset}
-          onSelect={market => selectMarket(getMarketSlug(market))}
+          onSelect={selectEarnMarket}
           header={header}
         />
       )}
