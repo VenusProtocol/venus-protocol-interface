@@ -1,16 +1,17 @@
 import { ButtonGroup, Icon } from 'components';
-import { type Theme, useTheme } from 'hooks/useTheme';
+import { type ThemePreference, useTheme } from 'hooks/useTheme';
 import { useTranslation } from 'libs/translations';
 
-const THEMES: Theme[] = ['dark', 'light'];
+const THEME_PREFERENCES: ThemePreference[] = ['dark', 'light', 'system'];
 
 export const ThemeSetting: React.FC = () => {
   const { t } = useTranslation();
-  const { theme, setTheme } = useTheme();
+  const { preference, setTheme } = useTheme();
 
   const themes = [
     { iconName: 'moon' as const, label: t('layout.menu.settings.theme.dark') },
     { iconName: 'sun' as const, label: t('layout.menu.settings.theme.light') },
+    { iconName: 'system' as const, label: t('layout.menu.settings.theme.system') },
   ];
 
   return (
@@ -25,8 +26,8 @@ export const ThemeSetting: React.FC = () => {
             <span className="sr-only">{item.label}</span>
           </>
         ))}
-        activeButtonIndex={THEMES.indexOf(theme)}
-        onButtonClick={index => setTheme(THEMES[index])}
+        activeButtonIndex={THEME_PREFERENCES.indexOf(preference)}
+        onButtonClick={index => setTheme(THEME_PREFERENCES[index])}
         buttonClassName="h-10 w-11 px-0"
       />
     </div>

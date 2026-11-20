@@ -2,12 +2,22 @@
 <html lang="en">
   <head>
     <script>
-      try {
-        var storedTheme = JSON.parse(localStorage.getItem('venus-theme') || 'null');
-        if (!storedTheme || !storedTheme.state || storedTheme.state.theme !== 'dark') {
-          document.documentElement.dataset.theme = 'light';
-        }
-      } catch (error) {}
+      (function () {
+        var preference = 'system';
+        try {
+          var storedTheme = JSON.parse(localStorage.getItem('venus-theme') || 'null');
+          var storedPreference = storedTheme && storedTheme.state && storedTheme.state.theme;
+          if (storedPreference === 'dark' || storedPreference === 'light' || storedPreference === 'system') {
+            preference = storedPreference;
+          }
+        } catch (error) {}
+        var isDark =
+          preference === 'dark' ||
+          (preference === 'system' &&
+            !!window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+      })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
