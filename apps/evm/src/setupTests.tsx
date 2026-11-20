@@ -73,7 +73,6 @@ vi.mock('config', async () => {
     apiUrl: 'fakeApiUrl',
     wsApiUrl: 'fakeWsApiUrl',
     rpcUrls: actualConfig.rpcUrls,
-    governanceSubgraphUrls: actualConfig.governanceSubgraphUrls,
     isSafeApp: false,
     sentryDsn: 'fakeSentryDsn',
     posthog: {
@@ -119,7 +118,6 @@ vi.mock('hooks/useGetContractAddress');
 vi.mock('hooks/useUserChainSettings');
 vi.mock('hooks/useSimulatePoolMutations');
 vi.mock('hooks/useGetUserPrimeV1Info');
-vi.mock('clients/subgraph');
 vi.mock('libs/analytics');
 vi.mock('libs/tokens');
 vi.mock('libs/wallet');
