@@ -66,7 +66,7 @@ describe('InterfaceOnboarding', () => {
 
     fireEvent.click(screen.getByText(en.layout.interfaceOnboarding.pro.tryButtonLabel));
 
-    expect(switchInterfaceModeMock).toHaveBeenCalledWith('pro');
+    expect(switchInterfaceModeMock).toHaveBeenCalledWith('pro', 'onboarding');
     expect(window.localStorage.getItem(ONBOARDING_SEEN_STORAGE_KEY)).toBe('true');
     expect(screen.queryByText(en.layout.interfaceOnboarding.pro.title)).not.toBeInTheDocument();
   });
@@ -81,7 +81,7 @@ describe('InterfaceOnboarding', () => {
 
     fireEvent.click(screen.getByText(en.layout.interfaceOnboarding.lite.tryButtonLabel));
 
-    expect(switchInterfaceModeMock).toHaveBeenCalledWith('lite');
+    expect(switchInterfaceModeMock).toHaveBeenCalledWith('lite', 'onboarding');
   });
 
   it('closes without switching the interface mode', async () => {
