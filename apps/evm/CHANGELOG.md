@@ -1,5 +1,17 @@
 # @venusprotocol/evm
 
+## 5.47.0
+
+### Minor Changes
+
+- 9bbe094: warn users on iOS versions affected by the Coruna and DarkSword exploit kits to update before using the app
+
+## 5.46.8
+
+### Patch Changes
+
+- 462afe3: show info tags in the Spoke pool info modal, and show whitelist markers on Spoke pools and assets whose supply is restricted to whitelisted addresses
+
 ## 5.46.7
 
 ### Patch Changes
