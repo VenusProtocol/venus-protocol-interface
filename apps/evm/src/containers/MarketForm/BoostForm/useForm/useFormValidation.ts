@@ -82,6 +82,13 @@ const useFormValidation = ({
       });
     }
 
+    if (getSwapQuoteError?.code === 'priceImpactTooHigh') {
+      tmpErrors.push({
+        code: 'SWAP_PRICE_IMPACT_TOO_HIGH',
+        message: t('marketForm.error.priceImpactTooHigh'),
+      });
+    }
+
     if (getSwapQuoteError?.code === 'noSwapQuoteFound') {
       tmpErrors.push({
         code: 'NO_SWAP_QUOTE_FOUND',

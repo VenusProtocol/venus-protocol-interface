@@ -351,6 +351,37 @@ describe('RepayWithCollateralForm', () => {
     await checkSubmitButtonIsDisabled();
   });
 
+  it('shows a price impact error when the swap API refuses the quote for price impact', async () => {
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: undefined,
+      error: new VError({ type: 'swapQuote', code: 'priceImpactTooHigh' }),
+    }));
+
+    const { getByText, getByTestId } = renderComponent(
+      <RepayWithCollateralForm asset={fakeAsset} pool={fakePool} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    const selectTokenTextField = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectCollateralTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    fireEvent.change(selectTokenTextField, {
+      target: { value: 1 },
+    });
+
+    await waitFor(() =>
+      expect(getByText(en.marketForm.error.priceImpactTooHigh)).toBeInTheDocument(),
+    );
+
+    await checkSubmitButtonIsDisabled();
+  });
+
   it('disables submit button if position would liquidate user', async () => {
     (useSimulatePoolMutations as Mock).mockImplementation(() => ({
       isLoading: false,
