@@ -640,6 +640,7 @@
   "errors": {
     "couldNotRetrieveSigner": "İmzalayıcı alınamadı, lütfen cüzdanınızın kilidinin açık olduğundan emin olun ve sayfayı yenileyin",
     "couldNotSwitchChain": "Zincir değiştirilemedi, lütfen cüzdanınızın kilidinin açık olduğundan emin olun ve sayfayı yenileyin",
+    "importPositionUnavailable": "Pozisyon içe aktarma geçici olarak kullanılamıyor. Lütfen daha sonra tekrar deneyin.",
     "missingAbstainDescription": "Teklifin 'çekimser' oy açıklaması olmalı",
     "missingAgainstDescription": "Teklifin 'karşı' oy açıklaması olmalı",
     "missingDescription": "Dosyada teklif açıklaması yok",

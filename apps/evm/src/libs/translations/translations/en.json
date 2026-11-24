@@ -640,6 +640,7 @@
   "errors": {
     "couldNotRetrieveSigner": "Signer could not be retrieved, please make sure your wallet is unlocked then reload the page",
     "couldNotSwitchChain": "Could not switch chain, please make sure your wallet is unlocked then reload the page",
+    "importPositionUnavailable": "Importing positions is temporarily unavailable. Please try again later.",
     "missingAbstainDescription": "Proposal needs an 'abstain' votes description",
     "missingAgainstDescription": "Proposal needs an 'against' votes description",
     "missingDescription": "There is no proposal description in the file",
