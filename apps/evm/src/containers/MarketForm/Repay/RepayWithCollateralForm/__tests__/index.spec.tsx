@@ -358,7 +358,7 @@ describe('RepayWithCollateralForm', () => {
       error: new VError({ type: 'swapQuote', code: 'priceImpactTooHigh' }),
     }));
 
-    const { getByText, getByTestId } = renderComponent(
+    const { getAllByText, getByTestId } = renderComponent(
       <RepayWithCollateralForm asset={fakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
@@ -376,7 +376,10 @@ describe('RepayWithCollateralForm', () => {
     });
 
     await waitFor(() =>
-      expect(getByText(en.marketForm.error.priceImpactTooHigh)).toBeInTheDocument(),
+      expect(getAllByText(en.marketForm.error.priceImpactTooHigh)).toHaveLength(2),
+    );
+    expect(document.querySelector('button[type="submit"]')).toHaveTextContent(
+      en.marketForm.error.priceImpactTooHigh,
     );
 
     await checkSubmitButtonIsDisabled();
@@ -430,7 +433,7 @@ describe('RepayWithCollateralForm', () => {
       },
     }));
 
-    const { getByTestId, getByText } = renderComponent(
+    const { getAllByText, getByTestId } = renderComponent(
       <RepayWithCollateralForm asset={fakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
@@ -450,7 +453,10 @@ describe('RepayWithCollateralForm', () => {
 
     // Check warning is displayed
     await waitFor(() =>
-      expect(getByText(en.marketForm.error.priceImpactTooHigh)).toBeInTheDocument(),
+      expect(getAllByText(en.marketForm.error.priceImpactTooHigh)).toHaveLength(2),
+    );
+    expect(document.querySelector('button[type="submit"]')).toHaveTextContent(
+      en.marketForm.error.priceImpactTooHigh,
     );
 
     await checkSubmitButtonIsDisabled();
