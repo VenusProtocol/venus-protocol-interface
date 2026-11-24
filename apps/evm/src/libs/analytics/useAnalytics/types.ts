@@ -183,6 +183,13 @@ type HubSelected = AnalyticEvent & {
   assetSymbol: string;
 };
 
+type Version = 'pro' | 'lite';
+
+type VersionSwitched = AnalyticEvent & {
+  prevVersion: Version;
+  version: Version;
+};
+
 type IosRiskEvent = AnalyticEvent & {
   kit: IosExploitKit;
   ios_version: string;
@@ -292,6 +299,8 @@ type EventMap = {
   promo_banner_viewed: MarketsAdBanner;
   promo_banner_cta_click: MarketsAdBanner;
   promo_banner_dismissed: MarketsAdBanner;
+
+  version_switched: VersionSwitched;
 
   ios_risk_popup_shown: IosRiskPopupShown;
   ios_risk_update_clicked: IosRiskEvent;

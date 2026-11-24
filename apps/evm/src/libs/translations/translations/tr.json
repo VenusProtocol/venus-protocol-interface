@@ -884,7 +884,8 @@
         "theme": {
           "dark": "Koyu",
           "label": "Tema",
-          "light": "Açık"
+          "light": "Açık",
+          "system": "Sistem"
         }
       },
       "vaults": {
