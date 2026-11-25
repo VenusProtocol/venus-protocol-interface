@@ -1,13 +1,10 @@
 import type BigNumber from 'bignumber.js';
-import {
-  type GetBscProposalsInput as GetBscGqlProposalsInput,
-  enrichRemoteProposals,
-  formatToProposal,
-  getBscProposals,
-} from 'clients/subgraph';
-import type { Proposal_Filter, RemoteProposal } from 'clients/subgraph/gql/generated/governanceBsc';
-import { PROPOSAL_EXECUTION_GRACE_PERIOD_MS, PROPOSAL_TOTAL_LIMIT } from 'constants/governance';
-import { type ChainId, type Proposal, ProposalState } from 'types';
+import { VError } from 'libs/errors';
+import type { ChainId, Proposal, ProposalState } from 'types';
+import { restService } from 'utilities';
+
+import { formatToProposal } from './formatToProposal';
+import type { GetApiProposalsResponse } from './types';
 
 export interface GetProposalsInput {
   chainId: ChainId;
@@ -26,7 +23,6 @@ export interface GetProposalsOutput {
 }
 
 export const getProposals = async ({
-  chainId,
   currentBlockNumber,
   proposalMinQuorumVotesMantissa,
   page = 0,
@@ -35,113 +31,34 @@ export const getProposals = async ({
   search,
   accountAddress,
 }: GetProposalsInput): Promise<GetProposalsOutput> => {
-  // Handle filtering by proposal state
-  let where: Proposal_Filter | undefined;
-
-  const proposalExpiredTimestampSeconds = Math.floor(
-    (new Date().getTime() - PROPOSAL_EXECUTION_GRACE_PERIOD_MS) / 1000,
-  );
-
-  switch (proposalState) {
-    case ProposalState.Pending:
-      where = { startBlock_gt: currentBlockNumber };
-      break;
-    case ProposalState.Active:
-      where = { endBlock_gt: currentBlockNumber };
-      break;
-    case ProposalState.Canceled:
-      where = { canceled_not: null };
-      break;
-    case ProposalState.Defeated: {
-      const notDecidedElsewhere = {
-        canceled: null,
-        queued: null,
-        executed: null,
-        endBlock_lt: currentBlockNumber,
-      };
-
-      where = {
-        or: [
-          { ...notDecidedElsewhere, passing: false },
-          {
-            ...notDecidedElsewhere,
-            forVotes_lt: proposalMinQuorumVotesMantissa.toFixed(),
-          },
-        ],
-      };
-      break;
-    }
-    case ProposalState.Succeeded:
-      where = {
-        passing: true,
-        canceled: null,
-        queued: null,
-        executed: null,
-        endBlock_lt: currentBlockNumber,
-        forVotes_gte: proposalMinQuorumVotesMantissa.toFixed(),
-      };
-      break;
-    case ProposalState.Queued:
-      where = {
-        canceled: null,
-        queued_not: null,
-        executed: null,
-        executionEta_gte: proposalExpiredTimestampSeconds.toString(),
-      };
-      break;
-    case ProposalState.Expired:
-      where = {
-        canceled: null,
-        queued_not: null,
-        executed: null,
-        executionEta_lt: proposalExpiredTimestampSeconds.toString(),
-      };
-      break;
-    case ProposalState.Executed:
-      where = { executed_not: null };
-      break;
-  }
-
-  // Handle searching by text
-  if (search) {
-    where = {
-      ...where,
-      description_contains_nocase: search || undefined,
-    };
-  }
-
-  const variables: GetBscGqlProposalsInput['variables'] = {
-    skip: page * limit,
-    limit,
-    totalLimit: PROPOSAL_TOTAL_LIMIT,
-    where,
-  };
-
-  const response = await getBscProposals({
-    chainId,
-    variables,
+  const response = await restService<GetApiProposalsResponse>({
+    endpoint: '/governance/proposals',
+    method: 'GET',
+    params: {
+      state: proposalState,
+      search: search ? encodeURIComponent(search) : undefined,
+      limit,
+      page,
+    },
   });
 
-  const gqlProposals = response?.proposals || [];
-  const total = response?.total.length ?? 0;
+  const payload = response.data;
 
-  // Fetch remote proposals
-  const rawGqlRemoteProposals: RemoteProposal[] = [];
+  if (payload && 'error' in payload) {
+    throw new VError({
+      type: 'unexpected',
+      code: 'somethingWentWrong',
+      data: { exception: payload.error },
+    });
+  }
 
-  gqlProposals.forEach(gqlProposal =>
-    gqlProposal.remoteProposals.forEach(gqlRemoteProposal =>
-      rawGqlRemoteProposals.push(gqlRemoteProposal as RemoteProposal),
-    ),
-  );
+  if (!payload) {
+    throw new VError({ type: 'unexpected', code: 'somethingWentWrong' });
+  }
 
-  const gqlRemoteProposalsMapping = await enrichRemoteProposals({
-    gqlRemoteProposals: rawGqlRemoteProposals,
-  });
-
-  const proposals = (gqlProposals || []).map(gqlProposal =>
+  const proposals = payload.result.map(apiProposal =>
     formatToProposal({
-      gqlProposal,
-      gqlRemoteProposalsMapping,
+      apiProposal,
       proposalMinQuorumVotesMantissa,
       currentBlockNumber,
       accountAddress,
@@ -150,6 +67,6 @@ export const getProposals = async ({
 
   return {
     proposals,
-    total,
+    total: payload.total,
   };
 };

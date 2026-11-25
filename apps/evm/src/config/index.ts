@@ -3,7 +3,6 @@ import type { ChainId, Environment, Network } from 'types';
 import { apiHosts } from './apiUrls';
 import { envVariables } from './envVariables';
 import { rpcUrls } from './rpcUrls';
-import { getGovernanceSubgraphUrls } from './subgraphUrls';
 
 export interface Config {
   environment: Environment;
@@ -13,9 +12,6 @@ export interface Config {
   wsApiUrl: string;
   rpcUrls: {
     [chainId in ChainId]: string[];
-  };
-  governanceSubgraphUrls: {
-    [chainId in ChainId]: string | undefined;
   };
   sentryDsn: string;
   posthog: {
@@ -34,13 +30,6 @@ const apiHost = apiHosts[network];
 const apiUrl = `https://${apiHost}`;
 const wsApiUrl = `wss://${apiHost}/ws`;
 
-const keys = {
-  nodeRealApiKey: envVariables.VITE_NODE_REAL_API_KEY,
-  theGraphApiKey: envVariables.VITE_THE_GRAPH_API_KEY,
-};
-
-const governanceSubgraphUrls = getGovernanceSubgraphUrls(keys);
-
 const isSafeApp = window?.location.ancestorOrigins?.[0] === 'https://app.safe.global';
 
 const config: Config = {
@@ -50,7 +39,6 @@ const config: Config = {
   apiUrl,
   wsApiUrl,
   rpcUrls,
-  governanceSubgraphUrls,
   sentryDsn: envVariables.VITE_SENTRY_DSN || '',
   posthog: {
     apiKey: envVariables.VITE_POSTHOG_API_KEY || '',
