@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.49.1
+
+### Patch Changes
+
+- c62307a: track the theme users actually see on every analytics event
+
 ## 5.49.0
 
 ### Minor Changes
