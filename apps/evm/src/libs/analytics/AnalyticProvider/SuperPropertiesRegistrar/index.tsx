@@ -6,12 +6,12 @@ import { useSuperProperties } from '../../useSuperProperties';
 export const SuperPropertiesRegistrar: React.FC = () => {
   const posthog = usePostHog();
   const { accountAddress } = useAccountAddress();
-  const { version, themePreference } = useSuperProperties();
+  const { version, themePreference, theme } = useSuperProperties();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: posthog.reset() clears super properties when the wallet disconnects
   useEffect(() => {
-    posthog?.register({ version, themePreference });
-  }, [posthog, version, themePreference, accountAddress]);
+    posthog?.register({ version, themePreference, theme });
+  }, [posthog, version, themePreference, theme, accountAddress]);
 
   return undefined;
 };
