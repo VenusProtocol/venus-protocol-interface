@@ -376,7 +376,7 @@ describe('BoostForm', () => {
       },
     }));
 
-    const { getByTestId, getByText } = renderComponent(
+    const { getAllByText, getByTestId } = renderComponent(
       <BoostForm asset={fakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
@@ -391,7 +391,39 @@ describe('BoostForm', () => {
 
     // Check warning is displayed
     await waitFor(() =>
-      expect(getByText(en.marketForm.error.priceImpactTooHigh)).toBeInTheDocument(),
+      expect(getAllByText(en.marketForm.error.priceImpactTooHigh)).toHaveLength(2),
+    );
+    expect(document.querySelector('button[type="submit"]')).toHaveTextContent(
+      en.marketForm.error.priceImpactTooHigh,
+    );
+
+    await checkSubmitButtonIsDisabled();
+  });
+
+  it('shows a price impact error when the swap API refuses the quote for price impact', async () => {
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: undefined,
+      error: new VError({ type: 'swapQuote', code: 'priceImpactTooHigh' }),
+    }));
+
+    const { getAllByText, getByTestId } = renderComponent(
+      <BoostForm asset={fakeAsset} pool={fakePool} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    const tokenTextInput = await waitFor(() => getByTestId(TEST_IDS.tokenTextField));
+    fireEvent.change(tokenTextInput, {
+      target: { value: 1 },
+    });
+
+    await waitFor(() =>
+      expect(getAllByText(en.marketForm.error.priceImpactTooHigh)).toHaveLength(2),
+    );
+    expect(document.querySelector('button[type="submit"]')).toHaveTextContent(
+      en.marketForm.error.priceImpactTooHigh,
     );
 
     await checkSubmitButtonIsDisabled();

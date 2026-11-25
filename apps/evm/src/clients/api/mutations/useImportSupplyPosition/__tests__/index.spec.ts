@@ -111,6 +111,27 @@ describe('useImportSupplyPosition', () => {
     expect((fakeOptions.onConfirmed as Mock).mock.calls).toMatchSnapshot();
   });
 
+  it('throws an import unavailable error when the Fusion quote request fails', async () => {
+    (useMeeClient as Mock).mockImplementation(() => ({
+      data: {
+        meeClient: {
+          getFusionQuote: vi.fn(async () => {
+            throw new Error('Project is disabled');
+          }),
+        },
+        nexusAccount: fakeNexusAccount,
+      },
+    }));
+
+    renderHook(() => useImportSupplyPosition(fakeOptions), {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const { fn } = (useSendTransaction as Mock).mock.calls[0][0];
+
+    await expect(async () => fn(fakeInput)).rejects.toThrow('importPositionUnavailable');
+  });
+
   it('throws when MEE Client could not be retrieved', async () => {
     (useMeeClient as Mock).mockImplementation(() => ({
       data: {

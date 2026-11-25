@@ -639,6 +639,7 @@
   "errors": {
     "couldNotRetrieveSigner": "Không thể lấy signer, hãy đảm bảo ví của bạn đã mở khóa rồi tải lại trang",
     "couldNotSwitchChain": "Không thể chuyển chain, hãy đảm bảo ví của bạn đã mở khóa rồi tải lại trang",
+    "importPositionUnavailable": "Tính năng nhập vị thế tạm thời không khả dụng. Vui lòng thử lại sau.",
     "missingAbstainDescription": "Đề xuất cần mô tả phiếu 'abstain'",
     "missingAgainstDescription": "Đề xuất cần mô tả phiếu 'against'",
     "missingDescription": "Không có mô tả đề xuất trong tệp",

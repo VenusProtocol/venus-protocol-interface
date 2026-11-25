@@ -1,3 +1,4 @@
+import { SWAP_API_PRICE_IMPACT_TOO_HIGH_ERROR } from 'constants/swap';
 import { VError } from 'libs/errors';
 import { convertTokensToMantissa, generateTransactionDeadline, restService } from 'utilities';
 import { formatSwapQuote } from './formatSwapQuote';
@@ -54,6 +55,14 @@ export const getSwapQuote = async ({
     method: 'GET',
     params,
   });
+
+  if (
+    txsResponse.data &&
+    'error' in txsResponse.data &&
+    txsResponse.data.error === SWAP_API_PRICE_IMPACT_TOO_HIGH_ERROR
+  ) {
+    throw new VError({ type: 'swapQuote', code: 'priceImpactTooHigh' });
+  }
 
   if (txsResponse.data && 'error' in txsResponse.data) {
     throw new VError({
