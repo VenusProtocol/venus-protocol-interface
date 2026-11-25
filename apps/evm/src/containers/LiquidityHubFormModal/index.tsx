@@ -1,4 +1,4 @@
-import { Modal, type ModalProps } from 'components';
+import { ActiveTabPathProvider, Modal, type ModalProps } from 'components';
 import { LiquidityHubForm } from 'containers/LiquidityHubForm';
 import type { VhToken } from 'types';
 
@@ -11,7 +11,9 @@ export const LiquidityHubFormModal: React.FC<LiquidityHubFormModalProps> = ({
   handleClose,
   ...otherProps
 }) => (
-  <Modal isOpen handleClose={handleClose} {...otherProps}>
-    <LiquidityHubForm vhToken={vhToken} onSubmitSuccess={handleClose} />
-  </Modal>
+  <ActiveTabPathProvider>
+    <Modal isOpen handleClose={handleClose} {...otherProps}>
+      <LiquidityHubForm vhToken={vhToken} onSubmitSuccess={handleClose} />
+    </Modal>
+  </ActiveTabPathProvider>
 );

@@ -1466,6 +1466,16 @@
       "placeholder": "Varlık ara"
     }
   },
+  "modalDetailLink": {
+    "ariaLabel": "Venus Pro'da aç: {{destination}}",
+    "destination": {
+      "coreMarket": "Venus Core'daki {{tokenSymbol}} piyasası",
+      "liquidityHub": "{{tokenSymbol}} Liquidity Hub",
+      "spokeMarket": "{{poolName}} havuzundaki {{tokenSymbol}} piyasası",
+      "spokePool": "{{poolName}} havuzundaki {{tokenSymbol}} teminatı"
+    },
+    "tooltipTitle": "Venus Pro'da aç"
+  },
   "multiSelect": {
     "clearSearch": "Aramayı temizle",
     "noResults": "Sonuç bulunamadı"

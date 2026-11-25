@@ -182,6 +182,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
       {selectedSupplyAsset && (
         <CoreSupplyModal
           asset={selectedSupplyAsset}
+          surface="dashboard"
           onClose={() => setSelectedSupplyAsset(undefined)}
         />
       )}
@@ -190,6 +191,7 @@ export const Tables: React.FC<TablesProps> = ({ pool }) => {
         <CoreBorrowModal
           asset={selectedBorrowAsset}
           collaterals={pool.assets.filter(asset => asset.collateralFactor > 0)}
+          surface="dashboard"
           onClose={() => setSelectedBorrowAsset(undefined)}
         />
       )}

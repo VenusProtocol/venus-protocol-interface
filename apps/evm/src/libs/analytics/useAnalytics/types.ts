@@ -179,6 +179,35 @@ type MarketsAdBanner = AnalyticEvent & {
   ctaUrl?: string;
 };
 
+export type ProShortcutVariant =
+  | 'dashboard_core_supply'
+  | 'dashboard_core_borrow'
+  | 'dashboard_spoke_supply'
+  | 'dashboard_spoke_borrow'
+  | 'lite_earn_hub'
+  | 'lite_earn_core'
+  | 'lite_earn_xvs_vault'
+  | 'lite_borrow_spoke'
+  | 'lite_borrow_core';
+
+export type ProShortcutDestination =
+  | 'core_market'
+  | 'spoke_market'
+  | 'spoke_pools'
+  | 'liquidity_hub'
+  | 'prime_leaderboard';
+
+export type ProShortcut = Omit<AnalyticEvent, 'variant'> & {
+  variant: ProShortcutVariant;
+  destination: ProShortcutDestination;
+  poolName: string;
+  assetSymbol: string;
+};
+
+type ProShortcutClick = ProShortcut & {
+  activeTab?: string;
+};
+
 type HubSelected = AnalyticEvent & {
   assetSymbol: string;
 };
@@ -295,6 +324,9 @@ type EventMap = {
   'Institutional vault deposit': InstitutionalVaultTx;
   'Institutional vault redeem': InstitutionalVaultTx;
   'Institutional vault withdraw': InstitutionalVaultTx;
+
+  pro_shortcut_viewed: ProShortcut;
+  pro_shortcut_click: ProShortcutClick;
 
   promo_banner_viewed: MarketsAdBanner;
   promo_banner_cta_click: MarketsAdBanner;

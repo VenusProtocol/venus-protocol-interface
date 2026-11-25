@@ -1464,6 +1464,16 @@
       "placeholder": "搜尋資產"
     }
   },
+  "modalDetailLink": {
+    "ariaLabel": "在 Venus Pro 中開啟：{{destination}}",
+    "destination": {
+      "coreMarket": "Venus Core 中的 {{tokenSymbol}} 市場",
+      "liquidityHub": "{{tokenSymbol}} Liquidity Hub",
+      "spokeMarket": "{{poolName}} 池中的 {{tokenSymbol}} 市場",
+      "spokePool": "{{poolName}} 池中的 {{tokenSymbol}} 抵押品"
+    },
+    "tooltipTitle": "在 Venus Pro 中開啟"
+  },
   "multiSelect": {
     "clearSearch": "清除搜尋",
     "noResults": "無符合結果"

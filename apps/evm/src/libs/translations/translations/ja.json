@@ -1464,6 +1464,16 @@
       "placeholder": "資産を検索"
     }
   },
+  "modalDetailLink": {
+    "ariaLabel": "Venus Pro で開く: {{destination}}",
+    "destination": {
+      "coreMarket": "Venus Core の {{tokenSymbol}} マーケット",
+      "liquidityHub": "{{tokenSymbol}} Liquidity Hub",
+      "spokeMarket": "{{poolName}} プールの {{tokenSymbol}} マーケット",
+      "spokePool": "{{poolName}} プールの {{tokenSymbol}} 担保"
+    },
+    "tooltipTitle": "Venus Pro で開く"
+  },
   "multiSelect": {
     "clearSearch": "検索をクリア",
     "noResults": "一致する結果がありません"

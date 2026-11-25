@@ -1,7 +1,11 @@
 import { useState } from 'react';
 
+import { routes } from 'constants/routing';
+import { ModalDetailLink } from 'containers/ModalDetailLink';
+import { getSpokeMarketTo } from 'containers/ModalDetailLink/getSpokeMarketTo';
 import { SpokeFormModal } from 'containers/SpokeFormModal';
 import { useTranslation } from 'libs/translations';
+import { COLLATERAL_PARAM_KEY, POOL_PARAM_KEY } from 'pages/SpokePools/constants';
 import type { SpokeAsset, SpokePool, TokenAction } from 'types';
 
 import { BorrowedTable } from './BorrowedTable';
@@ -61,12 +65,55 @@ export const SpokePositions: React.FC<SpokePositionsProps> = ({ spokePool }) => 
       {selectedRow && (
         <SpokeFormModal
           title={
-            selectedRow.isCollateral
-              ? t('spokeForm.collateralModalTitle', { poolName: spokePool.name })
-              : t('spokeForm.borrowModalTitle', {
-                  tokenSymbol: selectedRow.asset.vToken.underlyingToken.symbol,
-                  poolName: spokePool.name,
-                })
+            <span className="inline-flex items-center gap-x-2">
+              {selectedRow.isCollateral
+                ? t('spokeForm.collateralModalTitle', { poolName: spokePool.name })
+                : t('spokeForm.borrowModalTitle', {
+                    tokenSymbol: selectedRow.asset.vToken.underlyingToken.symbol,
+                    poolName: spokePool.name,
+                  })}
+              {selectedRow.isCollateral ? (
+                <ModalDetailLink
+                  getTo={() => ({
+                    pathname: routes.spokePools.path,
+                    search: new URLSearchParams({
+                      [COLLATERAL_PARAM_KEY]: selectedRow.asset.vToken.underlyingToken.symbol,
+                      [POOL_PARAM_KEY]: spokePool.name,
+                    }).toString(),
+                  })}
+                  destination={t('modalDetailLink.destination.spokePool', {
+                    tokenSymbol: selectedRow.asset.vToken.underlyingToken.symbol,
+                    poolName: spokePool.name,
+                  })}
+                  analyticProps={{
+                    variant: 'dashboard_spoke_supply',
+                    destination: 'spoke_pools',
+                    poolName: spokePool.name,
+                    assetSymbol: selectedRow.asset.vToken.underlyingToken.symbol,
+                  }}
+                />
+              ) : (
+                <ModalDetailLink
+                  getTo={activeTabPath =>
+                    getSpokeMarketTo({
+                      spokePoolComptrollerAddress: spokePool.comptrollerAddress,
+                      spokeVTokenAddress: selectedRow.asset.vToken.address,
+                      activeTabPath,
+                    })
+                  }
+                  destination={t('modalDetailLink.destination.spokeMarket', {
+                    tokenSymbol: selectedRow.asset.vToken.underlyingToken.symbol,
+                    poolName: spokePool.name,
+                  })}
+                  analyticProps={{
+                    variant: 'dashboard_spoke_borrow',
+                    destination: 'spoke_market',
+                    poolName: spokePool.name,
+                    assetSymbol: selectedRow.asset.vToken.underlyingToken.symbol,
+                  }}
+                />
+              )}
+            </span>
           }
           spokePool={spokePool}
           asset={selectedRow.isCollateral ? firstLoanAsset : selectedRow.asset}

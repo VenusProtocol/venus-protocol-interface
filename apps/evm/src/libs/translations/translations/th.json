@@ -1464,6 +1464,16 @@
       "placeholder": "ค้นหาสินทรัพย์"
     }
   },
+  "modalDetailLink": {
+    "ariaLabel": "เปิดใน Venus Pro: {{destination}}",
+    "destination": {
+      "coreMarket": "ตลาด {{tokenSymbol}} ใน Venus Core",
+      "liquidityHub": "{{tokenSymbol}} Liquidity Hub",
+      "spokeMarket": "ตลาด {{tokenSymbol}} ในพูล {{poolName}}",
+      "spokePool": "หลักประกัน {{tokenSymbol}} ในพูล {{poolName}}"
+    },
+    "tooltipTitle": "เปิดใน Venus Pro"
+  },
   "multiSelect": {
     "clearSearch": "ล้างการค้นหา",
     "noResults": "ไม่พบผลลัพธ์"

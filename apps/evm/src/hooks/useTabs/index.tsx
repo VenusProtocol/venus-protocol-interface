@@ -18,6 +18,7 @@ export interface Tab extends Record<string, any> {
 }
 
 export const TAB_PARAM_KEY = 'tab';
+export const SUB_TAB_PARAM_KEY = 'subTab';
 
 export const useTabs = <T extends Tab>({
   tabs,

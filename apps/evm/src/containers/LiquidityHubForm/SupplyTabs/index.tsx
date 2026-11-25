@@ -14,10 +14,15 @@ import { SupplyWithWalletForm } from './SupplyWithWalletForm';
 
 export interface SupplyTabsProps {
   liquidityHub: LiquidityHub;
+  initialActiveTabId?: 'wallet' | 'collateral';
   onSubmitSuccess?: () => void;
 }
 
-export const SupplyTabs: React.FC<SupplyTabsProps> = ({ liquidityHub, onSubmitSuccess }) => {
+export const SupplyTabs: React.FC<SupplyTabsProps> = ({
+  liquidityHub,
+  initialActiveTabId,
+  onSubmitSuccess,
+}) => {
   const { t } = useTranslation();
 
   const { accountAddress } = useAccountAddress();
@@ -98,5 +103,5 @@ export const SupplyTabs: React.FC<SupplyTabsProps> = ({ liquidityHub, onSubmitSu
     },
   ];
 
-  return <Tabs tabs={tabs} />;
+  return <Tabs tabs={tabs} initialActiveTabId={initialActiveTabId} />;
 };

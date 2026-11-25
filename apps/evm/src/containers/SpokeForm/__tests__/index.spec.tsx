@@ -41,6 +41,17 @@ describe('SpokeForm', () => {
     expect(screen.getByText(en.spokeForm.withdraw.tabTitle)).toBeInTheDocument();
   });
 
+  it('opens the outer and inner tabs from the URL on the market page', () => {
+    renderComponent(
+      <SpokeForm spokePool={spokePool} asset={pausedLoanAsset} navType="searchParam" />,
+      {
+        routerInitialEntries: ['/?tab=loan&subTab=repay'],
+      },
+    );
+
+    expect(screen.getByText(en.spokeForm.repay.submitButtonLabel)).toBeInTheDocument();
+  });
+
   it('replaces the borrow form with a notice when borrowing is paused', () => {
     renderComponent(<SpokeForm spokePool={spokePool} asset={pausedLoanAsset} />);
 
