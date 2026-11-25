@@ -22,7 +22,7 @@ export const InterfaceModeSwitch: React.FC<InterfaceModeSwitchProps> = ({
 
   const handleClick = () => {
     onSwitch?.();
-    switchInterfaceMode(targetMode);
+    switchInterfaceMode(targetMode, 'header_toggle');
   };
 
   return (

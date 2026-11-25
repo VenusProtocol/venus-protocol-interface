@@ -1,5 +1,17 @@
 # @venusprotocol/evm
 
+## 5.48.2
+
+### Patch Changes
+
+- 7523304: make the scrollable stat strip on page headers reachable by keyboard
+
+## 5.48.1
+
+### Patch Changes
+
+- 7c1ddab: track the interface version and theme preference on every analytics event and the switch between Pro and Lite, and identify already connected wallets once analytics has loaded
+
 ## 5.48.0
 
 ### Minor Changes
