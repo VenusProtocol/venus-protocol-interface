@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.49.0
+
+### Minor Changes
+
+- 0048aab: read governance proposals from the API instead of the governance subgraphs
+
 ## 5.48.3
 
 ### Patch Changes
