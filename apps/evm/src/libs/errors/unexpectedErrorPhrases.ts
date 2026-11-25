@@ -15,4 +15,5 @@ export const unexpectedErrorPhrases = {
   incorrectSwapInput: t('swap.errors.incorrectSwapInput'),
   gaslessTransactionNotAvailable: t('transactionErrors.gaslessTransactionNotAvailable'),
   gasEstimationFailed: t('transactionErrors.gasEstimationFailed'),
+  importPositionUnavailable: t('errors.importPositionUnavailable'),
 };

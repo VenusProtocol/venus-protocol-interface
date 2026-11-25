@@ -220,6 +220,23 @@ describe('getSwapQuote', () => {
     });
   });
 
+  it('throws a price impact error when the API refuses the swap for price impact', async () => {
+    (restService as Mock).mockResolvedValue({
+      data: { error: 'price impact too high', code: 'PCS_API_ERROR' },
+    });
+
+    await expect(
+      getSwapQuote({
+        ...sharedProps,
+        direction: 'exact-in',
+        fromTokenAmountTokens: new BigNumber(1),
+      }),
+    ).rejects.toMatchObject({
+      type: 'swapQuote',
+      code: 'priceImpactTooHigh',
+    });
+  });
+
   it('throws on undefined payload', async () => {
     (restService as Mock).mockResolvedValue({ data: undefined });
 
