@@ -7,6 +7,7 @@ import { governanceChainId } from 'libs/wallet';
 import callOrThrow from 'utilities/callOrThrow';
 import { generatePseudoRandomRefetchInterval } from 'utilities/generatePseudoRandomRefetchInterval';
 import { type GetProposalsInput, type GetProposalsOutput, getProposals } from '.';
+import { setUserVoteSupport } from './setUserVoteSupport';
 
 type TrimmedGetProposalsInput = Omit<
   GetProposalsInput,
@@ -22,12 +23,13 @@ type Options = QueryObserverOptions<
     FunctionKey.GET_PROPOSALS,
     Omit<
       GetProposalsInput,
-      'currentBlockNumber' | 'proposalMinQuorumVotesMantissa' | 'blockTimeMs'
+      'currentBlockNumber' | 'proposalMinQuorumVotesMantissa' | 'blockTimeMs' | 'accountAddress'
     >,
   ]
 >;
 
 const refetchInterval = generatePseudoRandomRefetchInterval('fast');
+const FIRST_PAGE_REFETCH_INTERVAL_MS = 30000;
 
 export const useGetProposals = (
   input: TrimmedGetProposalsInput = {},
@@ -47,10 +49,12 @@ export const useGetProposals = (
   );
   const currentBlockNumber = getBlockNumberData?.blockNumber;
 
-  const sanitizedInput: TrimmedGetProposalsInput = {
-    ...input,
-    page: input.page ?? 0,
-    limit: input.limit ?? 10,
+  const { accountAddress, ...requestInput } = input;
+
+  const sanitizedInput: Omit<TrimmedGetProposalsInput, 'accountAddress'> = {
+    ...requestInput,
+    page: requestInput.page ?? 0,
+    limit: requestInput.limit ?? 10,
   };
 
   return useQuery({
@@ -82,7 +86,8 @@ export const useGetProposals = (
         total: 0,
         proposals: [],
       },
-    refetchInterval: sanitizedInput.page === 0 ? refetchInterval : undefined,
+    select: data => setUserVoteSupport({ data, accountAddress }),
+    refetchInterval: sanitizedInput.page === 0 ? FIRST_PAGE_REFETCH_INTERVAL_MS : undefined,
     ...options,
     enabled:
       typeof currentBlockNumber === 'number' &&

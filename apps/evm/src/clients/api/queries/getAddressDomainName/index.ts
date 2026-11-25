@@ -1,7 +1,9 @@
-import { create, windowScheduler } from '@yornaath/batshit';
+import { create, windowedFiniteBatchScheduler } from '@yornaath/batshit';
 import type { ChainId } from 'types';
 import { restService } from 'utilities';
 import type { Address } from 'viem';
+
+const MAX_ADDRESSES_PER_REQUEST = 100;
 
 const getDomainNameFromApi = async ({
   addresses,
@@ -30,7 +32,10 @@ const domainNamesBatcher = create({
       chainIds: queries.map(q => q.chainId),
     }),
   resolver: (data, query) => data?.[query.accountAddress],
-  scheduler: windowScheduler(10),
+  scheduler: windowedFiniteBatchScheduler({
+    windowMs: 10,
+    maxBatchSize: MAX_ADDRESSES_PER_REQUEST,
+  }),
 });
 
 type ChainIdDomainNameMap = { [Key in ChainId]?: string | null };
