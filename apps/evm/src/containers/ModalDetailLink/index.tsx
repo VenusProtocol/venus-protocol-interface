@@ -9,14 +9,13 @@ import { type ProShortcut, useAnalytics } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 import { useEffect, useRef } from 'react';
 import { type To, useLocation } from 'react-router';
+import { getPathname } from './getPathname';
 
 export interface ModalDetailLinkProps {
   getTo: (activeTabPath: string[]) => To;
   destination: string;
   analyticProps: ProShortcut;
 }
-
-const getPathname = (to: To) => (typeof to === 'string' ? to.split('?')[0] : to.pathname);
 
 export const ModalDetailLink: React.FC<ModalDetailLinkProps> = ({
   getTo,

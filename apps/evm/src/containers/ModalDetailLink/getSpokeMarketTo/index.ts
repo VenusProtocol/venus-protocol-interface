@@ -16,20 +16,32 @@ export const getSpokeMarketTo = ({
   activeTabPath: string[];
 }): To => {
   const [outerTabId, innerTabId] = activeTabPath;
-  const searchParams = new URLSearchParams();
+  let tabId: string | undefined;
+  let subTabId: string | undefined;
 
   if (outerTabId === 'collateral' || outerTabId === 'loan') {
-    searchParams.set(TAB_PARAM_KEY, outerTabId);
+    tabId = outerTabId;
+    subTabId = innerTabId;
+  }
 
-    if (innerTabId) {
-      searchParams.set(SUB_TAB_PARAM_KEY, innerTabId);
-    }
-  } else if (collateralTabIds.includes(outerTabId)) {
-    searchParams.set(TAB_PARAM_KEY, 'collateral');
-    searchParams.set(SUB_TAB_PARAM_KEY, outerTabId);
-  } else if (loanTabIds.includes(outerTabId)) {
-    searchParams.set(TAB_PARAM_KEY, 'loan');
-    searchParams.set(SUB_TAB_PARAM_KEY, outerTabId);
+  if (collateralTabIds.includes(outerTabId)) {
+    tabId = 'collateral';
+    subTabId = outerTabId;
+  }
+
+  if (loanTabIds.includes(outerTabId)) {
+    tabId = 'loan';
+    subTabId = outerTabId;
+  }
+
+  const searchParams = new URLSearchParams();
+
+  if (tabId) {
+    searchParams.set(TAB_PARAM_KEY, tabId);
+  }
+
+  if (subTabId) {
+    searchParams.set(SUB_TAB_PARAM_KEY, subTabId);
   }
 
   return {

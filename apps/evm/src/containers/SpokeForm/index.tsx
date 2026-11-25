@@ -49,7 +49,8 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
   const restrictedNotice = <NoticeWarning description={t('assetAccessor.assetNotAvailable')} />;
 
   const tabParamValue = searchParams.get(TAB_PARAM_KEY);
-  const subTabParamValue = navType === 'searchParam' ? searchParams.get(SUB_TAB_PARAM_KEY) : null;
+  const subTabParamValue =
+    navType === 'searchParam' ? searchParams.get(SUB_TAB_PARAM_KEY) ?? undefined : undefined;
 
   const collateralTabId =
     subTabParamValue === 'supply' || subTabParamValue === 'withdraw'

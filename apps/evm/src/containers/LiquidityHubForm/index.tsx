@@ -22,7 +22,8 @@ export const LiquidityHubForm: React.FC<LiquidityHubFormProps> = ({
 }) => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
-  const subTabParamValue = navType === 'searchParam' ? searchParams.get(SUB_TAB_PARAM_KEY) : null;
+  const subTabParamValue =
+    navType === 'searchParam' ? searchParams.get(SUB_TAB_PARAM_KEY) ?? undefined : undefined;
   const initialSupplyTabId =
     subTabParamValue === 'wallet' || subTabParamValue === 'collateral'
       ? subTabParamValue

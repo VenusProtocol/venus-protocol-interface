@@ -8,6 +8,7 @@ import type { ProShortcutVariant } from 'libs/analytics';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
 import type { Asset } from 'types';
+import { getMarketTabId } from './getMarketTabId';
 
 export interface CoreFormModalTitleProps {
   asset: Asset;
@@ -21,26 +22,6 @@ const variants: Record<
 > = {
   dashboard: { supply: 'dashboard_core_supply', borrow: 'dashboard_core_borrow' },
   lite: { supply: 'lite_earn_core', borrow: 'lite_borrow_core' },
-};
-
-const getMarketTabId = ({
-  side,
-  activeTabPath,
-}: {
-  side: CoreFormModalTitleProps['side'];
-  activeTabPath: string[];
-}) => {
-  const [outerTabId, innerTabId] = activeTabPath;
-
-  if (side === 'supply') {
-    return outerTabId ?? 'supply';
-  }
-
-  if (outerTabId === 'loan') {
-    return innerTabId ?? 'borrow';
-  }
-
-  return outerTabId === 'repay' ? 'repay' : 'borrow';
 };
 
 export const CoreFormModalTitle: React.FC<CoreFormModalTitleProps> = ({ asset, side, surface }) => {

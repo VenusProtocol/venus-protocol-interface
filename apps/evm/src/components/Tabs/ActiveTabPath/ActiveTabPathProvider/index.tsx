@@ -1,12 +1,6 @@
-import { createContext, useCallback, useContext, useState } from 'react';
+import { useCallback, useState } from 'react';
 
-export const TabsDepthContext = createContext(0);
-
-const ReportActiveTabContext = createContext<
-  ((input: { depth: number; tabId?: string }) => void) | undefined
->(undefined);
-
-const ActiveTabPathContext = createContext<string[]>([]);
+import { ActiveTabPathContext, ReportActiveTabContext } from '../context';
 
 export const ActiveTabPathProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [activeTabPath, setActiveTabPath] = useState<string[]>([]);
@@ -34,7 +28,3 @@ export const ActiveTabPathProvider: React.FC<{ children: React.ReactNode }> = ({
     </ReportActiveTabContext.Provider>
   );
 };
-
-export const useReportActiveTab = () => useContext(ReportActiveTabContext);
-
-export const useActiveTabPath = () => useContext(ActiveTabPathContext);
