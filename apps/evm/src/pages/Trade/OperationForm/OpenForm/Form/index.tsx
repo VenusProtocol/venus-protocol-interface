@@ -106,6 +106,15 @@ export const Form: React.FC<FormProps> = ({ position: newPosition }) => {
     }
   }, [setFormValues, swapQuote]);
 
+  useEffect(() => {
+    if (getSwapQuoteError) {
+      setFormValues(currentFormValues => ({
+        ...currentFormValues,
+        longAmountTokens: '',
+      }));
+    }
+  }, [setFormValues, getSwapQuoteError]);
+
   const balanceMutations: AssetBalanceMutation[] = [
     {
       type: 'asset',

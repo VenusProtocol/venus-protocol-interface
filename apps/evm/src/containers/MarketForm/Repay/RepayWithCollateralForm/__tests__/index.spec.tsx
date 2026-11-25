@@ -351,6 +351,40 @@ describe('RepayWithCollateralForm', () => {
     await checkSubmitButtonIsDisabled();
   });
 
+  it('shows a price impact error when the swap API refuses the quote for price impact', async () => {
+    (useGetSwapQuote as Mock).mockImplementation(() => ({
+      isLoading: false,
+      data: undefined,
+      error: new VError({ type: 'swapQuote', code: 'priceImpactTooHigh' }),
+    }));
+
+    const { getAllByText, getByTestId } = renderComponent(
+      <RepayWithCollateralForm asset={fakeAsset} pool={fakePool} />,
+      {
+        accountAddress: fakeAccountAddress,
+      },
+    );
+
+    const selectTokenTextField = getByTestId(
+      getTokenTextFieldTestId({
+        parentTestId: TEST_IDS.selectCollateralTokenTextField,
+      }),
+    ) as HTMLInputElement;
+
+    fireEvent.change(selectTokenTextField, {
+      target: { value: 1 },
+    });
+
+    await waitFor(() =>
+      expect(getAllByText(en.marketForm.error.priceImpactTooHigh)).toHaveLength(2),
+    );
+    expect(document.querySelector('button[type="submit"]')).toHaveTextContent(
+      en.marketForm.error.priceImpactTooHigh,
+    );
+
+    await checkSubmitButtonIsDisabled();
+  });
+
   it('disables submit button if position would liquidate user', async () => {
     (useSimulatePoolMutations as Mock).mockImplementation(() => ({
       isLoading: false,
@@ -399,7 +433,7 @@ describe('RepayWithCollateralForm', () => {
       },
     }));
 
-    const { getByTestId, getByText } = renderComponent(
+    const { getAllByText, getByTestId } = renderComponent(
       <RepayWithCollateralForm asset={fakeAsset} pool={fakePool} />,
       {
         accountAddress: fakeAccountAddress,
@@ -419,7 +453,10 @@ describe('RepayWithCollateralForm', () => {
 
     // Check warning is displayed
     await waitFor(() =>
-      expect(getByText(en.marketForm.error.priceImpactTooHigh)).toBeInTheDocument(),
+      expect(getAllByText(en.marketForm.error.priceImpactTooHigh)).toHaveLength(2),
+    );
+    expect(document.querySelector('button[type="submit"]')).toHaveTextContent(
+      en.marketForm.error.priceImpactTooHigh,
     );
 
     await checkSubmitButtonIsDisabled();
