@@ -179,7 +179,7 @@ export const InterfaceOnboarding: React.FC = () => {
 
   const handleTry = () => {
     dismiss();
-    switchInterfaceMode(shownVariant);
+    switchInterfaceMode(shownVariant, 'onboarding');
   };
 
   const content =
