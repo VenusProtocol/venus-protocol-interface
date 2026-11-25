@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.48.2
+
+### Patch Changes
+
+- 7523304: make the scrollable stat strip on page headers reachable by keyboard
+
 ## 5.48.1
 
 ### Patch Changes

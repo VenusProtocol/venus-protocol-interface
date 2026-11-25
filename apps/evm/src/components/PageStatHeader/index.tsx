@@ -2,6 +2,7 @@ import { cn } from '@venusprotocol/ui';
 
 import type { CellProps } from 'components/Cell';
 import { InfoIcon } from 'components/InfoIcon';
+import { useTranslation } from 'libs/translations';
 
 export interface PageStatHeaderProps {
   title: string;
@@ -15,28 +16,39 @@ export const PageStatHeader: React.FC<PageStatHeaderProps> = ({
   description,
   cells,
   className,
-}) => (
-  <div
-    className={cn('flex flex-col gap-8 xl:flex-row xl:items-start xl:justify-between', className)}
-  >
-    <div className="xl:max-w-140">
-      <h1 className="venus-page-title">{title}</h1>
+}) => {
+  const { t } = useTranslation();
 
-      {description && <p className="venus-page-subtitle">{description}</p>}
-    </div>
+  return (
+    <div
+      className={cn('flex flex-col gap-8 xl:flex-row xl:items-start xl:justify-between', className)}
+    >
+      <div className="xl:max-w-140">
+        <h1 className="venus-page-title">{title}</h1>
 
-    <div className="scrollbar-hidden -mx-5 flex shrink-0 gap-8 overflow-x-auto px-5 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:gap-12">
-      {cells.map(cell => (
-        <div key={cell.label} className="shrink-0">
-          <div className="mb-3 flex items-center gap-x-2">
-            <p className="text-sm text-secondary">{cell.label}</p>
+        {description && <p className="venus-page-subtitle">{description}</p>}
+      </div>
 
-            {!!cell.tooltip && <InfoIcon tooltip={cell.tooltip} />}
+      <div
+        {...{
+          role: 'group',
+          tabIndex: 0,
+          'aria-label': t('cellGroup.ariaLabel'),
+        }}
+        className="scrollbar-hidden -mx-5 flex shrink-0 gap-8 overflow-x-auto px-5 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:gap-12"
+      >
+        {cells.map(cell => (
+          <div key={cell.label} className="shrink-0">
+            <div className="mb-3 flex items-center gap-x-2">
+              <p className="text-sm text-secondary">{cell.label}</p>
+
+              {!!cell.tooltip && <InfoIcon tooltip={cell.tooltip} />}
+            </div>
+
+            <div className="text-xl font-normal tabular-nums xl:text-2xl">{cell.value}</div>
           </div>
-
-          <div className="text-xl font-normal tabular-nums xl:text-2xl">{cell.value}</div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
