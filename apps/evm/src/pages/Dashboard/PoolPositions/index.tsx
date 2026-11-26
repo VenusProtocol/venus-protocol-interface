@@ -86,15 +86,6 @@ export const PoolPositions: React.FC<PoolPositionsProps> = ({
 
   const choices = [];
 
-  if (isLiquidityHubEnabled && (isHubsLoading || hubsWithPositions.length > 0)) {
-    choices.push({
-      id: HUB_CHOICE_ID,
-      name: t('account.tabs.hubs'),
-      healthFactor: undefined,
-      content: isHubsLoading ? <Spinner /> : <Hubs liquidityHubs={hubsWithPositions} />,
-    });
-  }
-
   if (hasCorePositions && pool) {
     choices.push({
       id: CORE_CHOICE_ID,
@@ -103,6 +94,15 @@ export const PoolPositions: React.FC<PoolPositionsProps> = ({
         ? pool.userHealthFactor
         : undefined,
       content: <Positions pools={[pool]} />,
+    });
+  }
+
+  if (isLiquidityHubEnabled && (isHubsLoading || hubsWithPositions.length > 0)) {
+    choices.push({
+      id: HUB_CHOICE_ID,
+      name: t('account.tabs.hubs'),
+      healthFactor: undefined,
+      content: isHubsLoading ? <Spinner /> : <Hubs liquidityHubs={hubsWithPositions} />,
     });
   }
 
