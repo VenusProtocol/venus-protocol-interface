@@ -1,7 +1,5 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@mui/material';
-import type { ReferenceLine } from 'recharts';
-
 import { SPACING } from 'App/MuiThemeProvider/muiTheme';
 
 export const useStyles = () => {
@@ -17,13 +15,9 @@ export const useStyles = () => {
     `,
     referenceLineColor: theme.palette.interactive.primary,
     referenceLineLabel: {
-      position: {
-        y: -10,
-        x: 48,
-      },
       fill: theme.palette.text.primary,
       fontSize: theme.typography.small1.fontSize,
       fontWeight: theme.typography.small1.fontWeight,
-    } as React.ComponentProps<typeof ReferenceLine>['label'],
+    },
   };
 };

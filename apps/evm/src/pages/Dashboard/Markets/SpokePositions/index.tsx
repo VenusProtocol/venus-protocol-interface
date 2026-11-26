@@ -1,9 +1,11 @@
 import { useState } from 'react';
 
+import { ButtonGroup } from 'components';
 import { routes } from 'constants/routing';
 import { ModalDetailLink } from 'containers/ModalDetailLink';
 import { getSpokeMarketTo } from 'containers/ModalDetailLink/getSpokeMarketTo';
 import { SpokeFormModal } from 'containers/SpokeFormModal';
+import { useIsSmDown } from 'hooks/responsive';
 import { useTranslation } from 'libs/translations';
 import { COLLATERAL_PARAM_KEY, POOL_PARAM_KEY } from 'pages/SpokePools/constants';
 import type { SpokeAsset, SpokePool, TokenAction } from 'types';
@@ -24,6 +26,8 @@ interface SelectedRow {
 export const SpokePositions: React.FC<SpokePositionsProps> = ({ spokePool }) => {
   const { t } = useTranslation();
   const [selectedRow, setSelectedRow] = useState<SelectedRow>();
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const isSmDown = useIsSmDown();
 
   const collaterals = spokePool.assets.filter(asset =>
     asset.userSupplyBalanceTokens.isGreaterThan(0),
@@ -49,18 +53,50 @@ export const SpokePositions: React.FC<SpokePositionsProps> = ({ spokePool }) => 
     <div className="space-y-6">
       <SummaryRow spokePool={spokePool} />
 
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-        <SuppliedTable
-          collaterals={collaterals}
-          onRowClick={asset => setSelectedRow({ asset, isCollateral: true })}
-        />
+      {isSmDown ? (
+        <div className="space-y-4">
+          <h3 className="text-p2s">{t('account.marketBreakdown.tables.tabletTitle')}</h3>
 
-        <BorrowedTable
-          spokePool={spokePool}
-          loanAssets={loanAssets}
-          onRowClick={asset => setSelectedRow({ asset, isCollateral: false })}
-        />
-      </div>
+          <ButtonGroup
+            fullWidth
+            buttonSize="sm"
+            buttonLabels={[
+              t('account.marketBreakdown.tables.tabletSupplyTabTitle'),
+              t('account.marketBreakdown.tables.tabletBorrowTabTitle'),
+            ]}
+            activeButtonIndex={activeTabIndex}
+            onButtonClick={setActiveTabIndex}
+          />
+
+          {activeTabIndex === 0 ? (
+            <SuppliedTable
+              collaterals={collaterals}
+              onRowClick={asset => setSelectedRow({ asset, isCollateral: true })}
+            />
+          ) : (
+            <BorrowedTable
+              spokePool={spokePool}
+              loanAssets={loanAssets}
+              onRowClick={asset => setSelectedRow({ asset, isCollateral: false })}
+            />
+          )}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+          <SuppliedTable
+            title={t('account.spoke.supplied.title')}
+            collaterals={collaterals}
+            onRowClick={asset => setSelectedRow({ asset, isCollateral: true })}
+          />
+
+          <BorrowedTable
+            title={t('account.spoke.borrowed.title')}
+            spokePool={spokePool}
+            loanAssets={loanAssets}
+            onRowClick={asset => setSelectedRow({ asset, isCollateral: false })}
+          />
+        </div>
+      )}
 
       {selectedRow && (
         <SpokeFormModal

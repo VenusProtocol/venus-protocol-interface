@@ -180,13 +180,26 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
                     // Note: we can not use the spread operator to extend
                     // styles.referenceLineLabel because its type is not accepted for
                     // that
-                    label={Object.assign(styles.referenceLineLabel || {}, {
-                      value: t('interestRateChart.currentUtilizationRateLabelValue', {
-                        percentage: formatPercentageToReadableValue(
-                          interestRateChartData.currentUtilizationRatePercentage,
-                        ),
-                      }),
-                    })}
+                    label={({ viewBox }: { viewBox: { x: number; y: number } }) => (
+                      <text
+                        x={viewBox.x}
+                        y={viewBox.y - 10}
+                        textAnchor={
+                          interestRateChartData.currentUtilizationRatePercentage > 80
+                            ? 'end'
+                            : interestRateChartData.currentUtilizationRatePercentage < 20
+                              ? 'start'
+                              : 'middle'
+                        }
+                        {...styles.referenceLineLabel}
+                      >
+                        {t('interestRateChart.currentUtilizationRateLabelValue', {
+                          percentage: formatPercentageToReadableValue(
+                            interestRateChartData.currentUtilizationRatePercentage,
+                          ),
+                        })}
+                      </text>
+                    )}
                     alwaysShow
                   />
                 )}

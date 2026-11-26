@@ -18,12 +18,14 @@ import {
 } from 'utilities';
 
 export interface BorrowedTableProps {
+  title?: string;
   spokePool: SpokePool;
   loanAssets: SpokeAsset[];
   onRowClick: (asset: SpokeAsset) => void;
 }
 
 export const BorrowedTable: React.FC<BorrowedTableProps> = ({
+  title,
   spokePool,
   loanAssets,
   onRowClick,
@@ -127,7 +129,7 @@ export const BorrowedTable: React.FC<BorrowedTableProps> = ({
   return (
     <Table
       className="pt-4"
-      title={t('account.spoke.borrowed.title')}
+      title={title}
       data={loanAssets}
       columns={columns}
       rowKeyExtractor={asset => asset.vToken.address}

@@ -128,7 +128,7 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({ spokePool, className }) 
         <CellGroup
           cells={cells}
           grid
-          className={cn(accountHealthCell ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}
+          className={cn('bg-transparent', accountHealthCell ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}
         />
 
         {accountHealthCell && <Cell {...accountHealthCell} />}

@@ -16,11 +16,12 @@ import {
 } from 'utilities';
 
 export interface SuppliedTableProps {
+  title?: string;
   collaterals: SpokeAsset[];
   onRowClick: (asset: SpokeAsset) => void;
 }
 
-export const SuppliedTable: React.FC<SuppliedTableProps> = ({ collaterals, onRowClick }) => {
+export const SuppliedTable: React.FC<SuppliedTableProps> = ({ title, collaterals, onRowClick }) => {
   const { t } = useTranslation();
 
   const columns: TableColumn<SpokeAsset>[] = [
@@ -86,7 +87,7 @@ export const SuppliedTable: React.FC<SuppliedTableProps> = ({ collaterals, onRow
   return (
     <Table
       className="pt-4"
-      title={t('account.spoke.supplied.title')}
+      title={title}
       data={collaterals}
       columns={columns}
       rowKeyExtractor={asset => asset.vToken.address}

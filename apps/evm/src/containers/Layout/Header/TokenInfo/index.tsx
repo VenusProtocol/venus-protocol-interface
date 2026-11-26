@@ -104,7 +104,7 @@ export const TokenInfo: React.FC<TokenInfoProps> = ({
             className: 'p-0 bg-transparent',
           }))}
           grid
-          className="md:gap-x-15 xl:p-0 xl:bg-transparent"
+          className="p-4 md:gap-x-15 xl:p-0 xl:bg-transparent"
         />
       </Wrapper>
     </div>
