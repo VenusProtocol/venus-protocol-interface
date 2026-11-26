@@ -1,4 +1,4 @@
-import { Modal, type ModalProps } from 'components';
+import { ActiveTabPathProvider, Modal, type ModalProps } from 'components';
 import { GatedAssetAcknowledgementModal } from 'containers/GatedAssetAcknowledgementModal';
 import { SpokeForm, type SpokeFormProps } from 'containers/SpokeForm';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
@@ -28,17 +28,19 @@ export const SpokeFormModal: React.FC<SpokeFormModalProps> = ({
   }
 
   return (
-    <Modal isOpen handleClose={handleClose} {...otherProps}>
-      <SpokeForm
-        spokePool={spokePool}
-        asset={asset}
-        initialActiveTabId={initialActiveTabId}
-        initialCollateralTabId={initialCollateralTabId}
-        initialLoanTabId={initialLoanTabId}
-        preselectedCollateral={preselectedCollateral}
-        collateralOnly={collateralOnly}
-        onSubmitSuccess={handleClose}
-      />
-    </Modal>
+    <ActiveTabPathProvider>
+      <Modal isOpen handleClose={handleClose} {...otherProps}>
+        <SpokeForm
+          spokePool={spokePool}
+          asset={asset}
+          initialActiveTabId={initialActiveTabId}
+          initialCollateralTabId={initialCollateralTabId}
+          initialLoanTabId={initialLoanTabId}
+          preselectedCollateral={preselectedCollateral}
+          collateralOnly={collateralOnly}
+          onSubmitSuccess={handleClose}
+        />
+      </Modal>
+    </ActiveTabPathProvider>
   );
 };

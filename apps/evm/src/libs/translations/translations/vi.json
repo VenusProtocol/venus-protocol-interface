@@ -1465,6 +1465,16 @@
       "placeholder": "Tìm tài sản"
     }
   },
+  "modalDetailLink": {
+    "ariaLabel": "Mở trong Venus Pro: {{destination}}",
+    "destination": {
+      "coreMarket": "Thị trường {{tokenSymbol}} trong Venus Core",
+      "liquidityHub": "{{tokenSymbol}} Liquidity Hub",
+      "spokeMarket": "Thị trường {{tokenSymbol}} trong pool {{poolName}}",
+      "spokePool": "Tài sản thế chấp {{tokenSymbol}} trong pool {{poolName}}"
+    },
+    "tooltipTitle": "Mở trong Venus Pro"
+  },
   "multiSelect": {
     "clearSearch": "Xóa tìm kiếm",
     "noResults": "Không tìm thấy kết quả"

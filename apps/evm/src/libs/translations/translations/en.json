@@ -1467,6 +1467,16 @@
       "placeholder": "Search asset"
     }
   },
+  "modalDetailLink": {
+    "ariaLabel": "Open in Venus Pro: {{destination}}",
+    "destination": {
+      "coreMarket": "{{tokenSymbol}} market in Venus Core",
+      "liquidityHub": "{{tokenSymbol}} Liquidity Hub",
+      "spokeMarket": "{{tokenSymbol}} market in {{poolName}} pool",
+      "spokePool": "{{tokenSymbol}} collateral in {{poolName}} pool"
+    },
+    "tooltipTitle": "Open in Venus Pro"
+  },
   "multiSelect": {
     "clearSearch": "Clear search",
     "noResults": "No results found"

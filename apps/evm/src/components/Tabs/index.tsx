@@ -1,8 +1,11 @@
 import { cn } from '@venusprotocol/ui';
 import { Delimiter } from 'components';
 import { type Tab, type TabNavType, useTabs } from 'hooks/useTabs';
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 import { ButtonGroup } from '../ButtonGroup';
+import { TabsDepthContext, useReportActiveTab } from './ActiveTabPath';
+
+export * from './ActiveTabPath';
 
 export const TabsSpacingContext = createContext<'default' | 'compact'>('default');
 
@@ -30,12 +33,20 @@ export const Tabs = ({
   navType = 'state',
 }: TabsProps) => {
   const spacing = useContext(TabsSpacingContext);
+  const depth = useContext(TabsDepthContext);
+  const reportActiveTab = useReportActiveTab();
   const { activeTab, setActiveTab } = useTabs({
     tabs,
     navType,
     initialActiveTabId,
     activeTabId,
   });
+
+  useEffect(() => {
+    reportActiveTab?.({ depth, tabId: activeTab.id });
+  }, [reportActiveTab, depth, activeTab.id]);
+
+  useEffect(() => () => reportActiveTab?.({ depth }), [reportActiveTab, depth]);
 
   const handleChange = (index: number, e?: React.MouseEvent) => {
     e?.preventDefault();
@@ -105,7 +116,9 @@ export const Tabs = ({
         </div>
       )}
 
-      <div>{activeTab.content}</div>
+      <TabsDepthContext.Provider value={depth + 1}>
+        <div>{activeTab.content}</div>
+      </TabsDepthContext.Provider>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { NoticeWarning, Tabs } from 'components';
-import { TAB_PARAM_KEY, type Tab, type TabNavType } from 'hooks/useTabs';
+import { SUB_TAB_PARAM_KEY, TAB_PARAM_KEY, type Tab, type TabNavType } from 'hooks/useTabs';
 import { useTranslation } from 'libs/translations';
 import { useSearchParams } from 'react-router';
 import type { SpokeAsset, SpokePool } from 'types';
@@ -49,6 +49,18 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
   const restrictedNotice = <NoticeWarning description={t('assetAccessor.assetNotAvailable')} />;
 
   const tabParamValue = searchParams.get(TAB_PARAM_KEY);
+  const subTabParamValue =
+    navType === 'searchParam' ? searchParams.get(SUB_TAB_PARAM_KEY) ?? undefined : undefined;
+
+  const collateralTabId =
+    subTabParamValue === 'supply' || subTabParamValue === 'withdraw'
+      ? subTabParamValue
+      : initialCollateralTabId;
+
+  const loanTabId =
+    subTabParamValue === 'borrow' || subTabParamValue === 'repay'
+      ? subTabParamValue
+      : initialLoanTabId;
   const activeTabId =
     navType === 'searchParam' && (tabParamValue === 'collateral' || tabParamValue === 'loan')
       ? tabParamValue
@@ -148,14 +160,12 @@ export const SpokeForm: React.FC<SpokeFormProps> = ({
       // Remount on new preselection so the forms pick it up
       key={initialCollateral?.vToken.address}
       tabs={collateralTabs}
-      initialActiveTabId={initialCollateralTabId}
+      initialActiveTabId={collateralTabId}
       variant="primary"
     />
   );
 
-  const loanTabsDom = (
-    <Tabs tabs={loanTabs} initialActiveTabId={initialLoanTabId} variant="primary" />
-  );
+  const loanTabsDom = <Tabs tabs={loanTabs} initialActiveTabId={loanTabId} variant="primary" />;
 
   // A pool missing one side shows only the other
   if (collateralTabs.length === 0) {
