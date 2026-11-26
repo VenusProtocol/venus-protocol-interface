@@ -103,7 +103,7 @@ describe('PoolPositions', () => {
     expect(screen.queryByText(en.account.pools.placeholder.title)).not.toBeInTheDocument();
   });
 
-  it('orders products with positions as Hubs, Core, then Vaults', () => {
+  it('orders products with positions as Core, Hubs, then Vaults', () => {
     (useIsFeatureEnabled as Mock).mockImplementation(
       ({ name }: UseIsFeatureEnabledInput) => name === 'liquidityHub',
     );
@@ -114,8 +114,8 @@ describe('PoolPositions', () => {
       pills()
         .getAllByRole('button')
         .map(button => button.textContent),
-    ).toEqual([en.account.tabs.hubs, en.account.spoke.corePoolPill, en.account.tabs.vaults]);
-    expect(isPillActive(en.account.tabs.hubs)).toBe(true);
+    ).toEqual([en.account.spoke.corePoolPill, en.account.tabs.hubs, en.account.tabs.vaults]);
+    expect(isPillActive(en.account.spoke.corePoolPill)).toBe(true);
   });
 
   describe('with Spoke enabled', () => {
