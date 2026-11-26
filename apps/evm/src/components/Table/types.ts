@@ -60,6 +60,7 @@ export interface TableProps<R> extends Omit<CardProps, 'title' | 'variant'> {
   size?: 'sm' | 'md' | 'compact';
   stickyHeader?: boolean;
   controls?: boolean;
+  cardControls?: boolean;
 }
 
 export interface TableCardProps<R>

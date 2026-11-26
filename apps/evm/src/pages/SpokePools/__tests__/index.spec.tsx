@@ -6,11 +6,17 @@ import fakeAccountAddress from '__mocks__/models/address';
 import { spokePools } from '__mocks__/models/spokePools';
 import { xvs } from '__mocks__/models/tokens';
 import { useGetSpokePools } from 'clients/api';
+import { useBreakpointUp } from 'hooks/responsive';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
 
 import SpokePools from '..';
+
+vi.mock('hooks/responsive', async importOriginal => ({
+  ...(await importOriginal<typeof import('hooks/responsive')>()),
+  useBreakpointUp: vi.fn(() => true),
+}));
 
 const spokePool = spokePools[0];
 const collateral = spokePool.assets.find(({ isBorrowable }) => !isBorrowable)!;
@@ -45,6 +51,24 @@ const mockSpokePools = (pools: (typeof spokePools)[number][]) =>
       },
     },
   }));
+
+const otherSpokePool = {
+  ...spokePool,
+  name: 'Other pool',
+  comptrollerAddress: '0x0000000000000000000000000000000000000003' as const,
+  assets: spokePool.assets.map(asset =>
+    asset.isBorrowable
+      ? asset
+      : {
+          ...asset,
+          vToken: {
+            ...asset.vToken,
+            address: '0x0000000000000000000000000000000000000004' as const,
+            underlyingToken: xvs,
+          },
+        },
+  ),
+};
 
 const showUserAssetsOnly = () =>
   (useUserChainSettings as Mock).mockImplementation(() => [
@@ -147,5 +171,34 @@ describe('SpokePools', () => {
         screen.getByText(en.spokeForm.collateralModalTitle.replace('{{poolName}}', spokePool.name)),
       ).toBeInTheDocument(),
     );
+  });
+
+  it('applies the collateral filter from the URL from the sm breakpoint up', () => {
+    (useUserChainSettings as Mock).mockImplementation(() => [defaultUserChainSettings, vi.fn()]);
+    mockSpokePools([spokePool, otherSpokePool]);
+
+    renderComponent(<SpokePools />, {
+      routerInitialEntries: [`/?collateral=${collateral.vToken.underlyingToken.symbol}`],
+    });
+
+    expect(screen.getByText(en.spokePools.filter.allLoanAssets)).toBeInTheDocument();
+    expect(screen.getByText(spokePool.name)).toBeInTheDocument();
+    expect(screen.queryByText(otherSpokePool.name)).not.toBeInTheDocument();
+  });
+
+  it('only shows the pool filter and ignores the other filters below the sm breakpoint', () => {
+    (useBreakpointUp as Mock).mockReturnValue(false);
+    (useUserChainSettings as Mock).mockImplementation(() => [defaultUserChainSettings, vi.fn()]);
+    mockSpokePools([spokePool, otherSpokePool]);
+
+    renderComponent(<SpokePools />, {
+      routerInitialEntries: [`/?collateral=${collateral.vToken.underlyingToken.symbol}`],
+    });
+
+    expect(screen.queryByText(en.spokePools.filter.allLoanAssets)).not.toBeInTheDocument();
+    expect(screen.queryByText(en.spokePools.filter.allCollaterals)).not.toBeInTheDocument();
+    expect(screen.getByText(en.spokePools.filter.allPools)).toBeInTheDocument();
+    expect(screen.getByText(spokePool.name)).toBeInTheDocument();
+    expect(screen.getByText(otherSpokePool.name)).toBeInTheDocument();
   });
 });
