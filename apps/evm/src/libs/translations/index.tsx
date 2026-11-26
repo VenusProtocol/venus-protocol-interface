@@ -1,11 +1,10 @@
-import { format as formatDate, formatDistanceStrict, isDate } from 'date-fns';
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
 import { supportedLanguages } from './constants';
+import { dateFormatter } from './dateFormatter';
 import { enTranslations } from './loadTranslations';
-import { resolveDateFormat } from './resolveDateFormat';
 import { viteTranslationBackend } from './viteTranslationBackend';
 
 export { default as en } from './translations/en.json';
@@ -19,6 +18,7 @@ const init = () => {
     .use(viteTranslationBackend)
     .use(LanguageDetector)
     .use(initReactI18next)
+    .use(dateFormatter)
     .init({
       resources: {
         en: {
@@ -36,22 +36,6 @@ const init = () => {
       },
       interpolation: {
         escapeValue: false,
-        format: (value, format, tag) => {
-          if (!isDate(value)) {
-            return value;
-          }
-
-          const language =
-            supportedLanguages.find(language => language.bcp47Tag === tag) ?? defaultLanguage;
-          const options = { locale: language.locale };
-          const resolvedFormat = resolveDateFormat(language, format);
-
-          if (resolvedFormat === 'distanceToNow') {
-            return formatDistanceStrict(value, new Date(), options);
-          }
-
-          return formatDate(value, resolvedFormat, options);
-        },
       },
     });
   i18next.loadNamespaces('errors');

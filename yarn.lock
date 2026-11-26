@@ -1248,7 +1248,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.25.0, @babel/runtime@npm:^7.26.0, @babel/runtime@npm:^7.26.10, @babel/runtime@npm:^7.29.2, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.8.7":
+"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.25.0, @babel/runtime@npm:^7.26.0, @babel/runtime@npm:^7.29.2, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.8.7":
   version: 7.29.2
   resolution: "@babel/runtime@npm:7.29.2"
   checksum: 10c0/30b80a0140d16467792e1bbeb06f655b0dab70407da38dfac7fedae9c859f9ae9d846ef14ad77bd3814c064295fe9b1bc551f1541ea14646ae9f22b71a8bc17a
@@ -9523,7 +9523,7 @@ __metadata:
     graphql-tag: "npm:2.12.6"
     handlebars: "npm:^4.7.8"
     history: "npm:^5.3.0"
-    i18next: "npm:^25.0.0"
+    i18next: "npm:^26.3.4"
     i18next-browser-languagedetector: "npm:^8.2.0"
     i18next-parser: "npm:^9.0.0"
     immer: "npm:^10.1.1"
@@ -15240,10 +15240,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hono@npm:4.13.11":
-  version: 4.13.11
-  resolution: "hono@npm:4.13.11"
-  checksum: 10c0/1052fbe5f45d0041828222597247fadb8283147cbf2c1ec930d525393f3bf4e2600f7190c4890c1a9cc97b6e1abd2287fc28ab37ac1988eda079f2b4deac71bb
+"hono@npm:4.13.19":
+  version: 4.13.19
+  resolution: "hono@npm:4.13.19"
+  checksum: 10c0/883ea5fb435bb568da205ae97cff85e732ac6856d3904d16403e555daf49141a340a50da6a6bd623bd4b016d57299360988d1b3e1ca28e61a632f21ebd42320a
   languageName: node
   linkType: hard
 
@@ -15428,31 +15428,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^23.5.1 || ^24.2.0":
-  version: 24.2.3
-  resolution: "i18next@npm:24.2.3"
-  dependencies:
-    "@babel/runtime": "npm:^7.26.10"
+"i18next@npm:^26.3.4":
+  version: 26.7.2
+  resolution: "i18next@npm:26.7.2"
   peerDependencies:
-    typescript: ^5
+    typescript: ^5 || ^6 || ^7
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/7ac11a67d618ec714beef303aa497c1249bf5f1977dd3ebe9ca2673dfa6cadbba9e2d39ec1337688903ae3866ce9c1bc22cd6b265e66cce54c5db3a9bbedd390
-  languageName: node
-  linkType: hard
-
-"i18next@npm:^25.0.0":
-  version: 25.10.10
-  resolution: "i18next@npm:25.10.10"
-  dependencies:
-    "@babel/runtime": "npm:^7.29.2"
-  peerDependencies:
-    typescript: ^5 || ^6
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 10c0/6ff601b52363c9c974ef293af4a6de04d9f76b4bf2ad9a56c8546235aaf19ff1a7c2109ddba3a73922d418e208ec5b688e5afb323eba6e27c75d629e93827ae1
+  checksum: 10c0/671576c1a225e10994cff250dfc44585fcccc4486cda4162caadbefe5287052e56998fe80aa15e36e1c441215b601770702a820fd1dc5511255bc4ad514aa2cf
   languageName: node
   linkType: hard
 
