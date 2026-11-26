@@ -639,6 +639,7 @@
   "errors": {
     "couldNotRetrieveSigner": "無法獲取簽名者，請確保錢包已解鎖並刷新頁面",
     "couldNotSwitchChain": "無法切換鏈，請確保錢包已解鎖並刷新頁面",
+    "importPositionUnavailable": "匯入倉位功能暫時無法使用，請稍後再試。",
     "missingAbstainDescription": "提案需要“棄權”票描述",
     "missingAgainstDescription": "提案需要“反對”票描述",
     "missingDescription": "文件中沒有提案描述",

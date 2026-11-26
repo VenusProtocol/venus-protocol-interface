@@ -136,19 +136,25 @@ export const useImportSupplyPosition = (options?: Partial<Options>) => {
           amountMantissa: position.userATokenBalanceWithInterestsMantissa,
         });
 
-        const fusionQuote = await meeClient.getFusionQuote({
-          trigger: {
-            chainId,
-            tokenAddress: position.aTokenAddress,
-            amount: position.userATokenBalanceMantissa,
-            approvalAmount,
-            gasLimit: 500000n,
-          },
-          instructions,
-          sponsorship: true,
-        });
-
-        return fusionQuote;
+        try {
+          return await meeClient.getFusionQuote({
+            trigger: {
+              chainId,
+              tokenAddress: position.aTokenAddress,
+              amount: position.userATokenBalanceMantissa,
+              approvalAmount,
+              gasLimit: 500000n,
+            },
+            instructions,
+            sponsorship: true,
+          });
+        } catch (error) {
+          throw new VError({
+            type: 'unexpected',
+            code: 'importPositionUnavailable',
+            data: { exception: error },
+          });
+        }
       }
 
       // This case should never be reached, but just in case we throw a generic internal error

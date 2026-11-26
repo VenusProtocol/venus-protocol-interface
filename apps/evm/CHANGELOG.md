@@ -1,5 +1,24 @@
 # @venusprotocol/evm
 
+## 5.49.1
+
+### Patch Changes
+
+- c62307a: track the theme users actually see on every analytics event
+
+## 5.49.0
+
+### Minor Changes
+
+- 0048aab: read governance proposals from the API instead of the governance subgraphs
+
+## 5.48.3
+
+### Patch Changes
+
+- abdf54b: show a temporarily unavailable message when the import position quote fails
+- 03e94d6: show "Price impact too high" when the swap API refuses a quote for price impact
+
 ## 5.48.2
 
 ### Patch Changes

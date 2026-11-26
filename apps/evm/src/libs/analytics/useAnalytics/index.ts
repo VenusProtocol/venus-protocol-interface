@@ -23,7 +23,7 @@ export const useAnalytics = () => {
   const { connector } = useAccount();
   const { pathname } = useLocation();
   const { authAnalyticVariant, setAuthAnalyticVariant } = useAuthAnalyticVariantContext();
-  const { version, themePreference } = useSuperProperties();
+  const { version, themePreference, theme } = useSuperProperties();
 
   const captureEvent = useCallback(
     <TEventName extends AnalyticEventName>(
@@ -44,7 +44,7 @@ export const useAnalytics = () => {
       if (config.environment !== 'production') {
         console.groupCollapsed(`[Analytic event] ${eventName}`);
         console.log('Common', commonProperties);
-        console.log('Super', { version, themePreference });
+        console.log('Super', { version, themePreference, theme });
         console.log('Specific', specificProperties);
         console.groupEnd();
         return;
@@ -61,7 +61,7 @@ export const useAnalytics = () => {
         ...eventProps,
       });
     },
-    [currentChainId, pathname, connector?.name, posthog, version, themePreference],
+    [currentChainId, pathname, connector?.name, posthog, version, themePreference, theme],
   );
 
   const debouncedCaptureEvent = useMemo(

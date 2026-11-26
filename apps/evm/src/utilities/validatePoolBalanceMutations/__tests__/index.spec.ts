@@ -275,6 +275,17 @@ describe('validatePoolBalanceMutations', () => {
     },
   );
 
+  it('returns a price impact error when the swap API refuses the quote for price impact', () => {
+    const result = validatePoolBalanceMutations({
+      t,
+      pool: fakePool,
+      swapQuoteErrorCode: 'priceImpactTooHigh',
+      balanceMutations: fakeSupplyBalanceMutations,
+    });
+
+    expect(result?.code).toBe('SWAP_PRICE_IMPACT_TOO_HIGH');
+  });
+
   it('returns undefined if no error was found', () => {
     const result = validatePoolBalanceMutations({
       t,

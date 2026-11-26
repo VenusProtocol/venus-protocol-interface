@@ -639,6 +639,7 @@
   "errors": {
     "couldNotRetrieveSigner": "署名者を取得できませんでした。ウォレットがアンロックされていることを確認してページを再読み込みしてください",
     "couldNotSwitchChain": "チェーンを切り替えられませんでした。ウォレットがアンロックされていることを確認してページを再読み込みしてください",
+    "importPositionUnavailable": "ポジションのインポートは一時的に利用できません。しばらくしてから再度お試しください。",
     "missingAbstainDescription": "提案には「棄権」票の説明が必要です",
     "missingAgainstDescription": "提案には「反対」票の説明が必要です",
     "missingDescription": "ファイルに提案の説明がありません",
