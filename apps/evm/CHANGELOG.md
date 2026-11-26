@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.50.0
+
+### Minor Changes
+
+- 0fba85b: add a Pro shortcut to the Dashboard and Lite supply and borrow modals
+
 ## 5.49.2
 
 ### Patch Changes
