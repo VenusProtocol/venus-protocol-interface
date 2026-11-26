@@ -15,6 +15,7 @@ import {
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
   formatTokensToReadableValue,
+  getCombinedDistributionApys,
 } from 'utilities';
 
 export interface BorrowedTableProps {
@@ -69,7 +70,11 @@ export const BorrowedTable: React.FC<BorrowedTableProps> = ({
       selectOptionLabel: t('account.spoke.borrowed.columns.apy'),
       align: 'right',
       sortRows: (rowA, rowB, direction) =>
-        compareBigNumbers(rowA.borrowApyPercentage, rowB.borrowApyPercentage, direction),
+        compareBigNumbers(
+          getCombinedDistributionApys({ asset: rowA }).totalBorrowApyPercentage,
+          getCombinedDistributionApys({ asset: rowB }).totalBorrowApyPercentage,
+          direction,
+        ),
       renderCell: asset => (
         <Apy
           type="borrow"

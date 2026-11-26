@@ -1,14 +1,16 @@
 import type { Address } from 'viem';
 
-import type { LiquidityHub, MerklDistribution, Pool } from 'types';
+import type { LiquidityHub, MerklDistribution, Pool, SpokePool } from 'types';
 import type { GetPendingRewardsInput } from '../types';
 
 export const getMerklCampaigns = ({
   pools = [],
   liquidityHubs = [],
+  spokePools = [],
 }: {
   pools?: Pool[];
   liquidityHubs?: LiquidityHub[];
+  spokePools?: SpokePool[];
 }): {
   isolatedPoolComptrollerAddresses: Address[];
   merklCampaigns: GetPendingRewardsInput['merklCampaigns'];
@@ -20,19 +22,19 @@ export const getMerklCampaigns = ({
     if (pool.isIsolated) {
       isolatedPoolComptrollerAddresses.push(pool.comptrollerAddress);
     }
+  }
 
-    for (const asset of pool.assets) {
-      const assetMerklCampaigns = [
-        ...asset.supplyTokenDistributions.filter(d => d.type === 'merkl'),
-        ...asset.borrowTokenDistributions.filter(d => d.type === 'merkl'),
-      ];
+  for (const asset of [...pools, ...spokePools].flatMap(pool => pool.assets)) {
+    const assetMerklCampaigns = [
+      ...asset.supplyTokenDistributions.filter(d => d.type === 'merkl'),
+      ...asset.borrowTokenDistributions.filter(d => d.type === 'merkl'),
+    ];
 
-      if (assetMerklCampaigns.length === 0) {
-        continue;
-      }
-
-      merklCampaigns[asset.vToken.address] = assetMerklCampaigns;
+    if (assetMerklCampaigns.length === 0) {
+      continue;
     }
+
+    merklCampaigns[asset.vToken.address] = assetMerklCampaigns;
   }
 
   for (const liquidityHub of liquidityHubs) {

@@ -1,4 +1,4 @@
-import type { LiquidityHub, MerklDistribution, Pool } from 'types';
+import type { LiquidityHub, MerklDistribution, Pool, SpokePool } from 'types';
 import type { Address } from 'viem';
 import { getMerklCampaigns } from '..';
 import { fakeMerklCampaigns } from '../../__testUtils__/fakeData';
@@ -7,6 +7,8 @@ const fakeComptrollerAddress = '0x1000000000000000000000000000000000000001' as c
 const fakeMarketAddress = '0xD5C4C2e2facBEB59D0216D0595d63FcDc6F9A1a7' as const;
 const fakeLiquidityHubAddress = '0x2000000000000000000000000000000000000001' as const;
 const fakeResourceAddress = '0x3000000000000000000000000000000000000001' as const;
+const fakeSpokeComptrollerAddress = '0x4000000000000000000000000000000000000001' as const;
+const fakeSpokeMarketAddress = '0x5000000000000000000000000000000000000001' as const;
 
 const marketMerklCampaign = fakeMerklCampaigns[fakeMarketAddress][0];
 
@@ -68,5 +70,29 @@ describe('getMerklCampaigns', () => {
       fakeLiquidityHubAddress,
     );
     expect(merklCampaigns[fakeResourceAddress]).toBeUndefined();
+  });
+
+  it('includes Spoke borrow Merkl campaigns without treating Spoke pools as isolated pools', () => {
+    const spokeMerklCampaign = getFakeMerklCampaign({ marketAddress: fakeSpokeMarketAddress });
+
+    const spokePool = {
+      comptrollerAddress: fakeSpokeComptrollerAddress,
+      assets: [
+        {
+          vToken: {
+            address: fakeSpokeMarketAddress,
+          },
+          supplyTokenDistributions: [],
+          borrowTokenDistributions: [spokeMerklCampaign],
+        },
+      ],
+    } as unknown as SpokePool;
+
+    const { isolatedPoolComptrollerAddresses, merklCampaigns } = getMerklCampaigns({
+      spokePools: [spokePool],
+    });
+
+    expect(isolatedPoolComptrollerAddresses).toEqual([]);
+    expect(merklCampaigns[fakeSpokeMarketAddress]).toEqual([spokeMerklCampaign]);
   });
 });

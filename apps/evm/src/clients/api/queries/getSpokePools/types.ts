@@ -1,5 +1,5 @@
 import type BigNumber from 'bignumber.js';
-import type { ApiTokenPrice } from 'types';
+import type { ApiRewardDistributor, ApiTokenPrice } from 'types';
 import type { Address } from 'viem';
 
 export type ApiSpokeMarketSide = 'liquidity' | 'collateral' | 'inactive';
@@ -36,6 +36,7 @@ export interface ApiSpokeMarket {
   supplyCapsMantissa: string;
   borrowCapsMantissa: string;
   pausedActionsBitmap: number;
+  rewardsDistributors: ApiRewardDistributor[];
 }
 
 export type ApiLocalizedText = Record<string, string>;
@@ -74,6 +75,7 @@ export interface ApiSpokeToken {
 }
 
 export interface GetSpokePoolsResponse {
+  blockNumber: string;
   result?: ApiSpokePool[];
   tokens?: ApiSpokeToken[];
   totals: ApiSpokeTotals;

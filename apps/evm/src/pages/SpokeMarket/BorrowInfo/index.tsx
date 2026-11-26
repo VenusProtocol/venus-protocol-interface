@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 
 import { type LiquidityHubHistoryPeriod, useGetSpokeMarketHistory } from 'clients/api';
-import { MarketHistoryCard, type MarketHistoryCardPeriodOption } from 'components';
+import { AssetApy, MarketHistoryCard, type MarketHistoryCardPeriodOption } from 'components';
 import { useTranslation } from 'libs/translations';
 import type { SpokeAsset } from 'types';
 
@@ -10,7 +10,6 @@ import {
   clampToZero,
   convertMantissaToTokens,
   formatCentsToReadableValue,
-  formatPercentageToReadableValue,
   formatTokensToReadableValue,
 } from 'utilities';
 
@@ -74,7 +73,7 @@ export const BorrowInfo: React.FC<BorrowInfoProps> = ({ asset }) => {
       cells={[
         {
           label: t('spokeMarket.borrowInfo.currentApy'),
-          value: formatPercentageToReadableValue(asset.borrowApyPercentage),
+          value: <AssetApy asset={asset} type="borrow" />,
         },
       ]}
       cap={{

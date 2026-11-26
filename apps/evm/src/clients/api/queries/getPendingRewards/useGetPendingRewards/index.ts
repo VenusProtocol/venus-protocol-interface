@@ -11,6 +11,7 @@ import { useGetContractAddress } from 'hooks/useGetContractAddress';
 import type { Address } from 'viem';
 import { getPendingRewards } from '..';
 import { useGetLiquidityHubs } from '../../getLiquidityHubs/useGetLiquidityHubs';
+import { useGetSpokePools } from '../../getSpokePools/useGetSpokePools';
 import { useGetXvsVaultPoolCount } from '../../getXvsVaultPoolCount/useGetXvsVaultPoolCount';
 import { useGetPools } from '../../useGetPools';
 import { getMerklCampaigns } from '../getMerklCampaigns';
@@ -110,9 +111,19 @@ export const useGetPendingRewards = (
     },
   );
 
+  const { data: getSpokePoolsData, isLoading: isGetSpokePoolsLoading } = useGetSpokePools(
+    {
+      accountAddress: input.accountAddress || undefined,
+    },
+    {
+      enabled: areDependentQueriesEnabled,
+    },
+  );
+
   const { isolatedPoolComptrollerAddresses, merklCampaigns } = getMerklCampaigns({
     pools: getPoolsData?.pools,
     liquidityHubs: getLiquidityHubsData?.liquidityHubs,
+    spokePools: getSpokePoolsData?.spokePools,
   });
 
   // Get XVS vesting vault pool count
@@ -164,6 +175,7 @@ export const useGetPendingRewards = (
       (options?.enabled === undefined || options.enabled) &&
       !isGetPoolsLoading &&
       !isGetLiquidityHubsLoading &&
+      !isGetSpokePoolsLoading &&
       !isGetXvsVaultPoolCountLoading,
   });
 };

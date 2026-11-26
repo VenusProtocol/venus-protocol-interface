@@ -1,7 +1,8 @@
 import spokePoolsResponse from '__mocks__/api/spokePools.json';
-import { usdc } from '__mocks__/models/tokens';
+import { usdc, usdt } from '__mocks__/models/tokens';
 import type { GetSpokePoolsResponse } from 'clients/api/queries/getSpokePools/types';
-import { ChainId, type Token } from 'types';
+import { getUnixTime } from 'date-fns/getUnixTime';
+import { type ApiMerklReward, ChainId, type Token } from 'types';
 
 import { formatToSpokeAsset } from '..';
 
@@ -15,11 +16,38 @@ const tslab: Token = {
   symbol: 'TSLAB',
 };
 
+const buildMerklBorrowReward = (overrides: Partial<ApiMerklReward> = {}): ApiMerklReward => ({
+  marketAddress: apiMarket.address,
+  rewardTokenAddress: usdt.address,
+  lastRewardingSupplyBlockOrTimestamp: '-1',
+  lastRewardingBorrowBlockOrTimestamp: String(getUnixTime(new Date()) + 86400),
+  supplySpeed: '0',
+  borrowSpeed: '1000000000000',
+  supplyApyRatio: '0',
+  borrowApyRatio: '0.0865',
+  priceMantissa: '1000000000000000000',
+  rewardsDistributorContractAddress: '0x0000000000000000000000000000000000000001',
+  isActive: true,
+  rewardType: 'merkl',
+  rewardDetails: {
+    appName: 'Merkl',
+    claimUrl: 'https://app.merkl.xyz/users/',
+    merklCampaignId: 'campaign',
+    description: 'Merkl campaign',
+    merklCampaignIdentifier: '0xcampaign',
+    tags: ['venus'],
+    apr: 8.65,
+    eligibleBorrowMarketAddresses: [apiMarket.address],
+  },
+  ...overrides,
+});
+
 const format = (overrides: Partial<typeof apiMarket>, token: Token) =>
   formatToSpokeAsset({
     apiMarket: { ...apiMarket, underlyingAddress: token.address, ...overrides },
     chainId: ChainId.BSC_TESTNET,
-    tokens: [token],
+    tokens: [token, usdt],
+    currentBlockNumber: BigInt(spokePoolsResponse.blockNumber),
     isUserConnected: false,
     userTokenBalances: [],
     isUserWhitelisted: false,
@@ -53,5 +81,41 @@ describe('formatToSpokeAsset', () => {
     );
 
     expect(asset?.supplyBalanceTokens.decimalPlaces()).toBeLessThanOrEqual(usdc.decimals);
+  });
+
+  it('has no reward distributions when the market has no campaign', () => {
+    const asset = format({ rewardsDistributors: [] }, usdc);
+
+    expect(asset?.supplyTokenDistributions).toEqual([]);
+    expect(asset?.borrowTokenDistributions).toEqual([]);
+  });
+
+  it('carries a non-gated Merkl borrow campaign as an active borrow distribution', () => {
+    const asset = format({ rewardsDistributors: [buildMerklBorrowReward()] }, usdc);
+
+    expect(asset?.supplyTokenDistributions).toEqual([]);
+    expect(asset?.borrowTokenDistributions).toHaveLength(1);
+    expect(asset?.borrowTokenDistributions[0]).toMatchObject({
+      type: 'merkl',
+      isActive: true,
+      token: usdt,
+    });
+    expect(asset?.borrowTokenDistributions[0].apyPercentage.toFixed()).toBe('8.65');
+    expect(asset?.borrowTokenDistributions[0]).not.toHaveProperty('collateralGate');
+  });
+
+  it('marks an ended Merkl borrow campaign as inactive', () => {
+    const asset = format(
+      {
+        rewardsDistributors: [
+          buildMerklBorrowReward({
+            lastRewardingBorrowBlockOrTimestamp: String(getUnixTime(new Date()) - 86400),
+          }),
+        ],
+      },
+      usdc,
+    );
+
+    expect(asset?.borrowTokenDistributions[0].isActive).toBe(false);
   });
 });

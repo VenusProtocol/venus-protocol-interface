@@ -1,3 +1,4 @@
+import { getBlockTimeByChainId } from '@venusprotocol/chains';
 import BigNumber from 'bignumber.js';
 
 import { NULL_ADDRESS } from 'constants/address';
@@ -10,6 +11,7 @@ import {
   convertMantissaToTokens,
   convertPercentageFromSmartContract,
   convertPriceMantissaToDollars,
+  formatApiRewardDistributors,
   getDisabledTokenActions,
 } from 'utilities';
 import type { Address } from 'viem';
@@ -21,6 +23,7 @@ export interface FormatToSpokeAssetInput {
   apiMarket: ApiSpokeMarket;
   chainId: ChainId;
   tokens: Token[];
+  currentBlockNumber: bigint;
   isUserConnected: boolean;
   priceOracleAddress?: Address;
   oraclePrice?: ApiTokenPrice;
@@ -33,6 +36,7 @@ export const formatToSpokeAsset = ({
   apiMarket,
   chainId,
   tokens,
+  currentBlockNumber,
   isUserConnected,
   priceOracleAddress,
   oraclePrice,
@@ -128,6 +132,13 @@ export const formatToSpokeAsset = ({
 
   const { isLiquiditySide, isInactive } = getMarketRole(apiMarket);
 
+  const { supplyTokenDistributions, borrowTokenDistributions } = formatApiRewardDistributors({
+    apiRewardDistributors: apiMarket.rewardsDistributors,
+    tokens,
+    blocksPerDay: getBlockTimeByChainId({ chainId })?.blocksPerDay,
+    currentBlockNumber,
+  });
+
   const spokeAsset: SpokeAsset = {
     vToken,
     tokenPriceCents,
@@ -163,8 +174,8 @@ export const formatToSpokeAsset = ({
     supplyBalanceCents: new BigNumber(apiMarket.totalSupplyUsdCents),
     borrowBalanceTokens,
     borrowBalanceCents: new BigNumber(apiMarket.totalBorrowsUsdCents),
-    supplyTokenDistributions: [],
-    borrowTokenDistributions: [],
+    supplyTokenDistributions,
+    borrowTokenDistributions,
     supplyPointDistributions: [],
     borrowPointDistributions: [],
     disabledTokenActions: getDisabledTokenActions({
