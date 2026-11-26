@@ -119,6 +119,8 @@ export * from './queries/getSpokePools/useGetSpokePools';
 export * from './queries/getSpokeMarketHistory';
 export * from './queries/getSpokeMarketHistory/useGetSpokeMarketHistory';
 
+export * from './queries/getSmartDca';
+
 export * from './queries/getMarketHistory';
 export * from './queries/getMarketHistory/useGetMarketHistory';
 
