@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.49.2
+
+### Patch Changes
+
+- 4488ba4: update i18next and hono to patched versions
+
 ## 5.49.1
 
 ### Patch Changes
