@@ -335,6 +335,16 @@ export const Form: React.FC = () => {
     return null;
   }
 
+  if (!isGetPoolsLoading && !isGetPrimeStatusLoading && primeAssets.length === 0) {
+    return (
+      <Card>
+        <p role="status" className="py-8 text-center text-b1r text-secondary">
+          {t('primeCalculator.noPrimeMarkets')}
+        </p>
+      </Card>
+    );
+  }
+
   if (isGetPrimeStatusLoading || !selectedAsset) {
     return <Spinner />;
   }

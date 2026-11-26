@@ -1510,6 +1510,7 @@
         "label": "Đã vay {{tokenSymbol}}"
       }
     },
+    "noPrimeMarkets": "Hiện chưa có thị trường nào trên mạng này có phần thưởng Prime.",
     "rewardDetails": {
       "fromBorrowedTokens": "Từ vay {{tokenSymbol}}",
       "fromSuppliedTokens": "Từ cung cấp {{tokenSymbol}}",

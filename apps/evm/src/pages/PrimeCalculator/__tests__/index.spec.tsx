@@ -68,6 +68,30 @@ describe('PrimeCalculator', () => {
     renderComponent(<PrimeCalculator />);
   });
 
+  it('tells the user when no market has Prime rewards on the network', async () => {
+    (useGetPools as Mock).mockImplementation(() => ({
+      data: {
+        pools: poolData.map(p => ({
+          ...p,
+          assets: p.assets.map(asset => ({
+            ...asset,
+            supplyTokenDistributions: asset.supplyTokenDistributions.filter(
+              d => d.type !== 'prime' && d.type !== 'primeSimulation',
+            ),
+            borrowTokenDistributions: asset.borrowTokenDistributions.filter(
+              d => d.type !== 'prime' && d.type !== 'primeSimulation',
+            ),
+          })),
+        })),
+      },
+      isLoading: false,
+    }));
+
+    const { getByText } = renderComponent(<PrimeCalculator />);
+
+    await waitFor(() => expect(getByText(en.primeCalculator.noPrimeMarkets)).toBeInTheDocument());
+  });
+
   it('initializes the search params and form correctly when it contains no token address parameter', async () => {
     const mockSearchParams = new URLSearchParams();
     (useSearchParams as Mock).mockImplementation(() => [mockSearchParams, mockSetSearchParams]);

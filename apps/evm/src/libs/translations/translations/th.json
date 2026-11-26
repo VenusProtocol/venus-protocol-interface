@@ -1510,6 +1510,7 @@
         "label": "ยืม {{tokenSymbol}}"
       }
     },
+    "noPrimeMarkets": "ขณะนี้ยังไม่มีตลาดใดบนเครือข่ายนี้ที่ให้รางวัล Prime",
     "rewardDetails": {
       "fromBorrowedTokens": "จากการยืม {{tokenSymbol}}",
       "fromSuppliedTokens": "จากการฝาก {{tokenSymbol}}",
