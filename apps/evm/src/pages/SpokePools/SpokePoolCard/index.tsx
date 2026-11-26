@@ -61,6 +61,7 @@ export const SpokePoolCard: React.FC<SpokePoolCardProps> = ({
         columns={columns}
         rowKeyExtractor={asset => asset.vToken.address}
         controls
+        cardControls={false}
         tableLayout="auto"
         breakpoint="lg"
         size="compact"

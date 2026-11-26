@@ -4,6 +4,7 @@ import { useGetSpokePools } from 'clients/api';
 import { type CellProps, MultiSelect, NoResults, Page, PageStatHeader, Spinner } from 'components';
 import { PLACEHOLDER_KEY } from 'constants/placeholders';
 import { Controls } from 'containers/Controls';
+import { useBreakpointUp } from 'hooks/responsive';
 import { useUserChainSettings } from 'hooks/useUserChainSettings';
 import { useTranslation } from 'libs/translations';
 import { useAccountAddress } from 'libs/wallet';
@@ -20,6 +21,7 @@ const SpokePools: React.FC = () => {
   const [userChainSettings, setUserChainSettings] = useUserChainSettings();
   const [searchValue, setSearchValue] = useState('');
   const { accountAddress } = useAccountAddress();
+  const isSmOrUp = useBreakpointUp('sm');
   const { data: getSpokePoolsData, isLoading: isGetSpokePoolsLoading } = useGetSpokePools({
     accountAddress,
   });
@@ -27,10 +29,10 @@ const SpokePools: React.FC = () => {
   const totals = getSpokePoolsData?.totals;
 
   const {
-    loanAssets: selectedLoanAssets,
+    loanAssets: loanAssetParams,
     loanAssetOptions,
     setLoanAssets,
-    collaterals: selectedCollaterals,
+    collaterals: collateralParams,
     collateralOptions,
     setCollaterals,
     pools: selectedPools,
@@ -38,6 +40,9 @@ const SpokePools: React.FC = () => {
     setPools,
     reset: resetFilters,
   } = useFilters({ spokePools });
+
+  const selectedLoanAssets = isSmOrUp ? loanAssetParams : [];
+  const selectedCollaterals = isSmOrUp ? collateralParams : [];
 
   const handleResetAll = () => {
     resetFilters();
@@ -124,34 +129,38 @@ const SpokePools: React.FC = () => {
     .filter(({ loanAssets }) => loanAssets.length > 0);
 
   const filters = (
-    <div className="grid grid-cols-2 gap-2 w-full sm:flex sm:gap-3 xl:w-fit">
-      <MultiSelect
-        className={multiSelectClassName}
-        options={loanAssetOptions}
-        value={selectedLoanAssets}
-        onChange={setLoanAssets}
-        placeholder={t('spokePools.filter.allLoanAssets')}
-        renderCount={count => t('spokePools.filter.nLoanAssets', { count })}
-        title={t('spokePools.filter.selectLoanAssets')}
-        resetLabel={t('spokePools.filter.reset')}
-        searchPlaceholder={t('spokePools.filter.searchLoanAssets')}
-        noResultsLabel={t('multiSelect.noResults')}
-        size="xs"
-      />
+    <div className="w-full sm:flex sm:gap-3 xl:w-fit">
+      {isSmOrUp && (
+        <>
+          <MultiSelect
+            className={multiSelectClassName}
+            options={loanAssetOptions}
+            value={selectedLoanAssets}
+            onChange={setLoanAssets}
+            placeholder={t('spokePools.filter.allLoanAssets')}
+            renderCount={count => t('spokePools.filter.nLoanAssets', { count })}
+            title={t('spokePools.filter.selectLoanAssets')}
+            resetLabel={t('spokePools.filter.reset')}
+            searchPlaceholder={t('spokePools.filter.searchLoanAssets')}
+            noResultsLabel={t('multiSelect.noResults')}
+            size="xs"
+          />
 
-      <MultiSelect
-        className={multiSelectClassName}
-        options={collateralOptions}
-        value={selectedCollaterals}
-        onChange={setCollaterals}
-        placeholder={t('spokePools.filter.allCollaterals')}
-        renderCount={count => t('spokePools.filter.nCollaterals', { count })}
-        title={t('spokePools.filter.selectCollaterals')}
-        resetLabel={t('spokePools.filter.reset')}
-        searchPlaceholder={t('spokePools.filter.searchCollaterals')}
-        noResultsLabel={t('multiSelect.noResults')}
-        size="xs"
-      />
+          <MultiSelect
+            className={multiSelectClassName}
+            options={collateralOptions}
+            value={selectedCollaterals}
+            onChange={setCollaterals}
+            placeholder={t('spokePools.filter.allCollaterals')}
+            renderCount={count => t('spokePools.filter.nCollaterals', { count })}
+            title={t('spokePools.filter.selectCollaterals')}
+            resetLabel={t('spokePools.filter.reset')}
+            searchPlaceholder={t('spokePools.filter.searchCollaterals')}
+            noResultsLabel={t('multiSelect.noResults')}
+            size="xs"
+          />
+        </>
+      )}
 
       <MultiSelect
         className={multiSelectClassName}

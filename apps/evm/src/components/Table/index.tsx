@@ -20,6 +20,7 @@ export * from './types';
 
 export function Table<R>({
   controls = true,
+  cardControls,
   columns,
   columnWidths,
   cardClassName,
@@ -303,7 +304,7 @@ export function Table<R>({
           </TableContainer>
 
           <TableCards
-            controls={controls}
+            controls={cardControls ?? controls}
             cardClassName={cardClassName}
             maxVisibleCardCount={maxVisibleCardCount}
             selectVariant={selectVariant}
