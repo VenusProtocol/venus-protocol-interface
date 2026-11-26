@@ -719,4 +719,11 @@ export const bscMainnet: Token[] = [
     symbol: 'ctBTC',
     iconSrc: iconSrcs.ctBTC,
   },
+  {
+    chainId: ChainId.BSC_MAINNET,
+    address: '0x38Dd26788Cf2d901E3aBf04efE3007d459d0Fc53',
+    decimals: 18,
+    symbol: 'ANTB',
+    iconSrc: iconSrcs.antb,
+  },
 ];
