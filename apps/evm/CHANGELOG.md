@@ -1,5 +1,11 @@
 # @venusprotocol/evm
 
+## 5.50.1
+
+### Patch Changes
+
+- eb34536: show the Core pool before Liquidity Hub in the dashboard positions
+
 ## 5.50.0
 
 ### Minor Changes
