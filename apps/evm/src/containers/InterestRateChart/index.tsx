@@ -29,6 +29,18 @@ export interface InterestRateItem {
   supplyApyPercentage: number;
 }
 
+const getLabelAnchor = (utilizationRatePercentage: number) => {
+  if (utilizationRatePercentage > 80) {
+    return 'end';
+  }
+
+  if (utilizationRatePercentage < 20) {
+    return 'start';
+  }
+
+  return 'middle';
+};
+
 export interface InterestRateChartProps {
   className?: string;
   asset: Asset;
@@ -184,13 +196,9 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
                       <text
                         x={viewBox.x}
                         y={viewBox.y - 10}
-                        textAnchor={
-                          interestRateChartData.currentUtilizationRatePercentage > 80
-                            ? 'end'
-                            : interestRateChartData.currentUtilizationRatePercentage < 20
-                              ? 'start'
-                              : 'middle'
-                        }
+                        textAnchor={getLabelAnchor(
+                          interestRateChartData.currentUtilizationRatePercentage,
+                        )}
                         {...styles.referenceLineLabel}
                       >
                         {t('interestRateChart.currentUtilizationRateLabelValue', {
