@@ -29,6 +29,18 @@ export interface InterestRateItem {
   supplyApyPercentage: number;
 }
 
+const getLabelAnchor = (utilizationRatePercentage: number) => {
+  if (utilizationRatePercentage > 80) {
+    return 'end';
+  }
+
+  if (utilizationRatePercentage < 20) {
+    return 'start';
+  }
+
+  return 'middle';
+};
+
 export interface InterestRateChartProps {
   className?: string;
   asset: Asset;
@@ -180,13 +192,22 @@ export const InterestRateChart: React.FC<InterestRateChartProps> = ({
                     // Note: we can not use the spread operator to extend
                     // styles.referenceLineLabel because its type is not accepted for
                     // that
-                    label={Object.assign(styles.referenceLineLabel || {}, {
-                      value: t('interestRateChart.currentUtilizationRateLabelValue', {
-                        percentage: formatPercentageToReadableValue(
+                    label={({ viewBox }: { viewBox: { x: number; y: number } }) => (
+                      <text
+                        x={viewBox.x}
+                        y={viewBox.y - 10}
+                        textAnchor={getLabelAnchor(
                           interestRateChartData.currentUtilizationRatePercentage,
-                        ),
-                      }),
-                    })}
+                        )}
+                        {...styles.referenceLineLabel}
+                      >
+                        {t('interestRateChart.currentUtilizationRateLabelValue', {
+                          percentage: formatPercentageToReadableValue(
+                            interestRateChartData.currentUtilizationRatePercentage,
+                          ),
+                        })}
+                      </text>
+                    )}
                     alwaysShow
                   />
                 )}

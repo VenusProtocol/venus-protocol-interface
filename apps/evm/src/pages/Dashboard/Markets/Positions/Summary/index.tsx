@@ -142,7 +142,10 @@ export const Summary: React.FC<SummaryProps> = ({
         <CellGroup
           cells={displayAccountHealth ? cells.slice(0, cells.length - 1) : cells}
           grid
-          className={cn(displayAccountHealth ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}
+          className={cn(
+            'bg-transparent',
+            displayAccountHealth ? 'sm:grid-cols-3' : 'sm:grid-cols-2',
+          )}
         />
 
         {displayAccountHealth && <Cell {...cells[cells.length - 1]} className={cellClassName} />}

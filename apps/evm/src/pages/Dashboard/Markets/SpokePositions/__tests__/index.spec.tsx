@@ -5,6 +5,7 @@ import type { Mock } from 'vitest';
 import fakeAccountAddress from '__mocks__/models/address';
 import { spokePools } from '__mocks__/models/spokePools';
 import { HIDDEN_BALANCE_KEY } from 'constants/placeholders';
+import { useIsSmDown } from 'hooks/responsive';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
@@ -21,6 +22,15 @@ vi.mock('components/ProtectionModeIndicator', () => ({
     tooltipType: string;
   }) => <span>{`protected-${tokenName}-${tooltipType}`}</span>,
 }));
+
+vi.mock('hooks/responsive', async () => {
+  const actual = await vi.importActual<typeof import('hooks/responsive')>('hooks/responsive');
+
+  return {
+    ...actual,
+    useIsSmDown: vi.fn(() => false),
+  };
+});
 
 const spokePool = spokePools[0];
 
@@ -114,7 +124,28 @@ describe('SpokePositions', () => {
       accountAddress: fakeAccountAddress,
     });
 
-    expect(container.querySelector('.sm\\:grid-cols-3, .sm\\:grid-cols-2')).not.toBeNull();
+    expect(container.querySelector('.sm\\:grid-cols-3, .sm\\:grid-cols-2')).toHaveClass(
+      'bg-transparent',
+    );
+  });
+
+  it('switches between supplied and borrowed assets below the sm breakpoint', () => {
+    (useIsSmDown as Mock).mockReturnValue(true);
+
+    renderComponent(<SpokePositions spokePool={spokePool} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    expect(screen.getByText(en.account.marketBreakdown.tables.tabletTitle)).toBeInTheDocument();
+    expect(screen.getAllByText('USDC').length).toBeGreaterThan(0);
+    expect(screen.queryByText('USDT')).not.toBeInTheDocument();
+
+    fireEvent.click(
+      screen.getByRole('button', { name: en.account.marketBreakdown.tables.tabletBorrowTabTitle }),
+    );
+
+    expect(screen.getAllByText('USDT').length).toBeGreaterThan(0);
+    expect(screen.queryByText('USDC')).not.toBeInTheDocument();
   });
 
   it('colours the borrow APY like the Core net APY', () => {
