@@ -24,6 +24,7 @@ export const spokePools: SpokePool[] = apiPools.map(apiPool =>
     apiPool,
     chainId: ChainId.BSC_TESTNET,
     tokens: [usdc, usdt],
+    currentBlockNumber: BigInt(spokePoolsResponse.blockNumber),
     isUserConnected: true,
     isUserDataUnavailable: false,
     userPositions,

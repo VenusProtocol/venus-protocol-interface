@@ -19,6 +19,7 @@ const format = (apiPool: ApiSpokePool) =>
     apiPool,
     chainId: ChainId.BSC_TESTNET,
     tokens: [],
+    currentBlockNumber: 0n,
     isUserConnected: false,
     isUserDataUnavailable: false,
     userPositions: [],

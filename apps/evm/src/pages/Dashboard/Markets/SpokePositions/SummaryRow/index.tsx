@@ -17,6 +17,7 @@ import {
   calculateDailyBorrowInterestCents,
   formatCentsToReadableValue,
   formatPercentageToReadableValue,
+  getCombinedDistributionApys,
 } from 'utilities';
 
 export interface SummaryRowProps {
@@ -44,7 +45,11 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({ spokePool, className }) 
     ? borrowedAssets
         .reduce(
           (acc, asset) =>
-            acc.plus(asset.userBorrowBalanceCents.multipliedBy(asset.borrowApyPercentage)),
+            acc.plus(
+              asset.userBorrowBalanceCents.multipliedBy(
+                getCombinedDistributionApys({ asset }).totalBorrowApyPercentage,
+              ),
+            ),
           new BigNumber(0),
         )
         .dividedBy(totalBorrowCents)

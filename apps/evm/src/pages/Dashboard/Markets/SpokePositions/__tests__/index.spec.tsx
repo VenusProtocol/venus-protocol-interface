@@ -4,12 +4,13 @@ import type { Mock } from 'vitest';
 
 import fakeAccountAddress from '__mocks__/models/address';
 import { spokePools } from '__mocks__/models/spokePools';
+import { fakeMerklCampaigns } from 'clients/api/queries/getPendingRewards/__testUtils__/fakeData';
 import { HIDDEN_BALANCE_KEY } from 'constants/placeholders';
 import { useIsSmDown } from 'hooks/responsive';
 import { defaultUserChainSettings, useUserChainSettings } from 'hooks/useUserChainSettings';
 import { en } from 'libs/translations';
 import { renderComponent } from 'testUtils/render';
-import { formatTokensToReadableValue } from 'utilities';
+import { formatPercentageToReadableValue, formatTokensToReadableValue } from 'utilities';
 
 import { SpokePositions } from '..';
 
@@ -158,6 +159,33 @@ describe('SpokePositions', () => {
       .closest('.text-success, .text-danger');
 
     expect(borrowApyCell).toHaveClass('text-success');
+  });
+
+  it('nets active Merkl borrow rewards out of the summary borrow APY', () => {
+    const [merklCampaign] = Object.values(fakeMerklCampaigns)[0];
+    const rewardedPool = {
+      ...spokePool,
+      assets: spokePool.assets.map(asset => ({
+        ...asset,
+        borrowTokenDistributions: [
+          {
+            ...merklCampaign,
+            isActive: true,
+            apyPercentage: asset.borrowApyPercentage.plus(2),
+          },
+        ],
+      })),
+    };
+
+    renderComponent(<SpokePositions spokePool={rewardedPool} />, {
+      accountAddress: fakeAccountAddress,
+    });
+
+    const borrowApyCell = screen
+      .getAllByText(en.account.spoke.summary.borrowApy)[0]
+      .closest('.text-success, .text-danger');
+
+    expect(borrowApyCell).toHaveTextContent(formatPercentageToReadableValue(new BigNumber(-2)));
   });
 
   it('hides the supplied and borrowed balances in hide mode', () => {

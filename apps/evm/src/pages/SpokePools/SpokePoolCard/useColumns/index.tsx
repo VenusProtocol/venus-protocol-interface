@@ -16,6 +16,7 @@ import {
   compareBigNumbers,
   formatCentsToReadableValue,
   formatTokensToReadableValue,
+  getCombinedDistributionApys,
 } from 'utilities';
 
 export interface UseColumnsInput {
@@ -97,7 +98,11 @@ export const useColumns = ({ collaterals, onCollateralClick }: UseColumnsInput) 
       selectOptionLabel: t('spokePools.table.columns.borrowApy.selectOptionLabel'),
       align: 'right',
       sortRows: (rowA, rowB, direction) =>
-        compareBigNumbers(rowA.borrowApyPercentage, rowB.borrowApyPercentage, direction),
+        compareBigNumbers(
+          getCombinedDistributionApys({ asset: rowA }).totalBorrowApyPercentage,
+          getCombinedDistributionApys({ asset: rowB }).totalBorrowApyPercentage,
+          direction,
+        ),
       renderCell: asset => (
         <Apy
           className={cn('font-semibold', asset.isInactive && 'text-secondary')}

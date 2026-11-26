@@ -9,6 +9,7 @@ export interface FormatToSpokePoolInput {
   apiPool: ApiSpokePool;
   chainId: ChainId;
   tokens: Token[];
+  currentBlockNumber: bigint;
   isUserConnected: boolean;
   isUserDataUnavailable: boolean;
   userPositions: SpokeUserPosition[];
@@ -21,6 +22,7 @@ export const formatToSpokePool = ({
   apiPool,
   chainId,
   tokens,
+  currentBlockNumber,
   isUserConnected,
   isUserDataUnavailable,
   userPositions,
@@ -33,6 +35,7 @@ export const formatToSpokePool = ({
       apiMarket,
       chainId,
       tokens,
+      currentBlockNumber,
       isUserConnected,
       priceOracleAddress: apiPool.priceOracleAddress ?? undefined,
       oraclePrice: apiTokens

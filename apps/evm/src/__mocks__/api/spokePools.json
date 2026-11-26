@@ -48,7 +48,8 @@
           "liquidationIncentiveMantissa": "1100000000000000000",
           "supplyCapsMantissa": "1000000000000",
           "borrowCapsMantissa": "0",
-          "pausedActionsBitmap": 0
+          "pausedActionsBitmap": 0,
+          "rewardsDistributors": []
         },
         {
           "address": "0xC88bAF0bA49a98F15A00182752f6d10bd3932F6a",
@@ -79,7 +80,8 @@
           "liquidationIncentiveMantissa": "1100000000000000000",
           "supplyCapsMantissa": "1000000000000",
           "borrowCapsMantissa": "400000000000",
-          "pausedActionsBitmap": 4
+          "pausedActionsBitmap": 4,
+          "rewardsDistributors": []
         }
       ]
     }

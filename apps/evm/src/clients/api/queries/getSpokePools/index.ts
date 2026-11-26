@@ -125,6 +125,7 @@ export const getSpokePools = async ({
       apiPool,
       chainId,
       tokens,
+      currentBlockNumber: BigInt(payload.blockNumber),
       isUserConnected: !!accountAddress && !isUserDataUnavailable,
       isUserDataUnavailable,
       userPositions: userPositions ?? [],
