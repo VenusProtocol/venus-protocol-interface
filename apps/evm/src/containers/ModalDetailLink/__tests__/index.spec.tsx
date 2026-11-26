@@ -106,6 +106,29 @@ describe('ModalDetailLink', () => {
     });
   });
 
+  it('sends the click event on a middle click but not on a right click', () => {
+    renderComponent(
+      <ModalDetailLink
+        getTo={() => ({ pathname: '/markets/0x1/0x2', search: 'tab=supply' })}
+        destination={destination}
+        analyticProps={analyticProps}
+      />,
+    );
+
+    const link = screen.getByRole('link');
+
+    fireEvent(link, new MouseEvent('auxclick', { bubbles: true, button: 2 }));
+
+    expect(captureAnalyticEventMock).not.toHaveBeenCalledWith(
+      'pro_shortcut_click',
+      expect.anything(),
+    );
+
+    fireEvent(link, new MouseEvent('auxclick', { bubbles: true, button: 1 }));
+
+    expect(captureAnalyticEventMock).toHaveBeenCalledWith('pro_shortcut_click', analyticProps);
+  });
+
   it('renders nothing when the destination is the current page', () => {
     renderComponent(
       <ModalDetailLink

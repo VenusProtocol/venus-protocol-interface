@@ -50,12 +50,19 @@ export const ModalDetailLink: React.FC<ModalDetailLinkProps> = ({
       activeTab: activeTabPath.filter(Boolean).join('/') || undefined,
     });
 
+  const handleAuxClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (event.button === 1) {
+      handleClick();
+    }
+  };
+
   const link = (
     <Link
       noStyle
       to={to}
       aria-label={t('modalDetailLink.ariaLabel', { destination })}
       onClick={handleClick}
+      onAuxClick={handleAuxClick}
       className="venus-mode-switch group relative inline-flex h-6 shrink-0 items-center rounded-md border border-mode-switch bg-mode-switch pl-2 pr-0.5 text-b2s whitespace-nowrap text-primary shadow-mode-switch backdrop-blur-raised backdrop-saturate-[1.3] active:shadow-action-pressed active:duration-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand before:absolute before:inset-x-0 before:-inset-y-2 before:content-['']"
     >
       <span className="venus-mode-label">{t('layout.interfaceMode.pro')}</span>
