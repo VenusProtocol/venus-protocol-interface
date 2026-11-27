@@ -16,7 +16,62 @@ env:
   CLI_ALCHEMY_API_KEY: ${{ secrets.CLI_ALCHEMY_API_KEY }}
 
 jobs:
+  # Detects PRs that only bump versions (version lines, CHANGELOG, changeset files).
+  # For those, the heavy jobs are skipped.
+  changes:
+    runs-on: ubuntu-22.04
+    outputs:
+      version_only: ${{ steps.detect.outputs.version_only }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Detect version-only change
+        id: detect
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if [ -z "$BASE" ] || [ -z "$HEAD" ]; then
+            echo "version_only=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          RAW=$(git diff --raw -M "$BASE" "$HEAD")
+          if [ -z "$RAW" ]; then
+            echo "version_only=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          ONLY=true
+          while IFS= read -r line; do
+            meta=${line%%$'\t'*}
+            path=${line#*$'\t'}
+            oldmode=$(echo "$meta" | awk '{print $1}'); oldmode=${oldmode#:}
+            newmode=$(echo "$meta" | awk '{print $2}')
+            status=$(echo "$meta" | awk '{print $5}')
+            # Symlinks, renames and copies never count as version-only.
+            if [ "$oldmode" = "120000" ] || [ "$newmode" = "120000" ]; then ONLY=false; fi
+            case "$status" in R*|C*) ONLY=false ;; esac
+            case "$path" in
+              .changeset/*.md|*/CHANGELOG.md|CHANGELOG.md) ;;
+              */package.json|package.json)
+                # Only the root-level "version" line may differ. Everything else must be byte-identical,
+                # so duplicate keys or extra fields on the version line are caught.
+                norm() { sed -E 's/^  "version": "[^"]*"/  "version": "X"/' ; }
+                if ! diff <(git show "$BASE:$path" | norm) <(git show "$HEAD:$path" | norm) >/dev/null 2>&1; then
+                  ONLY=false
+                fi
+                ;;
+              *) ONLY=false ;;
+            esac
+          done <<< "$RAW"
+          echo "version_only=$ONLY" >> "$GITHUB_OUTPUT"
+
   checks:
+    needs: changes
+    if: needs.changes.outputs.version_only != 'true'
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -46,6 +101,8 @@ jobs:
           git diff --exit-code apps/evm/src/libs/translations/translations/
 
   test:
+    needs: changes
+    if: needs.changes.outputs.version_only != 'true'
     runs-on: ubuntu-22.04
     permissions:
       contents: read
