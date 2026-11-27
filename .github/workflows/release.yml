@@ -108,7 +108,7 @@ jobs:
   # Has no id-token and no publish rights; it only uploads the files to publish.
   build:
     needs: check
-    if: needs.check.outputs.published == 'false' && github.ref == 'refs/heads/main'
+    if: needs.check.outputs.has_changesets == 'false' && needs.check.outputs.published == 'false' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-22.04
     permissions:
       contents: read
@@ -156,7 +156,7 @@ jobs:
   # id-token is available in this job.
   publish:
     needs: [check, build]
-    if: needs.check.outputs.published == 'false' && github.ref == 'refs/heads/main'
+    if: needs.check.outputs.has_changesets == 'false' && needs.check.outputs.published == 'false' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-22.04
     environment: release
     permissions:
