@@ -1,0 +1,135 @@
+name: Release
+
+# One workflow for main pushes (and manual runs).
+#   - pending changesets   -> prepare chore/version-packages (never pushes to main, never opens a PR)
+#   - no pending changesets and version not on npm -> publish
+# Both paths are decided by one check job, so one merge produces one run.
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
+env:
+  NODE_OPTIONS: "--max_old_space_size=4096"
+  VITE_ENV: "ci"
+  CLI_NODE_REAL_API_KEY: ${{ secrets.CLI_NODE_REAL_API_KEY }}
+  CLI_ALCHEMY_API_KEY: ${{ secrets.CLI_ALCHEMY_API_KEY }}
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-22.04
+    outputs:
+      has_changesets: ${{ steps.check.outputs.has_changesets }}
+      version: ${{ steps.check.outputs.version }}
+      published: ${{ steps.check.outputs.published }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - id: check
+        run: |
+          if ls .changeset/*.md >/dev/null 2>&1; then
+            echo "has_changesets=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changesets=false" >> "$GITHUB_OUTPUT"
+          fi
+          VERSION=$(node -p 'require("./packages/chains/package.json").version')
+          NAME=$(node -p 'require("./packages/chains/package.json").name')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if npm view "$NAME@$VERSION" version >/dev/null 2>&1; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "published=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  prepare:
+    needs: check
+    if: needs.check.outputs.has_changesets == 'true'
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: ".nvmrc"
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Version and push branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BRANCH="chore/version-packages"
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git checkout -B "$BRANCH" "$GITHUB_SHA"
+          npx changeset version
+          if git diff --quiet; then
+            echo "No version change."
+            exit 0
+          fi
+          git add -A
+          git commit -m "chore: bump package versions"
+          git push --force-with-lease origin "$BRANCH"
+          echo "Branch $BRANCH is ready. Open a PR to main by hand."
+
+  publish:
+    needs: check
+    if: needs.check.outputs.has_changesets == 'false' && needs.check.outputs.published == 'false'
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      id-token: write # OIDC for npm trusted publishing
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: ".nvmrc"
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: |
+          yarn install --immutable
+          # npm with trusted publishing support (https://docs.npmjs.com/trusted-publishers)
+          npm install -g npm@11.5.1
+
+      - name: Run tests
+        run: yarn test --coverage
+
+      - name: Build chains package
+        run: yarn workspace @venusprotocol/chains build
+
+      - name: Publish
+        run: npx changeset publish --no-git-tag
